@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Item Details - Blueprint Rwanda</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: linear-gradient(120deg, #fff8e7 0%, #f7e6d0 100%);
+      min-height: 100vh;
+      font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    }
+    .details-container {
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      background: #fff;
+      border-radius: 28px;
+      box-shadow: 0 8px 48px #a0522d22, 0 1.5px 0 #ffe4b5;
+      padding: 2.8rem 2.2rem 2.5rem 2.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .details-header {
+      margin-bottom: 2.7rem;
+      border-bottom: 1.5px solid #ffe4b5;
+      padding-bottom: 1.7rem;
+    }
+    .gallery-main {
+      width: 100%;
+      aspect-ratio: 16/7;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px #a0522d22;
+      margin-bottom: 1.2rem;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid #ffe4b5;
+    }
+    .gallery-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: filter 0.2s;
+    }
+    .gallery-main img:hover {
+      filter: brightness(0.97) saturate(1.1);
+    }
+    .gallery-thumbs {
+      display: flex;
+      gap: 0.7rem;
+      justify-content: center;
+      margin-bottom: 2.1rem;
+    }
+    .gallery-thumb {
+      width: 80px;
+      height: 60px;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border 0.2s, transform 0.18s;
+      object-fit: cover;
+      box-shadow: 0 1.5px 8px #a0522d11;
+    }
+    .gallery-thumb.selected, .gallery-thumb:hover {
+      border: 2px solid #a0522d;
+      transform: scale(1.07);
+      z-index: 2;
+    }
+    .details-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.7rem;
+      margin-top: 0.5rem;
+    }
+    .details-info {
+      flex: 2 1 340px;
+      min-width: 280px;
+    }
+    .details-title {
+      font-size: 2.5rem;
+      color: #a0522d;
+      margin-bottom: 0.3rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1.5px 0 #ffe4b5;
+    }
+    .details-type {
+      color: #fff8e7;
+      background: linear-gradient(90deg, #a0522d 80%, #ffb347 100%);
+      display: inline-block;
+      border-radius: 8px;
+      padding: 0.22rem 1.2rem;
+      font-size: 1.13rem;
+      margin-bottom: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.7px;
+      box-shadow: 0 1.5px 8px #a0522d11;
+    }
+    .details-meta {
+      color: #4e2e0e;
+      font-size: 1.13rem;
+      margin-bottom: 1.2rem;
+      font-weight: 500;
+    }
+    .details-owner, .details-leader {
+      color: #7c3f17;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+    }
+    .details-actions {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 2.2rem;
+    }
+    .welcome-btn {
+      background: linear-gradient(90deg, #a0522d 80%, #ffb347 100%);
+      color: #fff8e7;
+      border: none;
+      border-radius: 10px;
+      padding: 0.9rem 2.5rem;
+      font-size: 1.15rem;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.18s, transform 0.15s;
+      font-weight: 700;
+      box-shadow: 0 2px 12px #a0522d22;
+    }
+    .welcome-btn:hover {
+      background: linear-gradient(90deg, #7c3f17 80%, #ffb347 100%);
+      box-shadow: 0 4px 24px #a0522d33;
+      transform: translateY(-2px) scale(1.04);
+    }
+    .back-btn {
+      display: inline-block;
+      color: #a0522d;
+      background: #ffe4b5;
+      border-radius: 10px;
+      padding: 0.6rem 1.4rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s, box-shadow 0.18s;
+      margin-bottom: 1.7rem;
+      box-shadow: 0 1.5px 8px #a0522d11;
+      font-size: 1.08rem;
+    }
+    .back-btn:hover {
+      background: #e0c9b2;
+      box-shadow: 0 4px 16px #a0522d22;
+    }
+    .details-section {
+      margin-bottom: 2.5rem;
+      background: #fff8e7;
+      border-radius: 14px;
+      box-shadow: 0 1.5px 8px #a0522d11;
+      padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+      border-left: 4px solid #ffe4b5;
+      border-bottom: 1.5px solid #ffe4b5;
+    }
+    .details-section h3 {
+      color: #a0522d;
+      font-size: 1.28rem;
+      margin-bottom: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .details-list {
+      list-style: disc;
+      margin-left: 1.5rem;
+      color: #4e2e0e;
+      font-size: 1.08rem;
+      font-weight: 500;
+    }
+    @media (max-width: 900px) {
+      .details-flex { flex-direction: column; gap: 1.5rem; }
+      .gallery-main { aspect-ratio: 16/10; }
+      .details-container { padding: 1.2rem 0.2rem 1.2rem 0.2rem; }
+    }
+  </style>
+</head>
+  <body>
+  <!-- Breadcrumb Navigation -->
+  <div class="details-container">
+    <a href="javascript:history.back()" class="back-btn" aria-label="Go back">&larr; Back</a>
+    <div class="details-header">
+      <div class="gallery-main" id="galleryMain" aria-label="Image gallery" tabindex="0">
+        <button class="gallery-arrow left" id="galleryPrev" aria-label="Previous image" tabindex="0">&#8592;</button>
+        <img src="" alt="Gallery image" id="galleryMainImg" />
+        <button class="gallery-arrow right" id="galleryNext" aria-label="Next image" tabindex="0">&#8594;</button>
+      </div>
+      <div class="gallery-thumbs" id="galleryThumbs" aria-label="Gallery thumbnails"></div>
+      <div class="details-flex">
+        <div class="details-info">
+          <div class="details-title" id="itemTitle">Item Title</div>
+          <div class="details-type" id="itemType">Type: </div>
+          <div class="details-meta" id="itemMeta">Meta info</div>
+          <div class="details-owner" id="itemOwner">Added by: </div>
+          <div class="details-leader" id="itemLeader">Leader: </div>
+          <div class="leaders-slider-section">
+            <h4 style="color:#a0522d;margin:1.2rem 0 0.5rem 0;font-size:1.1rem;font-weight:600;">Our Team</h4>
+            <div class="leaders-slider" id="leadersSlider"></div>
+          </div>
+          <div class="details-actions">
+            <button class="welcome-btn" id="bookBtn">Book Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="details-section">
+      <h3>Description</h3>
+      <div id="itemDescription">Description goes here.</div>
+    </div>
+    <div class="details-section" id="mapSection" style="margin-bottom:2.5rem;">
+      <h3>Location & Directions</h3>
+      <div class="map-embed" id="mapEmbed" style="width:100%;height:260px;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px #a0522d11;margin-bottom:1rem;"></div>
+      <a id="directionsLink" class="directions-btn" href="#" target="_blank" rel="noopener">Get Directions</a>
+    </div>
+    <div class="details-section" id="itemExtrasSection">
+      <!-- Extra details (amenities, activities, specs, etc.) will be injected here -->
+    </div>
+    <div class="details-section reviews-section">
+      <h3>User Reviews</h3>
+      <div id="reviewsList"></div>
+    </div>
+    <!-- Footer with Terms & Privacy Policy links -->
+    <footer style="text-align:center;margin-top:2.5rem;color:#a0522d;font-size:1.05rem;">
+      <a href="#" id="termsLink" style="margin-right:1.5rem;text-decoration:underline;cursor:pointer;">Terms of Service</a>
+      <a href="#" id="privacyLink" style="text-decoration:underline;cursor:pointer;">Privacy Policy</a>
+    </footer>
+    <!-- Modal Popup for Terms & Privacy Policy -->
+    <div id="modalOverlay" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(160,82,45,0.18);z-index:9999;justify-content:center;align-items:center;">
+      <div id="modalContent" style="background:#fff8e7;border-radius:18px;box-shadow:0 8px 48px #a0522d22;max-width:520px;width:90vw;padding:2.2rem 1.5rem;position:relative;">
+        <button id="closeModal" style="position:absolute;top:1rem;right:1rem;background:#a0522d;color:#fff8e7;border:none;border-radius:50%;width:32px;height:32px;font-size:1.3rem;cursor:pointer;">&times;</button>
+        <div id="modalTitle" style="font-size:1.5rem;color:#a0522d;font-weight:700;margin-bottom:1.1rem;text-align:center;"></div>
+        <div id="modalBody" style="color:#4e2e0e;font-size:1.08rem;line-height:1.7;"></div>
+      </div>
+    </div>
+  </div>
+  <style>
+    .breadcrumb-nav {
+      background: #fff8e7;
+      padding: 0.7rem 1.2rem 0.7rem 1.2rem;
+      border-radius: 0 0 18px 18px;
+      box-shadow: 0 2px 12px #a0522d11;
+      margin-bottom: 1.2rem;
+      font-size: 1.05rem;
+    }
+    .breadcrumb-list {
+      display: flex;
+      gap: 0.7rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      color: #a0522d;
+    }
+    .breadcrumb-list li:not(:last-child)::after {
+      content: '›';
+      margin: 0 0.5rem;
+      color: #b08a5a;
+    }
+    .breadcrumb-list a {
+      color: #a0522d;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.18s;
+    }
+    .breadcrumb-list a:hover {
+      color: #7c3f17;
+      text-decoration: underline;
+    }
+    .gallery-main { position: relative; }
+    .gallery-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,248,231,0.85);
+      border: none;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      font-size: 1.5rem;
+      color: #a0522d;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #a0522d22;
+      z-index: 3;
+      transition: background 0.18s, color 0.18s, transform 0.15s;
+      opacity: 0.85;
+    }
+    .gallery-arrow.left { left: 12px; }
+    .gallery-arrow.right { right: 12px; }
+    .gallery-arrow:focus, .gallery-arrow:hover {
+      background: #ffe4b5;
+      color: #7c3f17;
+      outline: 2px solid #a0522d44;
+      transform: scale(1.08);
+    }
+    .reviews-section {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 1.5px 8px #a0522d11;
+      padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+      border-left: 4px solid #ffe4b5;
+      border-bottom: 1.5px solid #ffe4b5;
+      margin-bottom: 2.5rem;
+    }
+    .review-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.1rem;
+      background: #fff8e7;
+      border-radius: 10px;
+      box-shadow: 0 1.5px 8px #a0522d11;
+      padding: 1.1rem 1.2rem 1rem 1.2rem;
+      margin-bottom: 1.2rem;
+      border-left: 3px solid #ffe4b5;
+      position: relative;
+    }
+    .review-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ffe4b5;
+      background: #eee;
+      box-shadow: 0 1.5px 8px #a0522d11;
+    }
+    .review-content {
+      flex: 1;
+    }
+    .review-name {
+      font-weight: 700;
+      color: #a0522d;
+      font-size: 1.08rem;
+      margin-bottom: 0.1rem;
+    }
+    .review-date {
+      color: #b08a5a;
+      font-size: 0.97rem;
+      margin-bottom: 0.3rem;
+    }
+    .review-stars {
+      color: #ffb347;
+      font-size: 1.1rem;
+      margin-bottom: 0.2rem;
+      letter-spacing: 0.1rem;
+    }
+    .review-text {
+      color: #4e2e0e;
+      font-size: 1.05rem;
+      font-weight: 500;
+    }
+    @media (max-width: 600px) {
+      .review-card { flex-direction: column; align-items: flex-start; padding: 0.8rem 0.5rem 0.7rem 0.5rem; }
+      .review-avatar { width: 36px; height: 36px; }
+    }
+    .leaders-slider-section {
+      margin-top: 1.2rem;
+      background: linear-gradient(90deg, #fff8e7 60%, #f7e6d0 100%);
+      border-radius: 16px;
+      box-shadow: 0 2px 16px #a0522d13;
+      padding: 1.2rem 1rem 1.2rem 1rem;
+      position: relative;
+    }
+    .leaders-slider-section h4 {
+      margin-left: 0.2rem;
+      margin-bottom: 1.1rem;
+      letter-spacing: 0.5px;
+      font-size: 1.13rem;
+      color: #a0522d;
+      font-weight: 700;
+      text-shadow: 0 1px 0 #fff;
+    }
+    .leaders-slider {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      scrollbar-width: thin;
+      scrollbar-color: #a0522d33 #fff8e7;
+    }
+    .leaders-slider::-webkit-scrollbar {
+      height: 7px;
+      background: #fff8e7;
+      border-radius: 8px;
+    }
+    .leaders-slider::-webkit-scrollbar-thumb {
+      background: #a0522d33;
+      border-radius: 8px;
+    }
+    .leader-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px #a0522d18, 0 1.5px 0 #ffe4b5;
+      min-width: 150px;
+      max-width: 170px;
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.1rem 0.8rem 1rem 0.8rem;
+      transition: box-shadow 0.22s, transform 0.18s;
+      position: relative;
+      border: 1.5px solid #ffe4b5;
+    }
+    .leader-card:hover {
+      box-shadow: 0 6px 24px #a0522d33, 0 2px 0 #ffe4b5;
+      transform: translateY(-4px) scale(1.04);
+      z-index: 2;
+    }
+    .leader-img {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 0.7rem;
+      border: 2.5px solid #a0522d33;
+      background: #eee;
+      box-shadow: 0 1.5px 8px #a0522d11;
+    }
+    .leader-name {
+      font-weight: 700;
+      color: #a0522d;
+      font-size: 1.13rem;
+      margin-bottom: 0.18rem;
+      text-align: center;
+      letter-spacing: 0.1px;
+    }
+    .leader-role {
+      color: #7c3f17;
+      font-size: 1.01rem;
+      text-align: center;
+      margin-bottom: 0.1rem;
+    }
+    .leader-badge {
+      position: absolute;
+      top: 0.7rem;
+      right: 0.7rem;
+      background: linear-gradient(90deg, #a0522d 80%, #ffb347 100%);
+      color: #fff8e7;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border-radius: 8px;
+      padding: 0.18rem 0.7rem;
+      box-shadow: 0 1px 4px #a0522d22;
+      letter-spacing: 0.5px;
+      z-index: 3;
+      border: 1px solid #fff8e7;
+      text-shadow: 0 1px 0 #a0522d44;
+    }
+    @media (max-width: 600px) {
+      .leader-card { min-width: 110px; max-width: 120px; padding: 0.7rem 0.3rem 0.6rem 0.3rem; }
+      .leader-img { width: 40px; height: 40px; }
+      .leaders-slider-section { padding: 0.7rem 0.2rem 0.7rem 0.2rem; }
+    }
+  </style>
+  <script>
+    // Mock: get item details from URL (in real app, fetch from backend)
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+    // Example mock data for demonstration
+    const mockItems = {
+      'Accommodation': {
+        'Kigali View Apartment': {
+          images: ['Accommodation.png','imigongo.png'],
+          type: 'Accommodation',
+          meta: 'Kigali, $40/night, 4.8★',
+          owner: 'Alice',
+          leader: 'John Doe',
+          description: 'A beautiful apartment in Kigali with city views and modern amenities.',
+          amenities: ['WiFi','Breakfast','Parking','Pool'],
+          leaders: [
+            { name: 'John Doe', role: 'CEO', img: 'https://randomuser.me/api/portraits/men/32.jpg' },
+            { name: 'Mary Kamanzi', role: 'Manager', img: 'https://randomuser.me/api/portraits/women/44.jpg' },
+            { name: 'Eric Mugisha', role: 'Registrar', img: 'https://randomuser.me/api/portraits/men/45.jpg' },
+            { name: 'Aline Uwase', role: 'Customer Care', img: 'https://randomuser.me/api/portraits/women/65.jpg' }
+          ]
+        }
+      },
+      'Car': {
+        'Toyota RAV4': {
+          images: ['Car.png'],
+          type: 'Car',
+          meta: 'Automatic, 5 seats, $50/day',
+          owner: 'Bob',
+          leader: 'Jane Smith',
+          description: 'A reliable Toyota RAV4, perfect for city and country travel.',
+          specs: { Transmission: 'Automatic', Seats: '5', Fuel: 'Petrol', Mileage: 'Unlimited' },
+          leaders: [
+            { name: 'Jane Smith', role: 'CEO', img: 'https://randomuser.me/api/portraits/women/32.jpg' },
+            { name: 'Paul Niyonsaba', role: 'Manager', img: 'https://randomuser.me/api/portraits/men/54.jpg' },
+            { name: 'Claudine Uwimana', role: 'Registrar', img: 'https://randomuser.me/api/portraits/women/23.jpg' }
+          ]
+        }
+      },
+      'Place': {
+        'Akagera Park Tour': {
+          images: ['Visit.png','imigongo.png'],
+          type: 'Place',
+          meta: 'Eastern Rwanda, $120/tour, 4.9★',
+          owner: 'Charlie',
+          leader: 'Safari Guide',
+          description: 'Experience the wildlife and beauty of Akagera National Park.',
+          activities: ['Game Drive','Boat Safari','Bird Watching'],
+          leaders: [
+            { name: 'Safari Guide', role: 'Lead Guide', img: 'https://randomuser.me/api/portraits/men/77.jpg' },
+            { name: 'Grace Mukamana', role: 'Tour Manager', img: 'https://randomuser.me/api/portraits/women/12.jpg' }
+          ]
+        }
+      }
+    };
+    const type = getQueryParam('type') || 'Accommodation';
+    const name = getQueryParam('name') || 'Kigali View Apartment';
+    const item = (mockItems[type] && mockItems[type][name]) ? mockItems[type][name] : null;
+    if(item) {
+      document.getElementById('itemTitle').textContent = name;
+      document.getElementById('itemType').textContent = item.type;
+      document.getElementById('itemMeta').textContent = item.meta;
+      document.getElementById('itemOwner').textContent = 'Added by: ' + item.owner;
+      document.getElementById('itemLeader').textContent = 'Leader: ' + item.leader;
+      document.getElementById('itemDescription').textContent = item.description;
+      // Map Section with Directions
+      const mapEmbed = document.getElementById('mapEmbed');
+      const directionsLink = document.getElementById('directionsLink');
+      let mapUrl = '', directionsUrl = '';
+      if(type==="Accommodation") {
+        mapUrl = 'https://www.openstreetmap.org/export/embed.html?bbox=30.0444,-1.9536,30.0644,-1.9336&layer=mapnik';
+        directionsUrl = 'https://www.google.com/maps/dir/?api=1&destination=Kigali';
+      } else if(type==="Place") {
+        mapUrl = 'https://www.openstreetmap.org/export/embed.html?bbox=30.7,-2.1,31.0,-1.7&layer=mapnik';
+        directionsUrl = 'https://www.google.com/maps/dir/?api=1&destination=Akagera+National+Park';
+      } else {
+        mapUrl = 'https://www.openstreetmap.org/export/embed.html?bbox=29.8,-2.0,30.2,-1.8&layer=mapnik';
+        directionsUrl = 'https://www.google.com/maps/dir/?api=1&destination=Rwanda';
+      }
+      mapEmbed.innerHTML = `<iframe title="Map" aria-label="Map" width="100%" height="100%" frameborder="0" style="border:0" src="${mapUrl}" allowfullscreen></iframe>`;
+      directionsLink.href = directionsUrl;
+    // Animated Gallery with arrows, keyboard, accessibility, microinteractions
+      const galleryMainImg = document.getElementById('galleryMainImg');
+      const galleryThumbs = document.getElementById('galleryThumbs');
+      const galleryPrev = document.getElementById('galleryPrev');
+      const galleryNext = document.getElementById('galleryNext');
+      let currentImg = 0;
+      let galleryLoaded = false;
+      function showGalleryImg(idx) {
+        if (!galleryLoaded) return;
+        galleryMainImg.src = '';
+        galleryMainImg.alt = `Image ${idx+1} of ${item.images.length} for ${name}`;
+        galleryMainImg.setAttribute('aria-label', galleryMainImg.alt);
+        // Loading skeleton
+        galleryMainImg.style.opacity = 0.3;
+        setTimeout(() => {
+          galleryMainImg.src = item.images[idx];
+          galleryMainImg.style.opacity = 1;
+        }, 180);
+        Array.from(galleryThumbs.children).forEach((el, i) => {
+          el.classList.toggle('selected', i === idx);
+        });
+      }
+      function updateGalleryArrows() {
+        galleryPrev.disabled = (currentImg === 0);
+        galleryNext.disabled = (currentImg === item.images.length-1);
+      }
+      galleryThumbs.innerHTML = '';
+      item.images.forEach((img, idx) => {
+        const thumb = document.createElement('img');
+        thumb.src = img;
+        thumb.alt = `Thumbnail ${idx+1} for ${name}`;
+        thumb.className = 'gallery-thumb' + (idx === 0 ? ' selected' : '');
+        thumb.tabIndex = 0;
+        thumb.setAttribute('aria-label', thumb.alt);
+        thumb.onclick = () => { currentImg = idx; showGalleryImg(idx); updateGalleryArrows(); };
+        thumb.onkeydown = e => { if(e.key==='Enter'||e.key===' '){ currentImg = idx; showGalleryImg(idx); updateGalleryArrows(); } };
+        galleryThumbs.appendChild(thumb);
+      });
+      galleryLoaded = true;
+      showGalleryImg(0);
+      updateGalleryArrows();
+      galleryPrev.onclick = () => { if(currentImg>0){ currentImg--; showGalleryImg(currentImg); updateGalleryArrows(); } };
+      galleryNext.onclick = () => { if(currentImg<item.images.length-1){ currentImg++; showGalleryImg(currentImg); updateGalleryArrows(); } };
+      // Keyboard navigation for gallery
+      document.getElementById('galleryMain').onkeydown = e => {
+        if(e.key==='ArrowLeft') galleryPrev.click();
+        if(e.key==='ArrowRight') galleryNext.click();
+      };
+      // Leaders slider
+      const leadersSlider = document.getElementById('leadersSlider');
+      leadersSlider.innerHTML = '';
+      if(item.leaders && item.leaders.length) {
+        item.leaders.forEach(leader => {
+          const card = document.createElement('div');
+          card.className = 'leader-card';
+          let badge = '';
+          if (leader.role.toLowerCase().includes('ceo')) {
+            badge = '<span class="leader-badge">CEO</span>';
+          } else if (leader.role.toLowerCase().includes('manager')) {
+            badge = '<span class="leader-badge" style="background:linear-gradient(90deg,#ffb347 60%,#a0522d 100%);color:#fff;">Manager</span>';
+          }
+          card.innerHTML = `
+            ${badge}
+            <img class="leader-img" src="${leader.img}" alt="${leader.name}">
+            <div class="leader-name">${leader.name}</div>
+            <div class="leader-role">${leader.role}</div>
+          `;
+          leadersSlider.appendChild(card);
+        });
+      }
+      // Extras
+      const extrasSection = document.getElementById('itemExtrasSection');
+      extrasSection.innerHTML = '';
+      if(item.amenities) {
+        extrasSection.innerHTML += '<h3>Amenities</h3><ul class="details-list">' + item.amenities.map(a => `<li>${a}</li>`).join('') + '</ul>';
+      }
+      if(item.specs) {
+        extrasSection.innerHTML += '<h3>Specifications</h3><ul class="details-list">' + Object.entries(item.specs).map(([k,v]) => `<li><strong>${k}:</strong> ${v}</li>`).join('') + '</ul>';
+      }
+      if(item.activities) {
+        extrasSection.innerHTML += '<h3>Top Activities</h3><ul class="details-list">' + item.activities.map(a => `<li>${a}</li>`).join('') + '</ul>';
+      }
+    }
+    // User Reviews (mock data)
+    const mockReviews = [
+      {
+        name: 'Samuel N.',
+        avatar: 'https://randomuser.me/api/portraits/men/41.jpg',
+        date: 'July 2025',
+        rating: 5,
+        text: 'Amazing experience! The apartment was spotless and the view was breathtaking. Highly recommend.'
+      },
+      {
+        name: 'Diane U.',
+        avatar: 'https://randomuser.me/api/portraits/women/52.jpg',
+        date: 'June 2025',
+        rating: 4,
+        text: 'Very comfortable and well located. The staff was friendly and helpful.'
+      },
+      {
+        name: 'Eric M.',
+        avatar: 'https://randomuser.me/api/portraits/men/23.jpg',
+        date: 'May 2025',
+        rating: 5,
+        text: 'Perfect for our family trip. Will book again!'
+      }
+    ];
+    function renderStars(rating) {
+      return '★'.repeat(rating) + '<span style="color:#e0c9b2;">' + '★'.repeat(5-rating) + '</span>';
+    }
+    const reviewsList = document.getElementById('reviewsList');
+    reviewsList.innerHTML = '';
+    mockReviews.forEach(r => {
+      const card = document.createElement('div');
+      card.className = 'review-card';
+      card.innerHTML = `
+        <img class="review-avatar" src="${r.avatar}" alt="${r.name}">
+        <div class="review-content">
+          <div class="review-name">${r.name}</div>
+          <div class="review-date">${r.date}</div>
+          <div class="review-stars">${renderStars(r.rating)}</div>
+          <div class="review-text">${r.text}</div>
+        </div>
+      `;
+      reviewsList.appendChild(card);
+    });
+    // Book button
+    document.getElementById('bookBtn').onclick = function() {
+      window.location.href = `book-item.html?type=${encodeURIComponent(type)}&name=${encodeURIComponent(name)}`;
+    };
+    // Terms & Privacy Policy Modal
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalContent = document.getElementById('modalContent');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    const closeModal = document.getElementById('closeModal');
+    document.getElementById('termsLink').onclick = function(e) {
+      e.preventDefault();
+      modalTitle.textContent = 'Terms of Service';
+      modalBody.innerHTML = '<strong>Terms of Service</strong><br><br>By using Blueprint Rwanda, you agree to abide by our booking policies, respect property rules, and provide accurate information. Cancellations and refunds are subject to our terms. Misuse of the platform may result in account suspension.';
+      modalOverlay.style.display = 'flex';
+    };
+    document.getElementById('privacyLink').onclick = function(e) {
+      e.preventDefault();
+      modalTitle.textContent = 'Privacy Policy';
+      modalBody.innerHTML = '<strong>Privacy Policy</strong><br><br>Your personal information is protected and used only for booking and communication purposes. We do not share your data with third parties except as required by law. For more details, contact support.';
+      modalOverlay.style.display = 'flex';
+    };
+    closeModal.onclick = function() {
+      modalOverlay.style.display = 'none';
+    };
+    modalOverlay.onclick = function(e) {
+      if(e.target === modalOverlay) modalOverlay.style.display = 'none';
+    };
+  </script>
+</body>
+</html>

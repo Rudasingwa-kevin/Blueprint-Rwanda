@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Item - Blueprint Rwanda</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .book-container { max-width: 500px; margin: 2.5rem auto; background: #fff8e7; border-radius: 16px; box-shadow: 0 2px 16px #a0522d22; padding: 2.5rem 2rem; }
+    .book-title { font-size: 1.7rem; color: #a0522d; margin-bottom: 1.5rem; text-align: center; }
+    .form-group { margin-bottom: 1.3rem; }
+    .form-group label { display: block; margin-bottom: 0.4rem; color: #4e2e0e; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.7rem; border-radius: 8px; border: 1px solid #e0c9b2; background: #fff; color: #4e2e0e; font-size: 1rem; }
+    .form-group textarea { min-height: 60px; }
+    .form-actions { text-align: center; }
+    .welcome-btn { background: #a0522d; color: #fff8e7; border: none; border-radius: 8px; padding: 0.8rem 2.2rem; font-size: 1.1rem; cursor: pointer; transition: background 0.2s; }
+    .welcome-btn:hover { background: #7c3f17; }
+    .success-msg { color: #228B22; text-align: center; margin-bottom: 1rem; display: none; }
+    .back-btn { display: inline-block; margin-bottom: 1.2rem; color: #a0522d; background: #ffe4b5; border-radius: 8px; padding: 0.5rem 1.2rem; text-decoration: none; font-weight: 500; transition: background 0.2s; }
+    .back-btn:hover { background: #e0c9b2; }
+    .quick-links { display: flex; gap: 1rem; justify-content: center; margin-bottom: 1.5rem; }
+    .quick-links a { color: #fff8e7; background: #a0522d; border-radius: 8px; padding: 0.5rem 1.2rem; text-decoration: none; font-weight: 500; transition: background 0.2s; }
+    .quick-links a:hover { background: #7c3f17; }
+    @media (max-width: 600px) { .book-container { padding: 1.2rem 0.5rem; } .quick-links { flex-direction: column; gap: 0.5rem; } }
+  </style>
+</head>
+<body>
+  <div class="book-container">
+    <a href="javascript:history.back()" class="back-btn">&larr; Back</a>
+    <div class="book-title">Book Your Stay, Car, or Experience</div>
+    <div class="success-msg" id="successMsg">Booking submitted! The admin will be notified.</div>
+    <form id="bookForm" autocomplete="off">
+      <div class="form-group">
+        <label for="itemType">Type</label>
+        <input type="text" id="itemType" readonly required>
+      </div>
+      <div class="form-group">
+        <label for="itemName">Name of Item</label>
+        <input type="text" id="itemName" readonly required>
+      </div>
+      <div class="form-group">
+        <label for="userName">Your Name</label>
+        <input type="text" id="userName" required>
+      </div>
+      <div class="form-group">
+        <label for="userEmail">Your Email</label>
+        <input type="email" id="userEmail" required>
+      </div>
+      <div class="form-group">
+        <label for="startDate">Start Date</label>
+        <input type="date" id="startDate" required>
+      </div>
+      <div class="form-group">
+        <label for="days">Number of Days</label>
+        <input type="number" id="days" min="1" required>
+      </div>
+      <div class="form-group">
+        <label for="details">Additional Details</label>
+        <textarea id="details" placeholder="Any special requests or info..."></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="welcome-btn" type="submit">Book Now</button>
+      </div>
+    </form>
+  </div>
+  <script>
+    // Get item info from URL parameters
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+    const itemType = getQueryParam('type') || '';
+    const itemName = getQueryParam('name') || '';
+    document.getElementById('itemType').value = itemType;
+    document.getElementById('itemName').value = itemName;
+    if(itemType && itemName) {
+      document.getElementById('bookTitle').textContent = `Book ${itemType}: ${itemName}`;
+    }
+    document.getElementById('bookForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('successMsg').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('successMsg').style.display = 'none';
+        document.getElementById('bookForm').reset();
+      }, 2500);
+    });
+  </script>
+</body>
+</html>

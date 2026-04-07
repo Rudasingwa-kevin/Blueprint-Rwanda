@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="Title Logo.png" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Blueprint Rwanda</title>
+    <style>
+  /* General Body Styles */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f5e9da; /* beige */
+    color: #4e2e0e; /* chocolate */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Glassmorphism Form for Welcome Page */
+  .glass-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    min-width: 320px;
+    max-width: 90vw;
+    z-index: 3;
+    text-align: center;
+  }
+
+  .logo {
+    width: 180px;
+    margin-bottom: 0.5rem;
+  }
+
+  .glass-form h1 {
+    color: #a0522d;
+    margin-bottom: 0.5rem;
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #4e2e0e;
+  }
+
+  .services {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .services li {
+    font-size: 1.1rem;
+    margin: 0.3rem 0;
+    color: #a0522d;
+    font-weight: 500;
+  }
+
+  .welcome-btn {
+    background: #a0522d;
+    color: #fff8e7;
+    border: none;
+    border-radius: 20px;
+    padding: 0.8rem 2.2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(160, 82, 45, 0.15);
+    transition: background 0.2s;
+  }
+
+  .welcome-btn:hover {
+    background: #7c3f17;
+  }
+
+  @media (max-width: 600px) {
+    .glass-form {
+      padding: 1.2rem 0.5rem;
+      min-width: 0;
+    }
+    .logo {
+      width: 110px;
+    }
+    .glass-form h1 {
+      font-size: 1.3rem;
+    }
+  }
+
+  .navbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(160, 82, 45, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    z-index: 1000;
+    height: 70px;
+    box-shadow: 0 4px 20px rgba(160, 82, 45, 0.15);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff8e7;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .nav-logo img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-logo:hover img {
+    transform: scale(1.1);
+  }
+
+  .nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    margin-right: 65px;
+  }
+
+  .nav-menu li a {
+    color: #fff8e7;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+  }
+
+  .nav-menu li a:hover {
+    color: #ffe4b5;
+  }
+
+  .nav-menu li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffe4b5;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+
+  .nav-menu li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  .nav-cta a {
+    background-color: #fff8e7;
+    color: #a0522d;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .nav-cta a:hover {
+    background-color: #ffe4b5;
+    color: #7c3f17;
+  }
+
+  .hamburger {
+    display: none;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+    z-index: 1001;
+  }
+
+  .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #fff8e7;
+    transition: all 0.3s ease-in-out;
+  }
+
+  @media (max-width: 850px) {
+    .nav-menu {
+      position: fixed;
+      left: -100%;
+      top: 0;
+      flex-direction: column;
+      background-color: rgba(160, 82, 45, 0.98);
+      width: 100%;
+      height: 100vh;
+      text-align: center;
+      transition: 0.3s;
+      box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .nav-menu.active {
+      left: 0;
+    }
+
+    .nav-menu li {
+      margin: 1rem 0;
+    }
+
+    .hamburger {
+      display: block;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+  }
+
+  .hero {
+    position: relative;
+    min-height: 80vh;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(160, 82, 45, 0.35);
+    backdrop-filter: blur(2px);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff8e7;
+  }
+
+  .hero-content h1 {
+    font-size: 2.3rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+  }
+
+  .hero-content p {
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .search-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 420px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 24px;
+    box-shadow: 0 2px 8px rgba(160,82,45,0.10);
+    padding: 0.3rem 0.5rem;
+  }
+
+  .search-bar {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 0.7rem 1rem;
+    border-radius: 20px 0 0 20px;
+    font-size: 1rem;
+    background: transparent;
+  }
+
+  .search-btn {
+    border: none;
+    background: none;
+    color: #a0522d;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 0 1rem;
+  }
+
+  main {
+    flex: 1 0 auto;
+    width: 100%;
+    padding: 0 0 2rem 0;
+  }
+
+  /* ... (Add other specific component styles here, like listing-card, modal, etc.) ... */ 
+  /* Layout helpers */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,1px,1px); border: 0; }
+
+  /* Contact Hero */
+  .contact-hero { position: relative; min-height: 45vh; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; }
+  .contact-hero .hero-content h1 { font-size: 2.4rem; margin-bottom: 0.3rem; }
+  .contact-hero .hero-content p { font-size: 1.05rem; }
+
+  /* Contact Section */
+  .contact-section { padding: 2.5rem 0; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 2rem; align-items: start; }
+  @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+
+  .contact-info { display: grid; gap: 1rem; }
+  .info-card { background: #fff8e7; border: 1px solid rgba(160,82,45,0.2); border-radius: 16px; padding: 1rem 1.2rem; box-shadow: 0 2px 8px rgba(160,82,45,0.08); }
+  .info-card h3 { margin: 0 0 0.4rem 0; color: #7c3f17; }
+  .info-card a { color: #a0522d; text-decoration: none; }
+  .info-card a:hover { text-decoration: underline; }
+
+  /* Form */
+  .contact-form { background: rgba(255,255,255,0.85); border: 1px solid rgba(160,82,45,0.2); border-radius: 16px; padding: 1.2rem; box-shadow: 0 4px 16px rgba(160,82,45,0.10); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+  .form-field { display: flex; flex-direction: column; gap: 0.35rem; }
+  .contact-form label { font-weight: 600; color: #7c3f17; }
+  .contact-form input, .contact-form textarea { border: 1px solid rgba(160,82,45,0.35); border-radius: 10px; padding: 0.8rem 0.9rem; font-size: 1rem; background: #fff; color: #4e2e0e; }
+  .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: #a0522d; box-shadow: 0 0 0 3px rgba(160,82,45,0.15); }
+  .error { color: #8b0000; font-size: 0.9rem; min-height: 1.1rem; }
+  .success { color: #14532d; background: #d1fae5; border: 1px solid #10b98133; padding: 0.6rem 0.8rem; border-radius: 8px; margin-top: 0.8rem; }
+
+  /* Map */
+  .map-section { padding: 0 0 2.5rem 0; }
+  .map-embed { border-radius: 16px; overflow: hidden; border: 1px solid rgba(160,82,45,0.2); box-shadow: 0 6px 18px rgba(160,82,45,0.12); }
+  .map-embed iframe { width: 100%; height: 380px; border: 0; display: block; }
+
+  /* Footer */
+  .site-footer { background: #a0522d; color: #fff8e7; padding: 1.2rem 0; margin-top: auto; }
+  .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .footer-brand { display: flex; align-items: center; gap: 0.6rem; font-weight: 700; }
+  .footer-brand img { width: 36px; height: 36px; object-fit: contain; }
+  .footer-copy { margin: 0; opacity: 0.9; }
+    </style>
+</head>
+<body>
+  <header class="navbar">
+    <a class="nav-logo" href="index.html" aria-label="Blueprint Rwanda home">
+      <img src="Blueprint_Logo-removebg-preview.png" alt="Blueprint Rwanda logo">
+      Blueprint Rwanda
+    </a>
+    <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+    <ul class="nav-menu" id="primary-navigation" role="menubar">
+      <li role="none"><a role="menuitem" href="index.html">Home</a></li>
+      <li role="none"><a role="menuitem" href="visit.html">Visit</a></li>
+      <li role="none"><a role="menuitem" href="accommodation.html">Stay</a></li>
+      <li role="none"><a role="menuitem" href="rentcar.html">Rent a Car</a></li>
+      <li role="none"><a role="menuitem" href="contact.html">Contact</a></li>
+    </ul>
+  </header>
+
+  <main>
+    <section class="contact-hero" style="background-image:url('Visit.png');">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>Contact Us</h1>
+        <p>We'd love to hear from you. Send us a message and we'll respond soon.</p>
+      </div>
+    </section>
+
+    <section class="container contact-section" aria-labelledby="contact-heading">
+      <h2 id="contact-heading" class="sr-only">Get in touch</h2>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="info-card">
+            <h3>Our Office</h3>
+            <p>Kigali, Rwanda</p>
+            <p>Opening Hours: Mon - Fri, 9:00 - 17:00</p>
+          </div>
+          <div class="info-card">
+            <h3>Call</h3>
+            <p><a href="tel:+250700000000">+250 700 000 000</a></p>
+          </div>
+          <div class="info-card">
+            <h3>Email</h3>
+            <p><a href="mailto:info@blueprintrwanda.com">info@blueprintrwanda.com</a></p>
+          </div>
+        </div>
+
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="contactName">Your Name</label>
+              <input type="text" id="contactName" name="contactName" autocomplete="name" required aria-required="true" placeholder="Jane Doe">
+              <span class="error" id="nameError" aria-live="polite"></span>
+            </div>
+            <div class="form-field">
+              <label for="contactEmail">Email</label>
+              <input type="email" id="contactEmail" name="contactEmail" autocomplete="email" required aria-required="true" placeholder="jane@example.com">
+              <span class="error" id="emailError" aria-live="polite"></span>
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="contactSubject">Subject</label>
+            <input type="text" id="contactSubject" name="contactSubject" placeholder="How can we help?" required>
+            <span class="error" id="subjectError" aria-live="polite"></span>
+          </div>
+          <div class="form-field">
+            <label for="contactMessage">Message</label>
+            <textarea id="contactMessage" name="contactMessage" rows="6" required placeholder="Write your message here..."></textarea>
+            <span class="error" id="messageError" aria-live="polite"></span>
+          </div>
+          <button type="submit" class="welcome-btn">Send Message</button>
+          <p class="success" id="successMsg" role="status" aria-live="polite" hidden>Thanks! Your message has been sent.</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="map-section" aria-label="Map">
+      <div class="container">
+        <div class="map-embed">
+          <iframe title="Blueprint Rwanda location"
+                  src="https://www.google.com/maps?q=Kigali,+Rwanda&output=embed"
+                  loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="Blueprint_Logo-removebg-preview.png" alt="Blueprint Rwanda logo">
+        <span>Blueprint Rwanda</span>
+      </div>
+      <p class="footer-copy">© <span id="year"></span> Blueprint Rwanda. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+  (function() {
+    var hamburger = document.querySelector('.hamburger');
+    var menu = document.querySelector('.nav-menu');
+    if (hamburger && menu) {
+      hamburger.addEventListener('click', function() {
+        var isActive = hamburger.classList.toggle('active');
+        menu.classList.toggle('active');
+        hamburger.setAttribute('aria-expanded', String(isActive));
+      });
+    }
+
+    var yearEl = document.getElementById('year');
+    if (yearEl) { yearEl.textContent = new Date().getFullYear(); }
+
+    var form = document.getElementById('contactForm');
+    if (!form) return;
+
+    function setError(id, message) {
+      var el = document.getElementById(id);
+      if (el) { el.textContent = message || ''; }
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      setError('nameError');
+      setError('emailError');
+      setError('subjectError');
+      setError('messageError');
+
+      var name = document.getElementById('contactName');
+      var email = document.getElementById('contactEmail');
+      var subject = document.getElementById('contactSubject');
+      var message = document.getElementById('contactMessage');
+      var valid = true;
+
+      if (!name.value.trim()) { setError('nameError', 'Please enter your name'); valid = false; }
+      if (!email.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) { setError('emailError', 'Enter a valid email'); valid = false; }
+      if (!subject.value.trim()) { setError('subjectError', 'Please add a subject'); valid = false; }
+      if (message.value.trim().length < 10) { setError('messageError', 'Message should be at least 10 characters'); valid = false; }
+
+      if (!valid) return;
+
+      var success = document.getElementById('successMsg');
+      if (success) { success.hidden = false; }
+      form.reset();
+    });
+  })();
+  </script>
+</body>
+</html>

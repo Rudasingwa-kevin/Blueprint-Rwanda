@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="Title Logo.png" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meet the Team - Blueprint Rwanda</title>
+    <style>
+  /* General Body Styles */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f5e9da; /* beige */
+    color: #4e2e0e; /* chocolate */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Button style used */
+  .welcome-btn { background: #a0522d; color: #fff8e7; border: none; border-radius: 20px; padding: 0.8rem 2.2rem; font-size: 1.1rem; font-weight: bold; cursor: pointer; box-shadow: 0 2px 8px rgba(160,82,45,0.15); transition: background 0.2s; }
+  .welcome-btn:hover { background: #7c3f17; }
+
+  .welcome-btn {
+    background: #a0522d;
+    color: #fff8e7;
+    border: none;
+    border-radius: 20px;
+    padding: 0.8rem 2.2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(160, 82, 45, 0.15);
+    transition: background 0.2s;
+  }
+
+  .welcome-btn:hover {
+    background: #7c3f17;
+  }
+
+  
+
+  /* Header Styles */
+  .navbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(160, 82, 45, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    z-index: 1000;
+    height: 70px;
+    box-shadow: 0 4px 20px rgba(160, 82, 45, 0.15);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff8e7;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .nav-logo img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-logo:hover img {
+    transform: scale(1.1);
+  }
+
+  .nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+  }
+
+  .nav-menu li a {
+    color: #fff8e7;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+  }
+
+  .nav-menu li a:hover {
+    color: #ffe4b5;
+  }
+
+  .nav-menu li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffe4b5;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+
+  .nav-menu li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  .nav-cta a {
+    background-color: #fff8e7;
+    color: #a0522d;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .nav-cta a:hover {
+    background-color: #ffe4b5;
+    color: #7c3f17;
+  }
+
+  /* Hamburger Menu */
+  .hamburger {
+    display: none;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+    z-index: 1001;
+  }
+
+  .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #fff8e7;
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Responsive Header */
+  @media (max-width: 850px) {
+    .nav-menu {
+      position: fixed;
+      left: -100%;
+      top: 0;
+      flex-direction: column;
+      background-color: rgba(160, 82, 45, 0.98);
+      width: 100%;
+      height: 100vh;
+      text-align: center;
+      transition: 0.3s;
+      box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .nav-menu.active {
+      left: 0;
+    }
+
+    .nav-menu li {
+      margin: 1rem 0;
+    }
+
+    .hamburger {
+      display: block;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+  }
+
+  /* Hero Section */
+  .hero {
+    position: relative;
+    min-height: 80vh;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(160, 82, 45, 0.35);
+    backdrop-filter: blur(2px);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff8e7;
+  }
+
+  .hero-content h1 {
+    font-size: 2.3rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+  }
+
+  .hero-content p {
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  /* Search Bar */
+  .search-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 420px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 24px;
+    box-shadow: 0 2px 8px rgba(160,82,45,0.10);
+    padding: 0.3rem 0.5rem;
+  }
+
+  .search-bar {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 0.7rem 1rem;
+    border-radius: 20px 0 0 20px;
+    font-size: 1rem;
+    background: transparent;
+  }
+
+  .search-btn {
+    border: none;
+    background: none;
+    color: #a0522d;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 0 1rem;
+  }
+
+  /* Main Content Styles */
+  main {
+    flex: 1 0 auto;
+    width: 100%;
+    padding: 0 0 2rem 0;
+  }
+
+  /* ... (Add other specific component styles here, like listing-card, modal, etc.) ... */ 
+    </style>
+  <style>
+    body { background: #fff8e7; font-family: 'Segoe UI', 'Roboto', Arial, sans-serif; margin:0; }
+    .team-hero {
+      background: linear-gradient(120deg, #ffe4b5 0%, #f7e6d0 100%);
+      padding: 3.5rem 0 2.5rem 0;
+      text-align: center;
+    }
+    .team-hero h1 {
+      color: #a0522d;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 0.7rem;
+      letter-spacing: 1px;
+    }
+    .team-hero p {
+      color: #4e2e0e;
+      font-size: 1.18rem;
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto 3rem auto;
+      padding: 0 2vw;
+    }
+    .team-card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 30px 0 #a0522d13;
+      padding: 2.2rem 1.5rem 1.5rem 1.5rem;
+      text-align: center;
+      transition: box-shadow 0.18s, transform 0.15s;
+      position: relative;
+      border: 1.5px solid #ffe4b5;
+    }
+    .team-card:hover {
+      box-shadow: 0 8px 32px #a0522d22;
+      transform: translateY(-6px) scale(1.04);
+      z-index: 2;
+    }
+    .team-photo {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 50%;
+      background: #fff8e7;
+      margin-bottom: 1.1rem;
+      box-shadow: 0 2px 12px #a0522d11;
+      border: 2px solid #ffe4b5;
+      padding: 0.2rem;
+    }
+    .team-name {
+      font-size: 1.18rem;
+      color: #a0522d;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .team-role {
+      color: #b08a5a;
+      font-size: 1.01rem;
+      margin-bottom: 0.5rem;
+    }
+    .team-desc {
+      color: #4e2e0e;
+      font-size: 1.05rem;
+      margin-bottom: 0.7rem;
+      min-height: 48px;
+    }
+    .get-more-btn {
+      color: #fff8e7;
+      background: linear-gradient(90deg, #a0522d 80%, #ffb347 100%);
+      border-radius: 8px;
+      padding: 0.4rem 1.2rem;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.01rem;
+      transition: background 0.18s;
+      display: inline-block;
+      margin-top: 0.5rem;
+      box-shadow: 0 1.5px 8px #a0522d11;
+      border: none;
+      cursor: pointer;
+    }
+    .get-more-btn:hover {
+      background: linear-gradient(90deg, #7c3f17 80%, #ffb347 100%);
+      color: #fff8e7;
+    }
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: auto;
+      background-color: rgba(78, 46, 14, 0.6);
+      backdrop-filter: blur(5px);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background-color: #fff8e7;
+      margin: 5% auto;
+      padding: 30px 24px 24px 24px;
+      border: 1px solid #888;
+      width: 95vw;
+      max-width: 420px;
+      border-radius: 16px;
+      box-shadow: 0 4px 8px 0 #a0522d22, 0 6px 20px 0 #a0522d22;
+      color: #4e2e0e;
+      position: relative;
+      animation: animatetop 0.4s;
+    }
+    @keyframes animatetop {
+      from {transform: translateY(-50px); opacity: 0}
+      to {transform: translateY(0); opacity: 1}
+    }
+    .close-button {
+      color: #a0522d;
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      font-size: 2rem;
+      font-weight: bold;
+      background: none;
+      border: none;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: color 0.2s;
+    }
+    .close-button:hover {
+      color: #7c3f17;
+      opacity: 1;
+    }
+    @media (max-width: 600px) {
+      .team-hero h1 { font-size: 1.5rem; }
+      .team-grid { gap: 1.2rem; }
+      .team-card { padding: 1.2rem 0.5rem 1rem 0.5rem; }
+      .team-photo { width: 60px; height: 60px; }
+    }
+  </style>
+</head>
+<body>
+  <section class="team-hero">
+    <h1>Meet the Blueprint Rwanda Team</h1>
+    <p>Discover the people who make Blueprint Rwanda possible. Click "Get More" to learn about each team member's story and vision.</p>
+  </section>
+  <div class="team-grid">
+    <div class="team-card" data-name="Jean Bosco Niyonzima" data-role="Founder & CEO" data-desc="Visionary entrepreneur and passionate advocate for Rwandan tourism. Jean Bosco founded Blueprint Rwanda to empower local businesses and connect travelers with authentic experiences." data-email="info@blueprintrwanda.com" data-img="Blueprint_Logo-removebg-preview.png">
+      <img src="Blueprint_Logo-removebg-preview.png" alt="Jean Bosco Niyonzima" class="team-photo">
+      <div class="team-name">Jean Bosco Niyonzima</div>
+      <div class="team-role">Founder & CEO</div>
+      <button class="get-more-btn">Get More</button>
+    </div>
+    <div class="team-card" data-name="Mary Kamanzi" data-role="Operations Manager" data-desc="Ensures seamless operations and top-notch service for all users. Mary is dedicated to building strong partnerships and a vibrant travel community." data-email="mary@blueprintrwanda.com" data-img="https://randomuser.me/api/portraits/women/44.jpg">
+      <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Mary Kamanzi" class="team-photo">
+      <div class="team-name">Mary Kamanzi</div>
+      <div class="team-role">Operations Manager</div>
+      <button class="get-more-btn">Get More</button>
+    </div>
+    <div class="team-card" data-name="Eric Mugisha" data-role="Lead Developer" data-desc="Tech enthusiast and architect of the Blueprint Rwanda platform. Eric brings innovation and reliability to every digital experience." data-email="eric@blueprintrwanda.com" data-img="https://randomuser.me/api/portraits/men/45.jpg">
+      <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Eric Mugisha" class="team-photo">
+      <div class="team-name">Eric Mugisha</div>
+      <div class="team-role">Lead Developer</div>
+      <button class="get-more-btn">Get More</button>
+    </div>
+    <div class="team-card" data-name="Aline Uwase" data-role="Customer Success Lead" data-desc="Aline ensures every guest and partner feels valued. She is the heart of our support and community engagement efforts." data-email="aline@blueprintrwanda.com" data-img="https://randomuser.me/api/portraits/women/65.jpg">
+      <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Aline Uwase" class="team-photo">
+      <div class="team-name">Aline Uwase</div>
+      <div class="team-role">Customer Success Lead</div>
+      <button class="get-more-btn">Get More</button>
+    </div>
+  </div>
+  <div id="teamModal" class="modal">
+    <div class="modal-content">
+      <button class="close-button" onclick="closeModal()">&times;</button>
+      <img id="modalImg" src="" alt="" class="team-photo" style="margin-bottom:1.1rem;">
+      <div id="modalName" class="team-name"></div>
+      <div id="modalRole" class="team-role"></div>
+      <div id="modalDesc" class="team-desc" style="margin-bottom:1.2rem;"></div>
+      <a id="modalEmail" href="#" class="get-more-btn" style="background:#fff8e7;color:#a0522d;border:1.5px solid #a0522d;">Contact</a>
+    </div>
+  </div>
+  <footer style="text-align:center;color:#a0522d;font-size:1.05rem;margin:2.5rem 0 1.2rem 0;">
+    &copy; 2025 Blueprint Rwanda. All Rights Reserved.
+  </footer>
+  <script>
+    const teamCards = document.querySelectorAll('.team-card');
+    const modal = document.getElementById('teamModal');
+    const modalImg = document.getElementById('modalImg');
+    const modalName = document.getElementById('modalName');
+    const modalRole = document.getElementById('modalRole');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalEmail = document.getElementById('modalEmail');
+    teamCards.forEach(card => {
+      card.querySelector('.get-more-btn').onclick = function() {
+        modalImg.src = card.dataset.img;
+        modalImg.alt = card.dataset.name;
+        modalName.textContent = card.dataset.name;
+        modalRole.textContent = card.dataset.role;
+        modalDesc.textContent = card.dataset.desc;
+        modalEmail.href = 'mailto:' + card.dataset.email;
+        modalEmail.textContent = 'Contact ' + card.dataset.name.split(' ')[0];
+        modal.style.display = 'flex';
+      };
+    });
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    };
+    window.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape' && modal.style.display === 'flex') {
+        modal.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

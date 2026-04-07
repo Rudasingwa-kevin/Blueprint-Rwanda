@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="Title Logo.png" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard & Profile - Blueprint Rwanda</title>
+    <style>
+  /* General Body Styles */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f5e9da; /* beige */
+    color: #4e2e0e; /* chocolate */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Button style used */
+  .welcome-btn { background: #a0522d; color: #fff8e7; border: none; border-radius: 20px; padding: 0.8rem 2.2rem; font-size: 1.1rem; font-weight: bold; cursor: pointer; box-shadow: 0 2px 8px rgba(160,82,45,0.15); transition: background 0.2s; }
+  .welcome-btn:hover { background: #7c3f17; }
+
+  .welcome-btn {
+    background: #a0522d;
+    color: #fff8e7;
+    border: none;
+    border-radius: 20px;
+    padding: 0.8rem 2.2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(160, 82, 45, 0.15);
+    transition: background 0.2s;
+  }
+
+  .welcome-btn:hover {
+    background: #7c3f17;
+  }
+
+  
+
+  /* Header Styles */
+  .navbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(160, 82, 45, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    z-index: 1000;
+    height: 70px;
+    box-shadow: 0 4px 20px rgba(160, 82, 45, 0.15);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff8e7;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .nav-logo img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-logo:hover img {
+    transform: scale(1.1);
+  }
+
+  .nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+  }
+
+  .nav-menu li a {
+    color: #fff8e7;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+  }
+
+  .nav-menu li a:hover {
+    color: #ffe4b5;
+  }
+
+  .nav-menu li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffe4b5;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+
+  .nav-menu li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  .nav-cta a {
+    background-color: #fff8e7;
+    color: #a0522d;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .nav-cta a:hover {
+    background-color: #ffe4b5;
+    color: #7c3f17;
+  }
+
+  /* Hamburger Menu */
+  .hamburger {
+    display: none;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+    z-index: 1001;
+  }
+
+  .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #fff8e7;
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Responsive Header */
+  @media (max-width: 850px) {
+    .nav-menu {
+      position: fixed;
+      left: -100%;
+      top: 0;
+      flex-direction: column;
+      background-color: rgba(160, 82, 45, 0.98);
+      width: 100%;
+      height: 100vh;
+      text-align: center;
+      transition: 0.3s;
+      box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .nav-menu.active {
+      left: 0;
+    }
+
+    .nav-menu li {
+      margin: 1rem 0;
+    }
+
+    .hamburger {
+      display: block;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+  }
+
+  /* Hero Section */
+  .hero {
+    position: relative;
+    min-height: 80vh;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(160, 82, 45, 0.35);
+    backdrop-filter: blur(2px);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff8e7;
+  }
+
+  .hero-content h1 {
+    font-size: 2.3rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+  }
+
+  .hero-content p {
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  /* Search Bar */
+  .search-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 420px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 24px;
+    box-shadow: 0 2px 8px rgba(160,82,45,0.10);
+    padding: 0.3rem 0.5rem;
+  }
+
+  .search-bar {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 0.7rem 1rem;
+    border-radius: 20px 0 0 20px;
+    font-size: 1rem;
+    background: transparent;
+  }
+
+  .search-btn {
+    border: none;
+    background: none;
+    color: #a0522d;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 0 1rem;
+  }
+
+  /* Main Content Styles */
+  main {
+    flex: 1 0 auto;
+    width: 100%;
+    padding: 0 0 2rem 0;
+  }
+
+  /* ... (Add other specific component styles here, like listing-card, modal, etc.) ... */ 
+    </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { background: #fff8e7; font-family: 'Segoe UI', 'Roboto', Arial, sans-serif; }
+    .dashboard-container { max-width: 1100px; margin: 2rem auto; padding: 2rem; background: #fff; border-radius: 18px; box-shadow: 0 2px 16px #a0522d22; }
+    .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    .dashboard-title { font-size: 2rem; color: #a0522d; }
+    .dashboard-summary { display: flex; gap: 2rem; margin-bottom: 2rem; }
+    .summary-card { background: #ffe4b5; border-radius: 12px; padding: 1.2rem 2rem; min-width: 180px; text-align: center; box-shadow: 0 1px 6px #a0522d11; }
+    .summary-title { color: #7c3f17; font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .summary-value { font-size: 1.7rem; font-weight: bold; color: #a0522d; }
+    .dashboard-section { margin-bottom: 2.5rem; }
+    .dashboard-section h2 { color: #a0522d; font-size: 1.3rem; margin-bottom: 1rem; }
+    .item-table { width: 100%; border-collapse: collapse; background: #fff; }
+    .item-table th, .item-table td { padding: 0.8rem 1rem; border-bottom: 1px solid #e0c9b2; text-align: left; }
+    .item-table th { background: #ffe4b5; color: #7c3f17; }
+    .item-table tr:last-child td { border-bottom: none; }
+    .chart-container { max-width: 600px; margin: 2rem auto; background: #fff; border-radius: 12px; box-shadow: 0 1px 8px #a0522d11; padding: 1.5rem; }
+    /* Profile styles */
+    .profile-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem; }
+    .profile-avatar { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid #ffe4b5; background: #eee; }
+    .profile-info { flex: 1; }
+    .profile-name { font-size: 1.7rem; color: #a0522d; font-weight: 700; margin-bottom: 0.3rem; }
+    .profile-email { color: #4e2e0e; font-size: 1.1rem; margin-bottom: 0.7rem; }
+    .profile-actions { margin-top: 1.2rem; }
+    .profile-btn { background: linear-gradient(90deg, #a0522d 80%, #ffb347 100%); color: #fff8e7; border: none; border-radius: 10px; padding: 0.7rem 1.7rem; font-size: 1.05rem; cursor: pointer; font-weight: 700; box-shadow: 0 2px 12px #a0522d22; margin-right: 1rem; }
+    .profile-btn:hover { background: linear-gradient(90deg, #7c3f17 80%, #ffb347 100%); }
+    .profile-section { margin-bottom: 2rem; }
+    .profile-section h3 { color: #a0522d; font-size: 1.18rem; margin-bottom: 0.7rem; font-weight: 700; }
+    .profile-list { list-style: disc; margin-left: 1.5rem; color: #4e2e0e; font-size: 1.08rem; font-weight: 500; }
+    /* Responsive */
+    @media (max-width: 800px) {
+      .dashboard-summary { flex-direction: column; gap: 1rem; }
+      .dashboard-header { flex-direction: column; gap: 1rem; }
+      .profile-header { flex-direction: column; gap: 1rem; }
+      .chart-container { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Explorer Profile Section -->
+    <div class="profile-header">
+      <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="User Avatar" class="profile-avatar">
+      <div class="profile-info">
+        <div class="profile-name" id="profileName">Samuel N.</div>
+        <div class="profile-email" id="profileEmail">samuel@example.com</div>
+        <div class="profile-actions">
+          <button class="profile-btn" onclick="editProfile()">Edit Profile</button>
+          <button class="profile-btn" onclick="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+    <div class="dashboard-header">
+      <div class="dashboard-title">Welcome, <span id="dashboardUser">Samuel</span>!</div>
+    </div>
+    <div class="dashboard-summary">
+      <div class="summary-card">
+        <div class="summary-title">Discoveries</div>
+        <div class="summary-value" id="totalDiscoveries">3</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-title">Saved Items</div>
+        <div class="summary-value" id="totalSaved">5</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-title">Recent Bookings</div>
+        <div class="summary-value" id="totalBookings">2</div>
+      </div>
+    </div>
+    <div class="dashboard-section">
+      <h2>Recent Bookings</h2>
+      <ul class="profile-list" id="profileBookings">
+        <li>Kigali View Apartment - July 2025</li>
+        <li>Toyota RAV4 - June 2025</li>
+      </ul>
+    </div>
+    <div class="dashboard-section">
+      <h2>Saved Items</h2>
+      <ul class="profile-list" id="profileSaved">
+        <li>Akagera Park Tour</li>
+        <li>Lake Kivu Resort</li>
+        <li>Imigongo Art House</li>
+        <li>Kigali View Apartment</li>
+        <li>Toyota RAV4</li>
+      </ul>
+    </div>
+    <div class="dashboard-section">
+      <h2>My Reviews</h2>
+      <ul class="profile-list" id="profileReviews">
+        <li>"Amazing experience!" - Kigali View Apartment</li>
+        <li>"Very comfortable." - Toyota RAV4</li>
+      </ul>
+    </div>
+    <div class="dashboard-section">
+      <h2>Personalized Recommendations</h2>
+      <ul class="profile-list" id="profileRecommendations">
+        <li>Try a guided tour of Volcanoes National Park!</li>
+        <li>Discover local cuisine at Nyamirambo Food Market.</li>
+        <li>Book a weekend at Lake Kivu Resort for relaxation.</li>
+      </ul>
+    </div>
+  </div>
+  <!-- Edit Profile Modal -->
+  <div id="editProfileModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:#0008;z-index:999;align-items:center;justify-content:center;">
+    <div style="background:#fff;padding:2rem 1.5rem;border-radius:16px;max-width:350px;width:90%;box-shadow:0 2px 24px #a0522d22;position:relative;">
+      <h2 style="color:#a0522d;margin-bottom:1rem;">Edit Profile</h2>
+      <form id="editProfileForm" autocomplete="off">
+        <label>Name</label>
+        <input type="text" id="editName" style="width:100%;margin-bottom:1rem;" required>
+        <label>Email</label>
+        <input type="email" id="editEmail" style="width:100%;margin-bottom:1rem;" required>
+        <label>Profile Picture</label>
+        <input type="file" id="editAvatar" accept="image/*" style="width:100%;margin-bottom:1rem;">
+        <div style="text-align:right;">
+          <button type="button" onclick="closeEditProfile()" style="background:#ffe4b5;color:#a0522d;border:none;padding:0.5rem 1.2rem;border-radius:8px;margin-right:0.5rem;">Cancel</button>
+          <button type="submit" style="background:#a0522d;color:#fff8e7;border:none;padding:0.5rem 1.2rem;border-radius:8px;">Save</button>
+        </div>
+      </form>
+      <span onclick="closeEditProfile()" style="position:absolute;top:10px;right:18px;cursor:pointer;font-size:1.3rem;color:#a0522d;">&times;</span>
+    </div>
+  </div>
+  <script>
+    // Explorer mock data for demonstration
+    document.getElementById('totalDiscoveries').textContent = '3';
+    document.getElementById('totalSaved').textContent = '5';
+    document.getElementById('totalBookings').textContent = '2';
+    // Edit Profile Modal Logic
+    function editProfile() {
+      document.getElementById('editName').value = document.getElementById('profileName').textContent;
+      document.getElementById('editEmail').value = document.getElementById('profileEmail').textContent;
+      document.getElementById('editProfileModal').style.display = 'flex';
+    }
+    function closeEditProfile() {
+      document.getElementById('editProfileModal').style.display = 'none';
+    }
+    document.getElementById('editAvatar').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          document.querySelector('.profile-avatar').src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+    document.getElementById('editProfileForm').onsubmit = function(e) {
+      e.preventDefault();
+      document.getElementById('profileName').textContent = document.getElementById('editName').value;
+      document.getElementById('profileEmail').textContent = document.getElementById('editEmail').value;
+      document.getElementById('dashboardUser').textContent = document.getElementById('editName').value.split(' ')[0];
+      closeEditProfile();
+    };
+    function logout() {
+      window.location.href = "verification.php";
+    }
+  </script>
+</body>
+</html>

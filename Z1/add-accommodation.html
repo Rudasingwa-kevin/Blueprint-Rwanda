@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="Title Logo.png" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add / Edit Property - Owner</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f5e9da;
+      color: #4e2e0e;
+      min-height: 100vh;
+    }
+    .navbar.glassy {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      min-width: 0;
+      margin: 0;
+      background: rgba(160, 82, 45, 0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2vw;
+      z-index: 100;
+      height: 70px;
+      box-shadow: 0 4px 20px rgba(160, 82, 45, 0.15);
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #fff8e7;
+      cursor: pointer;
+      min-width: 0;
+    }
+    .nav-logo img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+      min-width: 0;
+    }
+    .nav-logo:hover img {
+      transform: scale(1.1);
+    }
+    .admin-nav-menu {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+      min-width: 0;
+      flex-wrap: wrap;
+    }
+    .admin-nav-menu li {
+      position: relative;
+      min-width: 0;
+    }
+    .admin-nav-menu li a {
+      color: #fff8e7;
+      text-decoration: none;
+      font-size: 1.08rem;
+      font-weight: 500;
+      transition: color 0.3s;
+      padding: 6px 0;
+      border-bottom: 2px solid transparent;
+      display: inline-block;
+      min-width: 0;
+      word-break: break-word;
+    }
+    .admin-nav-menu li.active a, .admin-nav-menu li a:hover {
+      color: #ffe4b5;
+      border-bottom: 2px solid #ffe4b5;
+    }
+    .admin-header-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 70px;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .add-form-container {
+      max-width: 480px;
+      margin: 3.5rem auto 0 auto;
+      background: #fff8e7;
+      border-radius: 18px;
+      box-shadow: 0 2px 16px rgba(160,82,45,0.13);
+      padding: 2.5rem 2rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    .add-title {
+      color: #a0522d;
+      font-size: 1.7rem;
+      font-weight: bold;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .add-title svg {
+      flex-shrink: 0;
+    }
+    .add-form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+    .add-form label {
+      font-size: 1.05rem;
+      color: #7c3f17;
+      margin-bottom: 0.3rem;
+      font-weight: 500;
+    }
+    .add-form input[type="text"],
+    .add-form input[type="number"],
+    .add-form input[type="file"],
+    .add-form input[type="time"],
+    .add-form textarea {
+      width: 100%;
+      padding: 0.7rem 0.9rem;
+      border: 1.5px solid #e2c7a1;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      background: #fff;
+      color: #4e2e0e;
+      transition: border 0.2s;
+      box-sizing: border-box;
+      resize: none;
+    }
+    .add-form input[type="text"]:focus,
+    .add-form input[type="number"]:focus,
+    .add-form textarea:focus {
+      border: 1.5px solid #a0522d;
+      outline: none;
+    }
+    .add-form input[type="file"] {
+      padding: 0.5rem 0.2rem;
+      background: #fff8e7;
+      border: none;
+    }
+    .add-form .form-row {
+      display: flex;
+      gap: 1rem;
+    }
+    .add-form .form-row > * {
+      flex: 1;
+    }
+    .add-form .form-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.2rem;
+      justify-content: flex-end;
+    }
+    .add-btn-primary {
+      background: #a0522d;
+      color: #fff8e7;
+      border: none;
+      border-radius: 12px;
+      padding: 0.7rem 2.2rem;
+      font-size: 1.08rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(160,82,45,0.10);
+    }
+    .add-btn-primary:hover {
+      background: #7c3f17;
+      box-shadow: 0 4px 16px rgba(160,82,45,0.13);
+    }
+    .add-btn-secondary {
+      background: #ffe4b5;
+      color: #a0522d;
+      border: none;
+      border-radius: 12px;
+      padding: 0.7rem 1.5rem;
+      font-size: 1.05rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .add-btn-secondary:hover {
+      background: #f5e9da;
+    }
+    .success-message {
+      display: none;
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #e6f9e6;
+      color: #2e7d32;
+      border-radius: 10px;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      box-shadow: 0 2px 12px rgba(46,125,50,0.10);
+      z-index: 10;
+      animation: fadeIn 0.7s;
+    }
+    .success-message.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @media (max-width: 900px) {
+      .admin-nav-menu {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100vw;
+        background: rgba(160, 82, 45, 0.97);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        padding: 1.2rem 0 1.2rem 2rem;
+        margin: 0;
+        display: none;
+        z-index: 200;
+      }
+      .admin-nav-menu li {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+      .admin-nav-toggle:checked ~ .admin-nav-menu {
+        display: flex;
+      }
+      .add-form-container {
+        margin: 2rem 1vw 0 1vw;
+        padding: 1.5rem 1rem;
+        max-width: 98vw;
+      }
+    }
+    @media (max-width: 700px) {
+      .add-form-container {
+        padding: 1rem 0.2rem;
+        max-width: 99vw;
+      }
+      .add-title {
+        font-size: 1.2rem;
+      }
+      .add-form label {
+        font-size: 0.98rem;
+      }
+      .add-form .form-row {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .add-form input,
+      .add-form textarea {
+        font-size: 0.98rem;
+      }
+      .add-form .form-actions {
+        flex-direction: column-reverse;
+        gap: 0.5rem;
+      }
+      .add-btn-primary,
+      .add-btn-secondary {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+      }
+      .success-message {
+        font-size: 1rem;
+        padding: 0.7rem 1rem;
+        top: -48px;
+      }
+    }
+    @media (max-width: 480px) {
+      .add-form-container {
+        padding: 0.5rem 0.1rem;
+        margin: 1rem 0.1rem 0 0.1rem;
+      }
+      .add-title {
+        font-size: 1rem;
+        gap: 0.3rem;
+      }
+      .add-form label {
+        font-size: 0.92rem;
+      }
+      .success-message {
+        font-size: 0.95rem;
+        padding: 0.5rem 0.5rem;
+        top: -36px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar glassy">
+    <svg class="admin-header-bg" width="100%" height="70" viewBox="0 0 1440 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:100vw;height:70px;z-index:0;pointer-events:none;">
+      <circle cx="60" cy="35" r="18" fill="#ffe4b5" fill-opacity="0.18"/>
+      <circle cx="320" cy="20" r="10" fill="#fff8e7" fill-opacity="0.13"/>
+      <rect x="1200" y="10" width="30" height="30" rx="8" fill="#fff8e7" fill-opacity="0.10"/>
+      <polygon points="1400,60 1420,40 1440,70" fill="#ffe4b5" fill-opacity="0.13"/>
+      <circle cx="900" cy="50" r="8" fill="#a0522d" fill-opacity="0.10"/>
+    </svg>
+    <div class="nav-logo" style="position:relative;z-index:1;">
+      <img src="Title Logo.png" alt="Logo" />
+      <span>Blueprint Rwanda Admin</span>
+    </div>
+    <ul class="admin-nav-menu">
+      <li><a href="admin.html">Dashboard</a></li>
+      <li class="active"><a href="admin-accommodations.html">Accommodations</a></li>
+      <li><a href="admin-cars.html">Cars</a></li>
+      <li><a href="admin-places.html">Places</a></li>
+      <li><a href="admin-users.html">Users</a></li>
+    </ul>
+  </nav>
+  <div class="add-form-container">
+    <div class="add-title">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="28" height="28" rx="8" fill="#ffe4b5" fill-opacity="0.35"/>
+        <path d="M8 24l8-10 8 10" stroke="#a0522d" stroke-width="2" fill="none"/>
+      </svg>
+      Add / Edit Property
+    </div>
+    <form class="add-form" id="propertyForm" autocomplete="off">
+      <div class="form-row">
+        <div>
+          <label for="name">Property Name</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div>
+          <label for="type">Type</label>
+          <input type="text" id="type" name="type" placeholder="apartment, lodge, guest house" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label for="city">City</label>
+          <input type="text" id="city" name="city" placeholder="Kigali" required />
+        </div>
+        <div>
+          <label for="address">Address</label>
+          <input type="text" id="address" name="address" placeholder="KG 123 St" />
+        </div>
+      </div>
+      <div>
+        <label for="descriptionShort">Short Description</label>
+        <input type="text" id="descriptionShort" name="descriptionShort" placeholder="1–2 line summary" />
+      </div>
+      <div>
+        <label for="descriptionFull">Full Description</label>
+        <textarea id="descriptionFull" name="descriptionFull" rows="4"></textarea>
+      </div>
+      <div class="form-row">
+        <div>
+          <label for="price">Base Nightly Rate (USD)</label>
+          <input type="number" id="price" name="price" min="0" step="0.01" />
+        </div>
+        <div>
+          <label for="cleaningFee">Cleaning Fee (USD)</label>
+          <input type="number" id="cleaningFee" name="cleaningFee" min="0" step="0.01" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label for="minNights">Minimum Nights</label>
+          <input type="number" id="minNights" name="minNights" min="1" />
+        </div>
+        <div>
+          <label for="maxNights">Maximum Nights</label>
+          <input type="number" id="maxNights" name="maxNights" min="1" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label for="checkIn">Check-in</label>
+          <input type="time" id="checkIn" name="checkIn" />
+        </div>
+        <div>
+          <label for="checkOut">Check-out</label>
+          <input type="time" id="checkOut" name="checkOut" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label for="guests">Max Guests</label>
+          <input type="number" id="guests" name="guests" min="1" />
+        </div>
+        <div>
+          <label for="bedrooms">Bedrooms</label>
+          <input type="number" id="bedrooms" name="bedrooms" min="0" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label for="beds">Beds</label>
+          <input type="number" id="beds" name="beds" min="0" />
+        </div>
+        <div>
+          <label for="bathrooms">Bathrooms</label>
+          <input type="number" id="bathrooms" name="bathrooms" min="0" step="0.5" />
+        </div>
+      </div>
+      <div>
+        <label for="amenities">Amenities (comma-separated)</label>
+        <input type="text" id="amenities" name="amenities" placeholder="wifi, parking, kitchen" />
+      </div>
+      <div class="form-row">
+        <div>
+          <label for="policy">Cancellation Policy</label>
+          <input type="text" id="policy" name="policy" placeholder="flexible, moderate, strict" />
+        </div>
+        <div>
+          <label for="status">Status</label>
+          <input type="text" id="status" name="status" placeholder="Active / Pending / Inactive" />
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="add-btn-secondary" id="cancelBtn">Cancel</button>
+        <button type="submit" class="add-btn-primary" id="submitBtn">Save Property</button>
+      </div>
+    </form>
+
+    <div class="success-message" id="successMessage">
+      Accommodation added successfully!
+    </div>
+  </div>
+  <script>
+    // LocalStorage helpers
+    function loadJSON(key, fallback){ try { return JSON.parse(localStorage.getItem(key) || ''); } catch(_) { return fallback; } }
+    function saveJSON(key, val){ localStorage.setItem(key, JSON.stringify(val)); }
+
+    const ownerServicesKey = 'owner_services';
+    const editKey = 'edit_service';
+    let editing = null;
+
+    function getFormData(){
+      return {
+        id: editing?.id || ('svc-' + Date.now()),
+        name: document.getElementById('name').value.trim(),
+        type: document.getElementById('type').value.trim(),
+        city: document.getElementById('city').value.trim(),
+        address: document.getElementById('address').value.trim(),
+        descriptionShort: document.getElementById('descriptionShort').value.trim(),
+        descriptionFull: document.getElementById('descriptionFull').value.trim(),
+        pricing: { base: parseFloat(document.getElementById('price').value || 0), fees: { cleaning: parseFloat(document.getElementById('cleaningFee').value || 0) } },
+        availability: { minNights: parseInt(document.getElementById('minNights').value || 0), maxNights: parseInt(document.getElementById('maxNights').value || 0), checkIn: document.getElementById('checkIn').value, checkOut: document.getElementById('checkOut').value },
+        capacity: { guests: parseInt(document.getElementById('guests').value || 0), bedrooms: parseInt(document.getElementById('bedrooms').value || 0), beds: parseInt(document.getElementById('beds').value || 0), bathrooms: parseFloat(document.getElementById('bathrooms').value || 0) },
+        amenities: (document.getElementById('amenities').value || '').split(',').map(x => x.trim()).filter(Boolean),
+        cancellation: { policy: document.getElementById('policy').value.trim() },
+        status: document.getElementById('status').value.trim() || 'Active'
+      };
+    }
+
+    function setFormData(d){
+      document.getElementById('name').value = d.name || '';
+      document.getElementById('type').value = d.type || '';
+      document.getElementById('city').value = d.city || '';
+      document.getElementById('address').value = d.address || '';
+      document.getElementById('descriptionShort').value = d.descriptionShort || '';
+      document.getElementById('descriptionFull').value = d.descriptionFull || '';
+      document.getElementById('price').value = d.pricing?.base || '';
+      document.getElementById('cleaningFee').value = d.pricing?.fees?.cleaning || '';
+      document.getElementById('minNights').value = d.availability?.minNights || '';
+      document.getElementById('maxNights').value = d.availability?.maxNights || '';
+      document.getElementById('checkIn').value = d.availability?.checkIn || '';
+      document.getElementById('checkOut').value = d.availability?.checkOut || '';
+      document.getElementById('guests').value = d.capacity?.guests || '';
+      document.getElementById('bedrooms').value = d.capacity?.bedrooms || '';
+      document.getElementById('beds').value = d.capacity?.beds || '';
+      document.getElementById('bathrooms').value = d.capacity?.bathrooms || '';
+      document.getElementById('amenities').value = (d.amenities || []).join(', ');
+      document.getElementById('policy').value = d.cancellation?.policy || '';
+      document.getElementById('status').value = d.status || '';
+    }
+
+    function saveProperty(e){
+      e.preventDefault();
+      const data = getFormData();
+      let list = loadJSON(ownerServicesKey, [] ) || [];
+      const idx = list.findIndex(x => x.id === data.id);
+      if (idx >= 0) list[idx] = { ...list[idx], ...data };
+      else list.push(data);
+      saveJSON(ownerServicesKey, list);
+      document.getElementById('successMessage').classList.add('active');
+      setTimeout(() => {
+        document.getElementById('successMessage').classList.remove('active');
+        localStorage.removeItem(editKey);
+        window.location.href = 'user-dashboard.html';
+      }, 900);
+    }
+
+    function init(){
+      try { editing = JSON.parse(localStorage.getItem(editKey) || ''); } catch(_) { editing = null; }
+      if (editing) {
+        document.getElementById('submitBtn').textContent = 'Update Property';
+        setFormData({
+          id: editing.id,
+          name: editing.name,
+          type: editing.type || 'apartment',
+          city: editing.location || editing.city || '',
+          address: '',
+          descriptionShort: '',
+          descriptionFull: '',
+          pricing: { base: 0, fees: { cleaning: 0 } },
+          availability: { minNights: 1, maxNights: 30, checkIn: '', checkOut: '' },
+          capacity: { guests: 1, bedrooms: 1, beds: 1, bathrooms: 1 },
+          amenities: [],
+          cancellation: { policy: '' },
+          status: editing.status || 'Active'
+        });
+      }
+      document.getElementById('propertyForm').addEventListener('submit', saveProperty);
+      document.getElementById('cancelBtn').onclick = function(){ localStorage.removeItem(editKey); history.back(); };
+    }
+    init();
+  </script>
+
+</body>
+</html>
