@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Blueprint Rwanda</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: #fff8e7; font-family: 'Segoe UI', 'Roboto', Arial, sans-serif; }
+    .contact-container { max-width: 600px; margin: 4rem auto; background: #fff; border-radius: 18px; box-shadow: 0 8px 48px #a0522d22; padding: 2.5rem 2rem; }
+    .contact-title { font-size: 2rem; color: #a0522d; font-weight: 700; margin-bottom: 1.2rem; text-align: center; }
+    .contact-form label { display: block; color: #4e2e0e; font-size: 1.08rem; margin-bottom: 0.3rem; font-weight: 600; }
+    .contact-form input, .contact-form textarea { width: 100%; padding: 0.7rem; border-radius: 8px; border: 1.5px solid #ffe4b5; margin-bottom: 1.1rem; font-size: 1.05rem; }
+    .contact-form button { background: linear-gradient(90deg, #a0522d 80%, #ffb347 100%); color: #fff8e7; border: none; border-radius: 10px; padding: 0.8rem 2.2rem; font-size: 1.1rem; cursor: pointer; font-weight: 700; box-shadow: 0 2px 12px #a0522d22; }
+    .contact-form button:hover { background: linear-gradient(90deg, #7c3f17 80%, #ffb347 100%); }
+  </style>
+</head>
+<body>
+  <div class="contact-container">
+    <div class="contact-title">Contact Us</div>
+    <form class="contact-form">
+      <label for="contactName">Your Name</label>
+      <input type="text" id="contactName" name="contactName" required>
+      <label for="contactEmail">Email</label>
+      <input type="email" id="contactEmail" name="contactEmail" required>
+      <label for="contactMessage">Message</label>
+      <textarea id="contactMessage" name="contactMessage" rows="5" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</body>
+</html>

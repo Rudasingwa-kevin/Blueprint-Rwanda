@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blueprint Rwanda - Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(120deg, #f5e9da 0%, #ffe4b5 100%);
+      position: relative;
+      overflow-x: hidden;
+    }
+    html {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .bg-animated {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 70% 30%, #ffe4b5 0%, #f5e9da 60%, #fff8e7 100%);
+      animation: bgMove 12s ease-in-out infinite alternate;
+      opacity: 0.7;
+    }
+    @keyframes bgMove {
+      0% { background-position: 70% 30%; }
+      100% { background-position: 30% 70%; }
+    }
+    .navbar.glassy {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      background: rgba(160, 82, 45, 0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      z-index: 10;
+      height: 70px;
+      box-shadow: 0 4px 20px rgba(160, 82, 45, 0.15);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #fff8e7;
+      cursor: pointer;
+    }
+    .nav-logo img {
+      width: 54px;
+      height: 54px;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+    .nav-logo:hover img {
+      transform: scale(1.1);
+    }
+    .nav-menu {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+    .nav-menu li a {
+      color: #fff8e7;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: color 0.3s;
+      position: relative;
+      padding: 5px 0;
+    }
+    .nav-menu li a:hover {
+      color: #ffe4b5;
+    }
+    .nav-cta a {
+      background-color: #fff8e7;
+      color: #a0522d;
+      padding: 0.5rem 1.5rem;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .nav-cta a:hover {
+      background-color: #ffe4b5;
+      color: #7c3f17;
+    }
+    .hero-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 260px;
+      margin-top: 0;
+      margin-bottom: 0.1rem;
+      z-index: 2;
+      position: relative;
+    }
+    .hero-section h1 {
+      color: #a0522d;
+      font-size: 2.5rem;
+      font-weight: bold;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 12px #fff8e7a0;
+    }
+    .hero-section p {
+      color: #4e2e0e;
+      font-size: 1.15rem;
+      max-width: 600px;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      opacity: 0.92;
+    }
+    .dashboard-container {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 60vh;
+      justify-content: flex-start;
+    }
+    .services-row {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2.5rem;
+      z-index: 2;
+    }
+    .service-card {
+      background: rgba(255,255,255,0.55);
+      border-radius: 22px;
+      box-shadow: 0 6px 32px 0 rgba(31,38,135,0.13);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      width: 320px;
+      max-width: 92vw;
+      padding: 2rem 1.3rem 1.5rem 1.3rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.18s, box-shadow 0.18s;
+      border: 1.5px solid #ffe4b5a0;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card:hover {
+      transform: translateY(-8px) scale(1.035);
+      box-shadow: 0 12px 40px 0 rgba(160,82,45,0.18);
+      border-color: #a0522d44;
+    }
+    .service-card img {
+      width: 100%;
+      max-width: 120px;
+      border-radius: 14px;
+      margin-bottom: 1.1rem;
+      box-shadow: 0 2px 8px rgba(160,82,45,0.10);
+      background: #fff8e7;
+      padding: 0.5rem;
+    }
+    .service-card h2 {
+      color: #a0522d;
+      margin-bottom: 0.5rem;
+      font-size: 1.25rem;
+      letter-spacing: 0.5px;
+    }
+    .service-card p {
+      color: #4e2e0e;
+      font-size: 1.05rem;
+      margin-bottom: 1.2rem;
+      opacity: 0.93;
+    }
+    .service-btn {
+      background: linear-gradient(90deg, #a0522d 60%, #ffe4b5 100%);
+      color: #fff8e7;
+      border: none;
+      border-radius: 16px;
+      padding: 0.7rem 1.7rem;
+      font-size: 1.08rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      box-shadow: 0 2px 8px #a0522d22;
+    }
+    .service-btn:hover {
+      background: linear-gradient(90deg, #7c3f17 60%, #ffe4b5 100%);
+      color: #a0522d;
+    }
+    .footer {
+      width: 100vw;
+      background: rgba(160, 82, 45, 0.85);
+      backdrop-filter: blur(8px);
+      color: #fff8e7;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem 4vw 1rem 4vw;
+      box-shadow: 0 -2px 16px rgba(160, 82, 45, 0.10);
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 0;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .footer-logo img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      font-size: 1rem;
+      min-width: 160px;
+      position: relative;
+      padding-right: 2.5rem;
+      border-right: 1.5px solid #ffe4b53a;
+      margin-right: 80px;
+    }
+    .footer-links-title {
+      font-size: 1.08rem;
+      font-weight: 600;
+      color: #ffe4b5;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.5px;
+    }
+    .footer-links a {
+      color: #fff8e7;
+      text-decoration: none;
+      transition: color 0.2s;
+      padding: 3px 0;
+      display: inline-block;
+    }
+    .footer-links a:hover {
+      color: #ffe4b5;
+    }
+    .footer-social {
+      display: flex;
+      gap: 1.2rem;
+      font-size: 1.4rem;
+      margin-top: 1.1rem;
+      text-decoration: none;
+    }
+    .footer-social a {
+      color: #fff8e7;
+      transition: color 0.2s, transform 0.2s;
+      text-decoration: none;
+    }
+    .footer-social a:hover {
+      color: #ffe4b5;
+      transform: scale(1.2);
+    }
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-size: 1rem;
+      color: #fff8e7;
+      min-width: 170px;
+      margin-left: 2.2rem;
+      padding-left: 1.2rem;
+      border-left: 2px solid #ffe4b53a;
+      background: rgba(255, 244, 222, 0.04);
+      border-radius: 8px 0 0 8px;
+      justify-content: flex-start;
+      text-align: left;
+      margin-right: 180px;
+      margin-left: -130px;
+    }
+    .footer-contact span {
+      font-weight: 700;
+      color: #ffe4b5;
+      margin-bottom: 0.2rem;
+      font-size: 1.08rem;
+      letter-spacing: 0.5px;
+    }
+    .footer-contact a {
+      color: #fff8e7;
+      text-decoration: none;
+      transition: color 0.2s;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 0.4em;
+      font-size: 0.98rem;
+    }
+    .footer-contact a:hover {
+      color: #ffe4b5;
+    }
+    .footer-contact .contact-icon {
+      font-size: 1.1em;
+      margin-right: 0.2em;
+      opacity: 0.85;
+    }
+    .footer-copyright {
+      width: 100vw;
+      text-align: center;
+      color: #000000;
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
+      padding-bottom: 0.7rem;
+    }
+    @media (max-width: 900px) {
+      .services-row { flex-direction: column; gap: 1.5rem; }
+      .service-card { width: 90vw; max-width: 350px; }
+      .footer { flex-direction: column; align-items: flex-start; gap: 1.5rem; padding: 2rem 2vw 1rem 2vw; }
+      .footer-logo, .footer-links, .footer-contact, .footer-social { min-width: unset; max-width: 100vw; }
+      .footer-logo { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-animated"></div>
+  <nav class="navbar glassy">
+    <div class="nav-logo">
+      <img src="Title Logo.png" alt="Logo" />
+      <span>Blueprint Rwanda</span>
+    </div>
+    <ul class="nav-menu">
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Place to Visit</a></li>
+      <li><a href="#">Car Rent</a></li>
+      <li class="nav-cta"><a href="#">Account</a></li>
+    </ul>
+  </nav>
+  <section class="hero-section">
+    <h1>Welcome to Blueprint Rwanda</h1>
+    <p>Choose a service below to get started with your journey in Rwanda!</p>
+  </section>
+  <div class="dashboard-container">
+    <div class="services-row">
+      <div class="service-card">
+        <img src="Accommodation.png" alt="Accommodation">
+        <h2>Accommodation</h2>
+        <p>Find and book the best places to stay in Rwanda, from hotels to guesthouses and more.</p>
+        <a href="accommodation.html"><button class="service-btn">Explore Accommodation</button></a>
+      </div>
+      <div class="service-card">
+        <img src="Visit.png" alt="Place to Visit">
+        <h2>Place to Visit</h2>
+        <p>Discover must-see destinations, cultural sites, and natural wonders across Rwanda.</p>
+        <a href="visit.html"><button class="service-btn">Explore Places</button></a>
+      </div>
+      <div class="service-card">
+        <img src="Car.png" alt="Rent Car">
+        <h2>Rent Car</h2>
+        <p>Rent a car easily and travel around Rwanda at your own pace and convenience.</p>
+        <a href="rentcar.html"><button class="service-btn">Rent a Car</button></a>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer">
+      <div class="footer-logo">
+        <img src="Title Logo.png" alt="Logo" /> Blueprint Rwanda
+      </div>
+      <div class="footer-links">
+        <div class="footer-links-title">Quick Links</div>
+        <a href="#">Services</a>
+        <a href="#">Place to Visit</a>
+        <a href="#">Car Rent</a>
+        <a href="#">Account</a>
+        <div class="footer-social">
+          <a href="#" title="Instagram" aria-label="Instagram">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="2" fill="none"/>
+              <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none"/>
+              <circle cx="17" cy="7" r="1.2" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="#" title="X" aria-label="X">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="2" fill="none"/>
+              <path d="M8 8L16 16M16 8L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </a>
+          <a href="#" title="Facebook" aria-label="Facebook">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="2" fill="none"/>
+              <path d="M15.5 12H13V18H10V12H8.5V10H10V8.75C10 7.78 10.78 7 11.75 7H15V9H12.5C12.22 9 12 9.22 12 9.5V10H15L14.5 12Z" fill="currentColor"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-contact">
+        <span>Contact Us</span>
+        <a href="mailto:info@blueprintrwanda.com">
+          <svg class="contact-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;margin-right:4px;"><rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor" stroke-width="2" fill="none"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+          info@blueprintrwanda.com
+        </a>
+        <a href="tel:+250788123456">
+          <svg class="contact-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;margin-right:4px;"><path d="M6.5 3A2.5 2.5 0 0 0 4 5.5v2A2.5 2.5 0 0 0 6.5 10h.09a1 1 0 0 1 .97.757l.5 2A1 1 0 0 1 7.13 14.1l-1.2 1.2a16.94 16.94 0 0 0 6.77 6.77l1.2-1.2a1 1 0 0 1 1.343-.43l2 .5A1 1 0 0 1 19 17.41v.09A2.5 2.5 0 0 0 21.5 20h2A2.5 2.5 0 0 0 24 17.5v-2A2.5 2.5 0 0 0 21.5 13h-.09a1 1 0 0 1-.97-.757l-.5-2A1 1 0 0 1 16.87 9.9l1.2-1.2a16.94 16.94 0 0 0-6.77-6.77l-1.2 1.2A1 1 0 0 1 8.13 6.59l-2-.5A1 1 0 0 1 5 6.59v-.09A2.5 2.5 0 0 0 2.5 3h-2A2.5 2.5 0 0 0 0 5.5v2A2.5 2.5 0 0 0 2.5 10h.09a1 1 0 0 1 .97.757l.5 2A1 1 0 0 1 3.13 14.1l-1.2 1.2a16.94 16.94 0 0 0 6.77 6.77l1.2-1.2a1 1 0 0 1 1.343-.43l2 .5A1 1 0 0 1 19 17.41v.09A2.5 2.5 0 0 0 21.5 20h2A2.5 2.5 0 0 0 24 17.5v-2A2.5 2.5 0 0 0 21.5 13h-.09a1 1 0 0 1-.97-.757l-.5-2A1 1 0 0 1 16.87 9.9l1.2-1.2a16.94 16.94 0 0 0-6.77-6.77l-1.2 1.2A1 1 0 0 1 8.13 6.59l-2-.5A1 1 0 0 1 5 6.59v-.09A2.5 2.5 0 0 0 2.5 3h-2Z" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+          +250 788 123 456
+        </a>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      &copy; 2025 Blueprint Rwanda. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html> 

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Property Owners - Blueprint Rwanda</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: #fff8e7; font-family: 'Segoe UI', 'Roboto', Arial, sans-serif; margin:0; }
+    .owners-hero {
+      background: linear-gradient(120deg, #ffe4b5 0%, #f7e6d0 100%);
+      padding: 3.5rem 0 2.5rem 0;
+      text-align: center;
+    }
+    .owners-hero h1 {
+      color: #a0522d;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 0.7rem;
+      letter-spacing: 1px;
+    }
+    .owners-hero p {
+      color: #4e2e0e;
+      font-size: 1.18rem;
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .owners-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto 3rem auto;
+      padding: 0 2vw;
+    }
+    .owner-card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 30px 0 #a0522d13;
+      padding: 2.2rem 1.5rem 1.5rem 1.5rem;
+      text-align: center;
+      transition: box-shadow 0.18s, transform 0.15s;
+      position: relative;
+      border: 1.5px solid #ffe4b5;
+    }
+    .owner-card:hover {
+      box-shadow: 0 8px 32px #a0522d22;
+      transform: translateY(-6px) scale(1.04);
+      z-index: 2;
+    }
+    .owner-photo {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 50%;
+      background: #fff8e7;
+      margin-bottom: 1.1rem;
+      box-shadow: 0 2px 12px #a0522d11;
+      border: 2px solid #ffe4b5;
+      padding: 0.2rem;
+    }
+    .owner-name {
+      font-size: 1.18rem;
+      color: #a0522d;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .owner-location {
+      color: #b08a5a;
+      font-size: 1.01rem;
+      margin-bottom: 0.5rem;
+    }
+    .owner-desc {
+      color: #4e2e0e;
+      font-size: 1.05rem;
+      margin-bottom: 0.7rem;
+      min-height: 48px;
+    }
+    .owner-link {
+      color: #fff8e7;
+      background: linear-gradient(90deg, #a0522d 80%, #ffb347 100%);
+      border-radius: 8px;
+      padding: 0.4rem 1.2rem;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.01rem;
+      transition: background 0.18s;
+      display: inline-block;
+      margin-top: 0.5rem;
+      box-shadow: 0 1.5px 8px #a0522d11;
+    }
+    .owner-link:hover {
+      background: linear-gradient(90deg, #7c3f17 80%, #ffb347 100%);
+      color: #fff8e7;
+    }
+    @media (max-width: 600px) {
+      .owners-hero h1 { font-size: 1.5rem; }
+      .owners-grid { gap: 1.2rem; }
+      .owner-card { padding: 1.2rem 0.5rem 1rem 0.5rem; }
+      .owner-photo { width: 60px; height: 60px; }
+    }
+  </style>
+</head>
+<body>
+  <section class="owners-hero">
+    <h1>Meet the Team Behind Blueprint Rwanda</h1>
+    <p>Get to know the founders and core team who drive our mission to connect travelers with the best of Rwanda. Our passion for hospitality, technology, and local culture shapes every experience on our platform.</p>
+  </section>
+  <div class="owners-grid">
+    <div class="owner-card">
+      <img src="Blueprint_Logo-removebg-preview.png" alt="Founder" class="owner-photo">
+      <div class="owner-name">Batsinda Keynes</div>
+      <div class="owner-location">Founder & CEO</div>
+      <div class="owner-desc">Visionary entrepreneur and passionate advocate for Rwandan tourism. Jean Bosco founded Blueprint Rwanda to empower local businesses and connect travelers with authentic experiences.</div>
+      <a href="mailto:info@blueprintrwanda.com" class="owner-link">Contact</a>
+    </div>
+    <div class="owner-card">
+      <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Mary Kamanzi" class="owner-photo">
+      <div class="owner-name">Mary Kamanzi</div>
+      <div class="owner-location">Operations Manager</div>
+      <div class="owner-desc">Ensures seamless operations and top-notch service for all users. Mary is dedicated to building strong partnerships and a vibrant travel community.</div>
+      <a href="mailto:mary@blueprintrwanda.com" class="owner-link">Contact</a>
+    </div>
+    <div class="owner-card">
+      <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Eric Mugisha" class="owner-photo">
+      <div class="owner-name">Eric Mugisha</div>
+      <div class="owner-location">Lead Developer</div>
+      <div class="owner-desc">Tech enthusiast and architect of the Blueprint Rwanda platform. Eric brings innovation and reliability to every digital experience.</div>
+      <a href="mailto:eric@blueprintrwanda.com" class="owner-link">Contact</a>
+    </div>
+    <div class="owner-card">
+      <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Aline Uwase" class="owner-photo">
+      <div class="owner-name">Aline Uwase</div>
+      <div class="owner-location">Customer Success Lead</div>
+      <div class="owner-desc">Aline ensures every guest and partner feels valued. She is the heart of our support and community engagement efforts.</div>
+      <a href="mailto:aline@blueprintrwanda.com" class="owner-link">Contact</a>
+    </div>
+  </div>
+  <footer style="text-align:center;color:#a0522d;font-size:1.05rem;margin:2.5rem 0 1.2rem 0;">
+    &copy; 2025 Blueprint Rwanda. All Rights Reserved.
+  </footer>
+</body>
+</html>

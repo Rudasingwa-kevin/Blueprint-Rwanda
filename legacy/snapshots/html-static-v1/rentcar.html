@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rent Car - Blueprint Rwanda</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .service-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255,255,255,0.5);
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      min-width: 320px;
+      max-width: 90vw;
+      z-index: 3;
+      text-align: center;
+    }
+    .back-btn {
+      background: #a0522d;
+      color: #fff8e7;
+      border: none;
+      border-radius: 16px;
+      padding: 0.5rem 1.2rem;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 1.2rem;
+      transition: background 0.2s;
+    }
+    .back-btn:hover { background: #7c3f17; }
+  </style>
+</head>
+<body class="welcome-page">
+  <header class="main-header">
+    <div class="header-content">
+      <img src="Blueprint_Logo-removebg-preview.png" alt="Blueprint Rwanda Logo" class="header-logo">
+      <span class="header-title">Blueprint Rwanda</span>
+    </div>
+  </header>
+  <video autoplay loop muted playsinline class="bg-video">
+    <source src="assets/welcome-bg.mp4" type="video/mp4">
+  </video>
+  <div class="anime-overlay"></div>
+  <div class="service-content">
+    <button class="back-btn" onclick="window.location.href='dashboard.html'">&larr; Back</button>
+    <h1 style="color:#a0522d;">Rent Car</h1>
+    <p style="color:#4e2e0e;max-width:400px;margin:0 auto 1.2rem auto;">Rent a car with ease and flexibility. Choose from a variety of vehicles to suit your needs and explore Rwanda at your own pace. Safe, reliable, and affordable car rental services await you!</p>
+    <img src="assets/rentcar.jpg" alt="Rent Car" style="width:90%;max-width:320px;border-radius:14px;box-shadow:0 2px 8px rgba(160,82,45,0.10);">
+  </div>
+  <footer class="main-footer">
+    <div class="footer-content">
+      <span>&copy; 2024 Blueprint Rwanda. All rights reserved.</span>
+      <span class="footer-socials">
+        <a href="#" title="Instagram" class="footer-icon">&#x1F4F7;</a>
+        <a href="#" title="Twitter" class="footer-icon">&#x1F426;</a>
+        <a href="#" title="Email" class="footer-icon">&#x2709;&#xFE0F;</a>
+      </span>
+      <span>Contact: info@blueprintrwanda.com</span>
+    </div>
+  </footer>
+</body>
+</html> 

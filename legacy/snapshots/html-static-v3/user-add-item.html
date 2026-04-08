@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Item - Blueprint Rwanda</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .add-item-container { max-width: 500px; margin: 2.5rem auto; background: #fff8e7; border-radius: 16px; box-shadow: 0 2px 16px #a0522d22; padding: 2.5rem 2rem; }
+    .add-item-title { font-size: 1.7rem; color: #a0522d; margin-bottom: 1.5rem; text-align: center; }
+    .form-group { margin-bottom: 1.3rem; }
+    .form-group label { display: block; margin-bottom: 0.4rem; color: #4e2e0e; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.7rem; border-radius: 8px; border: 1px solid #e0c9b2; background: #fff; color: #4e2e0e; font-size: 1rem; }
+    .form-group textarea { min-height: 80px; }
+    .form-actions { text-align: center; }
+    .welcome-btn { background: #a0522d; color: #fff8e7; border: none; border-radius: 8px; padding: 0.8rem 2.2rem; font-size: 1.1rem; cursor: pointer; transition: background 0.2s; }
+    .welcome-btn:hover { background: #7c3f17; }
+    .success-msg { color: #228B22; text-align: center; margin-bottom: 1rem; display: none; }
+    @media (max-width: 600px) { .add-item-container { padding: 1.2rem 0.5rem; } }
+  </style>
+</head>
+<body>
+  <div class="add-item-container">
+    <div class="add-item-title">Add New Item</div>
+    <div class="success-msg" id="successMsg">Item added successfully!</div>
+    <form id="addItemForm" autocomplete="off">
+      <div class="form-group">
+        <label for="itemType">Type</label>
+        <select id="itemType" required>
+          <option value="">Select type</option>
+          <option value="Accommodation">Accommodation</option>
+          <option value="Car">Car</option>
+          <option value="Place">Place</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="itemName">Name</label>
+        <input type="text" id="itemName" required>
+      </div>
+      <div class="form-group">
+        <label for="itemPrice">Price per Order (USD)</label>
+        <input type="number" id="itemPrice" min="0" required>
+      </div>
+      <div class="form-group">
+        <label for="itemDescription">Description</label>
+        <textarea id="itemDescription" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="itemImage">Image URL</label>
+        <input type="url" id="itemImage" placeholder="https://...">
+      </div>
+      <div class="form-actions">
+        <button class="welcome-btn" type="submit">Add Item</button>
+      </div>
+    </form>
+  </div>
+  <script>
+    document.getElementById('addItemForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('successMsg').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('successMsg').style.display = 'none';
+        document.getElementById('addItemForm').reset();
+      }, 2000);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+openapi: 3.1.0
+info:
+  title: Blueprint Rwanda API
+  version: 1.0.0
+servers:
+  - url: /api/v1
+paths:
+  /auth/register:
+    post:
+      summary: Register a user
+      requestBody:
+        required: true
+      responses:
+        "201":
+          description: Registered
+        "422":
+          description: Validation error
+  /auth/login:
+    post:
+      summary: Log in a user
+      responses:
+        "200":
+          description: Authenticated
+        "401":
+          description: Invalid credentials
+  /auth/me:
+    get:
+      summary: Return current authenticated user
+      responses:
+        "200":
+          description: Current user
+        "401":
+          description: Unauthenticated
+  /listings:
+    get:
+      summary: List catalog items
+      parameters:
+        - in: query
+          name: type
+          schema:
+            type: string
+        - in: query
+          name: city
+          schema:
+            type: string
+        - in: query
+          name: q
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Paginated listing cards
+  /listings/{slug}:
+    get:
+      summary: Show listing detail
+      parameters:
+        - in: path
+          name: slug
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Listing detail
+        "404":
+          description: Not found
+  /bookings:
+    post:
+      summary: Create booking
+      responses:
+        "201":
+          description: Booking created
+        "409":
+          description: Conflict
+  /profile:
+    get:
+      summary: Current user profile
+      responses:
+        "200":
+          description: Profile
+

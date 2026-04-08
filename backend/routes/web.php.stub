@@ -1,0 +1,21 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web routes
+|--------------------------------------------------------------------------
+|
+| Keep the existing static UI available while progressively wiring pages to
+| the backend. In the final Laravel app, static pages can be served from
+| blade wrappers or from the public directory, but authentication and state
+| should always come from the backend API.
+|
+*/
+
+Route::get('/', function () {
+    return redirect('/frontend/pages/index.html');
+});
+
+Route::view('/health', 'health');

@@ -1,0 +1,73 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::prefix('v1')->group(function (): void {
+    Route::prefix('auth')->group(function (): void {
+        Route::post('/register', 'Auth\\RegisterController');
+        Route::post('/login', 'Auth\\LoginController');
+        Route::post('/forgot-password', 'Auth\\ForgotPasswordController');
+        Route::post('/reset-password', 'Auth\\ResetPasswordController');
+        Route::get('/verify-email/{id}/{hash}', 'Auth\\VerifyEmailController')->name('verification.verify');
+
+        Route::middleware('auth:sanctum')->group(function (): void {
+            Route::get('/me', 'Auth\\MeController');
+            Route::post('/logout', 'Auth\\LogoutController');
+            Route::post('/email/verification-notification', 'Auth\\ResendVerificationController');
+        });
+    });
+
+    Route::get('/listings', 'Listing\\ListingIndexController');
+    Route::get('/listings/featured', 'Listing\\FeaturedListingController');
+    Route::get('/listings/{listing:slug}', 'Listing\\ListingShowController');
+    Route::get('/listings/{listing}/reviews', 'Review\\ListingReviewIndexController');
+    Route::post('/contact-messages', 'Contact\\ContactMessageStoreController');
+
+    Route::middleware(['auth:sanctum', 'verified'])->group(function (): void {
+        Route::get('/profile', 'Profile\\ProfileShowController');
+        Route::patch('/profile', 'Profile\\ProfileUpdateController');
+
+        Route::get('/profile/favorites', 'Favorite\\FavoriteIndexController');
+        Route::post('/profile/favorites', 'Favorite\\FavoriteStoreController');
+        Route::delete('/profile/favorites/{listing}', 'Favorite\\FavoriteDestroyController');
+
+        Route::post('/bookings', 'Booking\\BookingStoreController');
+        Route::get('/bookings/me', 'Booking\\MyBookingIndexController');
+        Route::get('/bookings/{booking}', 'Booking\\BookingShowController');
+        Route::patch('/bookings/{booking}/cancel', 'Booking\\BookingCancelController');
+
+        Route::post('/listings/{listing}/reviews', 'Review\\ReviewStoreController');
+    });
+
+    Route::middleware(['auth:sanctum', 'verified', 'role:owner'])->prefix('owner')->group(function (): void {
+        Route::get('/listings', 'Owner\\OwnerListingIndexController');
+        Route::post('/listings', 'Owner\\OwnerListingStoreController');
+        Route::get('/listings/{listing}', 'Owner\\OwnerListingShowController');
+        Route::patch('/listings/{listing}', 'Owner\\OwnerListingUpdateController');
+        Route::delete('/listings/{listing}', 'Owner\\OwnerListingDestroyController');
+        Route::post('/listings/{listing}/images', 'Owner\\OwnerListingImageStoreController');
+        Route::delete('/listings/{listing}/images/{image}', 'Owner\\OwnerListingImageDestroyController');
+
+        Route::get('/bookings', 'Owner\\OwnerBookingIndexController');
+        Route::patch('/bookings/{booking}', 'Owner\\OwnerBookingUpdateController');
+    });
+
+    Route::middleware(['auth:sanctum', 'role:admin'])->prefix('admin')->group(function (): void {
+        Route::get('/dashboard', 'Admin\\DashboardController');
+        Route::get('/users', 'Admin\\UserIndexController');
+        Route::post('/users', 'Admin\\UserStoreController');
+        Route::patch('/users/{user}', 'Admin\\UserUpdateController');
+        Route::delete('/users/{user}', 'Admin\\UserDestroyController');
+
+        Route::get('/listings', 'Admin\\ListingIndexController');
+        Route::patch('/listings/{listing}', 'Admin\\ListingUpdateController');
+
+        Route::get('/bookings', 'Admin\\BookingIndexController');
+        Route::get('/reviews', 'Admin\\ReviewIndexController');
+        Route::delete('/reviews/{review}', 'Admin\\ReviewDestroyController');
+
+        Route::get('/contact-messages', 'Admin\\ContactMessageIndexController');
+        Route::patch('/contact-messages/{contactMessage}', 'Admin\\ContactMessageUpdateController');
+    });
+});
+

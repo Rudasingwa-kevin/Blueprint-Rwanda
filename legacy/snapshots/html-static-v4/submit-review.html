@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit Review - Blueprint Rwanda</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: #fff8e7; font-family: 'Segoe UI', 'Roboto', Arial, sans-serif; }
+    .review-container { max-width: 500px; margin: 5rem auto; background: #fff; border-radius: 18px; box-shadow: 0 8px 48px #a0522d22; padding: 2.5rem 2rem; }
+    .review-title { font-size: 2rem; color: #a0522d; font-weight: 700; margin-bottom: 1.2rem; text-align: center; }
+    .review-form label { display: block; color: #4e2e0e; font-size: 1.08rem; margin-bottom: 0.3rem; font-weight: 600; }
+    .review-form input, .review-form textarea, .review-form select { width: 100%; padding: 0.7rem; border-radius: 8px; border: 1.5px solid #ffe4b5; margin-bottom: 1.1rem; font-size: 1.05rem; }
+    .review-form button { background: linear-gradient(90deg, #a0522d 80%, #ffb347 100%); color: #fff8e7; border: none; border-radius: 10px; padding: 0.8rem 2.2rem; font-size: 1.1rem; cursor: pointer; font-weight: 700; box-shadow: 0 2px 12px #a0522d22; }
+    .review-form button:hover { background: linear-gradient(90deg, #7c3f17 80%, #ffb347 100%); }
+  </style>
+</head>
+<body>
+  <div class="review-container">
+    <div class="review-title">Submit Your Review</div>
+    <form class="review-form">
+      <label for="reviewName">Your Name</label>
+      <input type="text" id="reviewName" name="reviewName" required>
+      <label for="reviewRating">Rating</label>
+      <select id="reviewRating" name="reviewRating" required>
+        <option value="">Select rating</option>
+        <option value="5">5 - Excellent</option>
+        <option value="4">4 - Good</option>
+        <option value="3">3 - Average</option>
+        <option value="2">2 - Poor</option>
+        <option value="1">1 - Terrible</option>
+      </select>
+      <label for="reviewText">Review</label>
+      <textarea id="reviewText" name="reviewText" rows="5" required></textarea>
+      <button type="submit">Submit Review</button>
+    </form>
+  </div>
+</body>
+</html>

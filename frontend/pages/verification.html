@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blueprint Rwanda - Verification</title>
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+    <style>
+  /* General Body Styles */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f5e9da; /* beige */
+    color: #4e2e0e; /* chocolate */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Glassmorphism Form for Welcome Page */
+  .glass-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    min-width: 320px;
+    max-width: 90vw;
+    z-index: 3;
+    text-align: center;
+  }
+
+  .logo {
+    width: 180px;
+    margin-bottom: 0.5rem;
+  }
+
+  .glass-form h1 {
+    color: #a0522d;
+    margin-bottom: 0.5rem;
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #4e2e0e;
+  }
+
+  .services {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .services li {
+    font-size: 1.1rem;
+    margin: 0.3rem 0;
+    color: #a0522d;
+    font-weight: 500;
+  }
+
+  .welcome-btn {
+    background: #a0522d;
+    color: #fff8e7;
+    border: none;
+    border-radius: 20px;
+    padding: 0.8rem 2.2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(160, 82, 45, 0.15);
+    transition: background 0.2s;
+  }
+
+  .welcome-btn:hover {
+    background: #7c3f17;
+  }
+
+  /* Responsive Styles for Welcome Page */
+  @media (max-width: 600px) {
+    .glass-form {
+      padding: 1.2rem 0.5rem;
+      min-width: 0;
+    }
+    .logo {
+      width: 110px;
+    }
+    .glass-form h1 {
+      font-size: 1.3rem;
+    }
+  }
+
+  /* Header Styles */
+  .navbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(160, 82, 45, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    z-index: 1000;
+    height: 70px;
+    box-shadow: 0 4px 20px rgba(160, 82, 45, 0.15);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff8e7;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .nav-logo img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-logo:hover img {
+    transform: scale(1.1);
+  }
+
+  .nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+  }
+
+  .nav-menu li a {
+    color: #fff8e7;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+  }
+
+  .nav-menu li a:hover {
+    color: #ffe4b5;
+  }
+
+  .nav-menu li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffe4b5;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+
+  .nav-menu li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  .nav-cta a {
+    background-color: #fff8e7;
+    color: #a0522d;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .nav-cta a:hover {
+    background-color: #ffe4b5;
+    color: #7c3f17;
+  }
+
+  /* Hamburger Menu */
+  .hamburger {
+    display: none;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+    z-index: 1001;
+  }
+
+  .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #fff8e7;
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Responsive Header */
+  @media (max-width: 850px) {
+    .nav-menu {
+      position: fixed;
+      left: -100%;
+      top: 0;
+      flex-direction: column;
+      background-color: rgba(160, 82, 45, 0.98);
+      width: 100%;
+      height: 100vh;
+      text-align: center;
+      transition: 0.3s;
+      box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .nav-menu.active {
+      left: 0;
+    }
+
+    .nav-menu li {
+      margin: 1rem 0;
+    }
+
+    .hamburger {
+      display: block;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+  }
+
+  /* Hero Section */
+  .hero {
+    position: relative;
+    min-height: 80vh;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(160, 82, 45, 0.35);
+    backdrop-filter: blur(2px);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff8e7;
+  }
+
+  .hero-content h1 {
+    font-size: 2.3rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+  }
+
+  .hero-content p {
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  /* Search Bar */
+  .search-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 420px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 24px;
+    box-shadow: 0 2px 8px rgba(160,82,45,0.10);
+    padding: 0.3rem 0.5rem;
+  }
+
+  .search-bar {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 0.7rem 1rem;
+    border-radius: 20px 0 0 20px;
+    font-size: 1rem;
+    background: transparent;
+  }
+
+  .search-btn {
+    border: none;
+    background: none;
+    color: #a0522d;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 0 1rem;
+  }
+
+  /* Main Content Styles */
+  main {
+    flex: 1 0 auto;
+    width: 100%;
+    padding: 0 0 2rem 0;
+  }
+
+  /* ... (Add other specific component styles here, like listing-card, modal, etc.) ... */ 
+    </style>
+  <style>
+    .tab-btns { display: flex; justify-content: center; margin-bottom: 1.5rem; }
+    .tab-btn { background: none; border: none; color: #a0522d; font-size: 1.1rem; padding: 0.7rem 2rem; cursor: pointer; border-bottom: 2px solid transparent; transition: border 0.2s; }
+    .tab-btn.active { border-bottom: 2.5px solid #a0522d; font-weight: bold; }
+    .form-group { margin-bottom: 2.2rem; text-align: left; position: relative; min-height: 56px; }
+    .form-group label { display: block; margin-bottom: 0.3rem; color: #4e2e0e; }
+    .form-group input { width: 100%; padding: 0.6rem; border-radius: 8px; border: 1px solid #e0c9b2; background: #fff8e7; color: #4e2e0e; }
+    .form-group .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: #a0522d;
+      opacity: 0.7;
+      padding-top: 25px;
+      margin: 0;
+    }
+    .form-actions { text-align: center; }
+    .form-link { color: #a0522d; text-decoration: underline; cursor: pointer; font-size: 0.98rem; margin-left: 0.5rem; }
+    .gmail-btn { background: #fff; color: #a0522d; border: 1px solid #a0522d; border-radius: 20px; padding: 0.6rem 1.5rem; font-weight: 500; margin-bottom: 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; justify-content: center; }
+    .gmail-btn img { width: 20px; }
+    .alert { color: #b22222; font-size: 0.98rem; margin-bottom: 0.7rem; text-align: center; }
+    .hidden { display: none; }
+    .input-error {
+      position: static;
+      display: block;
+      margin-top: 8px;
+      color: #b22222;
+      font-size: 0.92rem;
+      background: none;
+      z-index: 1;
+      min-height: 18px;
+    }
+    .password-conditions {
+      background: #fff8e7;
+      border-radius: 10px;
+      padding: 0.7rem 1rem;
+      margin-bottom: 0.7rem;
+      box-shadow: 0 2px 8px rgba(160,82,45,0.07);
+      font-size: 0.98rem;
+      color: #4e2e0e;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .condition-item {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .cond-icon {
+      display: inline-block;
+      width: 1.3em;
+      height: 1.3em;
+      border-radius: 50%;
+      background: #e0c9b2;
+      color: #a0522d;
+      text-align: center;
+      font-size: 1.1em;
+      line-height: 1.3em;
+      margin-right: 0.2em;
+      transition: background 0.2s, color 0.2s;
+    }
+    .condition-item.completed {
+      color: #3bb143;
+    }
+    .condition-item.completed .cond-icon {
+      background: #3bb143;
+      color: #fff;
+    }
+  </style>
+</head>
+<body class="welcome-page">
+  <video autoplay loop muted playsinline class="bg-video">
+    <source src="assets/welcome-bg.mp4" type="video/mp4">
+  </video>
+  <div class="anime-overlay"></div>
+  <div class="glass-form" style="min-width:340px;max-width:400px;">
+    <div class="tab-btns">
+      <button class="tab-btn active" id="loginTabBtn" onclick="showTab('login')">Login</button>
+      <button class="tab-btn" id="signupTabBtn" onclick="showTab('signup')">Sign Up</button>
+    </div>
+    <div id="loginTab">
+      <button class="gmail-btn" onclick="alert('Gmail login not implemented in demo.')"><img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Gmail">Login with Gmail</button>
+      <form onsubmit="event.preventDefault(); window.location.href='item-details.html';">
+        <div class="form-group">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" required>
+          <button type="button" class="toggle-password" onclick="togglePassword('loginPassword', this)">&#128065;</button>
+        </div>
+        <div class="password-conditions" id="loginPasswordConditions" style="margin-bottom:0.7rem;">
+          <div class="condition-item" id="login-cond-length"><span class="cond-icon">&#10003;</span> At least 6 characters</div>
+          <div class="condition-item" id="login-cond-number"><span class="cond-icon">&#10003;</span> Includes a number</div>
+          <div class="condition-item" id="login-cond-special"><span class="cond-icon">&#10003;</span> Includes a special character</div>
+        </div>
+        <div id="loginAlert" class="alert hidden"></div>
+        <div class="form-actions">
+          <button class="welcome-btn" type="submit">Login</button>
+        </div>
+        <div style="margin-top:0.7rem;text-align:right;">
+          <span class="form-link" onclick="showTab('forgot')">Forgot password?</span>
+        </div>
+      </form>
+    </div>
+    <div id="signupTab" class="hidden" style="margin-top: 200px;">
+      <div class="tab-btns signup-switch" style="margin-bottom:1.2rem;">
+      <button class="tab-btn" type="button" onclick="showTab('login')" style="border-radius:16px 0 0 16px;">Login</button>
+      <button class="tab-btn active" type="button" onclick="showTab('signup')" style="border-radius:0 16px 16px 0;background:#a0522d;color:#fff;">Sign Up</button>
+    </div>
+      <form onsubmit="return checkSignup(event)" style="padding-top: 20px;">
+        <div class="form-group" style="margin-bottom:2rem;">
+          <label style="font-size:1.15rem;font-weight:600;color:#a0522d;">I am signing up as:</label>
+          <div id="userTypeSelect" style="display:flex;justify-content:space-between;gap:1.2rem;margin-top:0.7rem;">
+            <div class="user-type-card" onclick="selectUserType('owner')" id="ownerCard" style="flex:1;cursor:pointer;background:#fff8e7;border:2px solid #e0c9b2;border-radius:16px;padding:1.2rem 0.7rem;text-align:center;transition:box-shadow 0.2s;">
+              <div style="font-size:2.2rem;margin-bottom:0.5rem;">🏠</div>
+              <div style="font-weight:600;color:#a0522d;">Owner</div>
+              <div style="font-size:0.98rem;color:#4e2e0e;margin-top:0.3rem;">List your property, car, or place for explorers to book.</div>
+            </div>
+            <div class="user-type-card" onclick="selectUserType('explorer')" id="explorerCard" style="flex:1;cursor:pointer;background:#fff8e7;border:2px solid #e0c9b2;border-radius:16px;padding:1.2rem 0.7rem;text-align:center;transition:box-shadow 0.2s;">
+              <div style="font-size:2.2rem;margin-bottom:0.5rem;">🧭</div>
+              <div style="font-weight:600;color:#a0522d;">Explorer</div>
+              <div style="font-size:0.98rem;color:#4e2e0e;margin-top:0.3rem;">Discover and book accommodations, cars, and places.</div>
+            </div>
+          </div>
+          <input type="hidden" id="signupUserType" name="userType" required>
+        </div>
+        <div class="form-group">
+          <label for="signupName">Name</label>
+          <input type="text" id="signupName" required>
+        </div>
+        <div class="form-group">
+          <label for="signupEmail">Email</label>
+          <input type="email" id="signupEmail" required>
+        </div>
+        <div class="form-group">
+          <label for="signupPassword">Password</label>
+          <input type="password" id="signupPassword" required>
+          <button type="button" class="toggle-password" onclick="togglePassword('signupPassword', this)">&#128065;</button>
+        </div>
+        <div class="form-group">
+          <label for="signupRePassword">Re-enter Password</label>
+          <input type="password" id="signupRePassword" required>
+          <button type="button" class="toggle-password" onclick="togglePassword('signupRePassword', this)">&#128065;</button>
+        </div>
+        <div class="password-conditions" id="signupPasswordConditions" style="margin-bottom:0.7rem;">
+          <div class="condition-item" id="signup-cond-length"><span class="cond-icon">&#10003;</span> At least 6 characters</div>
+          <div class="condition-item" id="signup-cond-number"><span class="cond-icon">&#10003;</span> Includes a number</div>
+          <div class="condition-item" id="signup-cond-special"><span class="cond-icon">&#10003;</span> Includes a special character</div>
+          <div class="condition-item" id="signup-cond-match"><span class="cond-icon">&#10003;</span> Passwords match</div>
+        </div>
+        <div id="signupAlert" class="alert hidden"></div>
+        <div class="form-actions">
+          <button class="welcome-btn" type="submit">Sign Up</button>
+        </div>
+      </form>
+    </div>
+    <div id="forgotTab" class="hidden">
+      <form onsubmit="event.preventDefault(); showTab('code');">
+        <div class="form-group">
+          <label for="forgotEmail">Enter your email</label>
+          <input type="email" id="forgotEmail" required>
+        </div>
+        <div class="form-actions">
+          <button class="welcome-btn" type="submit">Send Code</button>
+        </div>
+      </form>
+    </div>
+    <div id="codeTab" class="hidden">
+      <form onsubmit="event.preventDefault(); showTab('reset');" style="padding: 1.2rem 0 0 0;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:1.1rem;">
+          <div style="background:rgba(255,255,255,0.7);border-radius:16px;padding:1.2rem 1.5rem;box-shadow:0 2px 12px rgba(160,82,45,0.10);width:100%;max-width:320px;text-align:center;">
+            <div style="font-size:2.2rem;color:#a0522d;margin-bottom:0.5rem;">🔒</div>
+            <div style="font-size:1.15rem;font-weight:600;color:#a0522d;margin-bottom:0.3rem;">Email Verification</div>
+            <div style="font-size:0.98rem;color:#4e2e0e;margin-bottom:1.1rem;">Please enter the code we sent to your email to verify your account.</div>
+            <div class="form-group" style="margin-bottom:0.7rem;display:flex;justify-content:center;gap:0.5rem;">
+              <!-- 6 single-digit inputs for code -->
+              <label for="codeInput1" style="display:none;">Verification Code</label>
+              <input type="text" id="codeInput1" maxlength="1" pattern="[0-9]" required style="width:2.2rem;height:2.6rem;text-align:center;font-size:1.3rem;letter-spacing:0.1em;border-radius:8px;border:1.5px solid #e0c9b2;" oninput="moveToNext(this, 'codeInput2')">
+              <input type="text" id="codeInput2" maxlength="1" pattern="[0-9]" required style="width:2.2rem;height:2.6rem;text-align:center;font-size:1.3rem;letter-spacing:0.1em;border-radius:8px;border:1.5px solid #e0c9b2;" oninput="moveToNext(this, 'codeInput3')" onkeydown="moveToPrev(event, 'codeInput1')">
+              <input type="text" id="codeInput3" maxlength="1" pattern="[0-9]" required style="width:2.2rem;height:2.6rem;text-align:center;font-size:1.3rem;letter-spacing:0.1em;border-radius:8px;border:1.5px solid #e0c9b2;" oninput="moveToNext(this, 'codeInput4')" onkeydown="moveToPrev(event, 'codeInput2')">
+              <input type="text" id="codeInput4" maxlength="1" pattern="[0-9]" required style="width:2.2rem;height:2.6rem;text-align:center;font-size:1.3rem;letter-spacing:0.1em;border-radius:8px;border:1.5px solid #e0c9b2;" oninput="moveToNext(this, 'codeInput5')" onkeydown="moveToPrev(event, 'codeInput3')">
+              <input type="text" id="codeInput5" maxlength="1" pattern="[0-9]" required style="width:2.2rem;height:2.6rem;text-align:center;font-size:1.3rem;letter-spacing:0.1em;border-radius:8px;border:1.5px solid #e0c9b2;" oninput="moveToNext(this, 'codeInput6')" onkeydown="moveToPrev(event, 'codeInput4')">
+              <input type="text" id="codeInput6" maxlength="1" pattern="[0-9]" required style="width:2.2rem;height:2.6rem;text-align:center;font-size:1.3rem;letter-spacing:0.1em;border-radius:8px;border:1.5px solid #e0c9b2;" onkeydown="moveToPrev(event, 'codeInput5')">
+            </div>
+            <div class="form-actions" style="margin-top:1.2rem;">
+              <button class="welcome-btn" type="submit" style="width:100%;font-size:1.08rem;">Verify Code</button>
+            </div>
+            <div style="margin-top:1.1rem;font-size:0.95rem;color:#a0522d;">
+              Didn't receive a code? <span class="form-link" onclick="showTab('forgot')" style="color:#b22222;cursor:pointer;">Resend</span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div id="resetTab" class="hidden">
+      <form onsubmit="event.preventDefault(); alert('Password changed!'); showTab('login');">
+        <div class="form-group">
+          <label for="newPassword">New Password</label>
+          <input type="password" id="newPassword" required>
+          <button type="button" class="toggle-password" onclick="togglePassword('newPassword', this)">&#128065;</button>
+        </div>
+        <div class="form-group">
+          <label for="reNewPassword">Re-enter New Password</label>
+          <input type="password" id="reNewPassword" required>
+          <button type="button" class="toggle-password" onclick="togglePassword('reNewPassword', this)">&#128065;</button>
+        </div>
+        <div class="password-conditions" id="resetPasswordConditions" style="margin-bottom:0.7rem;">
+          <div class="condition-item" id="cond-length"><span class="cond-icon">&#10003;</span> At least 6 characters</div>
+          <div class="condition-item" id="cond-number"><span class="cond-icon">&#10003;</span> Includes a number</div>
+          <div class="condition-item" id="cond-special"><span class="cond-icon">&#10003;</span> Includes a special character</div>
+          <div class="condition-item" id="cond-match"><span class="cond-icon">&#10003;</span> Passwords match</div>
+        </div>
+        <div id="resetAlert" class="alert hidden"></div>
+        <div class="form-actions">
+          <button class="welcome-btn" type="submit">Change Password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>
+    function showTab(tab) {
+      document.getElementById('loginTab').classList.add('hidden');
+      document.getElementById('signupTab').classList.add('hidden');
+      document.getElementById('forgotTab').classList.add('hidden');
+      document.getElementById('codeTab').classList.add('hidden');
+      document.getElementById('resetTab').classList.add('hidden');
+      document.getElementById('loginTabBtn').classList.remove('active');
+      document.getElementById('signupTabBtn').classList.remove('active');
+      if(tab === 'login') {
+        document.getElementById('loginTab').classList.remove('hidden');
+        document.getElementById('loginTabBtn').classList.add('active');
+      } else if(tab === 'signup') {
+        document.getElementById('signupTab').classList.remove('hidden');
+        document.getElementById('signupTabBtn').classList.add('active');
+      } else if(tab === 'forgot') {
+        document.getElementById('forgotTab').classList.remove('hidden');
+      } else if(tab === 'code') {
+        document.getElementById('codeTab').classList.remove('hidden');
+      } else if(tab === 'reset') {
+        document.getElementById('resetTab').classList.remove('hidden');
+      }
+    }
+    function checkSignup(e) {
+      e.preventDefault();
+      var pw = document.getElementById('signupPassword').value;
+      var repw = document.getElementById('signupRePassword').value;
+      var alertBox = document.getElementById('signupAlert');
+      var userType = document.getElementById('signupUserType').value;
+      if (!userType) {
+        alertBox.textContent = 'Please select Owner or Explorer.';
+        alertBox.classList.remove('hidden');
+        return false;
+      }
+      if(pw !== repw) {
+        alertBox.textContent = 'Passwords do not match!';
+        alertBox.classList.remove('hidden');
+        return false;
+      } else {
+        alertBox.classList.add('hidden');
+        // Mark user as verified and store name
+        localStorage.setItem('userVerified', 'true');
+        localStorage.setItem('userName', document.getElementById('signupName').value);
+        // After verification, redirect to item-details.html using localStorage values
+        var itemType = localStorage.getItem('itemType');
+        var itemName = localStorage.getItem('itemName');
+        if (itemType && itemName) {
+          window.location.href = `item-details.html?type=${encodeURIComponent(itemType)}&name=${encodeURIComponent(itemName)}`;
+        } else {
+          window.location.href = 'item-details.html';
+        }
+        return true;
+      }
+    }
+    function togglePassword(inputId, btn) {
+      var input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.style.opacity = 1;
+      } else {
+        input.type = 'password';
+        btn.style.opacity = 0.7;
+      }
+    }
+    function selectUserType(type) {
+  document.getElementById('signupUserType').value = type;
+  document.getElementById('ownerCard').style.boxShadow = type === 'owner' ? '0 0 0 3px #a0522d' : 'none';
+  document.getElementById('explorerCard').style.boxShadow = type === 'explorer' ? '0 0 0 3px #a0522d' : 'none';
+  document.getElementById('signupAlert').classList.add('hidden');
+    }
+    // Prevent signup unless user type is selected
+    const signupForm = document.querySelector('#signupTab form');
+    if(signupForm) {
+      signupForm.addEventListener('submit', function(e) {
+        var userType = document.getElementById('signupUserType').value;
+        if(!userType) {
+          e.preventDefault();
+          document.getElementById('signupAlert').textContent = 'Please select Owner or Explorer.';
+          document.getElementById('signupAlert').classList.remove('hidden');
+        }
+      });
+    }
+    // Email validation with warning and border color change
+    function validateEmail(input) {
+      const val = input.value.trim();
+      const valid = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val);
+      input.style.borderColor = valid ? '#3bb143' : '#b22222';
+      input.style.boxShadow = valid ? '0 0 0 2px #3bb14355' : '0 0 0 2px #b2222255';
+      var msgElem = input.nextElementSibling;
+      if (msgElem && msgElem.classList.contains('input-error')) {
+        msgElem.textContent = valid ? '' : 'Please enter a valid email address.';
+        msgElem.style.display = valid ? 'none' : 'block';
+      }
+      return valid;
+    }
+    // Password validation (min 6 chars, special char, number)
+    function validatePassword(input) {
+      const val = input.value;
+      const valid = val.length >= 6 && /[0-9]/.test(val) && /[^A-Za-z0-9]/.test(val);
+      setValidBorder(input, valid, 'Password must be at least 6 characters, include a number and a special character.');
+      return valid;
+    }
+    // Re-enter password validation (signup)
+    function validateRePassword(input) {
+      const pw = document.getElementById('signupPassword').value;
+      const repw = input.value;
+      const valid = pw === repw && repw.length > 0;
+      setValidBorder(input, valid, 'Passwords do not match.');
+      return valid;
+    }
+    // Add error message elements after inputs if not present
+    function addErrorMsg(input) {
+      if (!input.nextElementSibling || !input.nextElementSibling.classList.contains('input-error')) {
+        var span = document.createElement('span');
+        span.className = 'input-error';
+        span.style.color = '#b22222';
+        span.style.fontSize = '0.92rem';
+        span.style.display = 'none';
+        span.style.marginTop = '2px';
+        input.parentNode.insertBefore(span, input.nextSibling);
+      }
+    }
+    // Attach listeners and error messages for login and signup email/password fields
+    ['loginEmail','loginPassword','signupEmail','signupPassword','signupRePassword'].forEach(function(id){
+      var input = document.getElementById(id);
+      addErrorMsg(input);
+    });
+    document.getElementById('loginEmail').addEventListener('input', function() { validateEmail(this); });
+    document.getElementById('loginPassword').addEventListener('input', function() { validatePassword(this); });
+    document.getElementById('signupEmail').addEventListener('input', function() { validateEmail(this); });
+    document.getElementById('signupPassword').addEventListener('input', function() { validatePassword(this); validateRePassword(document.getElementById('signupRePassword')); });
+    document.getElementById('signupRePassword').addEventListener('input', function() { validateRePassword(this); });
+    // Move to next/previous input for code verification
+    function moveToNext(current, nextId) {
+      if(current.value.length === 1) {
+        var next = document.getElementById(nextId);
+        if(next) next.focus();
+      }
+    }
+    function moveToPrev(e, prevId) {
+      if(e.key === 'Backspace' && !e.target.value) {
+        var prev = document.getElementById(prevId);
+        if(prev) prev.focus();
+      }
+    }
+    // Password condition checklist for reset tab
+    function updateResetPasswordConditions() {
+      var pw = document.getElementById('newPassword').value;
+      var repw = document.getElementById('reNewPassword').value;
+      var length = pw.length >= 6;
+      var number = /[0-9]/.test(pw);
+      var special = /[^A-Za-z0-9]/.test(pw);
+      var match = pw === repw && pw.length > 0;
+      setCond('cond-length', length);
+      setCond('cond-number', number);
+      setCond('cond-special', special);
+      setCond('cond-match', match);
+    }
+    function setCond(id, ok) {
+      var item = document.getElementById(id);
+      if(ok) {
+        item.classList.add('completed');
+        item.querySelector('.cond-icon').innerHTML = '&#10003;';
+      } else {
+        item.classList.remove('completed');
+        item.querySelector('.cond-icon').innerHTML = '&#10007;';
+      }
+    }
+    document.getElementById('newPassword').addEventListener('input', updateResetPasswordConditions);
+    document.getElementById('reNewPassword').addEventListener('input', updateResetPasswordConditions);
+    // Password condition checklist for signup tab
+    function updateSignupPasswordConditions() {
+      var pw = document.getElementById('signupPassword').value;
+      var repw = document.getElementById('signupRePassword').value;
+      var length = pw.length >= 6;
+      var number = /[0-9]/.test(pw);
+      var special = /[^A-Za-z0-9]/.test(pw);
+      var match = pw === repw && pw.length > 0;
+      setCond('signup-cond-length', length);
+      setCond('signup-cond-number', number);
+      setCond('signup-cond-special', special);
+      setCond('signup-cond-match', match);
+    }
+    document.getElementById('signupPassword').addEventListener('input', updateSignupPasswordConditions);
+    document.getElementById('signupRePassword').addEventListener('input', updateSignupPasswordConditions);
+    // Password condition checklist for login tab
+    function updateLoginPasswordConditions() {
+      var pw = document.getElementById('loginPassword').value;
+      var length = pw.length >= 6;
+      var number = /[0-9]/.test(pw);
+      var special = /[^A-Za-z0-9]/.test(pw);
+      setCond('login-cond-length', length);
+      setCond('login-cond-number', number);
+      setCond('login-cond-special', special);
+    }
+    document.getElementById('loginPassword').addEventListener('input', updateLoginPasswordConditions);
+  </script>
+</body>
+</html>
