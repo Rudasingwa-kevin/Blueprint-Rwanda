@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Blueprint Rwanda</title>
+    <style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f5e9da;
+    color: #4e2e0e;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Header */
+.navbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(160, 82, 45, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    z-index: 1000;
+    height: 70px;
+    box-shadow: 0 4px 20px rgba(160, 82, 45, 0.15);
+}
+.nav-logo { display: flex; align-items: center; gap: 0.7rem; font-size: 1.4rem; font-weight: bold; color: #fff8e7; text-decoration: none; }
+.nav-logo img { width: 60px; height: 60px; object-fit: contain; transition: transform 0.3s ease; }
+.nav-logo:hover img { transform: scale(1.1); }
+.nav-menu { list-style: none; display: flex; gap: 2rem; margin: 0; padding: 0; align-items: center; }
+.nav-menu li a { color: #fff8e7; text-decoration: none; font-size: 1.1rem; font-weight: 500; position: relative; padding: 5px 0; transition: color 0.3s ease; }
+.nav-menu li a:hover { color: #ffe4b5; }
+.nav-menu li a::after { content: ''; position: absolute; width: 100%; height: 2px; bottom: 0; left: 0; background-color: #ffe4b5; transform: scaleX(0); transform-origin: bottom right; transition: transform 0.25s ease-out; }
+.nav-menu li a:hover::after { transform: scaleX(1); transform-origin: bottom left; }
+.nav-cta a { background-color: #fff8e7; color: #a0522d; padding: 0.5rem 1.5rem; border-radius: 20px; font-weight: bold; text-decoration: none; transition: background-color 0.3s ease, color 0.3s ease; }
+.nav-cta a:hover { background-color: #ffe4b5; color: #7c3f17; }
+.hamburger { display: none; cursor: pointer; background: transparent; border: none; padding: 0; z-index: 1001; }
+.bar { display: block; width: 25px; height: 3px; margin: 5px auto; background-color: #fff8e7; transition: all 0.3s ease-in-out; }
+
+@media (max-width: 850px) {
+    .nav-menu { position: fixed; left: -100%; top: 0; flex-direction: column; background-color: rgba(160, 82, 45, 0.98); width: 100%; height: 100vh; text-align: center; transition: 0.3s; box-shadow: 0 10px 27px rgba(0,0,0,0.05); justify-content: center; gap: 2rem; }
+    .nav-menu.active { left: 0; }
+    .nav-menu li { margin: 1rem 0; }
+    .hamburger { display: block; }
+    .hamburger.active .bar:nth-child(2) { opacity: 0; }
+    .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+}
+
+/* Main */
+main { flex: 1 0 auto; width: 100%; padding: 0 0 2rem 0; }
+.dashboard-container { padding: 2rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+.dashboard-header { text-align: center; margin: 1rem 0 2rem 0; }
+.dashboard-header h1 { margin: 0 0 0.4rem 0; color: #7c3f17; }
+.dashboard-header p { margin: 0; color: #4e2e0e; }
+
+/* KPI */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.kpi-card { background: #fff8e7; border: 1px solid #e7d3bf; border-radius: 16px; padding: 1.1rem 1.2rem; box-shadow: 0 4px 16px rgba(160,82,45,0.12); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.kpi-card:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(160,82,45,0.18); }
+.kpi-label { font-size: 0.95rem; color: #7c3f17; margin-bottom: 0.35rem; }
+.kpi-value { font-size: 1.8rem; font-weight: 700; color: #4e2e0e; }
+
+/* Services */
+.services-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+.service-card { display: flex; flex-direction: column; align-items: center; text-align: center; background: #fff8e7; border: 1px solid #e7d3bf; border-radius: 18px; padding: 1.1rem 1rem; text-decoration: none; color: inherit; box-shadow: 0 4px 16px rgba(160,82,45,0.12); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.service-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(160,82,45,0.2); }
+.service-card img { width: 90px; height: 90px; object-fit: contain; margin-bottom: 0.6rem; }
+.service-card h3 { margin: 0.3rem 0 0.4rem 0; color: #7c3f17; }
+.service-card p { margin: 0; color: #4e2e0e; }
+
+/* Footer */
+footer { background: #f0e2d1; margin-top: 2.5rem; }
+.footer-container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+.footer-main { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 1rem; align-items: start; }
+.footer-column a { color: #4e2e0e; text-decoration: none; margin: 0.25rem 0; }
+.footer-column a:hover { text-decoration: underline; }
+.footer-links-title { margin: 0 0 0.5rem 0; color: #7c3f17; }
+.footer-desc { margin: 0.5rem 0 0.8rem 0; }
+.footer-social a { margin-right: 0.5rem; color: #a0522d; }
+.footer-social a:hover { color: #7c3f17; }
+.footer-logo-area .nav-logo { color: #a0522d; }
+.footer-contact-area p { margin: 0.25rem 0 0 0; }
+.footer-copyright { text-align: center; margin-top: 1rem; color: #7c3f17; }
+
+/* Responsive */
+@media (max-width: 1000px) {
+    .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .footer-main { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+    .dashboard-container { padding: 1.2rem 1rem; }
+    .kpi-grid { grid-template-columns: 1fr; }
+    .services-row { grid-template-columns: 1fr; }
+}
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="dashboard.html" class="nav-logo">
+            <img src="../assets/images/branding/title-logo.png" alt="Logo" />
+            <span>Blueprint Rwanda</span>
+        </a>
+    </nav>
+    <main class="dashboard-container">
+        <header class="dashboard-header">
+            <h1>Welcome to Your Dashboard</h1>
+            <p>Manage your bookings and explore what Rwanda has to offer.</p>
+        </header>
+        <section class="services-row">
+            <a href="accommodation.html" class="service-card">
+                <img src="../assets/images/ui/accommodation.png" alt="Accommodation">
+                <h3>Accommodation</h3>
+                <p>Find and book your perfect stay, from cozy guesthouses to luxury hotels.</p>
+            </a>
+            <a href="visit.html" class="service-card">
+                <img src="../assets/images/ui/visit.png" alt="Places to Visit">
+                <h3>Place to Visit</h3>
+                <p>Discover breathtaking landscapes, cultural sites, and unforgettable experiences.</p>
+            </a>
+            <a href="rentcar.html" class="service-card">
+                <img src="../assets/images/ui/car.png" alt="Car Rental">
+                <h3>Car Rental</h3>
+                <p>Explore Rwanda at your own pace with a wide range of reliable rental cars.</p>
+            </a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-column footer-logo-area">
+                    <div class="nav-logo">
+                        <img src="../assets/images/branding/title-logo.png" alt="Blueprint Rwanda Logo">
+                        <span>Blueprint Rwanda</span>
+                    </div>
+                    <p class="footer-desc">Your trusted partner for discovering the best of Rwanda. Unforgettable journeys start here.</p>
+                    <div class="footer-social">
+                        <a href="#" title="Instagram" aria-label="Instagram"><svg width="24" height="24" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="2" fill="none"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none"/><circle cx="17" cy="7" r="1.2" fill="currentColor"/></svg></a>
+                        <a href="#" title="Twitter" aria-label="Twitter"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872.952-3.745.952-5.5 0 5.542 3.654 12.232 2.454 15-2-1.186 1.06-2.527 1.714-4 2 .027 4.103 2.986 6.845 7 6H22v-2c-.657.073-1.314.13-2 .16-2.09.1-4.056.12-6-1 .947-.504 1.838-1.18 2.5-2 .546-.66.974-1.412 1.25-2.25 .275-.837.498-1.724.5-2.653V4.01z" fill="currentColor"/></svg></a>
+                        <a href="#" title="Facebook" aria-label="Facebook"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" fill="currentColor"/></svg></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-links-title">Services</h3>
+                    <a href="accommodation.html">Accommodation</a><br>
+                    <a href="rentcar.html">Car Rentals</a><br>
+                    <a href="visit.html">Tours & Experiences</a><br>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-links-title">About Us</h3>
+                    <a href="faq.html">FAQ</a><br>
+                    <a href="contact.html">contact</a><br>
+                    <a href="team.html">Owners</a><br>
+                    <a href="partners.html">Partners</a><br>
+                </div>
+                <div class="footer-column footer-contact-area">
+                    <h3 class="footer-links-title">Contact Us</h3>
+                    <a href="mailto:info@blueprintrwanda.com">info@blueprintrwanda.com</a><br>
+                    <a href="tel:+250788123456">+250 788 123 456</a><br>
+                    <p>KG 123 St, Kigali, Rwanda</p><br>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2025 Blueprint Rwanda. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+    <script>
+        const hamburger = document.querySelector(".hamburger");
+        const navMenu = document.querySelector(".nav-menu");
+
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navMenu.classList.toggle("active");
+        });
+    </script>
+    <!-- Footer with Terms & Privacy Policy links -->
+    <footer style="text-align:center;margin-top:2.5rem;color:#a0522d;font-size:1.05rem;">
+      <a href="#" id="termsLink" style="margin-right:1.5rem;text-decoration:underline;cursor:pointer;">Terms of Service</a>
+      <a href="#" id="privacyLink" style="text-decoration:underline;cursor:pointer;">Privacy Policy</a>
+    </footer>
+    <!-- Modal Popup for Terms & Privacy Policy -->
+    <div id="modalOverlay" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(160,82,45,0.18);z-index:9999;justify-content:center;align-items:center;">
+      <div id="modalContent" style="background:#fff8e7;border-radius:18px;box-shadow:0 8px 48px #a0522d22;max-width:520px;width:90vw;padding:2.2rem 1.5rem;position:relative;">
+        <button id="closeModal" style="position:absolute;top:1rem;right:1rem;background:#a0522d;color:#fff8e7;border:none;border-radius:50%;width:32px;height:32px;font-size:1.3rem;cursor:pointer;">&times;</button>
+        <div id="modalTitle" style="font-size:1.5rem;color:#a0522d;font-weight:700;margin-bottom:1.1rem;text-align:center;"></div>
+        <div id="modalBody" style="color:#4e2e0e;font-size:1.08rem;line-height:1.7;"></div>
+      </div>
+    </div>
+    <script>
+    // Terms & Privacy Policy Modal
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalContent = document.getElementById('modalContent');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    const closeModal = document.getElementById('closeModal');
+    document.getElementById('termsLink').onclick = function(e) {
+      e.preventDefault();
+      modalTitle.textContent = 'Terms of Service';
+      modalBody.innerHTML = '<strong>Terms of Service</strong><br><br>By using Blueprint Rwanda, you agree to abide by our booking policies, respect property rules, and provide accurate information. Cancellations and refunds are subject to our terms. Misuse of the platform may result in account suspension.';
+      modalOverlay.style.display = 'flex';
+    };
+    document.getElementById('privacyLink').onclick = function(e) {
+      e.preventDefault();
+      modalTitle.textContent = 'Privacy Policy';
+      modalBody.innerHTML = '<strong>Privacy Policy</strong><br><br>Your personal information is protected and used only for booking and communication purposes. We do not share your data with third parties except as required by law. For more details, contact support.';
+      modalOverlay.style.display = 'flex';
+    };
+    closeModal.onclick = function() {
+      modalOverlay.style.display = 'none';
+    };
+    modalOverlay.onclick = function(e) {
+      if(e.target === modalOverlay) modalOverlay.style.display = 'none';
+    };
+    </script>
+</body>
+</html>

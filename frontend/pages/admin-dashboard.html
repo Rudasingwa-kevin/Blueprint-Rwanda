@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Blueprint Rwanda</title>
+    <style>
+  /* General Body Styles */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f5e9da; /* beige */
+    color: #4e2e0e; /* chocolate */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Glassmorphism Form for Welcome Page */
+  .glass-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    min-width: 320px;
+    max-width: 90vw;
+    z-index: 3;
+    text-align: center;
+  }
+
+  .logo {
+    width: 180px;
+    margin-bottom: 0.5rem;
+  }
+
+  .glass-form h1 {
+    color: #a0522d;
+    margin-bottom: 0.5rem;
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #4e2e0e;
+  }
+
+  .services {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .services li {
+    font-size: 1.1rem;
+    margin: 0.3rem 0;
+    color: #a0522d;
+    font-weight: 500;
+  }
+
+  .welcome-btn {
+    background: #a0522d;
+    color: #fff8e7;
+    border: none;
+    border-radius: 20px;
+    padding: 0.8rem 2.2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(160, 82, 45, 0.15);
+    transition: background 0.2s;
+  }
+
+  .welcome-btn:hover {
+    background: #7c3f17;
+  }
+
+  @media (max-width: 600px) {
+    .glass-form {
+      padding: 1.2rem 0.5rem;
+      min-width: 0;
+    }
+    .logo {
+      width: 110px;
+    }
+    .glass-form h1 {
+      font-size: 1.3rem;
+    }
+  }
+
+  .navbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(160, 82, 45, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    z-index: 1000;
+    height: 70px;
+    box-shadow: 0 4px 20px rgba(160, 82, 45, 0.15);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff8e7;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .nav-logo img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-logo:hover img {
+    transform: scale(1.1);
+  }
+
+  .nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+  }
+
+  .nav-menu li a {
+    color: #fff8e7;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+  }
+
+  .nav-menu li a:hover {
+    color: #ffe4b5;
+  }
+
+  .nav-menu li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffe4b5;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+
+  .nav-menu li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  .nav-cta a {
+    background-color: #fff8e7;
+    color: #a0522d;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .nav-cta a:hover {
+    background-color: #ffe4b5;
+    color: #7c3f17;
+  }
+
+  .hamburger {
+    display: none;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+    z-index: 1001;
+  }
+
+  .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #fff8e7;
+    transition: all 0.3s ease-in-out;
+  }
+
+  @media (max-width: 850px) {
+    .nav-menu {
+      position: fixed;
+      left: -100%;
+      top: 0;
+      flex-direction: column;
+      background-color: rgba(160, 82, 45, 0.98);
+      width: 100%;
+      height: 100vh;
+      text-align: center;
+      transition: 0.3s;
+      box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .nav-menu.active {
+      left: 0;
+    }
+
+    .nav-menu li {
+      margin: 1rem 0;
+    }
+
+    .hamburger {
+      display: block;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+  }
+
+  .hero {
+    position: relative;
+    min-height: 80vh;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(160, 82, 45, 0.35);
+    backdrop-filter: blur(2px);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff8e7;
+  }
+
+  .hero-content h1 {
+    font-size: 2.3rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+  }
+
+  .hero-content p {
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .search-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 420px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 24px;
+    box-shadow: 0 2px 8px rgba(160,82,45,0.10);
+    padding: 0.3rem 0.5rem;
+  }
+
+  .search-bar {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 0.7rem 1rem;
+    border-radius: 20px 0 0 20px;
+    font-size: 1rem;
+    background: transparent;
+  }
+
+  .search-btn {
+    border: none;
+    background: none;
+    color: #a0522d;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 0 1rem;
+  }
+
+  main {
+    flex: 1 0 auto;
+    width: 100%;
+    padding: 0 0 2rem 0;
+  }
+
+  /* ... (Add other specific component styles here, like listing-card, modal, etc.) ... */ 
+    </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .admin-dashboard-container { max-width: 1200px; margin: 2rem auto; padding: 2rem; background: #fff8e7; border-radius: 18px; box-shadow: 0 2px 16px #a0522d22; }
+    .admin-dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    .admin-dashboard-title { font-size: 2.2rem; color: #a0522d; }
+    .admin-dashboard-summary { display: flex; gap: 2rem; margin-bottom: 2rem; }
+    .admin-summary-card { background: #ffe4b5; border-radius: 12px; padding: 1.2rem 2rem; min-width: 180px; text-align: center; box-shadow: 0 1px 6px #a0522d11; }
+    .admin-summary-title { color: #7c3f17; font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .admin-summary-value { font-size: 1.7rem; font-weight: bold; color: #a0522d; }
+    .admin-dashboard-section { margin-bottom: 2.5rem; }
+    .admin-dashboard-section h2 { color: #a0522d; font-size: 1.3rem; margin-bottom: 1rem; }
+    .admin-table { width: 100%; border-collapse: collapse; background: #fff; }
+    .admin-table th, .admin-table td { padding: 0.8rem 1rem; border-bottom: 1px solid #e0c9b2; text-align: left; }
+    .admin-table th { background: #ffe4b5; color: #7c3f17; }
+    .admin-table tr:last-child td { border-bottom: none; }
+    .admin-chart-container { max-width: 600px; margin: 2rem auto; background: #fff; border-radius: 12px; box-shadow: 0 1px 8px #a0522d11; padding: 1.5rem; }
+    @media (max-width: 900px) { .admin-dashboard-summary { flex-direction: column; gap: 1rem; } .admin-dashboard-header { flex-direction: column; gap: 1rem; } }
+    /* Reviews admin */
+    .reviews-admin { margin-top: 2.5rem; }
+    .reviews-admin .controls { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-bottom: 1rem; }
+    .reviews-admin input, .reviews-admin select { padding: 0.5rem 0.7rem; border: 1px solid #e0c9b2; border-radius: 8px; }
+    .reviews-admin button { background: #a0522d; color: #fff8e7; border: none; border-radius: 8px; padding: 0.5rem 0.9rem; cursor: pointer; }
+    .reviews-admin button.secondary { background: #7c3f17; }
+    .reviews-table { width: 100%; border-collapse: collapse; background: #fff; }
+    .reviews-table th, .reviews-table td { padding: 0.6rem 0.8rem; border-bottom: 1px solid #e0c9b2; text-align: left; font-size: 0.95rem; }
+    .reviews-table th { background: #ffe4b5; color: #7c3f17; position: sticky; top: 0; z-index: 1; }
+    .pill { display:inline-block; padding: 2px 8px; border-radius: 10px; background:#fff8e7; color:#7c3f17; border:1px solid #e0c9b2; font-size:0.82rem; }
+  </style>
+</head>
+<body>
+  <div class="admin-dashboard-container">
+    <div class="admin-dashboard-header">
+      <div class="admin-dashboard-title">Admin Dashboard</div>
+      <a href="admin.html" class="welcome-btn">Go to Admin Panel</a>
+    </div>
+    <div class="admin-dashboard-summary">
+      <div class="admin-summary-card">
+        <div class="admin-summary-title">Total Users</div>
+        <div class="admin-summary-value" id="adminTotalUsers">0</div>
+      </div>
+      <div class="admin-summary-card">
+        <div class="admin-summary-title">Total Listings</div>
+        <div class="admin-summary-value" id="adminTotalListings">0</div>
+      </div>
+      <div class="admin-summary-card">
+        <div class="admin-summary-title">Total Orders</div>
+        <div class="admin-summary-value" id="adminTotalOrders">0</div>
+      </div>
+      <div class="admin-summary-card">
+        <div class="admin-summary-title">Total Earnings</div>
+        <div class="admin-summary-value" id="adminTotalEarnings">$0</div>
+      </div>
+    </div>
+    <div class="admin-dashboard-section">
+      <h2>Recent User Activity</h2>
+      <table class="admin-table" id="adminUserTable">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Email</th>
+            <th>Last Login</th>
+            <th>Orders</th>
+            <th>Earnings</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+    <div class="admin-dashboard-section">
+      <h2>Listings Overview</h2>
+      <table class="admin-table" id="adminListingTable">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Owner</th>
+            <th>Orders</th>
+            <th>Earnings</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+    <div class="admin-dashboard-section">
+      <h2>Platform Analytics</h2>
+      <div class="admin-chart-container">
+        <canvas id="adminOrdersChart"></canvas>
+      </div>
+      <div class="admin-chart-container">
+        <canvas id="adminEarningsChart"></canvas>
+      </div>
+      <div class="admin-chart-container">
+        <canvas id="adminUserGrowthChart"></canvas>
+      </div>
+    </div>
+    <div class="admin-dashboard-section reviews-admin">
+      <h2>Manage Reviews</h2>
+      <div class="controls">
+        <select id="revFilterType">
+          <option value="">All types</option>
+          <option value="accommodation">Accommodation</option>
+          <option value="car">Car</option>
+        </select>
+        <input id="revFilterName" type="text" placeholder="Filter by item name" />
+        <button id="revRefreshBtn">Refresh</button>
+        <button id="revExportBtn" class="secondary">Export JSON</button>
+        <button id="revClearBtn" style="background:#b3261e;">Clear All</button>
+      </div>
+      <div style="max-height:360px; overflow:auto; border:1px solid #e0c9b2; border-radius:10px;">
+        <table class="reviews-table" id="reviewsTable">
+          <thead>
+            <tr>
+              <th>When</th>
+              <th>Type</th>
+              <th>Item</th>
+              <th>Avg</th>
+              <th>By</th>
+              <th>Text</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Mock data for demonstration
+    const users = [
+      { name: 'Alice', email: 'alice@example.com', lastLogin: '2025-07-20', orders: 8, earnings: 320, status: 'Active' },
+      { name: 'Bob', email: 'bob@example.com', lastLogin: '2025-07-21', orders: 5, earnings: 200, status: 'Active' },
+      { name: 'Charlie', email: 'charlie@example.com', lastLogin: '2025-07-19', orders: 2, earnings: 80, status: 'Inactive' },
+    ];
+    const listings = [
+      { type: 'Accommodation', name: 'Kigali View Apartment', owner: 'Alice', orders: 12, earnings: 480, status: 'Active' },
+      { type: 'Car', name: 'Toyota RAV4', owner: 'Bob', orders: 7, earnings: 350, status: 'Active' },
+      { type: 'Place', name: 'Akagera Park Tour', owner: 'Charlie', orders: 5, earnings: 250, status: 'Inactive' },
+    ];
+    // Summary
+    document.getElementById('adminTotalUsers').textContent = users.length;
+    document.getElementById('adminTotalListings').textContent = listings.length;
+    document.getElementById('adminTotalOrders').textContent = listings.reduce((sum, l) => sum + l.orders, 0);
+    document.getElementById('adminTotalEarnings').textContent = '$' + listings.reduce((sum, l) => sum + l.earnings, 0);
+    // User Table
+    const userTbody = document.getElementById('adminUserTable').querySelector('tbody');
+    users.forEach(user => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${user.name}</td><td>${user.email}</td><td>${user.lastLogin}</td><td>${user.orders}</td><td>$${user.earnings}</td><td>${user.status}</td>`;
+      userTbody.appendChild(tr);
+    });
+    // Listing Table
+    const listingTbody = document.getElementById('adminListingTable').querySelector('tbody');
+    listings.forEach(listing => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${listing.type}</td><td>${listing.name}</td><td>${listing.owner}</td><td>${listing.orders}</td><td>$${listing.earnings}</td><td>${listing.status}</td>`;
+      listingTbody.appendChild(tr);
+    });
+    // Chart.js - Orders per Listing
+    const ctxOrders = document.getElementById('adminOrdersChart').getContext('2d');
+    new Chart(ctxOrders, {
+      type: 'bar',
+      data: {
+        labels: listings.map(l => l.name),
+        datasets: [{
+          label: 'Orders',
+          data: listings.map(l => l.orders),
+          backgroundColor: ['#a0522d', '#ffe4b5', '#7c3f17'],
+        }]
+      },
+      options: { responsive: true, plugins: { legend: { display: false } } }
+    });
+    // Chart.js - Earnings per Listing
+    const ctxEarnings = document.getElementById('adminEarningsChart').getContext('2d');
+    new Chart(ctxEarnings, {
+      type: 'pie',
+      data: {
+        labels: listings.map(l => l.name),
+        datasets: [{
+          label: 'Earnings',
+          data: listings.map(l => l.earnings),
+          backgroundColor: ['#a0522d', '#ffe4b5', '#7c3f17'],
+        }]
+      },
+      options: { responsive: true }
+    });
+    // Chart.js - User Growth (mocked)
+    const ctxUserGrowth = document.getElementById('adminUserGrowthChart').getContext('2d');
+    new Chart(ctxUserGrowth, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        datasets: [{
+          label: 'User Growth',
+          data: [10, 20, 35, 50, 70, 90, 120],
+          borderColor: '#a0522d',
+          backgroundColor: '#ffe4b5',
+          fill: true,
+        }]
+      },
+      options: { responsive: true }
+    });
+
+    // --- Reviews Admin Logic ---
+    function loadReviews() {
+      try { return JSON.parse(localStorage.getItem('bp_reviews') || '[]'); } catch (_) { return []; }
+    }
+    function saveReviews(list) {
+      localStorage.setItem('bp_reviews', JSON.stringify(list));
+    }
+    function formatDate(iso) {
+      try { return new Date(iso).toLocaleString(); } catch (_) { return iso; }
+    }
+    function renderReviews() {
+      const tbody = document.querySelector('#reviewsTable tbody');
+      const type = document.getElementById('revFilterType').value;
+      const nameQuery = (document.getElementById('revFilterName').value || '').toLowerCase().trim();
+      let rows = loadReviews();
+      if (type) rows = rows.filter(r => r.itemType === type);
+      if (nameQuery) rows = rows.filter(r => (r.itemName || '').toLowerCase().includes(nameQuery));
+      rows.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+      tbody.innerHTML = '';
+      rows.forEach(r => {
+        const tr = document.createElement('tr');
+        const textShort = (r.text || '').slice(0,120) + ((r.text||'').length>120 ? '…' : '');
+        tr.innerHTML = `
+          <td>${formatDate(r.createdAt)}</td>
+          <td><span class="pill">${r.itemType || '-'}</span></td>
+          <td>${r.itemName || '-'}<div style="color:#7c3f17;font-size:0.8rem;">${r.itemId || ''}</div></td>
+          <td>${(r.average ?? '-')} / 5</td>
+          <td>${r.name || 'Guest'}</td>
+          <td title="${(r.text||'').replace(/\"/g,'&quot;')}">${textShort}</td>
+          <td>
+            <button data-action="delete" data-id="${r.id}">Delete</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+    function deleteReviewById(id) {
+      const list = loadReviews();
+      const next = list.filter(r => r.id !== id);
+      saveReviews(next);
+    }
+    document.getElementById('revRefreshBtn').onclick = renderReviews;
+    document.getElementById('revExportBtn').onclick = function() {
+      const data = JSON.stringify(loadReviews(), null, 2);
+      const blob = new Blob([data], {type: 'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'reviews-export.json'; a.click(); URL.revokeObjectURL(url);
+    };
+    document.getElementById('revClearBtn').onclick = function() {
+      if (confirm('This will delete ALL reviews saved locally. Continue?')) {
+        saveReviews([]); renderReviews();
+      }
+    };
+    document.querySelector('#reviewsTable tbody').addEventListener('click', function(e) {
+      const btn = e.target.closest('button[data-action="delete"]');
+      if (!btn) return;
+      const id = btn.getAttribute('data-id');
+      if (id && confirm('Delete this review?')) { deleteReviewById(id); renderReviews(); }
+    });
+    // Initial render
+    renderReviews();
+  </script>
+</body>
+</html>
