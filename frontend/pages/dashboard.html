@@ -104,6 +104,10 @@ footer { background: #f0e2d1; margin-top: 2.5rem; }
     .services-row { grid-template-columns: 1fr; }
 }
     </style>
+  <link rel="stylesheet" href="../assets/css/global-responsive.css">
+  <link rel="stylesheet" href="../assets/css/ui-system.css">
+  <link rel="stylesheet" href="../assets/css/dashboard-admin.css">
+  <link rel="stylesheet" href="../assets/css/inline-cleanup.css">
 </head>
 <body>
     <nav class="navbar">
@@ -112,7 +116,7 @@ footer { background: #f0e2d1; margin-top: 2.5rem; }
             <span>Blueprint Rwanda</span>
         </a>
     </nav>
-    <main class="dashboard-container">
+    <main class="dash-main dashboard-container">
         <header class="dashboard-header">
             <h1>Welcome to Your Dashboard</h1>
             <p>Manage your bookings and explore what Rwanda has to offer.</p>
@@ -176,26 +180,17 @@ footer { background: #f0e2d1; margin-top: 2.5rem; }
             </div>
         </div>
     </footer>
-    <script>
-        const hamburger = document.querySelector(".hamburger");
-        const navMenu = document.querySelector(".nav-menu");
-
-        hamburger.addEventListener("click", () => {
-            hamburger.classList.toggle("active");
-            navMenu.classList.toggle("active");
-        });
-    </script>
     <!-- Footer with Terms & Privacy Policy links -->
-    <footer style="text-align:center;margin-top:2.5rem;color:#a0522d;font-size:1.05rem;">
-      <a href="#" id="termsLink" style="margin-right:1.5rem;text-decoration:underline;cursor:pointer;">Terms of Service</a>
-      <a href="#" id="privacyLink" style="text-decoration:underline;cursor:pointer;">Privacy Policy</a>
+    <footer class="center-footer-note">
+      <a href="#" id="termsLink" class="link-underline mr-1-5">Terms of Service</a>
+      <a href="#" id="privacyLink" class="link-underline">Privacy Policy</a>
     </footer>
     <!-- Modal Popup for Terms & Privacy Policy -->
-    <div id="modalOverlay" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(160,82,45,0.18);z-index:9999;justify-content:center;align-items:center;">
-      <div id="modalContent" style="background:#fff8e7;border-radius:18px;box-shadow:0 8px 48px #a0522d22;max-width:520px;width:90vw;padding:2.2rem 1.5rem;position:relative;">
-        <button id="closeModal" style="position:absolute;top:1rem;right:1rem;background:#a0522d;color:#fff8e7;border:none;border-radius:50%;width:32px;height:32px;font-size:1.3rem;cursor:pointer;">&times;</button>
-        <div id="modalTitle" style="font-size:1.5rem;color:#a0522d;font-weight:700;margin-bottom:1.1rem;text-align:center;"></div>
-        <div id="modalBody" style="color:#4e2e0e;font-size:1.08rem;line-height:1.7;"></div>
+    <div id="modalOverlay" class="modal-overlay-main">
+      <div id="modalContent" class="modal-card-main">
+        <button id="closeModal" class="modal-close-btn">&times;</button>
+        <div id="modalTitle" class="modal-title-main"></div>
+        <div id="modalBody" class="modal-body-main"></div>
       </div>
     </div>
     <script>
@@ -224,5 +219,6 @@ footer { background: #f0e2d1; margin-top: 2.5rem; }
       if(e.target === modalOverlay) modalOverlay.style.display = 'none';
     };
     </script>
+  <script src="../assets/js/navbar.js"></script>
 </body>
 </html>

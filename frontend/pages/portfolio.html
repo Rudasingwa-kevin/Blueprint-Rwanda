@@ -929,6 +929,9 @@ body {
       color: wheat;
     }
   </style>
+  <link rel="stylesheet" href="../assets/css/global-responsive.css">
+  <link rel="stylesheet" href="../assets/css/ui-system.css">
+  <link rel="stylesheet" href="../assets/css/inline-cleanup.css">
 </head>
 <body>
   <!-- Header -->
@@ -976,26 +979,26 @@ body {
       <svg viewBox="0 0 38 38"><circle cx="19" cy="19" r="18" fill="#fffbe6" stroke="#c9a34a" stroke-width="2"/></svg>
       Why Partner With Blueprint Rwanda?
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2.5rem;align-items:center;">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:1.2rem;">
+    <div class="pf-values-grid">
+      <div class="pf-value-item">
         <svg width="54" height="54" viewBox="0 0 54 54"><circle cx="27" cy="27" r="27" fill="#c9a34a" opacity="0.18"/><path d="M18 27h18M27 18v18" stroke="#a0522d" stroke-width="3" stroke-linecap="round"/></svg>
-        <div style="font-size:1.25rem;font-weight:700;color:#a0522d;text-align:center;">More Bookings, Less Hassle</div>
-        <div style="font-size:1.08rem;color:#3a2c1a;text-align:center;">Our platform connects you directly with travelers seeking authentic Rwandan experiences. No hidden fees, no complicated setup—just more guests for your business.</div>
+        <div class="pf-value-title">More Bookings, Less Hassle</div>
+        <div class="pf-value-copy">Our platform connects you directly with travelers seeking authentic Rwandan experiences. No hidden fees, no complicated setup—just more guests for your business.</div>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:1.2rem;">
+      <div class="pf-value-item">
         <svg width="54" height="54" viewBox="0 0 54 54"><rect x="7" y="7" width="40" height="40" rx="12" fill="#a0522d" opacity="0.18"/><path d="M17 27h20" stroke="#c9a34a" stroke-width="3" stroke-linecap="round"/></svg>
-        <div style="font-size:1.25rem;font-weight:700;color:#a0522d;text-align:center;">Personalized Support</div>
-        <div style="font-size:1.08rem;color:#3a2c1a;text-align:center;">We offer hands-on help, marketing, and tech support. You’re never just a number—your success is our mission.</div>
+        <div class="pf-value-title">Personalized Support</div>
+        <div class="pf-value-copy">We offer hands-on help, marketing, and tech support. You’re never just a number—your success is our mission.</div>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:1.2rem;">
+      <div class="pf-value-item">
         <svg width="54" height="54" viewBox="0 0 54 54"><polygon points="27,6 48,48 6,48" fill="#c9a34a" opacity="0.18"/><path d="M27 16v22" stroke="#a0522d" stroke-width="3" stroke-linecap="round"/></svg>
-        <div style="font-size:1.25rem;font-weight:700;color:#a0522d;text-align:center;">Trust & Transparency</div>
-        <div style="font-size:1.08rem;color:#3a2c1a;text-align:center;">We value honest partnerships. Our reviews, payments, and communications are clear and secure—giving you peace of mind.</div>
+        <div class="pf-value-title">Trust & Transparency</div>
+        <div class="pf-value-copy">We value honest partnerships. Our reviews, payments, and communications are clear and secure—giving you peace of mind.</div>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:1.2rem;">
+      <div class="pf-value-item">
         <svg width="54" height="54" viewBox="0 0 54 54"><circle cx="27" cy="27" r="27" fill="#a0522d" opacity="0.18"/><path d="M18 27h18" stroke="#c9a34a" stroke-width="3" stroke-linecap="round"/></svg>
-        <div style="font-size:1.25rem;font-weight:700;color:#a0522d;text-align:center;">Local Impact</div>
-        <div style="font-size:1.08rem;color:#3a2c1a;text-align:center;">By working with us, you help grow Rwanda’s tourism and empower local communities. We celebrate and promote your story.</div>
+        <div class="pf-value-title">Local Impact</div>
+        <div class="pf-value-copy">By working with us, you help grow Rwanda’s tourism and empower local communities. We celebrate and promote your story.</div>
       </div>
     </div>
   </section>
@@ -1004,12 +1007,12 @@ body {
       <svg viewBox="0 0 38 38"><rect x="6" y="6" width="26" height="26" fill="#fffbe6" stroke="#c9a34a" stroke-width="2"/></svg>
       Our Services
     </div>
-    <div class="service-carousel" style="display:flex;align-items:center;justify-content:center;gap:2.5rem;position:relative;min-height:340px;">
+    <div class="service-carousel" class="pf-carousel">
       <!-- Carousel items will be injected by JS -->
     </div>
-    <div class="carousel-controls" style="display:flex;justify-content:center;gap:2rem;margin-top:9rem;">
-      <button id="carousel-prev" style="background:#c9a34a;color:#fff;border:none;border-radius:50%;width:48px;height:48px;font-size:2rem;box-shadow:0 2px 8px #a0522d22;cursor:pointer;">&#8592;</button>
-      <button id="carousel-next" style="background:#c9a34a;color:#fff;border:none;border-radius:50%;width:48px;height:48px;font-size:2rem;box-shadow:0 2px 8px #a0522d22;cursor:pointer;">&#8594;</button>
+    <div class="carousel-controls" class="pf-carousel-controls">
+      <button id="carousel-prev" class="pf-carousel-btn">&#8592;</button>
+      <button id="carousel-next" class="pf-carousel-btn">&#8594;</button>
     </div>
   </section>
   <section class="section" id="partners">
@@ -1017,11 +1020,11 @@ body {
       <svg viewBox="0 0 38 38"><rect x="6" y="6" width="26" height="26" fill="#fffbe6" stroke="#c9a34a" stroke-width="2"/></svg>
       Partners
     </div>
-    <div class="partner-carousel-container" style="position:relative;overflow:hidden;max-width:900px;margin:0 auto;">
-      <div class="partner-carousel" style="display:flex;align-items:center;gap:3rem;transition:transform 0.7s;will-change:transform;height:120px;">
+    <div class="partner-carousel-container" class="pf-partner-wrap">
+      <div class="partner-carousel" class="pf-partner-row">
         <!-- Logos will be injected by JS -->
       </div>
-      <div id="partner-info" style="display:none;position:absolute;top:130px;left:50%;transform:translateX(-50%);background:#fffbe6;border-radius:16px;box-shadow:0 2px 12px #c9a34a22;padding:1.5rem 2rem;min-width:320px;z-index:10;text-align:center;"></div>
+      <div id="partner-info" class="pf-partner-info"></div>
     </div>
   </section>
   <section class="section" id="location">
@@ -1029,14 +1032,14 @@ body {
       <svg viewBox="0 0 38 38"><circle cx="19" cy="19" r="18" fill="#fffbe6" stroke="#c9a34a" stroke-width="2"/><circle cx="19" cy="19" r="6" fill="#c9a34a" opacity="0.5"/></svg>
       Service Locations Across Rwanda
     </div>
-    <div id="service-map" style="width:100%;height:500px;border-radius:16px;box-shadow:0 2px 12px #a0522d22;margin-bottom:1.5rem;"></div>
+    <div id="service-map" class="pf-map"></div>
   </section>
   <section class="contact-section" id="contact">
-    <div class="section-title" style="font-size:1.5rem;">Contact Us</div>
-    <div style="font-size:1.15rem;color:#3a2c1a;max-width:500px;margin:0 auto 1.2rem auto;">For inquiries, partnership opportunities, or support, reach out to us:</div>
-    <div style="font-size:1.1rem;color:#a0522d;margin-bottom:0.7rem;">Email: <a href="mailto:info@blueprintrwanda.com">info@blueprintrwanda.com</a></div>
-    <div style="font-size:1.1rem;color:#a0522d;margin-bottom:0.7rem;">Phone: <a href="tel:+250788123456">+250 788 123 456</a></div>
-    <div style="font-size:1.1rem;color:#a0522d;">Address: KG 123 St, Kigali, Rwanda</div>
+    <div class="section-title pf-contact-title">Contact Us</div>
+    <div class="pf-contact-copy">For inquiries, partnership opportunities, or support, reach out to us:</div>
+    <div class="pf-contact-line">Email: <a href="mailto:info@blueprintrwanda.com">info@blueprintrwanda.com</a></div>
+    <div class="pf-contact-line">Phone: <a href="tel:+250788123456">+250 788 123 456</a></div>
+    <div class="pf-contact-line pf-contact-line-last">Address: KG 123 St, Kigali, Rwanda</div>
   </section>
   <!-- Removed dark mode toggle button and script -->
   <style>
@@ -1297,5 +1300,6 @@ if (window.innerWidth <= 480) {
   renderServiceCarouselMobile(services);
 }
   </script>
+  <script src="../assets/js/navbar.js"></script>
 </body>
 </html>

@@ -227,6 +227,10 @@
       .dashboard-actions .more-btn { display:inline-block; }
     }
   </style>
+  <link rel="stylesheet" href="../assets/css/global-responsive.css">
+  <link rel="stylesheet" href="../assets/css/ui-system.css">
+  <link rel="stylesheet" href="../assets/css/dashboard-admin.css">
+  <link rel="stylesheet" href="../assets/css/inline-cleanup.css">
 </head>
   <body>
   <div class="dashboard-header">
@@ -254,21 +258,21 @@
   <div class="dashboard-main">
     <div class="dashboard-section">
       <h2>My Profile</h2>
-      <div class="owner-profile" style="display:flex;align-items:center;gap:1.2em;margin-bottom:1em;">
-        <img id="profilePhoto" src="../assets/images/branding/title-logo.png" alt="Profile Photo" style="width:64px;height:64px;border-radius:50%;box-shadow:0 2px 8px #a0522d33;object-fit:cover;">
+      <div class="owner-profile ud-owner-profile">
+        <img id="profilePhoto" src="../assets/images/branding/title-logo.png" alt="Profile Photo" class="ud-profile-photo">
         <div>
           <strong id="profileName">Guest User</strong>
           <div class="subheader" id="profileMeta">Host since — • —</div>
-          <span id="profileEmail" style="font-size:0.95em;">guest@example.com</span>
+          <span id="profileEmail" class="ud-small-text">guest@example.com</span>
         </div>
       </div>
-      <div style="margin-bottom:1em;">
-        <div style="display:flex;align-items:center;gap:0.6em;margin:0.3em 0;">
-          <span style="font-weight:600;color:var(--primary);">Profile Completion</span>
-          <span id="profileProgressLabel" style="font-size:0.9em;opacity:0.8;">0%</span>
+      <div class="ud-mb-1">
+        <div class="ud-progress-row">
+          <span class="ud-progress-label">Profile Completion</span>
+          <span id="profileProgressLabel" class="ud-progress-pct">0%</span>
         </div>
-        <div style="height:10px;background:#f1e3d5;border-radius:8px;overflow:hidden;">
-          <div id="profileProgressBar" style="height:100%;width:0%;background:linear-gradient(90deg,var(--primary),var(--accent));transition:width 0.4s ease;"></div>
+        <div class="ud-progress-track">
+          <div id="profileProgressBar" class="ud-progress-bar"></div>
         </div>
       </div>
     </div>
@@ -318,14 +322,14 @@
         <span class="chip">Cancelled: 0</span>
       </div>
       <ul class="service-list" id="servicesList"></ul>
-      <div style="text-align:right;margin-top:0.6em;"><button id="quickAddBtn" style="background:var(--primary-dark);color:#fff8e7;border:none;border-radius:8px;padding:0.5em 1em;">+ Create Reservation</button></div>
+      <div class="ud-right-row"><button id="quickAddBtn" class="ud-btn-primary">+ Create Reservation</button></div>
     </div>
     <div class="dashboard-section">
       <h2>Reservations Overview</h2>
-      <div style="display:grid;grid-template-columns:1fr;gap:1em;">
-        <canvas id="chartByProperty" style="background:#fff8e7;border-radius:12px;padding:8px;"></canvas>
-        <canvas id="chartByStatus" style="background:#fff8e7;border-radius:12px;padding:8px;"></canvas>
-        <canvas id="chartByMonth" style="background:#fff8e7;border-radius:12px;padding:8px;"></canvas>
+      <div class="ud-chart-grid">
+        <canvas id="chartByProperty" class="ud-chart-canvas"></canvas>
+        <canvas id="chartByStatus" class="ud-chart-canvas"></canvas>
+        <canvas id="chartByMonth" class="ud-chart-canvas"></canvas>
       </div>
     </div>
     <div class="dashboard-section">
@@ -355,61 +359,61 @@
       </div>
     </div>
   </div>
-  <footer style="text-align:center;margin:1.5rem 0;color:var(--primary);font-size:0.98rem;">
-    <a href="dashboard.html" style="color:inherit;text-decoration:underline;margin-right:1rem;">Home</a>
-    <a href="#" style="color:inherit;text-decoration:underline;">Support</a>
+  <footer class="ud-footer">
+    <a href="dashboard.html" class="ud-link ud-link-mr">Home</a>
+    <a href="#" class="ud-link">Support</a>
   </footer>
   <!-- Manage Modal -->
-  <div id="manageModal" style="display:none;position:fixed;inset:0;background:#0006;z-index:999;align-items:center;justify-content:center;">
-    <div style="background:#fff;padding:1.2em;border-radius:14px;min-width:280px;box-shadow:0 2px 24px #a0522d33;">
-      <h3 style="margin:0 0 0.6em 0;color:#a0522d;">Manage</h3>
-      <div style="display:flex;flex-direction:column;gap:0.6em;">
-        <button data-link="admin-accommodations.html" style="background:#a0522d;color:#fff8e7;border:none;border-radius:8px;padding:0.6em 0.8em;">Manage Accommodations</button>
-        <button data-link="admin-cars.html" style="background:#a0522d;color:#fff8e7;border:none;border-radius:8px;padding:0.6em 0.8em;">Manage Cars</button>
-        <button data-link="admin-places.html" style="background:#a0522d;color:#fff8e7;border:none;border-radius:8px;padding:0.6em 0.8em;">Manage Places</button>
-        <button data-link="admin-dashboard.html" class="secondary" style="background:#7c3f17;color:#fff8e7;border:none;border-radius:8px;padding:0.6em 0.8em;">Review Moderation</button>
-        <button id="manageClose" style="background:#b3261e;color:#fff;border:none;border-radius:8px;padding:0.6em 0.8em;">Close</button>
+  <div id="manageModal" class="ud-modal-overlay">
+    <div class="ud-modal-card">
+      <h3 class="ud-modal-title">Manage</h3>
+      <div class="ud-modal-col">
+        <button data-link="admin-accommodations.html" class="ud-btn-action">Manage Accommodations</button>
+        <button data-link="admin-cars.html" class="ud-btn-action">Manage Cars</button>
+        <button data-link="admin-places.html" class="ud-btn-action">Manage Places</button>
+        <button data-link="admin-dashboard.html" class="secondary" class="ud-btn-secondary">Review Moderation</button>
+        <button id="manageClose" class="ud-btn-danger">Close</button>
       </div>
     </div>
   </div>
   <!-- Add Booking/Service Modal -->
-  <div id="addModal" style="display:none;position:fixed;inset:0;background:#0006;z-index:999;align-items:center;justify-content:center;">
-    <div style="background:#fff;padding:1.2em;border-radius:14px;min-width:280px;box-shadow:0 2px 24px #a0522d33;">
-      <h3 style="margin:0 0 0.6em 0;color:#a0522d;">Create New</h3>
-      <div style="display:flex;flex-direction:column;gap:0.6em;">
-        <button data-link="accommodation.html" style="background:#a0522d;color:#fff8e7;border:none;border-radius:8px;padding:0.6em 0.8em;">Browse Accommodations</button>
-        <button data-link="rentcar.html" style="background:#a0522d;color:#fff8e7;border:none;border-radius:8px;padding:0.6em 0.8em;">Browse Cars</button>
-        <button data-link="visit.html" style="background:#a0522d;color:#fff8e7;border:none;border-radius:8px;padding:0.6em 0.8em;">Browse Places</button>
-        <button id="addClose" style="background:#b3261e;color:#fff;border:none;border-radius:8px;padding:0.6em 0.8em;">Close</button>
+  <div id="addModal" class="ud-modal-overlay">
+    <div class="ud-modal-card">
+      <h3 class="ud-modal-title">Create New</h3>
+      <div class="ud-modal-col">
+        <button data-link="accommodation.html" class="ud-btn-action">Browse Accommodations</button>
+        <button data-link="rentcar.html" class="ud-btn-action">Browse Cars</button>
+        <button data-link="visit.html" class="ud-btn-action">Browse Places</button>
+        <button id="addClose" class="ud-btn-danger">Close</button>
       </div>
     </div>
   </div>
   <!-- New Reservation Modal -->
-  <div id="newResModal" style="display:none;position:fixed;inset:0;background:#0006;z-index:999;align-items:center;justify-content:center;">
-    <div style="background:#fff;padding:1.2em;border-radius:14px;min-width:300px;max-width:92vw;box-shadow:0 2px 24px #a0522d33;">
-      <h3 style="margin:0 0 0.6em 0;color:#a0522d;">Create Reservation</h3>
-      <div style="display:flex;flex-direction:column;gap:0.6em;">
+  <div id="newResModal" class="ud-modal-overlay">
+    <div class="ud-modal-card-wide">
+      <h3 class="ud-modal-title">Create Reservation</h3>
+      <div class="ud-modal-col">
         <label>Property
-          <select id="newResProperty" style="width:100%;padding:0.5em;border:1px solid #e0c9b2;border-radius:8px;"></select>
+          <select id="newResProperty" class="ud-field"></select>
         </label>
         <label>Guest Name
-          <input id="newResGuest" type="text" placeholder="Guest full name" style="width:100%;padding:0.5em;border:1px solid #e0c9b2;border-radius:8px;" />
+          <input id="newResGuest" type="text" placeholder="Guest full name" class="ud-field" />
         </label>
         <label>Check-in Date
-          <input id="newResDate" type="date" style="width:100%;padding:0.5em;border:1px solid #e0c9b2;border-radius:8px;" />
+          <input id="newResDate" type="date" class="ud-field" />
         </label>
         <label>Nights
-          <input id="newResNights" type="number" min="1" value="1" style="width:100%;padding:0.5em;border:1px solid #e0c9b2;border-radius:8px;" />
+          <input id="newResNights" type="number" min="1" value="1" class="ud-field" />
         </label>
         <label>Status
-          <select id="newResStatus" style="width:100%;padding:0.5em;border:1px solid #e0c9b2;border-radius:8px;">
+          <select id="newResStatus" class="ud-field">
             <option>Confirmed</option>
             <option>Pending</option>
           </select>
         </label>
-        <div style="display:flex;gap:0.6em;justify-content:flex-end;margin-top:0.5em;">
-          <button id="newResCancel" style="background:#b3261e;color:#fff;border:none;border-radius:8px;padding:0.6em 0.8em;">Close</button>
-          <button id="newResSave" style="background:#a0522d;color:#fff8e7;border:none;border-radius:8px;padding:0.6em 0.8em;">Save</button>
+        <div class="ud-row-end">
+          <button id="newResCancel" class="ud-btn-danger">Close</button>
+          <button id="newResSave" class="ud-btn-action">Save</button>
         </div>
       </div>
     </div>
@@ -517,7 +521,7 @@
       const ul = document.getElementById('propertiesList');
       ul.innerHTML = '';
       if (list.length === 0) {
-        ul.innerHTML = '<li style="justify-content:center;color:#7c3f17;">No properties yet. Use "+ Add Property" to create one.</li>';
+        ul.innerHTML = '<li class="ud-empty">No properties yet. Use "+ Add Property" to create one.</li>';
         return;
       }
       list.forEach(p => {
@@ -577,7 +581,7 @@
       const ul = document.getElementById('servicesList');
       ul.innerHTML = '';
       if (list.length === 0) {
-        ul.innerHTML = '<li style="justify-content:center;color:#7c3f17;">No reservations found.</li>';
+        ul.innerHTML = '<li class="ud-empty">No reservations found.</li>';
         updateResSummary([]);
         return;
       }
@@ -786,5 +790,6 @@
     const origSaveOwnerBookings = saveOwnerBookings;
     saveOwnerBookings = function(list) { origSaveOwnerBookings(list); renderReservations(); renderCharts(); };
   </script>
+  <script src="../assets/js/navbar.js"></script>
 </body>
 </html>

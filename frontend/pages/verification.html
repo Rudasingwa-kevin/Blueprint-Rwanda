@@ -417,13 +417,16 @@
       color: #fff;
     }
   </style>
+  <link rel="stylesheet" href="../assets/css/global-responsive.css">
+  <link rel="stylesheet" href="../assets/css/ui-system.css">
+  <link rel="stylesheet" href="../assets/css/inline-cleanup.css">
 </head>
 <body class="welcome-page">
   <video autoplay loop muted playsinline class="bg-video">
     <source src="assets/welcome-bg.mp4" type="video/mp4">
   </video>
   <div class="anime-overlay"></div>
-  <div class="glass-form" style="min-width:340px;max-width:400px;">
+  <div class="glass-form vf-form-shell">
     <div class="tab-btns">
       <button class="tab-btn active" id="loginTabBtn" onclick="showTab('login')">Login</button>
       <button class="tab-btn" id="signupTabBtn" onclick="showTab('signup')">Sign Up</button>
@@ -440,7 +443,7 @@
           <input type="password" id="loginPassword" required>
           <button type="button" class="toggle-password" onclick="togglePassword('loginPassword', this)">&#128065;</button>
         </div>
-        <div class="password-conditions" id="loginPasswordConditions" style="margin-bottom:0.7rem;">
+        <div class="password-conditions" id="loginPasswordConditions" class="vf-mb-07">
           <div class="condition-item" id="login-cond-length"><span class="cond-icon">&#10003;</span> At least 6 characters</div>
           <div class="condition-item" id="login-cond-number"><span class="cond-icon">&#10003;</span> Includes a number</div>
           <div class="condition-item" id="login-cond-special"><span class="cond-icon">&#10003;</span> Includes a special character</div>
@@ -449,29 +452,29 @@
         <div class="form-actions">
           <button class="welcome-btn" type="submit">Login</button>
         </div>
-        <div style="margin-top:0.7rem;text-align:right;">
+        <div class="vf-mb-07-right">
           <span class="form-link" onclick="showTab('forgot')">Forgot password?</span>
         </div>
       </form>
     </div>
-    <div id="signupTab" class="hidden" style="margin-top: 200px;">
-      <div class="tab-btns signup-switch" style="margin-bottom:1.2rem;">
-      <button class="tab-btn" type="button" onclick="showTab('login')" style="border-radius:16px 0 0 16px;">Login</button>
-      <button class="tab-btn active" type="button" onclick="showTab('signup')" style="border-radius:0 16px 16px 0;background:#a0522d;color:#fff;">Sign Up</button>
+    <div id="signupTab" class="hidden vf-signup-offset">
+      <div class="tab-btns signup-switch vf-tabs-tight">
+      <button class="tab-btn vf-tab-left" type="button" onclick="showTab('login')">Login</button>
+      <button class="tab-btn active vf-tab-right" type="button" onclick="showTab('signup')">Sign Up</button>
     </div>
-      <form onsubmit="return checkSignup(event)" style="padding-top: 20px;">
-        <div class="form-group" style="margin-bottom:2rem;">
-          <label style="font-size:1.15rem;font-weight:600;color:#a0522d;">I am signing up as:</label>
-          <div id="userTypeSelect" style="display:flex;justify-content:space-between;gap:1.2rem;margin-top:0.7rem;">
-            <div class="user-type-card" onclick="selectUserType('owner')" id="ownerCard" style="flex:1;cursor:pointer;background:#fff8e7;border:2px solid #e0c9b2;border-radius:16px;padding:1.2rem 0.7rem;text-align:center;transition:box-shadow 0.2s;">
-              <div style="font-size:2.2rem;margin-bottom:0.5rem;">🏠</div>
-              <div style="font-weight:600;color:#a0522d;">Owner</div>
-              <div style="font-size:0.98rem;color:#4e2e0e;margin-top:0.3rem;">List your property, car, or place for explorers to book.</div>
+      <form onsubmit="return checkSignup(event)" class="vf-form-pad-top">
+        <div class="form-group vf-mb-2">
+          <label class="vf-role-label">I am signing up as:</label>
+          <div id="userTypeSelect" class="vf-role-grid">
+            <div class="user-type-card vf-role-card" onclick="selectUserType('owner')" id="ownerCard">
+              <div class="vf-role-emoji">🏠</div>
+              <div class="vf-role-title">Owner</div>
+              <div class="vf-role-desc">List your property, car, or place for explorers to book.</div>
             </div>
-            <div class="user-type-card" onclick="selectUserType('explorer')" id="explorerCard" style="flex:1;cursor:pointer;background:#fff8e7;border:2px solid #e0c9b2;border-radius:16px;padding:1.2rem 0.7rem;text-align:center;transition:box-shadow 0.2s;">
-              <div style="font-size:2.2rem;margin-bottom:0.5rem;">🧭</div>
-              <div style="font-weight:600;color:#a0522d;">Explorer</div>
-              <div style="font-size:0.98rem;color:#4e2e0e;margin-top:0.3rem;">Discover and book accommodations, cars, and places.</div>
+            <div class="user-type-card vf-role-card" onclick="selectUserType('explorer')" id="explorerCard">
+              <div class="vf-role-emoji">🧭</div>
+              <div class="vf-role-title">Explorer</div>
+              <div class="vf-role-desc">Discover and book accommodations, cars, and places.</div>
             </div>
           </div>
           <input type="hidden" id="signupUserType" name="userType" required>
@@ -494,7 +497,7 @@
           <input type="password" id="signupRePassword" required>
           <button type="button" class="toggle-password" onclick="togglePassword('signupRePassword', this)">&#128065;</button>
         </div>
-        <div class="password-conditions" id="signupPasswordConditions" style="margin-bottom:0.7rem;">
+        <div class="password-conditions" id="signupPasswordConditions" class="vf-mb-07">
           <div class="condition-item" id="signup-cond-length"><span class="cond-icon">&#10003;</span> At least 6 characters</div>
           <div class="condition-item" id="signup-cond-number"><span class="cond-icon">&#10003;</span> Includes a number</div>
           <div class="condition-item" id="signup-cond-special"><span class="cond-icon">&#10003;</span> Includes a special character</div>
@@ -518,27 +521,27 @@
       </form>
     </div>
     <div id="codeTab" class="hidden">
-      <form onsubmit="event.preventDefault(); showTab('reset');" style="padding: 1.2rem 0 0 0;">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:1.1rem;">
-          <div style="background:rgba(255,255,255,0.7);border-radius:16px;padding:1.2rem 1.5rem;box-shadow:0 2px 12px rgba(160,82,45,0.10);width:100%;max-width:320px;text-align:center;">
-            <div style="font-size:2.2rem;color:#a0522d;margin-bottom:0.5rem;">🔒</div>
-            <div style="font-size:1.15rem;font-weight:600;color:#a0522d;margin-bottom:0.3rem;">Email Verification</div>
-            <div style="font-size:0.98rem;color:#4e2e0e;margin-bottom:1.1rem;">Please enter the code we sent to your email to verify your account.</div>
-            <div class="form-group" style="margin-bottom:0.7rem;display:flex;justify-content:center;gap:0.5rem;">
+      <form onsubmit="event.preventDefault(); showTab('reset');" class="vf-code-form-pad">
+        <div class="vf-code-col">
+          <div class="vf-code-card">
+            <div class="vf-code-icon">🔒</div>
+            <div class="vf-code-title">Email Verification</div>
+            <div class="vf-code-sub">Please enter the code we sent to your email to verify your account.</div>
+            <div class="form-group vf-code-row">
               <!-- 6 single-digit inputs for code -->
-              <label for="codeInput1" style="display:none;">Verification Code</label>
-              <input type="text" id="codeInput1" maxlength="1" pattern="[0-9]" required style="width:2.2rem;height:2.6rem;text-align:center;font-size:1.3rem;letter-spacing:0.1em;border-radius:8px;border:1.5px solid #e0c9b2;" oninput="moveToNext(this, 'codeInput2')">
-              <input type="text" id="codeInput2" maxlength="1" pattern="[0-9]" required style="width:2.2rem;height:2.6rem;text-align:center;font-size:1.3rem;letter-spacing:0.1em;border-radius:8px;border:1.5px solid #e0c9b2;" oninput="moveToNext(this, 'codeInput3')" onkeydown="moveToPrev(event, 'codeInput1')">
-              <input type="text" id="codeInput3" maxlength="1" pattern="[0-9]" required style="width:2.2rem;height:2.6rem;text-align:center;font-size:1.3rem;letter-spacing:0.1em;border-radius:8px;border:1.5px solid #e0c9b2;" oninput="moveToNext(this, 'codeInput4')" onkeydown="moveToPrev(event, 'codeInput2')">
-              <input type="text" id="codeInput4" maxlength="1" pattern="[0-9]" required style="width:2.2rem;height:2.6rem;text-align:center;font-size:1.3rem;letter-spacing:0.1em;border-radius:8px;border:1.5px solid #e0c9b2;" oninput="moveToNext(this, 'codeInput5')" onkeydown="moveToPrev(event, 'codeInput3')">
-              <input type="text" id="codeInput5" maxlength="1" pattern="[0-9]" required style="width:2.2rem;height:2.6rem;text-align:center;font-size:1.3rem;letter-spacing:0.1em;border-radius:8px;border:1.5px solid #e0c9b2;" oninput="moveToNext(this, 'codeInput6')" onkeydown="moveToPrev(event, 'codeInput4')">
-              <input type="text" id="codeInput6" maxlength="1" pattern="[0-9]" required style="width:2.2rem;height:2.6rem;text-align:center;font-size:1.3rem;letter-spacing:0.1em;border-radius:8px;border:1.5px solid #e0c9b2;" onkeydown="moveToPrev(event, 'codeInput5')">
+              <label for="codeInput1" class="vf-hidden-label">Verification Code</label>
+              <input type="text" id="codeInput1" maxlength="1" pattern="[0-9]" required class="vf-code-input" oninput="moveToNext(this, 'codeInput2')">
+              <input type="text" id="codeInput2" maxlength="1" pattern="[0-9]" required class="vf-code-input" oninput="moveToNext(this, 'codeInput3')" onkeydown="moveToPrev(event, 'codeInput1')">
+              <input type="text" id="codeInput3" maxlength="1" pattern="[0-9]" required class="vf-code-input" oninput="moveToNext(this, 'codeInput4')" onkeydown="moveToPrev(event, 'codeInput2')">
+              <input type="text" id="codeInput4" maxlength="1" pattern="[0-9]" required class="vf-code-input" oninput="moveToNext(this, 'codeInput5')" onkeydown="moveToPrev(event, 'codeInput3')">
+              <input type="text" id="codeInput5" maxlength="1" pattern="[0-9]" required class="vf-code-input" oninput="moveToNext(this, 'codeInput6')" onkeydown="moveToPrev(event, 'codeInput4')">
+              <input type="text" id="codeInput6" maxlength="1" pattern="[0-9]" required class="vf-code-input" onkeydown="moveToPrev(event, 'codeInput5')">
             </div>
-            <div class="form-actions" style="margin-top:1.2rem;">
-              <button class="welcome-btn" type="submit" style="width:100%;font-size:1.08rem;">Verify Code</button>
+            <div class="form-actions vf-mt-12">
+              <button class="welcome-btn vf-btn-full" type="submit">Verify Code</button>
             </div>
-            <div style="margin-top:1.1rem;font-size:0.95rem;color:#a0522d;">
-              Didn't receive a code? <span class="form-link" onclick="showTab('forgot')" style="color:#b22222;cursor:pointer;">Resend</span>
+            <div class="vf-resend-wrap">
+              Didn't receive a code? <span class="form-link" onclick="showTab('forgot')" class="vf-resend-link">Resend</span>
             </div>
           </div>
         </div>
@@ -556,7 +559,7 @@
           <input type="password" id="reNewPassword" required>
           <button type="button" class="toggle-password" onclick="togglePassword('reNewPassword', this)">&#128065;</button>
         </div>
-        <div class="password-conditions" id="resetPasswordConditions" style="margin-bottom:0.7rem;">
+        <div class="password-conditions" id="resetPasswordConditions" class="vf-mb-07">
           <div class="condition-item" id="cond-length"><span class="cond-icon">&#10003;</span> At least 6 characters</div>
           <div class="condition-item" id="cond-number"><span class="cond-icon">&#10003;</span> Includes a number</div>
           <div class="condition-item" id="cond-special"><span class="cond-icon">&#10003;</span> Includes a special character</div>
@@ -766,5 +769,6 @@
     }
     document.getElementById('loginPassword').addEventListener('input', updateLoginPasswordConditions);
   </script>
+  <script src="../assets/js/navbar.js"></script>
 </body>
 </html>

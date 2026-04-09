@@ -1,0 +1,228 @@
+/* Global responsive and layout consistency layer */
+:root {
+  --bg: #f5e9da;
+  --surface: #fff8e7;
+  --text: #4e2e0e;
+  --primary: #a0522d;
+  --primary-dark: #7c3f17;
+  --border: #e7d3bf;
+  --shadow: 0 6px 20px rgba(160, 82, 45, 0.14);
+  --radius: 14px;
+  --space-1: 0.5rem;
+  --space-2: 0.75rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --content-max: 1200px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background: var(--bg);
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+main,
+section,
+.dashboard-container,
+.search-container,
+.container {
+  width: min(var(--content-max), calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+/* Navbar alignment and responsiveness */
+.navbar {
+  width: 100%;
+  min-height: 70px;
+  padding-inline: clamp(0.9rem, 3vw, 2rem);
+  gap: var(--space-3);
+}
+
+.nav-logo {
+  min-width: 0;
+  max-width: 65%;
+}
+
+.nav-logo img {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 2rem);
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu li {
+  list-style: none;
+}
+
+.nav-menu a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+}
+
+.nav-cta {
+  margin-left: auto;
+}
+
+.nav-cta a,
+.welcome-btn,
+.search-btn,
+button[type="submit"] {
+  min-height: 42px;
+}
+
+/* Reusable spacing and card consistency */
+.glass-form,
+.search-container,
+.service-card,
+.search-card,
+.kpi-card {
+  border-radius: var(--radius);
+}
+
+.services-row,
+.search-results,
+.kpi-grid,
+.footer-main {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Modal and fixed layer safety */
+[id*="modal"],
+[class*="modal"] {
+  max-width: 100%;
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+  .navbar {
+    padding-inline: 1rem;
+  }
+
+  .nav-logo {
+    font-size: 1.1rem;
+  }
+
+  .nav-logo img {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+/* Mobile navbar/menu */
+@media (max-width: 850px) {
+  .navbar {
+    min-height: 64px;
+  }
+
+  .hamburger {
+    margin-left: 0.5rem;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 64px;
+    right: 0;
+    left: auto;
+    width: min(22rem, 86vw);
+    height: calc(100dvh - 64px);
+    padding: 1.2rem 1rem 2rem;
+    background: rgba(160, 82, 45, 0.98);
+    box-shadow: -10px 0 24px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
+    transform: translateX(102%);
+    transition: transform 0.25s ease;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .nav-menu.active {
+    transform: translateX(0);
+  }
+
+  .nav-menu li {
+    width: 100%;
+    margin: 0;
+  }
+
+  .nav-menu li a {
+    width: 100%;
+    padding: 0.7rem 0.25rem;
+  }
+
+  .nav-cta {
+    margin-left: 0;
+  }
+}
+
+/* Small screens */
+@media (max-width: 600px) {
+  :root {
+    --space-4: 1rem;
+  }
+
+  .glass-form,
+  .search-container,
+  .dashboard-container,
+  .container {
+    width: calc(100% - 1rem);
+  }
+
+  .services-row,
+  .search-results,
+  .kpi-grid,
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .hero {
+    min-height: 60vh;
+    height: auto;
+    padding: 3rem 0;
+  }
+
+  .search-bar-container {
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,111 @@
+/* Dashboard/Admin shared modernization */
+.dash-main,
+.admin-main {
+  width: min(1240px, calc(100% - 2rem));
+  margin-inline: auto;
+  padding: 1rem 0 2rem;
+}
+
+.dashboard-container,
+.admin-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.dashboard-grid,
+.admin-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.dashboard-section,
+.admin-section,
+.panel {
+  background: #fff8e7;
+  border: 1px solid #ead8c6;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(92, 49, 18, 0.11);
+  padding: 1rem;
+}
+
+.kpi-grid,
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.8rem;
+}
+
+.kpi-card,
+.stat-card {
+  background: #fff;
+  border: 1px solid #ead8c6;
+  border-radius: 12px;
+  padding: 0.85rem;
+}
+
+.service-list,
+.list,
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.65rem 0.7rem;
+  border-bottom: 1px solid #ecd9c8;
+  text-align: left;
+}
+
+th {
+  background: #f3e1d0;
+  color: #5d3412;
+}
+
+button,
+.btn {
+  min-height: 40px;
+}
+
+/* Inline modal wrappers and cards */
+#manageModal,
+#addModal,
+#newResModal,
+#modalOverlay,
+[id*='Modal'][style*='position:fixed'] {
+  padding: 0.8rem;
+}
+
+#manageModal > div,
+#addModal > div,
+#newResModal > div,
+#modalOverlay > div,
+[id*='Modal'] > div {
+  width: min(720px, 96vw) !important;
+  max-width: 96vw;
+  border-radius: 14px !important;
+}
+
+@media (max-width: 850px) {
+  .dash-main,
+  .admin-main {
+    width: calc(100% - 1rem);
+  }
+
+  .kpi-grid,
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .kpi-grid,
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}

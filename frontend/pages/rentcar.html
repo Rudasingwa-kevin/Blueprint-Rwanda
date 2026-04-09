@@ -591,6 +591,10 @@
         }
     }
   </style>
+  <link rel="stylesheet" href="../assets/css/global-responsive.css">
+  <link rel="stylesheet" href="../assets/css/ui-system.css">
+  <link rel="stylesheet" href="../assets/css/listings-pages.css">
+  <link rel="stylesheet" href="../assets/css/inline-cleanup.css">
 </head>
 <body>
   <nav class="navbar">
@@ -628,7 +632,7 @@
     </div>
   </section>
 
-  <main>
+  <main class="listing-main">
     <div class="filter-bar">
       <select aria-label="Car type">
         <option value="">Car type</option>
@@ -720,7 +724,7 @@
           </div>
           <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
           <a class="next" onclick="plusSlides(1)">&#10095;</a>
-          <div class="dot-container" style="text-align:center">
+          <div class="dot-container" class="center-text">
             <!-- Dots will be injected here by JS -->
           </div>
         </div>
@@ -733,15 +737,15 @@
             <span id="modalOverallCount" style="font-weight:600;color:#7c3f17;"></span>
           </div>
           <div id="modalRecentReviews" style="display:none;margin:6px 0 10px 0;">
-            <h3 style="margin:0 0 6px 0;">Recent Reviews</h3>
-            <div id="modalReviewsList" style="display:flex;flex-direction:column;gap:8px;"></div>
+            <h3 class="reviews-header-compact">Recent Reviews</h3>
+            <div id="modalReviewsList" class="reviews-list-col"></div>
           </div>
           <p id="modalDescription"></p>
           <h3>Specifications</h3>
           <ul id="modalSpecs" class="modal-specs"></ul>
-          <div style="display:flex;gap:10px;margin-top:1.2rem;flex-wrap:wrap;">
+          <div class="inline-flex-wrap">
             <button id="getMoreBtn" class="welcome-btn">Get More</button>
-            <button id="writeReviewBtn" class="welcome-btn" style="background:#7c3f17;">Write a Review</button>
+            <button id="writeReviewBtn" class="welcome-btn btn-secondary-brown">Write a Review</button>
           </div>
         </div>
       </div>
@@ -789,17 +793,7 @@
     </div>
   </footer>
   <script>
-    // Hamburger menu fix for mobile
-    document.addEventListener('DOMContentLoaded', function() {
-      const hamburger = document.querySelector('.hamburger');
-      const navMenu = document.querySelector('.nav-menu');
-      if (hamburger && navMenu) {
-        hamburger.style.display = '';
-        hamburger.addEventListener('click', function() {
-          hamburger.classList.toggle('active');
-          navMenu.classList.toggle('active');
-        });
-      }
+}
     });
     const modal = document.getElementById("detailsModal");
     const listingCards = document.querySelectorAll(".listing-card");
@@ -965,14 +959,7 @@
             modal.style.display = "none";
         }
     });
-
-    const hamburger = document.querySelector(".hamburger");
-    const navMenu = document.querySelector(".nav-menu");
-
-    hamburger.addEventListener("click", () => {
-        hamburger.classList.toggle("active");
-        navMenu.classList.toggle("active");
-    });
-  </script>
+</script>
+  <script src="../assets/js/navbar.js"></script>
 </body>
 </html> 

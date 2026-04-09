@@ -745,6 +745,9 @@
     }
 }
   </style>
+  <link rel="stylesheet" href="../assets/css/global-responsive.css">
+  <link rel="stylesheet" href="../assets/css/ui-system.css">
+  <link rel="stylesheet" href="../assets/css/listings-pages.css">
 </head>
 <body>
   <nav class="navbar">
@@ -782,7 +785,7 @@
     </div>
   </section>
 
-  <main>
+  <main class="listing-main">
     <div class="featured-card">
       <img src="../assets/images/ui/visit.png" alt="Featured Destination">
       <div class="featured-info">
@@ -925,17 +928,7 @@
     </div>
   </footer>
   <script>
-    // Hamburger menu fix for mobile
-    document.addEventListener('DOMContentLoaded', function() {
-      const hamburger = document.querySelector('.hamburger');
-      const navMenu = document.querySelector('.nav-menu');
-      if (hamburger && navMenu) {
-        hamburger.style.display = '';
-        hamburger.addEventListener('click', function() {
-          hamburger.classList.toggle('active');
-          navMenu.classList.toggle('active');
-        });
-      }
+}
     });
     const modal = document.getElementById("detailsModal");
     const listingCards = document.querySelectorAll(".listing-card");
@@ -1040,14 +1033,7 @@
             modal.style.display = "none";
         }
     });
-
-    const hamburger = document.querySelector(".hamburger");
-    const navMenu = document.querySelector(".nav-menu");
-
-    hamburger.addEventListener("click", () => {
-        hamburger.classList.toggle("active");
-        navMenu.classList.toggle("active");
-    });
-  </script>
+</script>
+  <script src="../assets/js/navbar.js"></script>
 </body>
 </html> 
