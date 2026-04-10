@@ -243,7 +243,7 @@
       <button id="myBookingsBtn" title="View reservations">Reservations</button>
       <button id="editProfileBtn" title="Update your profile">Edit Profile</button>
       <button id="logoutBtn">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:6px;"><path d="M16 17l5-5m0 0l-5-5m5 5H9m4 5v1a2 2 0 01-2 2H7a2 2 0 01-2-2V6a2 2 0 012-2h4a2 2 0 012 2v1" stroke="#a9070d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="svg-icon-inline"><path d="M16 17l5-5m0 0l-5-5m5 5H9m4 5v1a2 2 0 01-2 2H7a2 2 0 01-2-2V6a2 2 0 012-2h4a2 2 0 012 2v1" stroke="#a9070d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Logout
       </button>
       <button id="moreBtn" class="more-btn" title="More">More ▾</button>
@@ -278,11 +278,11 @@
     </div>
     <div class="dashboard-section">
       <h2>Owner KPIs</h2>
-      <div class="dashboard-stats" style="flex-wrap:wrap;gap:1em;">
-        <div class="stat-card">Upcoming Check-ins<br><span id="statUpcoming" style="font-size:1.3em;">0</span></div>
-        <div class="stat-card">Active Reservations<br><span id="statActive" style="font-size:1.3em;">0</span></div>
-        <div class="stat-card">Avg. Stay (nights)<br><span id="statAvgStay" style="font-size:1.3em;">0</span></div>
-        <div class="stat-card">Host Since<br><span id="statMemberSince" style="font-size:1.1em;">—</span></div>
+      <div class="dashboard-stats dashboard-stats-flex">
+        <div class="stat-card">Upcoming Check-ins<br><span id="statUpcoming" class="stat-num-lg">0</span></div>
+        <div class="stat-card">Active Reservations<br><span id="statActive" class="stat-num-lg">0</span></div>
+        <div class="stat-card">Avg. Stay (nights)<br><span id="statAvgStay" class="stat-num-lg">0</span></div>
+        <div class="stat-card">Host Since<br><span id="statMemberSince" class="stat-num-md">—</span></div>
       </div>
     </div>
     <div class="dashboard-section full-width">

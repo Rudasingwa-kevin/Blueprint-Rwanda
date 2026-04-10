@@ -344,17 +344,18 @@
   <link rel="stylesheet" href="../assets/css/global-responsive.css">
   <link rel="stylesheet" href="../assets/css/ui-system.css">
   <link rel="stylesheet" href="../assets/css/dashboard-admin.css">
+  <link rel="stylesheet" href="../assets/css/inline-cleanup.css">
 </head>
 <body>
   <nav class="navbar glassy">
-    <svg class="admin-header-bg" width="100%" height="70" viewBox="0 0 1440 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:100vw;height:70px;z-index:0;pointer-events:none;">
+    <svg class="admin-header-bg" width="100%" height="70" viewBox="0 0 1440 70" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="60" cy="35" r="18" fill="#ffe4b5" fill-opacity="0.18"/>
       <circle cx="320" cy="20" r="10" fill="#fff8e7" fill-opacity="0.13"/>
       <rect x="1200" y="10" width="30" height="30" rx="8" fill="#fff8e7" fill-opacity="0.10"/>
       <polygon points="1400,60 1420,40 1440,70" fill="#ffe4b5" fill-opacity="0.13"/>
       <circle cx="900" cy="50" r="8" fill="#a0522d" fill-opacity="0.10"/>
     </svg>
-    <div class="nav-logo" style="position:relative;z-index:1;">
+    <div class="nav-logo nav-logo-z">
       <a href="index.html"><img src="../assets/images/branding/title-logo.png" alt="Logo" /></a>
       <span>Blueprint Rwanda Admin</span>
     </div>
@@ -376,57 +377,57 @@
     </ul>
   </nav>
   <div class="admin-container">
-    <div class="admin-title" style="position:relative;">
+    <div class="admin-title u-relative">
       Admin Dashboard
-      <svg width="38" height="38" viewBox="0 0 38 38" fill="none" style="position:absolute;top:-18px;right:-38px;" xmlns="http://www.w3.org/2000/svg">
+      <svg width="38" height="38" viewBox="0 0 38 38" fill="none" class="admin-svg-accent" xmlns="http://www.w3.org/2000/svg">
         <circle cx="19" cy="19" r="19" fill="#ffe4b5" fill-opacity="0.45"/>
         <path d="M19 8l2.5 7.5H29l-6 4.5 2.5 7.5L19 23l-6 4.5 2.5-7.5-6-4.5h7.5L19 8z" fill="#a0522d" fill-opacity="0.18"/>
       </svg>
     </div>
     <div class="admin-links">
-      <a href="admin-accommodations.html" class="admin-link-card" style="position:relative;">
-        <span class="admin-link-icon"><img src="../assets/images/ui/accommodation.png" alt="Accommodation" style="width: 28px; height: 28px;"></span>
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="margin-bottom:2px;" xmlns="http://www.w3.org/2000/svg">
+      <a href="admin-accommodations.html" class="admin-link-card u-relative">
+        <span class="admin-link-icon"><img src="../assets/images/ui/accommodation.png" alt="Accommodation" class="admin-icon-img"></span>
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" class="admin-svg-mb" xmlns="http://www.w3.org/2000/svg">
           <rect x="2" y="2" width="24" height="24" rx="7" fill="#ffe4b5" fill-opacity="0.25"/>
           <path d="M8 20l6-8 6 8" stroke="#a0522d" stroke-width="2" fill="none"/>
         </svg>
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" style="position:absolute;top:10px;right:10px;z-index:2;" xmlns="http://www.w3.org/2000/svg">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" class="admin-svg-corner" xmlns="http://www.w3.org/2000/svg">
           <circle cx="11" cy="11" r="10" fill="#ffe4b5" fill-opacity="0.32"/>
           <rect x="6" y="6" width="10" height="4" rx="2" fill="#a0522d" fill-opacity="0.13"/>
         </svg>
         Manage Accommodations
       </a>
-      <a href="admin-cars.html" class="admin-link-card" style="position:relative;">
+      <a href="admin-cars.html" class="admin-link-card u-relative">
         <span class="admin-link-icon">🚗</span>
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="margin-bottom:2px;" xmlns="http://www.w3.org/2000/svg">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" class="admin-svg-mb" xmlns="http://www.w3.org/2000/svg">
           <circle cx="14" cy="14" r="12" fill="#fff8e7" fill-opacity="0.22"/>
           <rect x="8" y="16" width="12" height="4" rx="2" fill="#a0522d" fill-opacity="0.13"/>
         </svg>
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" style="position:absolute;top:10px;right:10px;z-index:2;" xmlns="http://www.w3.org/2000/svg">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" class="admin-svg-corner" xmlns="http://www.w3.org/2000/svg">
           <rect x="3" y="3" width="16" height="16" rx="5" fill="#fff8e7" fill-opacity="0.22"/>
           <circle cx="11" cy="11" r="5" fill="#ffe4b5" fill-opacity="0.18"/>
         </svg>
         Manage Cars
       </a>
-      <a href="admin-places.html" class="admin-link-card" style="position:relative;">
+      <a href="admin-places.html" class="admin-link-card u-relative">
         <span class="admin-link-icon">🌄</span>
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="margin-bottom:2px;" xmlns="http://www.w3.org/2000/svg">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" class="admin-svg-mb" xmlns="http://www.w3.org/2000/svg">
           <ellipse cx="14" cy="20" rx="10" ry="4" fill="#ffe4b5" fill-opacity="0.18"/>
           <circle cx="20" cy="10" r="3" fill="#a0522d" fill-opacity="0.18"/>
         </svg>
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" style="position:absolute;top:10px;right:10px;z-index:2;" xmlns="http://www.w3.org/2000/svg">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" class="admin-svg-corner" xmlns="http://www.w3.org/2000/svg">
           <polygon points="11,3 19,19 3,19" fill="#a0522d" fill-opacity="0.13"/>
           <circle cx="16" cy="7" r="3" fill="#ffe4b5" fill-opacity="0.22"/>
         </svg>
         Manage Places to Visit
       </a>
-      <a href="admin-users.html" class="admin-link-card" style="position:relative;">
+      <a href="admin-users.html" class="admin-link-card u-relative">
         <span class="admin-link-icon">👤</span>
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="margin-bottom:2px;" xmlns="http://www.w3.org/2000/svg">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" class="admin-svg-mb" xmlns="http://www.w3.org/2000/svg">
           <ellipse cx="14" cy="20" rx="8" ry="4" fill="#fff8e7" fill-opacity="0.18"/>
           <circle cx="14" cy="11" r="5" fill="#ffe4b5" fill-opacity="0.22"/>
         </svg>
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" style="position:absolute;top:10px;right:10px;z-index:2;" xmlns="http://www.w3.org/2000/svg">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" class="admin-svg-corner" xmlns="http://www.w3.org/2000/svg">
           <ellipse cx="11" cy="16" rx="7" ry="3" fill="#ffe4b5" fill-opacity="0.18"/>
           <circle cx="11" cy="8" r="5" fill="#a0522d" fill-opacity="0.13"/>
         </svg>

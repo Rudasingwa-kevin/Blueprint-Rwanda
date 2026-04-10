@@ -108,3 +108,122 @@
 .vf-resend-wrap{ margin-top:1.1rem; font-size:0.95rem; color:#a0522d; }
 .vf-resend-link{ color:#b22222; cursor:pointer; }
 .pf-contact-line-last{ margin-bottom:0; }
+
+/* Maps: embedded iframes */
+#modalMap iframe,
+.map-embed iframe{ border:0; }
+
+/* Listing modals (accommodation / rentcar) */
+.modal-overall-row{
+  display:none;
+  align-items:center;
+  gap:8px;
+  font-weight:700;
+  color:#a0522d;
+  margin:6px 0 10px 0;
+}
+.modal-stars-lg{ color:#ffb347; letter-spacing:2px; }
+.modal-count-text{ font-weight:600; color:#7c3f17; }
+.modal-recent-box{ display:none; margin:6px 0 10px 0; }
+.modal-review-card{
+  background:#fff8e7;
+  border:1px solid #e9dccf;
+  border-radius:10px;
+  padding:8px 10px;
+}
+.modal-review-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-weight:700;
+  color:#a0522d;
+}
+.modal-review-stars-inline{ color:#ffb347; letter-spacing:1px; }
+.modal-review-snippet{ color:#4e2e0e; margin-top:4px; font-size:0.98rem; }
+
+/* Item details */
+.detail-team-heading{
+  color:#a0522d;
+  margin:1.2rem 0 0.5rem 0;
+  font-size:1.1rem;
+  font-weight:600;
+}
+.map-section-bottom{ margin-bottom:2.5rem; }
+.map-embed-box{
+  width:100%;
+  height:260px;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 2px 12px #a0522d11;
+  margin-bottom:1rem;
+}
+
+/* Admin hub */
+.nav-logo-z{ position:relative; z-index:1; }
+.u-relative{ position:relative; }
+.admin-svg-accent{ position:absolute; top:-18px; right:-38px; }
+.admin-icon-img{ width:28px; height:28px; }
+.admin-svg-mb{ margin-bottom:2px; }
+.admin-svg-corner{ position:absolute; top:10px; right:10px; z-index:2; }
+.admin-svg-accent-sm{ position:absolute; top:-16px; right:-36px; }
+.th-icon{ vertical-align:middle; margin-left:2px; }
+
+.svg-icon-inline{ vertical-align:middle; margin-right:6px; }
+.dashboard-stats-flex{ flex-wrap:wrap; gap:1em; }
+.stat-num-lg{ font-size:1.3em; }
+.stat-num-md{ font-size:1.1em; }
+
+.profile-edit-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100vh;
+  background:#0008;
+  z-index:999;
+  align-items:center;
+  justify-content:center;
+}
+.profile-edit-overlay.is-open{ display:flex; }
+.profile-edit-card{
+  background:#fff;
+  padding:2rem 1.5rem;
+  border-radius:16px;
+  max-width:350px;
+  width:90%;
+  box-shadow:0 2px 24px #a0522d22;
+  position:relative;
+}
+.profile-edit-title{ color:#a0522d; margin-bottom:1rem; }
+.profile-edit-field{ width:100%; margin-bottom:1rem; }
+.profile-edit-actions{ text-align:right; }
+.profile-btn-cancel{ background:#ffe4b5; color:#a0522d; border:none; padding:0.5rem 1.2rem; border-radius:8px; margin-right:0.5rem; cursor:pointer; }
+.profile-btn-save{ background:#a0522d; color:#fff8e7; border:none; padding:0.5rem 1.2rem; border-radius:8px; cursor:pointer; }
+.profile-modal-close{ position:absolute; top:10px; right:18px; cursor:pointer; font-size:1.3rem; color:#a0522d; }
+
+.review-toolbar{ display:flex; align-items:center; gap:10px; margin-bottom:0.8rem; }
+.review-toolbar-spacer{ flex:1; }
+.review-back-btn{ padding:0.5rem 1rem !important; }
+.item-context-line{
+  display:none;
+  margin:-0.6rem 0 1.2rem 0;
+  color:#7c3f17;
+  font-weight:700;
+  text-align:center;
+}
+.item-context-line.is-visible{ display:block; }
+.overall-box.overall-hidden{ display:none !important; }
+.overall-count-text{ font-weight:600; color:#7c3f17; }
+
+.footer-note-brown{ text-align:center; color:#a0522d; font-size:1.05rem; margin:2.5rem 0 1.2rem 0; }
+.contact-hero--visit{ background-image:url('../assets/images/ui/visit.png'); }
+.booking-status-badge{ background:#ffb347; color:#a0522d; }
+
+.team-modal-photo{ margin-bottom:1.1rem; }
+.team-modal-desc{ margin-bottom:1.2rem; }
+.team-contact-btn{ background:#fff8e7; color:#a0522d; border:1.5px solid #a0522d; }
+
+.btn-danger-solid{ background:#b3261e; color:#fff; border:none; padding:0.5rem 1rem; border-radius:8px; cursor:pointer; }
+.admin-scroll-panel{ max-height:360px; overflow:auto; border:1px solid #e0c9b2; border-radius:10px; }
+.review-sub-id{ color:#7c3f17; font-size:0.8rem; }
+.u-mt-12{ margin-top:1.2rem; }

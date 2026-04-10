@@ -724,19 +724,19 @@
           </div>
           <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
           <a class="next" onclick="plusSlides(1)">&#10095;</a>
-          <div class="dot-container" class="center-text">
+          <div class="dot-container center-text">
             <!-- Dots will be injected here by JS -->
           </div>
         </div>
         <div class="modal-details">
           <h2 id="modalTitle"></h2>
           <p id="modalPrice"></p>
-          <div id="modalOverall" style="display:none;display:flex;align-items:center;gap:8px;font-weight:700;color:#a0522d;margin:6px 0 10px 0;">
-            <span id="modalOverallStars" style="color:#ffb347;letter-spacing:2px;">☆☆☆☆☆</span>
+          <div id="modalOverall" class="modal-overall-row">
+            <span id="modalOverallStars" class="modal-stars-lg">☆☆☆☆☆</span>
             <span id="modalOverallAvg">-</span>
-            <span id="modalOverallCount" style="font-weight:600;color:#7c3f17;"></span>
+            <span id="modalOverallCount" class="modal-count-text"></span>
           </div>
-          <div id="modalRecentReviews" style="display:none;margin:6px 0 10px 0;">
+          <div id="modalRecentReviews" class="modal-recent-box">
             <h3 class="reviews-header-compact">Recent Reviews</h3>
             <div id="modalReviewsList" class="reviews-list-col"></div>
           </div>
@@ -858,7 +858,7 @@
         avgEl.textContent = avg.toFixed(2) + ' / 5';
         starsEl.textContent = makeStars(avg);
         countEl.textContent = `(${filtered.length})`;
-        box.style.display = '';
+        box.style.display = 'flex';
 
         // recent reviews (latest 3)
         filtered.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -866,16 +866,13 @@
         recentList.innerHTML = '';
         latest.forEach(r => {
           const div = document.createElement('div');
-          div.style.background = '#fff8e7';
-          div.style.border = '1px solid #e9dccf';
-          div.style.borderRadius = '10px';
-          div.style.padding = '8px 10px';
+          div.className = 'modal-review-card';
           const stars = makeStars(r.average || 0);
           const text = (r.text || '').substring(0,120) + (r.text && r.text.length>120 ? '…' : '');
-          div.innerHTML = `<div style=\"display:flex;justify-content:space-between;align-items:center;font-weight:700;color:#a0522d;\"><span>${r.name || 'Guest'}</span><span style=\"color:#ffb347;letter-spacing:1px;\">${stars}</span></div><div style=\"color:#4e2e0e;margin-top:4px;font-size:0.98rem;\">${text}</div>`;
+          div.innerHTML = `<div class="modal-review-head"><span>${r.name || 'Guest'}</span><span class="modal-review-stars-inline">${stars}</span></div><div class="modal-review-snippet">${text}</div>`;
           recentList.appendChild(div);
         });
-        recentBox.style.display = latest.length ? '' : 'none';
+        recentBox.style.display = latest.length ? 'block' : 'none';
       } catch (_) {
         box.style.display = 'none';
       }

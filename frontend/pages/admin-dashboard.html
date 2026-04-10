@@ -360,6 +360,7 @@
   <link rel="stylesheet" href="../assets/css/global-responsive.css">
   <link rel="stylesheet" href="../assets/css/ui-system.css">
   <link rel="stylesheet" href="../assets/css/dashboard-admin.css">
+  <link rel="stylesheet" href="../assets/css/inline-cleanup.css">
 </head>
 <body>
   <div class="admin-dashboard-container">
@@ -444,9 +445,9 @@
         <input id="revFilterName" type="text" placeholder="Filter by item name" />
         <button id="revRefreshBtn">Refresh</button>
         <button id="revExportBtn" class="secondary">Export JSON</button>
-        <button id="revClearBtn" style="background:#b3261e;">Clear All</button>
+        <button id="revClearBtn" class="btn-danger-solid" type="button">Clear All</button>
       </div>
-      <div style="max-height:360px; overflow:auto; border:1px solid #e0c9b2; border-radius:10px;">
+      <div class="admin-scroll-panel">
         <table class="reviews-table" id="reviewsTable">
           <thead>
             <tr>
@@ -565,7 +566,7 @@
         tr.innerHTML = `
           <td>${formatDate(r.createdAt)}</td>
           <td><span class="pill">${r.itemType || '-'}</span></td>
-          <td>${r.itemName || '-'}<div style="color:#7c3f17;font-size:0.8rem;">${r.itemId || ''}</div></td>
+          <td>${r.itemName || '-'}<div class="review-sub-id">${r.itemId || ''}</div></td>
           <td>${(r.average ?? '-')} / 5</td>
           <td>${r.name || 'Guest'}</td>
           <td title="${(r.text||'').replace(/\"/g,'&quot;')}">${textShort}</td>

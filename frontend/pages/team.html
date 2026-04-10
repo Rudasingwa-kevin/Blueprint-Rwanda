@@ -429,6 +429,7 @@
   </style>
   <link rel="stylesheet" href="../assets/css/global-responsive.css">
   <link rel="stylesheet" href="../assets/css/ui-system.css">
+  <link rel="stylesheet" href="../assets/css/inline-cleanup.css">
 </head>
 <body>
   <section class="team-hero">
@@ -464,14 +465,14 @@
   <div id="teamModal" class="modal">
     <div class="modal-content">
       <button class="close-button" onclick="closeModal()">&times;</button>
-      <img id="modalImg" src="" alt="" class="team-photo" style="margin-bottom:1.1rem;">
+      <img id="modalImg" src="" alt="" class="team-photo team-modal-photo">
       <div id="modalName" class="team-name"></div>
       <div id="modalRole" class="team-role"></div>
-      <div id="modalDesc" class="team-desc" style="margin-bottom:1.2rem;"></div>
-      <a id="modalEmail" href="#" class="get-more-btn" style="background:#fff8e7;color:#a0522d;border:1.5px solid #a0522d;">Contact</a>
+      <div id="modalDesc" class="team-desc team-modal-desc"></div>
+      <a id="modalEmail" href="#" class="get-more-btn team-contact-btn">Contact</a>
     </div>
   </div>
-  <footer style="text-align:center;color:#a0522d;font-size:1.05rem;margin:2.5rem 0 1.2rem 0;">
+  <footer class="footer-note-brown">
     &copy; 2025 Blueprint Rwanda. All Rights Reserved.
   </footer>
   <script>

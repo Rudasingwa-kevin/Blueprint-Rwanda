@@ -396,21 +396,22 @@
   </style>
   <link rel="stylesheet" href="../assets/css/global-responsive.css">
   <link rel="stylesheet" href="../assets/css/ui-system.css">
+  <link rel="stylesheet" href="../assets/css/inline-cleanup.css">
 </head>
 <body>
   <div class="review-container">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:0.8rem;">
-      <button id="backBtn" class="welcome-btn" style="padding:0.5rem 1rem;background:#7c3f17;">← Back</button>
-      <div style="flex:1"></div>
+    <div class="review-toolbar">
+      <button id="backBtn" class="welcome-btn btn-secondary-brown review-back-btn">← Back</button>
+      <div class="review-toolbar-spacer"></div>
     </div>
     <div class="review-title">Submit Your Review</div>
-    <div id="itemContext" style="display:none;margin:-0.6rem 0 1.2rem 0;color:#7c3f17;font-weight:700;text-align:center;"></div>
-    <div class="overall-box" id="overallBox" style="display:none;">
+    <div id="itemContext" class="item-context-line"></div>
+    <div class="overall-box overall-hidden" id="overallBox">
       <span id="overallLabel">Overall average (out of 5)</span>
       <div class="overall-right">
         <span class="stars" id="overallStars">☆☆☆☆☆</span>
         <span id="overallAvg">-</span>
-        <span id="overallCount" style="font-weight:600; color:#7c3f17;"></span>
+        <span id="overallCount" class="overall-count-text"></span>
       </div>
     </div>
     <form class="review-form">
@@ -501,7 +502,7 @@
       const backBtn = document.getElementById('backBtn');
 
       if (currentItemName && currentItemType) {
-        itemContext.style.display = '';
+        itemContext.classList.add('is-visible');
         itemContext.textContent = `${currentItemType[0].toUpperCase()+currentItemType.slice(1)}: ${currentItemName}`;
       }
 
@@ -528,16 +529,16 @@
             (currentItemId ? r.itemId === currentItemId : r.itemName === currentItemName) && r.itemType === currentItemType
           )) : all;
           if (!filtered.length) {
-            overallBox.style.display = 'none';
+            overallBox.classList.add('overall-hidden');
             return;
           }
           const avg = filtered.reduce((a, r) => a + (typeof r.average === 'number' ? r.average : 0), 0) / filtered.length;
           overallAvg.textContent = avg.toFixed(2) + ' / 5';
           overallStars.textContent = makeStars(avg);
           overallCount.textContent = `(${filtered.length})`;
-          overallBox.style.display = '';
+          overallBox.classList.remove('overall-hidden');
         } catch (_) {
-          overallBox.style.display = 'none';
+          overallBox.classList.add('overall-hidden');
         }
       }
 

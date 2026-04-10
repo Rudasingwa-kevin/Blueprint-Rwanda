@@ -506,6 +506,7 @@
   </style>
   <link rel="stylesheet" href="../assets/css/global-responsive.css">
   <link rel="stylesheet" href="../assets/css/ui-system.css">
+  <link rel="stylesheet" href="../assets/css/inline-cleanup.css">
 </head>
   <body>
   <div class="details-container">
@@ -525,7 +526,7 @@
           <div class="details-owner" id="itemOwner">Added by: </div>
           <div class="details-leader" id="itemLeader">Leader: </div>
           <div class="leaders-slider-section">
-            <h4 style="color:#a0522d;margin:1.2rem 0 0.5rem 0;font-size:1.1rem;font-weight:600;">Our Team</h4>
+            <h4 class="detail-team-heading">Our Team</h4>
             <div class="leaders-slider" id="leadersSlider"></div>
           </div>
           <div class="details-actions">
@@ -538,9 +539,9 @@
       <h3>Description</h3>
       <div id="itemDescription">Description goes here.</div>
     </div>
-    <div class="details-section" id="mapSection" style="margin-bottom:2.5rem;">
+    <div class="details-section map-section-bottom" id="mapSection">
       <h3>Location & Directions</h3>
-      <div class="map-embed" id="mapEmbed" style="width:100%;height:260px;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px #a0522d11;margin-bottom:1rem;"></div>
+      <div class="map-embed map-embed-box" id="mapEmbed"></div>
       <a id="directionsLink" class="directions-btn" href="#" target="_blank" rel="noopener">Get Directions</a>
     </div>
     <div class="details-section" id="itemExtrasSection">
@@ -551,16 +552,16 @@
       <div id="reviewsList"></div>
     </div>
     <!-- Footer with Terms & Privacy Policy links -->
-    <footer style="text-align:center;margin-top:2.5rem;color:#a0522d;font-size:1.05rem;">
-      <a href="#" id="termsLink" style="margin-right:1.5rem;text-decoration:underline;cursor:pointer;">Terms of Service</a>
-      <a href="#" id="privacyLink" style="text-decoration:underline;cursor:pointer;">Privacy Policy</a>
+    <footer class="center-footer-note">
+      <a href="#" id="termsLink" class="link-underline mr-1-5">Terms of Service</a>
+      <a href="#" id="privacyLink" class="link-underline">Privacy Policy</a>
     </footer>
     <!-- Modal Popup for Terms & Privacy Policy -->
-    <div id="modalOverlay" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(160,82,45,0.18);z-index:9999;justify-content:center;align-items:center;">
-      <div id="modalContent" style="background:#fff8e7;border-radius:18px;box-shadow:0 8px 48px #a0522d22;max-width:520px;width:90vw;padding:2.2rem 1.5rem;position:relative;">
-        <button id="closeModal" style="position:absolute;top:1rem;right:1rem;background:#a0522d;color:#fff8e7;border:none;border-radius:50%;width:32px;height:32px;font-size:1.3rem;cursor:pointer;">&times;</button>
-        <div id="modalTitle" style="font-size:1.5rem;color:#a0522d;font-weight:700;margin-bottom:1.1rem;text-align:center;"></div>
-        <div id="modalBody" style="color:#4e2e0e;font-size:1.08rem;line-height:1.7;"></div>
+    <div id="modalOverlay" class="modal-overlay-main">
+      <div id="modalContent" class="modal-card-main">
+        <button id="closeModal" class="modal-close-btn">&times;</button>
+        <div id="modalTitle" class="modal-title-main"></div>
+        <div id="modalBody" class="modal-body-main"></div>
       </div>
     </div>
   </div>
