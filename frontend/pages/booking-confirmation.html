@@ -1,328 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Booking Receipt - Blueprint Rwanda</title>
-  <style>
-    body {
-      background: linear-gradient(135deg, #f5e9da 0%, #fff8e7 100%);
-      font-family: 'Segoe UI', Arial, sans-serif;
-      min-height: 100vh;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .receipt-container {
-      background: #fff;
-      box-shadow: 0 8px 32px 0 rgba(160,82,45,0.18);
-      border-radius: 24px;
-      padding: 2.5rem 2.2rem 2rem 2.2rem;
-      max-width: 480px;
-      width: 100%;
-      text-align: left;
-      position: relative;
-      border: 1.5px solid #e0c9b2;
-      animation: fadeIn 0.8s;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .receipt-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.2rem;
-    }
-    .receipt-icon {
-      font-size: 2.5rem;
-      color: #3bb143;
-      background: #e0f7e9;
-      border-radius: 50%;
-      width: 3.2rem;
-      height: 3.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 8px rgba(60,180,67,0.08);
-    }
-    .receipt-title {
-      font-size: 1.5rem;
-      color: #a0522d;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-    .receipt-info {
-      margin-bottom: 1.2rem;
-      font-size: 1.08rem;
-      color: #4e2e0e;
-      line-height: 1.7;
-      background: #fff8e7;
-      border-radius: 12px;
-      padding: 1.1rem 1.2rem;
-      box-shadow: 0 2px 8px rgba(160,82,45,0.07);
-      width: 100%;
-    }
-    .receipt-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.7rem;
-    }
-    .receipt-label {
-      color: #a0522d;
-      font-weight: 500;
-    }
-    .receipt-value {
-      color: #4e2e0e;
-      font-weight: 500;
-    }
-    .receipt-note {
-      font-size: 0.98rem;
-      color: #b22222;
-      margin-bottom: 1.2rem;
-      text-align: center;
-      background: #fff8e7;
-      border-radius: 8px;
-      padding: 0.7rem 1rem;
-      box-shadow: 0 2px 8px rgba(160,82,45,0.07);
-    }
-    .receipt-actions {
-      text-align: center;
-      margin-top: 1.2rem;
-    }
-    .screenshot-btn {
-      background: linear-gradient(90deg, #a0522d 60%, #c97a3a 100%);
-      color: #fff8e7;
-      padding: 0.8rem 2.2rem;
-      border-radius: 20px;
-      font-size: 1.08rem;
-      font-weight: bold;
-      text-decoration: none;
-      box-shadow: 0 2px 8px rgba(160,82,45,0.12);
-      transition: background 0.2s, box-shadow 0.2s;
-      border: none;
-      margin-top: 0.5rem;
-      cursor: pointer;
-      margin-right: 0.7rem;
-    }
-    .screenshot-btn:hover {
-      background: linear-gradient(90deg, #3bb143 60%, #a0522d 100%);
-      color: #fff;
-      box-shadow: 0 4px 16px rgba(160,82,45,0.18);
-      text-decoration: underline;
-    }
-    .home-btn {
-      background: #fff8e7;
-      color: #a0522d;
-      padding: 0.8rem 2.2rem;
-      border-radius: 20px;
-      font-size: 1.08rem;
-      font-weight: bold;
-      text-decoration: none;
-      box-shadow: 0 2px 8px rgba(160,82,45,0.12);
-      border: 1.5px solid #e0c9b2;
-      margin-top: 0.5rem;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-    }
-    .home-btn:hover {
-      background: #a0522d;
-      color: #fff8e7;
-      text-decoration: underline;
-    }
-    .booking-form-container {
-      background: #fff8e7;
-      border-radius: 20px;
-      box-shadow: 0 4px 16px rgba(160,82,45,0.10);
-      padding: 2.2rem 2rem;
-      max-width: 340px;
-      width: 100%;
-      margin-top: 0.5rem;
-    }
-    .booking-form-container .form-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: #a0522d;
-      margin-bottom: 1.1rem;
-      text-align: center;
-    }
-    .booking-form-container label {
-      color: #4e2e0e;
-      font-weight: 500;
-    }
-    .booking-form-container input,
-    .booking-form-container textarea {
-      width: 100%;
-      padding: 0.6rem;
-      border-radius: 8px;
-      border: 1px solid #e0c9b2;
-      background: #fff;
-      margin-bottom: 1rem;
-    }
-    .booking-form-container button {
-      background: #a0522d;
-      color: #fff8e7;
-      padding: 0.8rem 2.2rem;
-      border-radius: 20px;
-      font-size: 1.08rem;
-      font-weight: bold;
-      border: none;
-      box-shadow: 0 2px 8px rgba(160,82,45,0.12);
-      width: 100%;
-      margin-top: 0.7rem;
-      cursor: pointer;
-    }
-    .booking-form-container button:hover {
-      background: #3bb143;
-      color: #fff;
-      text-decoration: underline;
-    }
-    .confirmation-container {
-      background: #fff8e7;
-      border-radius: 20px;
-      box-shadow: 0 4px 16px rgba(160,82,45,0.10);
-      padding: 2.2rem 2rem;
-      max-width: 340px;
-      width: 100%;
-      margin-top: 0.5rem;
-    }
-    .confirmation-receipt-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 2.2rem;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .confirmation-receipt-card {
-      background: #fff;
-      border-radius: 28px;
-      box-shadow: 0 8px 32px 0 rgba(160,82,45,0.18);
-      padding: 2.8rem 2.2rem 2.2rem 2.2rem;
-      max-width: 480px;
-      width: 100%;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .confirmation-icon {
-      font-size: 2.5rem;
-      color: #3bb143;
-      margin-bottom: 0.7rem;
-    }
-    .confirmation-title {
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: #a0522d;
-      margin-bottom: 0.7rem;
-      text-align: center;
-    }
-    .confirmation-text {
-      font-size: 1.08rem;
-      color: #4e2e0e;
-      margin-bottom: 1.2rem;
-      text-align: center;
-    }
-    @media (max-width: 700px) {
-      .confirmation-receipt-card {
-        max-width: 98vw;
-        padding: 1.2rem 0.5rem;
-      }
-      .receipt-info {
-        padding: 0.7rem 0.5rem;
-      }
-      .receipt-header, .receipt-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.3rem;
-      }
-      .receipt-title {
-        font-size: 1.1rem;
-      }
-      .confirmation-title {
-        font-size: 1.1rem;
-      }
-      .confirmation-text, .receipt-note {
-        font-size: 0.98rem;
-      }
-      .receipt-actions {
-        flex-direction: column;
-        gap: 0.7rem;
-      }
-      .home-btn, .screenshot-btn {
-        width: 100%;
-        margin-right: 0;
-      }
-    }
-    @media (max-width: 500px) {
-      .confirmation-receipt-card {
-        padding: 0.5rem 0.1rem;
-        border-radius: 12px;
-      }
-      .receipt-container {
-        padding: 1rem 0.5rem;
-        border-radius: 12px;
-      }
-    }
-  </style>
-  <link rel="stylesheet" href="../assets/css/global-responsive.css">
-  <link rel="stylesheet" href="../assets/css/ui-system.css">
-  <link rel="stylesheet" href="../assets/css/inline-cleanup.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmed - Blueprint Rwanda</title>
+    <!-- Icons -->
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/ui-system.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <style>
+        .confirmation-main {
+            padding-top: 100px;
+            padding-bottom: var(--space-lg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+        }
+
+        .receipt-card {
+            max-width: 500px;
+            width: 100%;
+            padding: var(--space-lg);
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+            text-align: center;
+            position: relative;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #e6fffa;
+            color: #234e52;
+            border-radius: 50%;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        .receipt-card h1 {
+            font-size: 1.75rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .receipt-card p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .details-box {
+            background: var(--bg);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .receipt-row:last-child {
+            margin-bottom: 0;
+            padding-top: 0.75rem;
+            border-top: 1px dashed var(--border);
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .receipt-label {
+            color: var(--text-muted);
+        }
+
+        .receipt-actions {
+            display: grid;
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .receipt-card {
+                padding: var(--space-md);
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="bc-layout">
-    <div class="confirmation-receipt-wrapper bc-wrapper">
-      <div class="confirmation-receipt-card bc-card">
-        <div class="receipt-header bc-header">
-          <div class="receipt-icon bc-icon">&#128179;</div>
-          <div class="receipt-title bc-title">Booking Receipt</div>
+    <main class="confirmation-main container">
+        <div class="card receipt-card" data-animate>
+            <div class="success-icon flex-center">
+                <i class="fas fa-check"></i>
+            </div>
+            <h1>Booking Confirmed!</h1>
+            <p>Thank you for choosing Blueprint Rwanda. Your payment was successful and your booking is secured.</p>
+
+            <div class="details-box">
+                <div class="receipt-row">
+                    <span class="receipt-label">Booking ID</span>
+                    <span>#BR-29384</span>
+                </div>
+                <div class="receipt-row">
+                    <span class="receipt-label">Item</span>
+                    <span>Kigali View Apartment</span>
+                </div>
+                <div class="receipt-row">
+                    <span class="receipt-label">Dates</span>
+                    <span>July 10 — 15, 2026</span>
+                </div>
+                <div class="receipt-row">
+                    <span class="receipt-label">Guests</span>
+                    <span>2 Guests</span>
+                </div>
+                <div class="receipt-row" style="margin-top: 1rem;">
+                    <span class="receipt-label">Total Paid</span>
+                    <span>$150.00</span>
+                </div>
+            </div>
+
+            <div class="receipt-actions">
+                <button class="btn btn-primary" onclick="window.print()">
+                    <i class="fas fa-print"></i> Print Receipt
+                </button>
+                <a href="dashboard.html" class="btn btn-secondary">
+                    Go to Dashboard
+                </a>
+            </div>
+            
+            <p style="font-size: 0.8rem; margin-top: 2rem;">
+                A confirmation email has been sent to <strong>samuel@example.com</strong>
+            </p>
         </div>
-        <div class="receipt-info bc-info">
-          <div class="receipt-row bc-row"><span class="receipt-label bc-label">Item Type:</span> <span class="receipt-value" id="rItemType">-</span></div>
-          <div class="receipt-row bc-row"><span class="receipt-label bc-label">Item Name:</span> <span class="receipt-value" id="rItemName">-</span></div>
-          <div class="receipt-row bc-row"><span class="receipt-label bc-label">Your Name:</span> <span class="receipt-value" id="rUserName">-</span></div>
-          <div class="receipt-row bc-row"><span class="receipt-label bc-label">Your Email:</span> <span class="receipt-value" id="rUserEmail">-</span></div>
-          <div class="receipt-row bc-row"><span class="receipt-label bc-label">Start Date:</span> <span class="receipt-value" id="rStartDate">-</span></div>
-          <div class="receipt-row bc-row"><span class="receipt-label bc-label">Details:</span> <span class="receipt-value" id="rDetails">-</span></div>
-          <div class="receipt-row bc-row"><span class="receipt-label bc-label">Number of Days:</span> <span class="receipt-value" id="rDays">-</span></div>
-        </div>
-        <div class="confirmation-icon bc-check">&#10004;</div>
-        <div class="confirmation-title bc-confirm-title">Booking Confirmed!</div>
-        <div class="confirmation-text bc-confirm-text">Thank you for your booking.<br>A confirmation email has been sent to you.<br>We look forward to welcoming you!</div>
-        <div class="receipt-note bc-note">
-          Please take a screenshot of this receipt for your records.<br>
-          You will also receive a confirmation email with all booking details.
-        </div>
-        <div class="receipt-actions bc-actions">
-          <button class="screenshot-btn bc-btn-shot" onclick="takeScreenshot()">Take Screenshot</button>
-          <a href="index.html" class="home-btn bc-btn-home">Back to Home</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script>
-    // Get booking info from URL parameters (simulate for demo)
-    function getQueryParam(param) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
-    }
-    document.getElementById('rItemType').textContent = getQueryParam('type') || 'Accommodation';
-    document.getElementById('rItemName').textContent = getQueryParam('name') || 'Deluxe Room';
-    document.getElementById('rUserName').textContent = getQueryParam('user') || 'John Doe';
-    document.getElementById('rUserEmail').textContent = getQueryParam('email') || 'john@example.com';
-    document.getElementById('rStartDate').textContent = getQueryParam('date') || '2025-08-29';
-    document.getElementById('rDetails').textContent = getQueryParam('details') || 'No special requests.';
-    document.getElementById('rDays').textContent = getQueryParam('days') || '-';
-    // Screenshot function (simple)
-    function takeScreenshot() {
-      alert('Please use your device screenshot feature to save this receipt.');
-    }
-  </script>
-  <script src="../assets/js/navbar.js"></script>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
 </body>
 </html>

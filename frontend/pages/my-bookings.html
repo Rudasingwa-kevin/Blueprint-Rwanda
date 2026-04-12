@@ -1,308 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Bookings - Blueprint Rwanda</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings - Blueprint Rwanda</title>
+    <!-- Icons -->
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/ui-system.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
     <style>
-  /* General Body Styles */
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f5e9da; /* beige */
-    color: #4e2e0e; /* chocolate */
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+        .bookings-main {
+            padding-top: 120px;
+            padding-bottom: var(--space-lg);
+        }
 
-  /* Button style used */
-  .welcome-btn { background: #a0522d; color: #fff8e7; border: none; border-radius: 20px; padding: 0.8rem 2.2rem; font-size: 1.1rem; font-weight: bold; cursor: pointer; box-shadow: 0 2px 8px rgba(160,82,45,0.15); transition: background 0.2s; }
-  .welcome-btn:hover { background: #7c3f17; }
+        .bookings-header {
+            margin-bottom: var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
 
-  .welcome-btn {
-    background: #a0522d;
-    color: #fff8e7;
-    border: none;
-    border-radius: 20px;
-    padding: 0.8rem 2.2rem;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(160, 82, 45, 0.15);
-    transition: background 0.2s;
-  }
+        .filter-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
 
-  .welcome-btn:hover {
-    background: #7c3f17;
-  }
+        .filter-tab {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--text-muted);
+            border-bottom: 2px solid transparent;
+            transition: var(--transition);
+        }
 
-  
+        .filter-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
 
-  .navbar {
-    position: sticky;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(160, 82, 45, 0.85);
-    backdrop-filter: blur(8px);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 2rem;
-    z-index: 1000;
-    height: 70px;
-    box-shadow: 0 4px 20px rgba(160, 82, 45, 0.15);
-  }
+        .booking-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
 
-  .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #fff8e7;
-    cursor: pointer;
-    text-decoration: none;
-  }
+        .booking-card {
+            display: grid;
+            grid-template-columns: 200px 1fr 200px;
+            gap: 2rem;
+            padding: 1.5rem;
+            align-items: center;
+        }
 
-  .nav-logo img {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    transition: transform 0.3s ease;
-  }
+        .booking-img {
+            width: 100%;
+            height: 120px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
 
-  .nav-logo:hover img {
-    transform: scale(1.1);
-  }
+        .booking-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-  .nav-menu {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
-    margin: 0;
-    padding: 0;
-    align-items: center;
-  }
+        .booking-details h3 {
+            margin-bottom: 0.5rem;
+        }
 
-  .nav-menu li a {
-    color: #fff8e7;
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: 500;
-    transition: color 0.3s ease;
-    position: relative;
-    padding: 5px 0;
-  }
+        .booking-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
 
-  .nav-menu li a:hover {
-    color: #ffe4b5;
-  }
+        .booking-meta i {
+            width: 16px;
+            text-align: center;
+            margin-right: 0.25rem;
+        }
 
-  .nav-menu li a::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: #ffe4b5;
-    transform: scaleX(0);
-    transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
-  }
+        .booking-status {
+            text-align: right;
+        }
 
-  .nav-menu li a:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-  }
+        .status-badge {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
 
-  .nav-cta a {
-    background-color: #fff8e7;
-    color: #a0522d;
-    padding: 0.5rem 1.5rem;
-    border-radius: 20px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
+        .status-confirmed { background: #c6f6d5; color: #2f855a; }
+        .status-completed { background: #ebf8ff; color: #2b6cb0; }
+        .status-pending { background: #feebc8; color: #c05621; }
 
-  .nav-cta a:hover {
-    background-color: #ffe4b5;
-    color: #7c3f17;
-  }
-
-  .hamburger {
-    display: none;
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    padding: 0;
-    z-index: 1001;
-  }
-
-  .bar {
-    display: block;
-    width: 25px;
-    height: 3px;
-    margin: 5px auto;
-    background-color: #fff8e7;
-    transition: all 0.3s ease-in-out;
-  }
-
-  @media (max-width: 850px) {
-    .nav-menu {
-      position: fixed;
-      left: -100%;
-      top: 0;
-      flex-direction: column;
-      background-color: rgba(160, 82, 45, 0.98);
-      width: 100%;
-      height: 100vh;
-      text-align: center;
-      transition: 0.3s;
-      box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-      justify-content: center;
-      gap: 2rem;
-    }
-
-    .nav-menu.active {
-      left: 0;
-    }
-
-    .nav-menu li {
-      margin: 1rem 0;
-    }
-
-    .hamburger {
-      display: block;
-    }
-
-    .hamburger.active .bar:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active .bar:nth-child(1) {
-      transform: translateY(8px) rotate(45deg);
-    }
-
-    .hamburger.active .bar:nth-child(3) {
-      transform: translateY(-8px) rotate(-45deg);
-    }
-  }
-
-  .hero {
-    position: relative;
-    min-height: 80vh;
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-    background-size: cover;
-    background-position: center;
-  }
-
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(160, 82, 45, 0.35);
-    backdrop-filter: blur(2px);
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    color: #fff8e7;
-  }
-
-  .hero-content h1 {
-    font-size: 2.3rem;
-    margin-bottom: 0.5rem;
-    letter-spacing: 1px;
-  }
-
-  .hero-content p {
-    font-size: 1.1rem;
-    margin-bottom: 1.2rem;
-  }
-
-  .search-bar-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    max-width: 420px;
-    background: rgba(255,255,255,0.7);
-    border-radius: 24px;
-    box-shadow: 0 2px 8px rgba(160,82,45,0.10);
-    padding: 0.3rem 0.5rem;
-  }
-
-  .search-bar {
-    flex: 1;
-    border: none;
-    outline: none;
-    padding: 0.7rem 1rem;
-    border-radius: 20px 0 0 20px;
-    font-size: 1rem;
-    background: transparent;
-  }
-
-  .search-btn {
-    border: none;
-    background: none;
-    color: #a0522d;
-    font-size: 1.3rem;
-    cursor: pointer;
-    padding: 0 1rem;
-  }
-
-  main {
-    flex: 1 0 auto;
-    width: 100%;
-    padding: 0 0 2rem 0;
-  }
-
-  /* ... (Add other specific component styles here, like listing-card, modal, etc.) ... */ 
+        @media (max-width: 900px) {
+            .booking-card {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .booking-img {
+                height: 200px;
+            }
+            .booking-status {
+                text-align: left;
+                padding-top: 1rem;
+                border-top: 1px solid var(--border);
+            }
+        }
     </style>
-  <style>
-    body { background: #fff8e7; font-family: 'Segoe UI', 'Roboto', Arial, sans-serif; }
-    .bookings-container { max-width: 800px; margin: 3rem auto; background: #fff; border-radius: 18px; box-shadow: 0 8px 48px #a0522d22; padding: 2.5rem 2rem; }
-    .bookings-title { font-size: 2rem; color: #a0522d; font-weight: 700; margin-bottom: 2rem; text-align: center; }
-    .booking-card { background: #fff8e7; border-radius: 12px; box-shadow: 0 1.5px 8px #a0522d11; padding: 1.2rem 1.5rem; margin-bottom: 1.5rem; border-left: 4px solid #ffe4b5; }
-    .booking-card h4 { color: #a0522d; font-size: 1.18rem; margin-bottom: 0.5rem; font-weight: 700; }
-    .booking-meta { color: #4e2e0e; font-size: 1.08rem; margin-bottom: 0.5rem; }
-    .booking-date { color: #b08a5a; font-size: 1.01rem; margin-bottom: 0.5rem; }
-    .booking-status { color: #fff8e7; background: #a0522d; border-radius: 8px; padding: 0.18rem 0.7rem; font-size: 0.98rem; font-weight: 700; display: inline-block; }
-  </style>
-  <link rel="stylesheet" href="../assets/css/global-responsive.css">
-  <link rel="stylesheet" href="../assets/css/ui-system.css">
-  <link rel="stylesheet" href="../assets/css/inline-cleanup.css">
 </head>
 <body>
-  <div class="bookings-container">
-    <div class="bookings-title">My Bookings</div>
-    <div class="booking-card">
-      <h4>Kigali View Apartment</h4>
-      <div class="booking-meta">Kigali, $40/night</div>
-      <div class="booking-date">Check-in: July 10, 2025</div>
-      <div class="booking-status">Confirmed</div>
-    </div>
-    <div class="booking-card">
-      <h4>Toyota RAV4</h4>
-      <div class="booking-meta">Automatic, 5 seats, $50/day</div>
-      <div class="booking-date">Rental: June 15, 2025</div>
-      <div class="booking-status booking-status-badge">Completed</div>
-    </div>
-  </div>
-  <script src="../assets/js/navbar.js"></script>
+    <main class="bookings-main container">
+        <header class="bookings-header" data-animate>
+            <div>
+                <h1>My Reservations</h1>
+                <p>Track and manage your upcoming and past experiences.</p>
+            </div>
+            <button class="btn btn-secondary" onclick="location.href='dashboard.html'">Back to Hub</button>
+        </header>
+
+        <div class="filter-tabs" data-animate style="transition-delay: 0.1s;">
+            <div class="filter-tab active">Upcoming</div>
+            <div class="filter-tab">Completed</div>
+            <div class="filter-tab">Cancelled</div>
+        </div>
+
+        <section class="booking-list">
+            <!-- Booking 1 -->
+            <div class="card booking-card" data-animate style="transition-delay: 0.2s;">
+                <div class="booking-img">
+                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=400" alt="">
+                </div>
+                <div class="booking-details">
+                    <div class="status-badge status-confirmed">Confirmed</div>
+                    <h3>Kigali View Apartment</h3>
+                    <div class="booking-meta">
+                        <span><i class="fas fa-calendar-alt"></i> Oct 12 - Oct 15, 2025</span>
+                        <span><i class="fas fa-user-friends"></i> 2 Guests</span>
+                    </div>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;"><i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> Kiyovu, Kigali</p>
+                </div>
+                <div class="booking-status">
+                    <div style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">$150.00</div>
+                    <button class="btn btn-secondary w-100" onclick="location.href='item-details.html'">View Details</button>
+                </div>
+            </div>
+
+            <!-- Booking 2 -->
+            <div class="card booking-card" data-animate style="transition-delay: 0.3s;">
+                <div class="booking-img">
+                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=400" alt="">
+                </div>
+                <div class="booking-details">
+                    <div class="status-badge status-pending">Pending Approval</div>
+                    <h3>Toyota RAV4 Rental</h3>
+                    <div class="booking-meta">
+                        <span><i class="fas fa-calendar-alt"></i> Oct 20 - Oct 22, 2025</span>
+                        <span><i class="fas fa-cog"></i> Automatic</span>
+                    </div>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;"><i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> Kigali Airport Pickup</p>
+                </div>
+                <div class="booking-status">
+                    <div style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">$120.00</div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn btn-secondary" style="flex: 1;" onclick="location.href='item-details.html'">View</button>
+                        <button class="btn btn-secondary" style="color: #e53e3e; border-color: #feb2b2;">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script>
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.onclick = () => {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            };
+        });
+    </script>
 </body>
 </html>

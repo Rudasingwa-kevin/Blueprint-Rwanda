@@ -1,795 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Dashboard - Blueprint Rwanda</title>
-  <style>
-    :root {
-      --bg: #f7ede2;
-      --text: #4b2e0e;
-      --primary: #a0522d;
-      --primary-dark: #7c3f17;
-      --accent: #ffe4b5;
-      --light: #fff8f0;
-      --card: #fff;
-      --muted: #e0c9b2;
-    }
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-    }
-    .dashboard-header {
-      background: var(--light);
-      padding: 1.2em 2em;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 2px 12px rgba(160,82,45,0.10);
-      border-radius: 0 0 18px 18px;
-    }
-    .dashboard-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.7em;
-      font-size: 1.5em;
-      font-weight: bold;
-      color: var(--primary);
-    }
-    .dashboard-logo img {
-      width: 38px;
-      height: 38px;
-      border-radius: 8px;
-      background: var(--light);
-      box-shadow: 0 1px 4px rgba(160,82,45,0.10);
-    }
-    .dashboard-actions {
-      display: flex;
-      gap: 1em;
-    }
-    .dashboard-actions button {
-      background: linear-gradient(90deg, var(--primary) 70%, var(--accent) 100%);
-      color: #fff8e7;
-      border: none;
-      border-radius: 10px;
-      padding: 0.6em 1.3em;
-      font-size: 1em;
-      font-weight: 600;
-      box-shadow: 0 2px 8px rgba(160,82,45,0.10);
-      cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .more-btn { display:none; }
-    .more-menu { display:none; position:absolute; right:0; top:100%; background:#fff; border:1px solid var(--muted); border-radius:10px; box-shadow:0 6px 24px rgba(0,0,0,0.08); padding:0.4em; z-index:1000; }
-    .more-menu button { display:block; width:100%; text-align:left; margin:0.2em 0; background:#fff; color:var(--primary); border:1px solid #f0e4d6; border-radius:8px; padding:0.5em 0.8em; }
-    .dashboard-actions button:hover {
-      background: linear-gradient(90deg, #d2691e 70%, var(--light) 100%);
-      color: var(--primary);
-      transform: scale(1.05);
-    }
-    .subheader { color:var(--primary-dark); font-weight:600; font-size:0.95em; margin-top:4px; }
-    .services-filters { display:flex; gap:0.6em; align-items:center; flex-wrap:wrap; margin-bottom:0.8em; }
-    .services-filters input, .services-filters select { padding:0.5em 0.7em; border:1px solid var(--muted); border-radius:8px; background:#fff; color:var(--text); }
-    .services-filters button { background:var(--primary); color:#fff8e7; border:none; border-radius:8px; padding:0.5em 0.9em; cursor:pointer; }
-    .dashboard-main {
-      max-width: 1200px;
-      margin: 2em auto;
-      background: var(--light);
-      border-radius: 18px;
-      box-shadow: 0 2px 12px rgba(160,82,45,0.10);
-      padding: 2em 2em;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2em;
-    }
-    .dashboard-section {
-      background: var(--card);
-      border-radius: 12px;
-      box-shadow: 0 1px 6px rgba(160,82,45,0.07);
-      padding: 1.2em 1em;
-      margin-bottom: 1.5em;
-    }
-    .full-width { grid-column: 1 / -1; }
-    .res-summary { display:flex; gap:0.6em; flex-wrap:wrap; margin:0.6em 0 0.2em 0; }
-    .chip { background: #fff8e7; color: var(--primary-dark); border:1px solid var(--muted); border-radius: 999px; padding: 0.25em 0.7em; font-size:0.92em; box-shadow:0 1px 3px rgba(160,82,45,0.08); }
-    .dashboard-section h2 {
-      color: var(--primary);
-      margin-bottom: 0.7em;
-      font-size: 1.2em;
-    }
-    .dashboard-stats {
-      display: flex;
-      gap: 1.5em;
-      margin-bottom: 1em;
-    }
-    .stat-card {
-      background: var(--accent);
-      color: var(--text);
-      border-radius: 8px;
-      padding: 1em 1.2em;
-      box-shadow: 0 1px 4px rgba(160,82,45,0.07);
-      text-align: center;
-      font-size: 1.1em;
-      font-weight: 600;
-      flex: 1;
-    }
-    .service-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .service-list li {
-      background: #fff8e7;
-      border-radius: 8px;
-      box-shadow: 0 1px 4px rgba(160,82,45,0.07);
-      margin-bottom: 0.7em;
-      padding: 0.8em 1em;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 1em;
-    }
-    .service-list .service-info {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2em;
-    }
-    .service-list .service-actions button {
-      background: var(--primary);
-      color: #fff8e7;
-      border: none;
-      border-radius: 7px;
-      padding: 0.4em 1em;
-      font-size: 0.95em;
-      font-weight: 500;
-      cursor: pointer;
-      margin-left: 0.5em;
-      transition: background 0.2s;
-    }
-    .service-list .service-actions button:hover {
-      background: #d2691e;
-      color: #fff8e7;
-    }
-    .dashboard-activity {
-      background: #fff8e7;
-      border-radius: 8px;
-      box-shadow: 0 1px 4px rgba(160,82,45,0.07);
-      padding: 1em 1em;
-      margin-bottom: 1em;
-      font-size: 1em;
-    }
-    .dashboard-activity h3 {
-      color: var(--primary);
-      margin-bottom: 0.5em;
-      font-size: 1.05em;
-    }
-    .dashboard-activity ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .dashboard-activity li {
-      margin-bottom: 0.5em;
-      color: #4b2e0e;
-    }
-    @media (max-width: 900px) {
-      .dashboard-main {
-        grid-template-columns: 1fr;
-        padding: 1em 0.5em;
-      }
-    }
-    @media (max-width: 480px) {
-      .dashboard-header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 1em 0.5em;
-      }
-      .dashboard-main {
-        padding: 0.7em 0.2em;
-        border-radius: 0;
-      }
-      .dashboard-section {
-        padding: 0.7em 0.3em;
-        border-radius: 8px;
-      }
-      .dashboard-stats {
-        flex-direction: column;
-        gap: 0.7em;
-      }
-      .stat-card {
-        font-size: 1em;
-        padding: 0.7em 0.7em;
-      }
-      .service-list li {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5em;
-      }
-      .dashboard-activity {
-        padding: 0.7em 0.3em;
-        border-radius: 8px;
-      }
-    }
-    @media (max-width: 480px) {
-      .dashboard-header { flex-direction: column; align-items: stretch; gap: 0.6rem; padding: 0.8em 1em; border-radius: 0 0 14px 14px; }
-      .dashboard-logo { font-size: 1.1em; justify-content: center; }
-      .dashboard-logo img { width: 34px; height: 34px; }
-      .dashboard-actions { flex-wrap: wrap; justify-content: center; gap: 0.5em; }
-      .dashboard-actions button { padding: 0.45em 0.8em; font-size: 0.9em; border-radius: 8px; }
-    }
-    @media (max-width: 360px) {
-      .dashboard-logo .logo-title { display:none; }
-      .dashboard-header { position: relative; }
-      .dashboard-actions { position: relative; }
-      .dashboard-actions button { display:none; }
-      .dashboard-actions .more-btn { display:inline-block; }
-    }
-  </style>
-  <link rel="stylesheet" href="../assets/css/global-responsive.css">
-  <link rel="stylesheet" href="../assets/css/ui-system.css">
-  <link rel="stylesheet" href="../assets/css/dashboard-admin.css">
-  <link rel="stylesheet" href="../assets/css/inline-cleanup.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Dashboard - Blueprint Rwanda</title>
+    <!-- Icons -->
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/ui-system.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <style>
+        .owner-main {
+            padding-top: 100px;
+            padding-bottom: var(--space-lg);
+        }
+
+        .owner-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .owner-header h1 {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .kpi-card {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .kpi-card i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .kpi-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0.25rem 0;
+        }
+
+        .kpi-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .property-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .property-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .property-item:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .property-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+        }
+
+        .property-info {
+            flex: 1;
+        }
+
+        .property-status {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-pill);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .active-status { background: #c6f6d5; color: #2f855a; }
+        .pending-status { background: #feebc8; color: #c05621; }
+
+        @media (max-width: 900px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-  <body>
-  <div class="dashboard-header">
-    <div class="dashboard-logo">
-      <img src="../assets/images/branding/title-logo.png" alt="Logo">
-      <span class="logo-title">Blueprint Rwanda — Owner Dashboard</span>
-    </div>
-    <div class="dashboard-actions">
-      <button id="goDashboardBtn" title="Go to top">Dashboard</button>
-      <button id="myBookingsBtn" title="View reservations">Reservations</button>
-      <button id="editProfileBtn" title="Update your profile">Edit Profile</button>
-      <button id="logoutBtn">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="svg-icon-inline"><path d="M16 17l5-5m0 0l-5-5m5 5H9m4 5v1a2 2 0 01-2 2H7a2 2 0 01-2-2V6a2 2 0 012-2h4a2 2 0 012 2v1" stroke="#a9070d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Logout
-      </button>
-      <button id="moreBtn" class="more-btn" title="More">More ▾</button>
-      <div id="moreMenu" class="more-menu">
-        <button data-menu-action="dash">Dashboard</button>
-        <button data-menu-action="reservations">Reservations</button>
-        <button data-menu-action="editProfile">Edit Profile</button>
-        <button data-menu-action="logout">Logout</button>
-      </div>
-    </div>
-  </div>
-  <div class="dashboard-main">
-    <div class="dashboard-section">
-      <h2>My Profile</h2>
-      <div class="owner-profile ud-owner-profile">
-        <img id="profilePhoto" src="../assets/images/branding/title-logo.png" alt="Profile Photo" class="ud-profile-photo">
-        <div>
-          <strong id="profileName">Guest User</strong>
-          <div class="subheader" id="profileMeta">Host since — • —</div>
-          <span id="profileEmail" class="ud-small-text">guest@example.com</span>
-        </div>
-      </div>
-      <div class="ud-mb-1">
-        <div class="ud-progress-row">
-          <span class="ud-progress-label">Profile Completion</span>
-          <span id="profileProgressLabel" class="ud-progress-pct">0%</span>
-        </div>
-        <div class="ud-progress-track">
-          <div id="profileProgressBar" class="ud-progress-bar"></div>
-        </div>
-      </div>
-    </div>
-    <div class="dashboard-section">
-      <h2>Owner KPIs</h2>
-      <div class="dashboard-stats dashboard-stats-flex">
-        <div class="stat-card">Upcoming Check-ins<br><span id="statUpcoming" class="stat-num-lg">0</span></div>
-        <div class="stat-card">Active Reservations<br><span id="statActive" class="stat-num-lg">0</span></div>
-        <div class="stat-card">Avg. Stay (nights)<br><span id="statAvgStay" class="stat-num-lg">0</span></div>
-        <div class="stat-card">Host Since<br><span id="statMemberSince" class="stat-num-md">—</span></div>
-      </div>
-    </div>
-    <div class="dashboard-section full-width">
-      <h2>Property Management</h2>
-      <div class="services-filters">
-        <input id="propSearch" type="text" placeholder="Search property by name" />
-        <select id="propCity">
-          <option value="">All cities</option>
-          <option value="Kigali">Kigali</option>
-          <option value="Rubavu">Rubavu</option>
-          <option value="Musanze">Musanze</option>
-          <option value="Huye">Huye</option>
-        </select>
-        <button id="propAddBtn" title="Add a new property">+ Add Property</button>
-      </div>
-      <ul class="service-list" id="propertiesList"></ul>
-    </div>
-    <div class="dashboard-section full-width">
-      <h2>Recent Reservations</h2>
-      <div class="services-filters">
-        <input id="svcSearch" type="text" placeholder="Search by name" />
-        <select id="svcType">
-          <option value="">All properties</option>
-        </select>
-        <select id="svcStatus">
-          <option value="">All status</option>
-          <option>Confirmed</option>
-          <option>Pending</option>
-          <option>Cancelled</option>
-        </select>
-        <button id="svcExportBtn" title="Export reservations as JSON">Export</button>
-      </div>
-      <div class="res-summary" id="resSummary">
-        <span class="chip">Total: 0</span>
-        <span class="chip">Confirmed: 0</span>
-        <span class="chip">Pending: 0</span>
-        <span class="chip">Cancelled: 0</span>
-      </div>
-      <ul class="service-list" id="servicesList"></ul>
-      <div class="ud-right-row"><button id="quickAddBtn" class="ud-btn-primary">+ Create Reservation</button></div>
-    </div>
-    <div class="dashboard-section">
-      <h2>Reservations Overview</h2>
-      <div class="ud-chart-grid">
-        <canvas id="chartByProperty" class="ud-chart-canvas"></canvas>
-        <canvas id="chartByStatus" class="ud-chart-canvas"></canvas>
-        <canvas id="chartByMonth" class="ud-chart-canvas"></canvas>
-      </div>
-    </div>
-    <div class="dashboard-section">
-      <h2>Recent Activity</h2>
-      <div class="dashboard-activity">
-        <h3>Latest Bookings</h3>
-        <ul>
-          <li>John Doe booked Kigali Luxury Apartment (Sep 6)</li>
-          <li>Jane Smith booked Rubavu Lake House (Sep 5)</li>
-          <li>Eric booked Musanze Mountain Lodge (Sep 4)</li>
-        </ul>
-        <h3>Recent Reviews</h3>
-        <ul>
-          <li>"Great location and service!" - Kigali Luxury Apartment</li>
-          <li>"Beautiful view of Lake Kivu." - Rubavu Lake House</li>
-        </ul>
-      </div>
-    </div>
-    <div class="dashboard-section">
-      <h2>Insights</h2>
-      <div class="dashboard-activity">
-        <ul>
-          <li>Top city by reservations: Kigali • Peak: weekends</li>
-          <li>Best-performing listing: Kigali Luxury Apartment</li>
-          <li>Tip: Offer a weekday discount to improve occupancy</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <footer class="ud-footer">
-    <a href="dashboard.html" class="ud-link ud-link-mr">Home</a>
-    <a href="#" class="ud-link">Support</a>
-  </footer>
-  <!-- Manage Modal -->
-  <div id="manageModal" class="ud-modal-overlay">
-    <div class="ud-modal-card">
-      <h3 class="ud-modal-title">Manage</h3>
-      <div class="ud-modal-col">
-        <button data-link="admin-accommodations.html" class="ud-btn-action">Manage Accommodations</button>
-        <button data-link="admin-cars.html" class="ud-btn-action">Manage Cars</button>
-        <button data-link="admin-places.html" class="ud-btn-action">Manage Places</button>
-        <button data-link="admin-dashboard.html" class="secondary" class="ud-btn-secondary">Review Moderation</button>
-        <button id="manageClose" class="ud-btn-danger">Close</button>
-      </div>
-    </div>
-  </div>
-  <!-- Add Booking/Service Modal -->
-  <div id="addModal" class="ud-modal-overlay">
-    <div class="ud-modal-card">
-      <h3 class="ud-modal-title">Create New</h3>
-      <div class="ud-modal-col">
-        <button data-link="accommodation.html" class="ud-btn-action">Browse Accommodations</button>
-        <button data-link="rentcar.html" class="ud-btn-action">Browse Cars</button>
-        <button data-link="visit.html" class="ud-btn-action">Browse Places</button>
-        <button id="addClose" class="ud-btn-danger">Close</button>
-      </div>
-    </div>
-  </div>
-  <!-- New Reservation Modal -->
-  <div id="newResModal" class="ud-modal-overlay">
-    <div class="ud-modal-card-wide">
-      <h3 class="ud-modal-title">Create Reservation</h3>
-      <div class="ud-modal-col">
-        <label>Property
-          <select id="newResProperty" class="ud-field"></select>
-        </label>
-        <label>Guest Name
-          <input id="newResGuest" type="text" placeholder="Guest full name" class="ud-field" />
-        </label>
-        <label>Check-in Date
-          <input id="newResDate" type="date" class="ud-field" />
-        </label>
-        <label>Nights
-          <input id="newResNights" type="number" min="1" value="1" class="ud-field" />
-        </label>
-        <label>Status
-          <select id="newResStatus" class="ud-field">
-            <option>Confirmed</option>
-            <option>Pending</option>
-          </select>
-        </label>
-        <div class="ud-row-end">
-          <button id="newResCancel" class="ud-btn-danger">Close</button>
-          <button id="newResSave" class="ud-btn-action">Save</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    // Wire top actions
-    document.getElementById('goDashboardBtn').onclick = function() { window.scrollTo({top:0, behavior:'smooth'}); };
-    // Replace owner-oriented actions with user-oriented
-    document.getElementById('myBookingsBtn').onclick = function() { document.getElementById('servicesList').scrollIntoView({behavior:'smooth'}); };
-    document.getElementById('editProfileBtn').onclick = function() { alert('Go to Profile page (to be implemented)'); };
-    // Keep manage modal available if needed
-    document.getElementById('quickAddBtn').onclick = function() { document.getElementById('newResModal').style.display='flex'; };
-    document.getElementById('manageClose').onclick = function() { document.getElementById('manageModal').style.display='none'; };
-    document.getElementById('addClose').onclick = function() { document.getElementById('addModal').style.display='none'; };
-    document.getElementById('newResCancel').onclick = function() { document.getElementById('newResModal').style.display='none'; };
-    document.querySelectorAll('#manageModal [data-link]').forEach(btn => btn.onclick = () => { window.location.href = btn.getAttribute('data-link'); });
-    document.querySelectorAll('#addModal [data-link]').forEach(btn => btn.onclick = () => { window.location.href = btn.getAttribute('data-link'); });
+<body>
+    <main class="owner-main container">
+        <header class="owner-header" data-animate>
+            <div>
+                <h1>Owner Dashboard</h1>
+                <p>Manage your properties and track your earnings.</p>
+            </div>
+            <div class="owner-actions">
+                <a href="add-accommodation.html" class="btn btn-primary"><i class="fas fa-plus"></i> List New Property</a>
+            </div>
+        </header>
 
-    // More menu (ultra-small screens)
-    (function(){
-      const moreBtn = document.getElementById('moreBtn');
-      const moreMenu = document.getElementById('moreMenu');
-      if (!moreBtn || !moreMenu) return;
-      function toggleMenu(){ moreMenu.style.display = moreMenu.style.display === 'block' ? 'none' : 'block'; }
-      moreBtn.addEventListener('click', function(e){ e.stopPropagation(); toggleMenu(); });
-      document.addEventListener('click', function(){ moreMenu.style.display = 'none'; });
-      moreMenu.addEventListener('click', function(e){ e.stopPropagation(); });
-      moreMenu.querySelectorAll('button[data-menu-action]').forEach(b => {
-        b.addEventListener('click', function(){
-          const act = this.getAttribute('data-menu-action');
-          moreMenu.style.display = 'none';
-          if (act === 'dash') window.scrollTo({top:0, behavior:'smooth'});
-          if (act === 'reservations') document.getElementById('servicesList').scrollIntoView({behavior:'smooth'});
-          if (act === 'editProfile') alert('Go to Profile page (to be implemented)');
-          if (act === 'logout') window.location.href = 'verification.html';
+        <!-- Stats -->
+        <div class="kpi-grid">
+            <div class="card kpi-card" data-animate>
+                <i class="fas fa-home"></i>
+                <div class="kpi-value">4</div>
+                <div class="kpi-label">Properties</div>
+            </div>
+            <div class="card kpi-card" data-animate style="transition-delay: 0.1s;">
+                <i class="fas fa-calendar-alt"></i>
+                <div class="kpi-value">12</div>
+                <div class="kpi-label">Active Bookings</div>
+            </div>
+            <div class="card kpi-card" data-animate style="transition-delay: 0.2s;">
+                <i class="fas fa-star"></i>
+                <div class="kpi-value">4.9</div>
+                <div class="kpi-label">Avg. Rating</div>
+            </div>
+            <div class="card kpi-card" data-animate style="transition-delay: 0.3s;">
+                <i class="fas fa-wallet"></i>
+                <div class="kpi-value">$2.4k</div>
+                <div class="kpi-label">This Month</div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Property List -->
+            <div class="dashboard-content" data-animate>
+                <div class="section-title">
+                    <h3>Your Listings</h3>
+                    <a href="#" style="font-size: 0.9rem; color: var(--primary);">View All</a>
+                </div>
+                <div class="property-list">
+                    <div class="property-item">
+                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=200" alt="">
+                        <div class="property-info">
+                            <h4 style="margin-bottom: 0.25rem;">Kigali View Apartment</h4>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);"><i class="fas fa-map-marker-alt"></i> Kiyovu, Kigali</p>
+                        </div>
+                        <div>
+                            <span class="property-status active-status">Active</span>
+                        </div>
+                        <div class="property-actions">
+                            <button class="btn btn-secondary btn-sm" onclick="location.href='add-accommodation.html'">Edit</button>
+                        </div>
+                    </div>
+
+                    <div class="property-item">
+                        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=200" alt="">
+                        <div class="property-info">
+                            <h4 style="margin-bottom: 0.25rem;">Lakeside Retreat</h4>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);"><i class="fas fa-map-marker-alt"></i> Rubavu</p>
+                        </div>
+                        <div>
+                            <span class="property-status pending-status">Pending</span>
+                        </div>
+                        <div class="property-actions">
+                            <button class="btn btn-secondary btn-sm" onclick="location.href='add-accommodation.html'">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Side Cards -->
+            <div class="dashboard-sidebar">
+                <div class="card" data-animate style="transition-delay: 0.2s; margin-bottom: 1.5rem;">
+                    <h3 style="font-size: 1rem; margin-bottom: 1rem;">Revenue Overview</h3>
+                    <canvas id="revenueChart" height="200"></canvas>
+                </div>
+
+                <div class="card" data-animate style="transition-delay: 0.3s;">
+                    <h3 style="font-size: 1rem; margin-bottom: 1rem;">Recent Messages</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="font-size: 0.9rem;">
+                            <strong>John Doe</strong>
+                            <p style="color: var(--text-muted); font-size: 0.8rem;">Is check-in available at 10 AM?</p>
+                        </div>
+                        <div style="font-size: 0.9rem;">
+                            <strong>Sarah M.</strong>
+                            <p style="color: var(--text-muted); font-size: 0.8rem;">The apartment was wonderful!</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary w-100" style="margin-top: 1rem;">Go to Inbox</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script>
+        // Init Revenue Chart
+        const ctx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Earnings ($)',
+                    data: [1200, 1900, 1500, 2100, 1800, 2400],
+                    borderColor: '#a0522d',
+                    backgroundColor: 'rgba(160, 82, 45, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, ticks: { font: { size: 10 } } },
+                    x: { ticks: { font: { size: 10 } } }
+                }
+            }
         });
-      });
-    })();
-
-    // Owner profile, properties, and reservations (localStorage-backed)
-    const profileKey = 'user_profile';
-    const ownerServicesKey = 'owner_services';
-    const ownerBookingsKey = 'owner_bookings';
-    function loadJSON(key, fallback) { try { return JSON.parse(localStorage.getItem(key) || ''); } catch(_) { return fallback; } }
-    function saveJSON(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
-    function seedProfileIfEmpty() {
-      let p = loadJSON(profileKey, null);
-      if (!p) {
-        p = { name: 'Guest User', email: 'guest@example.com', city: 'Kigali', memberSince: '2024', photo: '../assets/images/branding/title-logo.png', reviews: 0 };
-        saveJSON(profileKey, p);
-      }
-    }
-    function seedOwnerServicesIfEmpty() {
-      let s = loadJSON(ownerServicesKey, null);
-      if (!s || s.length === 0) {
-        s = [
-          { id:'svc-1', name:'Kigali Luxury Apartment', city:'Kigali', status:'Active' },
-          { id:'svc-2', name:'Rubavu Lake House', city:'Rubavu', status:'Active' },
-          { id:'svc-3', name:'Musanze Mountain Lodge', city:'Musanze', status:'Pending' },
-          { id:'svc-4', name:'Huye Guest Home', city:'Huye', status:'Inactive' }
-        ];
-        saveJSON(ownerServicesKey, s);
-      }
-    }
-    function seedOwnerBookingsIfEmpty() {
-      let b = loadJSON(ownerBookingsKey, null);
-      if (!b || b.length === 0) {
-        b = [
-          { id:'ob-1', property:'Kigali Luxury Apartment', guest:'John Doe', status:'Confirmed', date:'2025-10-12', nights:3, city:'Kigali' },
-          { id:'ob-2', property:'Rubavu Lake House', guest:'Jane Smith', status:'Pending', date:'2025-10-20', nights:2, city:'Rubavu' },
-          { id:'ob-3', property:'Musanze Mountain Lodge', guest:'Eric', status:'Cancelled', date:'2025-09-01', nights:1, city:'Musanze' },
-          { id:'ob-4', property:'Kigali Luxury Apartment', guest:'Irene', status:'Confirmed', date:'2025-11-03', nights:4, city:'Kigali' }
-        ];
-        saveJSON(ownerBookingsKey, b);
-      }
-    }
-    function loadOwnerServices() { return loadJSON(ownerServicesKey, []) || []; }
-    function saveOwnerServices(list) { saveJSON(ownerServicesKey, list); }
-    function loadOwnerBookings() { return loadJSON(ownerBookingsKey, []) || []; }
-    function saveOwnerBookings(list) { saveJSON(ownerBookingsKey, list); }
-    function renderProfile() {
-      const p = loadJSON(profileKey, {});
-      document.getElementById('profileName').textContent = p.name || 'Guest User';
-      document.getElementById('profileEmail').textContent = p.email || 'guest@example.com';
-      document.getElementById('profileMeta').textContent = `Host since ${p.memberSince || '—'} • ${p.city || '—'}`;
-      if (p.photo) document.getElementById('profilePhoto').src = p.photo;
-      // Profile completion heuristic
-      const fields = ['name','email','city','photo'];
-      const filled = fields.filter(k => p[k] && String(p[k]).trim() !== '').length;
-      const pct = Math.round((filled/fields.length)*100);
-      document.getElementById('profileProgressLabel').textContent = pct + '%';
-      document.getElementById('profileProgressBar').style.width = pct + '%';
-      // Stats
-      document.getElementById('statReviews') && (document.getElementById('statReviews').textContent = p.reviews ?? 0);
-      document.getElementById('statMemberSince').textContent = p.memberSince || '—';
-    }
-    // Render Properties (owner services)
-    function renderProperties() {
-      const search = (document.getElementById('propSearch').value || '').toLowerCase().trim();
-      const city = document.getElementById('propCity').value;
-      let list = loadOwnerServices();
-      if (search) list = list.filter(p => (p.name || '').toLowerCase().includes(search));
-      if (city) list = list.filter(p => p.city === city);
-      const ul = document.getElementById('propertiesList');
-      ul.innerHTML = '';
-      if (list.length === 0) {
-        ul.innerHTML = '<li class="ud-empty">No properties yet. Use "+ Add Property" to create one.</li>';
-        return;
-      }
-      list.forEach(p => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-          <div class="service-info">
-            <strong>${p.name}</strong>
-            <span>${p.city || '-'} • Status: ${p.status}</span>
-          </div>
-          <div class="service-actions">
-            <button data-prop-action="edit" data-id="${p.id}">Edit</button>
-            <button data-prop-action="view" data-id="${p.id}">View</button>
-            <button data-prop-action="duplicate" data-id="${p.id}">Duplicate</button>
-            <button data-prop-action="toggle" data-id="${p.id}">${p.status==='Inactive'?'Unhide':'Hide'}</button>
-            <button data-prop-action="delete" data-id="${p.id}">Delete</button>
-          </div>`;
-        ul.appendChild(li);
-      });
-    }
-    function handlePropertyAction(e) {
-      const btn = e.target.closest('button[data-prop-action]');
-      if (!btn) return;
-      const action = btn.getAttribute('data-prop-action');
-      const id = btn.getAttribute('data-id');
-      let list = loadOwnerServices();
-      const prop = list.find(x => x.id === id);
-      if (!prop) return;
-      if (action === 'delete') {
-        if (confirm('Delete this property?')) { list = list.filter(x => x.id !== id); saveOwnerServices(list); renderProperties(); }
-      } else if (action === 'duplicate') {
-        const copy = { ...prop, id: 'svc-' + Date.now(), name: prop.name + ' (Copy)' };
-        list.push(copy); saveOwnerServices(list); renderProperties();
-      } else if (action === 'toggle') {
-        prop.status = (prop.status === 'Inactive') ? 'Active' : 'Inactive';
-        saveOwnerServices(list); renderProperties();
-      } else if (action === 'edit') {
-        localStorage.setItem('edit_service', JSON.stringify({ id: prop.id, type: 'accommodation', name: prop.name, location: prop.city, status: prop.status }));
-        window.location.href = 'add-accommodation.html';
-      } else if (action === 'view') {
-        localStorage.setItem('itemName', prop.name);
-        localStorage.setItem('itemType', 'accommodation');
-        window.location.href = 'item-details.html';
-      }
-    }
-
-    // Render Reservations (owner bookings)
-    function renderReservations() {
-      const search = (document.getElementById('svcSearch').value || '').toLowerCase().trim();
-      const prop = document.getElementById('svcType').value;
-      const status = document.getElementById('svcStatus').value;
-      let list = loadOwnerBookings();
-      if (search) list = list.filter(b => (b.guest || '').toLowerCase().includes(search) || (b.property || '').toLowerCase().includes(search));
-      if (prop) list = list.filter(b => b.property === prop);
-      if (status) list = list.filter(b => b.status === status);
-      // Sort by date descending (most recent first)
-      list.sort((a,b) => new Date(b.date||0) - new Date(a.date||0));
-      const ul = document.getElementById('servicesList');
-      ul.innerHTML = '';
-      if (list.length === 0) {
-        ul.innerHTML = '<li class="ud-empty">No reservations found.</li>';
-        updateResSummary([]);
-        return;
-      }
-      list.forEach(b => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-          <div class="service-info">
-            <strong>${b.property}</strong>
-            <span>Guest: ${b.guest} • ${b.city || '-'} • ${b.date || ''} • ${b.nights || 1} night(s)</span>
-            <span>Status: ${b.status}</span>
-          </div>
-          <div class="service-actions">
-            <button data-action="view" data-id="${b.id}">View</button>
-            <button data-action="cancel" data-id="${b.id}">Cancel</button>
-          </div>`;
-        ul.appendChild(li);
-      });
-      updateStats(list);
-      updateResSummary(list);
-    }
-    function updateResSummary(list){
-      const wrap = document.getElementById('resSummary');
-      if (!wrap) return;
-      const chips = wrap.querySelectorAll('span.chip');
-      const total = list.length;
-      const confirmed = list.filter(x=>x.status==='Confirmed').length;
-      const pending = list.filter(x=>x.status==='Pending').length;
-      const cancelled = list.filter(x=>x.status==='Cancelled').length;
-      if (chips[0]) chips[0].textContent = `Total: ${total}`;
-      if (chips[1]) chips[1].textContent = `Confirmed: ${confirmed}`;
-      if (chips[2]) chips[2].textContent = `Pending: ${pending}`;
-      if (chips[3]) chips[3].textContent = `Cancelled: ${cancelled}`;
-    }
-    function handleReservationAction(e) {
-      const btn = e.target.closest('button[data-action]');
-      if (!btn) return;
-      const action = btn.getAttribute('data-action');
-      const id = btn.getAttribute('data-id');
-      let list = loadOwnerBookings();
-      const res = list.find(x => x.id === id);
-      if (!res) return;
-      if (action === 'cancel') {
-        if (res.status === 'Confirmed' || res.status === 'Pending') {
-          if (confirm('Cancel this reservation?')) { res.status = 'Cancelled'; saveOwnerBookings(list); renderReservations(); renderCharts(); }
-        } else {
-          alert('This reservation is already cancelled.');
-        }
-      } else if (action === 'view') {
-        localStorage.setItem('itemName', res.property);
-        localStorage.setItem('itemType', 'accommodation');
-        window.location.href = 'item-details.html';
-      }
-    }
-    document.getElementById('propertiesList').addEventListener('click', handlePropertyAction);
-    document.getElementById('servicesList').addEventListener('click', handleReservationAction);
-    // Filters
-    document.getElementById('propSearch').addEventListener('input', renderProperties);
-    document.getElementById('propCity').addEventListener('change', renderProperties);
-    document.getElementById('propAddBtn').addEventListener('click', function(){ window.location.href = 'add-accommodation.html'; });
-    document.getElementById('svcSearch').addEventListener('input', renderReservations);
-    document.getElementById('svcType').addEventListener('change', renderReservations);
-    document.getElementById('svcStatus').addEventListener('change', renderReservations);
-    document.getElementById('svcExportBtn').addEventListener('click', function() {
-      const data = JSON.stringify(loadOwnerBookings(), null, 2);
-      const blob = new Blob([data], {type: 'application/json'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = 'reservations-export.json'; a.click(); URL.revokeObjectURL(url);
-    });
-
-    // Populate dynamic property dropdowns (filter + new reservation)
-    function populatePropertyOptions() {
-      const props = loadOwnerServices();
-      // Filter dropdown
-      const filterSel = document.getElementById('svcType');
-      const current = filterSel.value;
-      filterSel.innerHTML = '<option value="">All properties</option>' + props.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
-      if ([...filterSel.options].some(o => o.value === current)) filterSel.value = current;
-      // New reservation modal select
-      const newResSel = document.getElementById('newResProperty');
-      newResSel.innerHTML = props.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
-    }
-
-    // Save new reservation
-    document.getElementById('newResSave').onclick = function(){
-      const props = loadOwnerServices();
-      const propId = document.getElementById('newResProperty').value;
-      const prop = props.find(p => p.id === propId);
-      const guest = (document.getElementById('newResGuest').value || '').trim();
-      const date = document.getElementById('newResDate').value;
-      const nights = parseInt(document.getElementById('newResNights').value || '1');
-      const status = document.getElementById('newResStatus').value;
-      if (!prop || !guest || !date) { alert('Please fill property, guest, and date.'); return; }
-      let list = loadOwnerBookings();
-      list.push({ id: 'ob-' + Date.now(), property: prop.name, guest, status, date, nights, city: prop.city });
-      saveOwnerBookings(list);
-      document.getElementById('newResModal').style.display = 'none';
-      renderReservations();
-      renderCharts();
-    };
-
-    // Logout wiring
-    document.getElementById('logoutBtn').onclick = function() { window.location.href = 'verification.html'; };
-
-    // Init
-    seedProfileIfEmpty();
-    seedOwnerServicesIfEmpty();
-    seedOwnerBookingsIfEmpty();
-    renderProfile();
-    renderProperties();
-    populatePropertyOptions();
-    renderReservations();
-
-    // Charts
-    function getPalette() {
-      const def = { a:'#a0522d', b:'#ffe4b5', c:'#7c3f17' };
-      try { return JSON.parse(localStorage.getItem('svc_palette') || 'null') || def; } catch(_) { return def; }
-    }
-    function setPalette(p) { localStorage.setItem('svc_palette', JSON.stringify(p)); }
-    function computeCounts() {
-      const list = loadOwnerBookings();
-      const byProperty = list.reduce((acc, r) => (acc[r.property] = (acc[r.property]||0)+1, acc), {});
-      const byStatus = list.reduce((acc, r) => (acc[r.status] = (acc[r.status]||0)+1, acc), {});
-      return { byProperty, byStatus };
-    }
-    function updateStats(list) {
-      const now = new Date();
-      const upcoming = list.filter(b => b.status !== 'Cancelled' && b.date && new Date(b.date) >= now).length;
-      const active = list.filter(b => b.status === 'Confirmed').length;
-      const avgStay = list.length ? Math.round(list.reduce((sum, b) => sum + (b.nights || 1), 0) / list.length) : 0;
-      document.getElementById('statUpcoming').textContent = upcoming;
-      document.getElementById('statActive').textContent = active;
-      document.getElementById('statAvgStay').textContent = avgStay;
-    }
-    const propCtx = document.getElementById('chartByProperty').getContext('2d');
-    const statusCtx = document.getElementById('chartByStatus').getContext('2d');
-    const monthCanvas = document.getElementById('chartByMonth');
-    const monthCtx = monthCanvas.getContext('2d');
-    let propertyChart, statusChart, monthChart;
-    const MONTH_LABELS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    function computeMonthlyCounts() {
-      const list = loadOwnerBookings();
-      const counts = new Array(12).fill(0);
-      list.forEach(r => {
-        if (!r.date) return;
-        const d = new Date(r.date);
-        if (!isNaN(d)) counts[d.getMonth()] += 1;
-      });
-      return counts;
-    }
-    function renderCharts() {
-      const pal = getPalette();
-      const { byProperty, byStatus } = computeCounts();
-      const pLabels = Object.keys(byProperty);
-      const pData = Object.values(byProperty);
-      const sLabels = Object.keys(byStatus);
-      const sData = Object.values(byStatus);
-      const mData = computeMonthlyCounts();
-      if (propertyChart) propertyChart.destroy();
-      if (statusChart) statusChart.destroy();
-      if (monthChart) monthChart.destroy();
-      propertyChart = new Chart(propCtx, { type: 'doughnut', data: { labels: pLabels, datasets: [{ data: pData, backgroundColor: [pal.a,pal.b,pal.c] }]}, options: { responsive:true, plugins:{ legend:{ position:'bottom' }}}});
-      statusChart = new Chart(statusCtx, { type: 'bar', data: { labels: sLabels, datasets: [{ label:'By Status', data: sData, backgroundColor: [pal.a,pal.b,pal.c] }]}, options: { responsive:true, plugins:{ legend:{ display:false }}}});
-      // Gradient for monthly line chart
-      const gradient = monthCtx.createLinearGradient(0, 0, 0, monthCanvas.height);
-      gradient.addColorStop(0, hexToRgba(pal.a, 0.4));
-      gradient.addColorStop(1, hexToRgba(pal.b, 0.05));
-      monthChart = new Chart(monthCtx, {
-        type: 'line',
-        data: {
-          labels: MONTH_LABELS,
-          datasets: [{
-            label: 'Reservations per Month',
-            data: mData,
-            fill: true,
-            backgroundColor: gradient,
-            borderColor: pal.a,
-            borderWidth: 2,
-            pointBackgroundColor: pal.a,
-            pointBorderColor: '#fff',
-            pointRadius: 4,
-            tension: 0.35
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: { legend: { display: false } },
-          scales: {
-            x: { grid: { display: false } },
-            y: { beginAtZero: true, ticks: { precision: 0 } }
-          }
-        }
-      });
-    }
-    function hexToRgba(hex, alpha){
-      const m = hex.replace('#','');
-      const bigint = parseInt(m.length===3? m.split('').map(c=>c+c).join('') : m, 16);
-      const r = (bigint >> 16) & 255, g = (bigint >> 8) & 255, b = bigint & 255;
-      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-    }
-    renderCharts();
-    // Keep property options in sync when properties change
-    const origSaveOwnerServices = saveOwnerServices;
-    saveOwnerServices = function(list) { origSaveOwnerServices(list); renderProperties(); populatePropertyOptions(); };
-    // Re-render charts when services change
-    const origSaveOwnerBookings = saveOwnerBookings;
-    saveOwnerBookings = function(list) { origSaveOwnerBookings(list); renderReservations(); renderCharts(); };
-  </script>
-  <script src="../assets/js/navbar.js"></script>
+    </script>
 </body>
 </html>

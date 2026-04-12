@@ -1,422 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book Item - Blueprint Rwanda</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Your Booking - Blueprint Rwanda</title>
+    <!-- Icons -->
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/ui-system.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
     <style>
-  /* General Body Styles */
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f5e9da; /* beige */
-    color: #4e2e0e; /* chocolate */
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+        .booking-main {
+            padding-top: 120px;
+            padding-bottom: var(--space-lg);
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 2.5rem;
+        }
 
-  /* Glassmorphism Form for Welcome Page */
-  .glass-form {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.4);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 24px;
-    padding: 2.5rem 2rem;
-    min-width: 320px;
-    max-width: 90vw;
-    z-index: 3;
-    text-align: center;
-  }
+        .booking-header {
+            grid-column: span 2;
+            margin-bottom: var(--space-md);
+        }
 
-  .logo {
-    width: 180px;
-    margin-bottom: 0.5rem;
-  }
+        .booking-form-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
 
-  .glass-form h1 {
-    color: #a0522d;
-    margin-bottom: 0.5rem;
-    font-size: 2.2rem;
-    letter-spacing: 1px;
-  }
+        .form-section-title {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+            color: var(--primary);
+        }
 
-  .subtitle {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-    color: #4e2e0e;
-  }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
 
-  .services {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 1.5rem 0;
-  }
+        .form-group {
+            margin-bottom: 1rem;
+        }
 
-  .services li {
-    font-size: 1.1rem;
-    margin: 0.3rem 0;
-    color: #a0522d;
-    font-weight: 500;
-  }
+        .form-group.full {
+            grid-column: span 2;
+        }
 
-  .welcome-btn {
-    background: #a0522d;
-    color: #fff8e7;
-    border: none;
-    border-radius: 20px;
-    padding: 0.8rem 2.2rem;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(160, 82, 45, 0.15);
-    transition: background 0.2s;
-  }
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
 
-  .welcome-btn:hover {
-    background: #7c3f17;
-  }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--white);
+        }
 
-  @media (max-width: 600px) {
-    .glass-form {
-      padding: 1.2rem 0.5rem;
-      min-width: 0;
-    }
-    .logo {
-      width: 110px;
-    }
-    .glass-form h1 {
-      font-size: 1.3rem;
-    }
-  }
+        .summary-card {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
 
-  .navbar {
-    position: sticky;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(160, 82, 45, 0.85);
-    backdrop-filter: blur(8px);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 2rem;
-    z-index: 1000;
-    height: 70px;
-    box-shadow: 0 4px 20px rgba(160, 82, 45, 0.15);
-  }
+        .summary-header {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
 
-  .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #fff8e7;
-    cursor: pointer;
-    text-decoration: none;
-  }
+        .summary-header img {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-md);
+            object-fit: cover;
+        }
 
-  .nav-logo img {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    transition: transform 0.3s ease;
-  }
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
 
-  .nav-logo:hover img {
-    transform: scale(1.1);
-  }
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
 
-  .nav-menu {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
-    margin: 0;
-    padding: 0;
-    align-items: center;
-  }
-
-  .nav-menu li a {
-    color: #fff8e7;
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: 500;
-    transition: color 0.3s ease;
-    position: relative;
-    padding: 5px 0;
-  }
-
-  .nav-menu li a:hover {
-    color: #ffe4b5;
-  }
-
-  .nav-menu li a::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: #ffe4b5;
-    transform: scaleX(0);
-    transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
-  }
-
-  .nav-menu li a:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-  }
-
-  .nav-cta a {
-    background-color: #fff8e7;
-    color: #a0522d;
-    padding: 0.5rem 1.5rem;
-    border-radius: 20px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-
-  .nav-cta a:hover {
-    background-color: #ffe4b5;
-    color: #7c3f17;
-  }
-
-  .hamburger {
-    display: none;
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    padding: 0;
-    z-index: 1001;
-  }
-
-  .bar {
-    display: block;
-    width: 25px;
-    height: 3px;
-    margin: 5px auto;
-    background-color: #fff8e7;
-    transition: all 0.3s ease-in-out;
-  }
-
-  @media (max-width: 850px) {
-    .nav-menu {
-      position: fixed;
-      left: -100%;
-      top: 0;
-      flex-direction: column;
-      background-color: rgba(160, 82, 45, 0.98);
-      width: 100%;
-      height: 100vh;
-      text-align: center;
-      transition: 0.3s;
-      box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-      justify-content: center;
-      gap: 2rem;
-    }
-
-    .nav-menu.active {
-      left: 0;
-    }
-
-    .nav-menu li {
-      margin: 1rem 0;
-    }
-
-    .hamburger {
-      display: block;
-    }
-
-    .hamburger.active .bar:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active .bar:nth-child(1) {
-      transform: translateY(8px) rotate(45deg);
-    }
-
-    .hamburger.active .bar:nth-child(3) {
-      transform: translateY(-8px) rotate(-45deg);
-    }
-  }
-
-  .hero {
-    position: relative;
-    min-height: 80vh;
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-    background-size: cover;
-    background-position: center;
-  }
-
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(160, 82, 45, 0.35);
-    backdrop-filter: blur(2px);
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    color: #fff8e7;
-  }
-
-  .hero-content h1 {
-    font-size: 2.3rem;
-    margin-bottom: 0.5rem;
-    letter-spacing: 1px;
-  }
-
-  .hero-content p {
-    font-size: 1.1rem;
-    margin-bottom: 1.2rem;
-  }
-
-  .search-bar-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    max-width: 420px;
-    background: rgba(255,255,255,0.7);
-    border-radius: 24px;
-    box-shadow: 0 2px 8px rgba(160,82,45,0.10);
-    padding: 0.3rem 0.5rem;
-  }
-
-  .search-bar {
-    flex: 1;
-    border: none;
-    outline: none;
-    padding: 0.7rem 1rem;
-    border-radius: 20px 0 0 20px;
-    font-size: 1rem;
-    background: transparent;
-  }
-
-  .search-btn {
-    border: none;
-    background: none;
-    color: #a0522d;
-    font-size: 1.3rem;
-    cursor: pointer;
-    padding: 0 1rem;
-  }
-
-  main {
-    flex: 1 0 auto;
-    width: 100%;
-    padding: 0 0 2rem 0;
-  }
-
-  /* ... (Add other specific component styles here, like listing-card, modal, etc.) ... */ 
+        @media (max-width: 900px) {
+            .booking-main {
+                grid-template-columns: 1fr;
+            }
+            .booking-header {
+                grid-column: span 1;
+            }
+            .summary-card {
+                position: static;
+                order: -1;
+            }
+        }
     </style>
-  <style>
-    .book-container { max-width: 500px; margin: 2.5rem auto; background: #fff8e7; border-radius: 16px; box-shadow: 0 2px 16px #a0522d22; padding: 2.5rem 2rem; }
-    .book-title { font-size: 1.7rem; color: #a0522d; margin-bottom: 1.5rem; text-align: center; }
-    .form-group { margin-bottom: 1.3rem; }
-    .form-group label { display: block; margin-bottom: 0.4rem; color: #4e2e0e; }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.7rem; border-radius: 8px; border: 1px solid #e0c9b2; background: #fff; color: #4e2e0e; font-size: 1rem; }
-    .form-group textarea { min-height: 60px; }
-    .form-actions { text-align: center; }
-    .welcome-btn { background: #a0522d; color: #fff8e7; border: none; border-radius: 8px; padding: 0.8rem 2.2rem; font-size: 1.1rem; cursor: pointer; transition: background 0.2s; }
-    .welcome-btn:hover { background: #7c3f17; }
-    .success-msg { color: #228B22; text-align: center; margin-bottom: 1rem; display: none; }
-    .back-btn { display: inline-block; margin-bottom: 1.2rem; color: #a0522d; background: #ffe4b5; border-radius: 8px; padding: 0.5rem 1.2rem; text-decoration: none; font-weight: 500; transition: background 0.2s; }
-    .back-btn:hover { background: #e0c9b2; }
-    .quick-links { display: flex; gap: 1rem; justify-content: center; margin-bottom: 1.5rem; }
-    .quick-links a { color: #fff8e7; background: #a0522d; border-radius: 8px; padding: 0.5rem 1.2rem; text-decoration: none; font-weight: 500; transition: background 0.2s; }
-    .quick-links a:hover { background: #7c3f17; }
-    a{
-      text-decoration: none;
-      color: #fff;
-    }
-    @media (max-width: 600px) { .book-container { padding: 1.2rem 0.5rem; } .quick-links { flex-direction: column; gap: 0.5rem; } }
-  </style>
-  <link rel="stylesheet" href="../assets/css/global-responsive.css">
-  <link rel="stylesheet" href="../assets/css/ui-system.css">
 </head>
 <body>
-  <div class="book-container">
-    <a href="javascript:history.back()" class="back-btn">&larr; Back</a>
-    <div class="book-title">Book Your Stay, Car, or Experience</div>
-    <div class="success-msg" id="successMsg">Booking submitted! The admin will be notified.</div>
-    <form id="bookForm" autocomplete="off">
-      <div class="form-group">
-        <label for="itemType">Type</label>
-        <input type="text" id="itemType" readonly required>
-      </div>
-      <div class="form-group">
-        <label for="itemName">Name of Item</label>
-        <input type="text" id="itemName" readonly required>
-      </div>
-      <div class="form-group">
-        <label for="userName">Your Name</label>
-        <input type="text" id="userName" required>
-      </div>
-      <div class="form-group">
-        <label for="userEmail">Your Email</label>
-        <input type="email" id="userEmail" required>
-      </div>
-      <div class="form-group">
-        <label for="startDate">Start Date</label>
-        <input type="date" id="startDate" required>
-      </div>
-      <div class="form-group">
-        <label for="days">Number of Days</label>
-        <input type="number" id="days" min="1" required>
-      </div>
-      <div class="form-group">
-        <label for="details">Additional Details</label>
-        <textarea id="details" placeholder="Any special requests or info..."></textarea>
-      </div>
-      <div class="form-actions">
-        <button class="welcome-btn" type="submit">Book Now</button>
-      </div>
-    </form>
-  </div>
-  <script>
-    // Get item info from URL parameters
-    function getQueryParam(param) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
-    }
-    const itemType = getQueryParam('type') || '';
-    const itemName = getQueryParam('name') || '';
-    document.getElementById('itemType').value = itemType;
-    document.getElementById('itemName').value = itemName;
-    document.getElementById('bookForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      // Collect form data
-      const type = document.getElementById('itemType').value;
-      const name = document.getElementById('itemName').value;
-      const user = document.getElementById('userName').value;
-      const email = document.getElementById('userEmail').value;
-      const date = document.getElementById('startDate').value;
-      const details = document.getElementById('details').value;
-      const days = document.getElementById('days').value;
-      // Build URL with parameters
-      const url = `booking-confirmation.html?type=${encodeURIComponent(type)}&name=${encodeURIComponent(name)}&user=${encodeURIComponent(user)}&email=${encodeURIComponent(email)}&date=${encodeURIComponent(date)}&details=${encodeURIComponent(details)}&days=${encodeURIComponent(days)}`;
-      window.location.href = url;
-    });
-  </script>
-  <script src="../assets/js/navbar.js"></script>
+    <main class="booking-main container">
+        <header class="booking-header" data-animate>
+            <h1 id="pageTitle">Complete Your Booking</h1>
+            <p id="pageSubtitle">Confirm your details and finalize the reservation.</p>
+        </header>
+
+        <section class="booking-form-section">
+            <div class="card" data-animate style="transition-delay: 0.1s;">
+                <h3 class="form-section-title">Your Information</h3>
+                <form id="bookForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="+250 788 000 000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate">Check-in / Start Date</label>
+                            <input type="date" id="startDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="duration" id="durationLabel">Number of Days</label>
+                            <input type="number" id="duration" value="1" min="1">
+                        </div>
+                        <div class="form-group full">
+                            <label for="requests">Special Requests</label>
+                            <textarea id="requests" rows="3" placeholder="Anything else we should know?"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card" data-animate style="transition-delay: 0.2s;">
+                <h3 class="form-section-title">Payment Method</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Payment will be handled securely after confirmation.</p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <label class="btn btn-secondary" style="flex: 1; min-width: 150px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; justify-content: center;">
+                        <input type="radio" name="payment" checked> <i class="fas fa-credit-card"></i> Card / Mobile
+                    </label>
+                    <label class="btn btn-secondary" style="flex: 1; min-width: 150px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; justify-content: center;">
+                        <input type="radio" name="payment"> <i class="fas fa-money-bill-wave"></i> Cash at Check-in
+                    </label>
+                </div>
+            </div>
+
+            <div data-animate style="transition-delay: 0.3s; margin-top: 1rem;">
+                <button type="submit" form="bookForm" class="btn btn-primary w-100" style="padding: 1.25rem;">Confirm & Pay Now</button>
+                <p style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem;">By clicking confirm, you agree to our Terms & Cancellation Policy.</p>
+            </div>
+        </section>
+
+        <aside class="summary-card" data-animate style="transition-delay: 0.1s;">
+            <div class="card">
+                <h3 class="form-section-title">Booking Summary</h3>
+                <div class="summary-header">
+                    <img id="itemImg" src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=200" alt="">
+                    <div>
+                        <h4 id="itemNameDisplay">Kigali View Apartment</h4>
+                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
+                            <i class="fas fa-star" style="color: #f6ad55;"></i> 4.9 (120 reviews)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="price-calculations">
+                    <div class="price-row">
+                        <span id="priceLabel">$50 x 3 nights</span>
+                        <span id="basePrice">$150.00</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Cleaning fee</span>
+                        <span>$10.00</span>
+                    </div>
+                    <div class="price-row" style="color: #48bb78; font-weight: 600;">
+                        <span>Seasonal discount (5%)</span>
+                        <span>-$8.00</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Total (USD)</span>
+                        <span id="totalPrice">$152.00</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        const type = getQueryParam('type') || 'Accommodation';
+        const name = getQueryParam('name') || 'Beautiful Kigali Stay';
+
+        document.getElementById('itemNameDisplay').textContent = name;
+        document.getElementById('pageTitle').textContent = `Book ${name}`;
+        
+        // Adjust labels based on type
+        if (type.toLowerCase() === 'car') {
+            document.getElementById('durationLabel').textContent = 'Rental Duration (Days)';
+        } else if (type.toLowerCase() === 'place') {
+            document.getElementById('durationLabel').textContent = 'Number of People';
+        }
+
+        document.getElementById('bookForm').onsubmit = function(e) {
+            e.preventDefault();
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const date = document.getElementById('startDate').value;
+            const days = document.getElementById('duration').value;
+            
+            const url = `booking-confirmation.html?type=${encodeURIComponent(type)}&name=${encodeURIComponent(name)}&user=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}&date=${encodeURIComponent(date)}&days=${encodeURIComponent(days)}`;
+            window.location.href = url;
+        };
+    </script>
 </body>
 </html>

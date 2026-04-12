@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Item Details - Blueprint Rwanda</title>
+    <style>
+  /* General Body Styles */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f5e9da; /* beige */
+    color: #4e2e0e; /* chocolate */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Glassmorphism Form for Welcome Page */
+  .glass-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    min-width: 320px;
+    max-width: 90vw;
+    z-index: 3;
+    text-align: center;
+  }
+
+  .logo {
+    width: 180px;
+    margin-bottom: 0.5rem;
+  }
+
+  .glass-form h1 {
+    color: #a0522d;
+    margin-bottom: 0.5rem;
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #4e2e0e;
+  }
+
+  .services {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .services li {
+    font-size: 1.1rem;
+    margin: 0.3rem 0;
+    color: #a0522d;
+    font-weight: 500;
+  }
+
+  .welcome-btn {
+    background: #a0522d;
+    color: #fff8e7;
+    border: none;
+    border-radius: 20px;
+    padding: 0.8rem 2.2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(160, 82, 45, 0.15);
+    transition: background 0.2s;
+  }
+
+  .welcome-btn:hover {
+    background: #7c3f17;
+  }
+
+  @media (max-width: 600px) {
+    .glass-form {
+      padding: 1.2rem 0.5rem;
+      min-width: 0;
+    }
+    .logo {
+      width: 110px;
+    }
+    .glass-form h1 {
+      font-size: 1.3rem;
+    }
+  }
+
+  .navbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(160, 82, 45, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    z-index: 1000;
+    height: 70px;
+    box-shadow: 0 4px 20px rgba(160, 82, 45, 0.15);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff8e7;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .nav-logo img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-logo:hover img {
+    transform: scale(1.1);
+  }
+
+  .nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+  }
+
+  .nav-menu li a {
+    color: #fff8e7;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+  }
+
+  .nav-menu li a:hover {
+    color: #ffe4b5;
+  }
+
+  .nav-menu li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffe4b5;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+
+  .nav-menu li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  .nav-cta a {
+    background-color: #fff8e7;
+    color: #a0522d;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .nav-cta a:hover {
+    background-color: #ffe4b5;
+    color: #7c3f17;
+  }
+
+  .hamburger {
+    display: none;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+    z-index: 1001;
+  }
+
+  .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #fff8e7;
+    transition: all 0.3s ease-in-out;
+  }
+
+  @media (max-width: 850px) {
+    .nav-menu {
+      position: fixed;
+      left: -100%;
+      top: 0;
+      flex-direction: column;
+      background-color: rgba(160, 82, 45, 0.98);
+      width: 100%;
+      height: 100vh;
+      text-align: center;
+      transition: 0.3s;
+      box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .nav-menu.active {
+      left: 0;
+    }
+
+    .nav-menu li {
+      margin: 1rem 0;
+    }
+
+    .hamburger {
+      display: block;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+  }
+
+  .hero {
+    position: relative;
+    min-height: 80vh;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(160, 82, 45, 0.35);
+    backdrop-filter: blur(2px);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff8e7;
+  }
+
+  .hero-content h1 {
+    font-size: 2.3rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+  }
+
+  .hero-content p {
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .search-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 420px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 24px;
+    box-shadow: 0 2px 8px rgba(160,82,45,0.10);
+    padding: 0.3rem 0.5rem;
+  }
+
+  .search-bar {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 0.7rem 1rem;
+    border-radius: 20px 0 0 20px;
+    font-size: 1rem;
+    background: transparent;
+  }
+
+  .search-btn {
+    border: none;
+    background: none;
+    color: #a0522d;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 0 1rem;
+  }
+
+  main {
+    flex: 1 0 auto;
+    width: 100%;
+    padding: 0 0 2rem 0;
+  }
+
+  /* ... (Add other specific component styles here, like listing-card, modal, etc.) ... */ 
+    </style>
+  <style>
+    body {
+      background: linear-gradient(120deg, #fff8e7 0%, #f7e6d0 100%);
+      min-height: 100vh;
+      font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    }
+    .details-container {
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      background: #fff;
+      border-radius: 28px;
+      box-shadow: 0 8px 48px #a0522d22, 0 1.5px 0 #ffe4b5;
+      padding: 2.8rem 2.2rem 2.5rem 2.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .details-header {
+      margin-bottom: 2.7rem;
+      border-bottom: 1.5px solid #ffe4b5;
+      padding-bottom: 1.7rem;
+    }
+    .gallery-main {
+      width: 100%;
+      aspect-ratio: 16/7;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px #a0522d22;
+      margin-bottom: 1.2rem;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid #ffe4b5;
+    }
+    .gallery-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: filter 0.2s;
+    }
+    .gallery-main img:hover {
+      filter: brightness(0.97) saturate(1.1);
+    }
+    .gallery-thumbs {
+      display: flex;
+      gap: 0.7rem;
+      justify-content: center;
+      margin-bottom: 2.1rem;
+    }
+    .gallery-thumb {
+      width: 80px;
+      height: 60px;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border 0.2s, transform 0.18s;
+      object-fit: cover;
+      box-shadow: 0 1.5px 8px #a0522d11;
+    }
+    .gallery-thumb.selected, .gallery-thumb:hover {
+      border: 2px solid #a0522d;
+      transform: scale(1.07);
+      z-index: 2;
+    }
+    .details-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.7rem;
+      margin-top: 0.5rem;
+    }
+    .details-info {
+      flex: 2 1 340px;
+      min-width: 280px;
+    }
+    .details-title {
+      font-size: 2.5rem;
+      color: #a0522d;
+      margin-bottom: 0.3rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1.5px 0 #ffe4b5;
+    }
+    .details-type {
+      color: #fff8e7;
+      background: linear-gradient(90deg, #a0522d 80%, #ffb347 100%);
+      display: inline-block;
+      border-radius: 8px;
+      padding: 0.22rem 1.2rem;
+      font-size: 1.13rem;
+      margin-bottom: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.7px;
+      box-shadow: 0 1.5px 8px #a0522d11;
+    }
+    .details-meta {
+      color: #4e2e0e;
+      font-size: 1.13rem;
+      margin-bottom: 1.2rem;
+      font-weight: 500;
+    }
+    .details-owner, .details-leader {
+      color: #7c3f17;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+    }
+    .details-actions {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 2.2rem;
+    }
+    .welcome-btn {
+      background: linear-gradient(90deg, #a0522d 80%, #ffb347 100%);
+      color: #fff8e7;
+      border: none;
+      border-radius: 10px;
+      padding: 0.9rem 2.5rem;
+      font-size: 1.15rem;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.18s, transform 0.15s;
+      font-weight: 700;
+      box-shadow: 0 2px 12px #a0522d22;
+    }
+    .welcome-btn:hover {
+      background: linear-gradient(90deg, #7c3f17 80%, #ffb347 100%);
+      box-shadow: 0 4px 24px #a0522d33;
+      transform: translateY(-2px) scale(1.04);
+    }
+    .back-btn {
+      display: inline-block;
+      color: #a0522d;
+      background: #ffe4b5;
+      border-radius: 10px;
+      padding: 0.6rem 1.4rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s, box-shadow 0.18s;
+      margin-bottom: 1.7rem;
+      box-shadow: 0 1.5px 8px #a0522d11;
+      font-size: 1.08rem;
+    }
+    .back-btn:hover {
+      background: #e0c9b2;
+      box-shadow: 0 4px 16px #a0522d22;
+    }
+    .details-section {
+      margin-bottom: 2.5rem;
+      background: #fff8e7;
+      border-radius: 14px;
+      box-shadow: 0 1.5px 8px #a0522d11;
+      padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+      border-left: 4px solid #ffe4b5;
+      border-bottom: 1.5px solid #ffe4b5;
+    }
+    .details-section h3 {
+      color: #a0522d;
+      font-size: 1.28rem;
+      margin-bottom: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .details-list {
+      list-style: disc;
+      margin-left: 1.5rem;
+      color: #4e2e0e;
+      font-size: 1.08rem;
+      font-weight: 500;
+    }
+    @media (max-width: 900px) {
+      .details-flex { flex-direction: column; gap: 1.5rem; }
+      .gallery-main { aspect-ratio: 16/10; }
+      .details-container { padding: 1.2rem 0.2rem 1.2rem 0.2rem; }
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/css/global-responsive.css">
+  <link rel="stylesheet" href="../assets/css/ui-system.css">
+  <link rel="stylesheet" href="../assets/css/inline-cleanup.css">
+</head>
+  <body>
+  <div class="details-container">
+  <a href="#" id="customBackBtn" class="back-btn" aria-label="Go back">&larr; Back</a>
+    <div class="details-header">
+      <div class="gallery-main" id="galleryMain" aria-label="Image gallery" tabindex="0">
+        <button class="gallery-arrow left" id="galleryPrev" aria-label="Previous image" tabindex="0">&#8592;</button>
+        <img src="" alt="Gallery image" id="galleryMainImg" />
+        <button class="gallery-arrow right" id="galleryNext" aria-label="Next image" tabindex="0">&#8594;</button>
+      </div>
+      <div class="gallery-thumbs" id="galleryThumbs" aria-label="Gallery thumbnails"></div>
+      <div class="details-flex">
+        <div class="details-info">
+          <div class="details-title" id="itemTitle">Item Title</div>
+          <div class="details-type" id="itemType">Type: </div>
+          <div class="details-meta" id="itemMeta">Meta info</div>
+          <div class="details-owner" id="itemOwner">Added by: </div>
+          <div class="details-leader" id="itemLeader">Leader: </div>
+          <div class="leaders-slider-section">
+            <h4 class="detail-team-heading">Our Team</h4>
+            <div class="leaders-slider" id="leadersSlider"></div>
+          </div>
+          <div class="details-actions">
+            <button class="welcome-btn" id="bookBtn">Book Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="details-section">
+      <h3>Description</h3>
+      <div id="itemDescription">Description goes here.</div>
+    </div>
+    <div class="details-section map-section-bottom" id="mapSection">
+      <h3>Location & Directions</h3>
+      <div class="map-embed map-embed-box" id="mapEmbed"></div>
+      <a id="directionsLink" class="directions-btn" href="#" target="_blank" rel="noopener">Get Directions</a>
+    </div>
+    <div class="details-section" id="itemExtrasSection">
+      <!-- Extra details (amenities, activities, specs, etc.) will be injected here -->
+    </div>
+    <div class="details-section reviews-section">
+      <h3>User Reviews</h3>
+      <div id="reviewsList"></div>
+    </div>
+    <!-- Footer with Terms & Privacy Policy links -->
+    <footer class="center-footer-note">
+      <a href="#" id="termsLink" class="link-underline mr-1-5">Terms of Service</a>
+      <a href="#" id="privacyLink" class="link-underline">Privacy Policy</a>
+    </footer>
+    <!-- Modal Popup for Terms & Privacy Policy -->
+    <div id="modalOverlay" class="modal-overlay-main">
+      <div id="modalContent" class="modal-card-main">
+        <button id="closeModal" class="modal-close-btn">&times;</button>
+        <div id="modalTitle" class="modal-title-main"></div>
+        <div id="modalBody" class="modal-body-main"></div>
+      </div>
+    </div>
+  </div>
+  <style>
+    .breadcrumb-nav {
+      background: #fff8e7;
+      padding: 0.7rem 1.2rem 0.7rem 1.2rem;
+      border-radius: 0 0 18px 18px;
+      box-shadow: 0 2px 12px #a0522d11;
+      margin-bottom: 1.2rem;
+      font-size: 1.05rem;
+    }
+    .breadcrumb-list {
+      display: flex;
+      gap: 0.7rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      color: #a0522d;
+    }
+    .breadcrumb-list li:not(:last-child)::after {
+      content: '›';
+      margin: 0 0.5rem;
+      color: #b08a5a;
+    }
+    .breadcrumb-list a {
+      color: #a0522d;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.18s;
+    }
+    .breadcrumb-list a:hover {
+      color: #7c3f17;
+      text-decoration: underline;
+    }
+    .gallery-main { position: relative; }
+    .gallery-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,248,231,0.85);
+      border: none;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      font-size: 1.5rem;
+      color: #a0522d;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #a0522d22;
+      z-index: 3;
+      transition: background 0.18s, color 0.18s, transform 0.15s;
+      opacity: 0.85;
+    }
+    .gallery-arrow.left { left: 12px; }
+    .gallery-arrow.right { right: 12px; }
+    .gallery-arrow:focus, .gallery-arrow:hover {
+      background: #ffe4b5;
+      color: #7c3f17;
+      outline: 2px solid #a0522d44;
+      transform: scale(1.08);
+    }
+    .reviews-section {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 1.5px 8px #a0522d11;
+      padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+      border-left: 4px solid #ffe4b5;
+      border-bottom: 1.5px solid #ffe4b5;
+      margin-bottom: 2.5rem;
+    }
+    .review-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.1rem;
+      background: #fff8e7;
+      border-radius: 10px;
+      box-shadow: 0 1.5px 8px #a0522d11;
+      padding: 1.1rem 1.2rem 1rem 1.2rem;
+      margin-bottom: 1.2rem;
+      border-left: 3px solid #ffe4b5;
+      position: relative;
+    }
+    .review-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ffe4b5;
+      background: #eee;
+      box-shadow: 0 1.5px 8px #a0522d11;
+    }
+    .review-content {
+      flex: 1;
+    }
+    .review-name {
+      font-weight: 700;
+      color: #a0522d;
+      font-size: 1.08rem;
+      margin-bottom: 0.1rem;
+    }
+    .review-date {
+      color: #b08a5a;
+      font-size: 0.97rem;
+      margin-bottom: 0.3rem;
+    }
+    .review-stars {
+      color: #ffb347;
+      font-size: 1.1rem;
+      margin-bottom: 0.2rem;
+      letter-spacing: 0.1rem;
+    }
+    .review-text {
+      color: #4e2e0e;
+      font-size: 1.05rem;
+      font-weight: 500;
+    }
+    @media (max-width: 600px) {
+      .review-card { flex-direction: column; align-items: flex-start; padding: 0.8rem 0.5rem 0.7rem 0.5rem; }
+      .review-avatar { width: 36px; height: 36px; }
+    }
+    .leaders-slider-section {
+      margin-top: 1.2rem;
+      background: linear-gradient(90deg, #fff8e7 60%, #f7e6d0 100%);
+      border-radius: 16px;
+      box-shadow: 0 2px 16px #a0522d13;
+      padding: 1.2rem 1rem 1.2rem 1rem;
+      position: relative;
+    }
+    .leaders-slider-section h4 {
+      margin-left: 0.2rem;
+      margin-bottom: 1.1rem;
+      letter-spacing: 0.5px;
+      font-size: 1.13rem;
+      color: #a0522d;
+      font-weight: 700;
+      text-shadow: 0 1px 0 #fff;
+    }
+    .leaders-slider {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      scrollbar-width: thin;
+      scrollbar-color: #a0522d33 #fff8e7;
+    }
+    .leaders-slider::-webkit-scrollbar {
+      height: 7px;
+      background: #fff8e7;
+      border-radius: 8px;
+    }
+    .leaders-slider::-webkit-scrollbar-thumb {
+      background: #a0522d33;
+      border-radius: 8px;
+    }
+    .leader-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px #a0522d18, 0 1.5px 0 #ffe4b5;
+      min-width: 150px;
+      max-width: 170px;
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.1rem 0.8rem 1rem 0.8rem;
+      transition: box-shadow 0.22s, transform 0.18s;
+      position: relative;
+      border: 1.5px solid #ffe4b5;
+    }
+    .leader-card:hover {
+      box-shadow: 0 6px 24px #a0522d33, 0 2px 0 #ffe4b5;
+      transform: translateY(-4px) scale(1.04);
+      z-index: 2;
+    }
+    .leader-img {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 0.7rem;
+      border: 2.5px solid #a0522d33;
+      background: #eee;
+      box-shadow: 0 1.5px 8px #a0522d11;
+    }
+    .leader-name {
+      font-weight: 700;
+      color: #a0522d;
+      font-size: 1.13rem;
+      margin-bottom: 0.18rem;
+      text-align: center;
+      letter-spacing: 0.1px;
+    }
+    .leader-role {
+      color: #7c3f17;
+      font-size: 1.01rem;
+      text-align: center;
+      margin-bottom: 0.1rem;
+    }
+    .leader-badge {
+      position: absolute;
+      top: 0.7rem;
+      right: 0.7rem;
+      background: linear-gradient(90deg, #a0522d 80%, #ffb347 100%);
+      color: #fff8e7;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border-radius: 8px;
+      padding: 0.18rem 0.7rem;
+      box-shadow: 0 1px 4px #a0522d22;
+      letter-spacing: 0.5px;
+      z-index: 3;
+      border: 1px solid #fff8e7;
+      text-shadow: 0 1px 0 #a0522d44;
+    }
+    @media (max-width: 600px) {
+      .leader-card { min-width: 110px; max-width: 120px; padding: 0.7rem 0.3rem 0.6rem 0.3rem; }
+      .leader-img { width: 40px; height: 40px; }
+      .leaders-slider-section { padding: 0.7rem 0.2rem 0.7rem 0.2rem; }
+    }
+  </style>
+  <script>
+    // Custom Back button logic
+    document.getElementById('customBackBtn').onclick = function(e) {
+      e.preventDefault();
+      var intent = localStorage.getItem('verificationIntent');
+      if (intent === 'accommodation') {
+        window.location.href = 'accommodation.html';
+      } else if (intent === 'car') {
+        window.location.href = 'rentcar.html';
+      } else if (intent === 'place') {
+        window.location.href = 'visit.html';
+      } else {
+        window.location.href = 'index.html';
+      }
+    };
+    // Read item details from localStorage
+    const type = localStorage.getItem('itemType') || '';
+    const name = localStorage.getItem('itemName') || '';
+    const price = localStorage.getItem('itemPrice') || '';
+    const description = localStorage.getItem('itemDescription') || '';
+    const images = JSON.parse(localStorage.getItem('itemImages') || '[]');
+    const specs = JSON.parse(localStorage.getItem('itemSpecs') || 'null');
+
+    // Set basic info
+    document.getElementById('itemTitle').textContent = name;
+    document.getElementById('itemType').textContent = type;
+    document.getElementById('itemMeta').textContent = price;
+    document.getElementById('itemOwner').style.display = 'none';
+    document.getElementById('itemLeader').style.display = 'none';
+    document.getElementById('itemDescription').textContent = description;
+
+    // Gallery
+    const galleryMainImg = document.getElementById('galleryMainImg');
+    const galleryThumbs = document.getElementById('galleryThumbs');
+    const galleryPrev = document.getElementById('galleryPrev');
+    const galleryNext = document.getElementById('galleryNext');
+    let currentImg = 0;
+    function showGalleryImg(idx) {
+      galleryMainImg.src = '';
+      galleryMainImg.alt = `Image ${idx+1} of ${images.length} for ${name}`;
+      galleryMainImg.setAttribute('aria-label', galleryMainImg.alt);
+      galleryMainImg.style.opacity = 0.3;
+      setTimeout(() => {
+        galleryMainImg.src = images[idx];
+        galleryMainImg.style.opacity = 1;
+      }, 180);
+      Array.from(galleryThumbs.children).forEach((el, i) => {
+        el.classList.toggle('selected', i === idx);
+      });
+    }
+    function updateGalleryArrows() {
+      galleryPrev.disabled = (currentImg === 0);
+      galleryNext.disabled = (currentImg === images.length-1);
+    }
+    galleryThumbs.innerHTML = '';
+    images.forEach((img, idx) => {
+      const thumb = document.createElement('img');
+      thumb.src = img;
+      thumb.alt = `Thumbnail ${idx+1} for ${name}`;
+      thumb.className = 'gallery-thumb' + (idx === 0 ? ' selected' : '');
+      thumb.tabIndex = 0;
+      thumb.setAttribute('aria-label', thumb.alt);
+      thumb.onclick = () => { currentImg = idx; showGalleryImg(idx); updateGalleryArrows(); };
+      thumb.onkeydown = e => { if(e.key==='Enter'||e.key===' '){ currentImg = idx; showGalleryImg(idx); updateGalleryArrows(); } };
+      galleryThumbs.appendChild(thumb);
+    });
+    showGalleryImg(0);
+    updateGalleryArrows();
+    galleryPrev.onclick = () => { if(currentImg>0){ currentImg--; showGalleryImg(currentImg); updateGalleryArrows(); } };
+    galleryNext.onclick = () => { if(currentImg<images.length-1){ currentImg++; showGalleryImg(currentImg); updateGalleryArrows(); } };
+    document.getElementById('galleryMain').onkeydown = e => {
+      if(e.key==='ArrowLeft') galleryPrev.click();
+      if(e.key==='ArrowRight') galleryNext.click();
+    };
+
+    // Hide unused sections
+    document.getElementById('leadersSlider').style.display = 'none';
+    document.getElementById('mapSection').style.display = 'none';
+    document.getElementById('directionsLink').style.display = 'none';
+
+    // Extras: show car specs if type is car
+    const extrasSection = document.getElementById('itemExtrasSection');
+    extrasSection.innerHTML = '';
+    if(type === 'car' && specs && typeof specs === 'object') {
+      extrasSection.innerHTML += '<h3>Car Specifications</h3><ul class="details-list">' + Object.entries(specs).map(([k,v]) => `<li><strong>${k}:</strong> ${v}</li>`).join('') + '</ul>';
+    }
+
+    // Book button
+    document.getElementById('bookBtn').onclick = function() {
+      window.location.href = `book-item.html`;
+    };
+
+    // Terms & Privacy Policy Modal (unchanged)
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalContent = document.getElementById('modalContent');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    const closeModal = document.getElementById('closeModal');
+    document.getElementById('termsLink').onclick = function(e) {
+      e.preventDefault();
+      modalTitle.textContent = 'Terms of Service';
+      modalBody.innerHTML = '<strong>Terms of Service</strong><br><br>By using Blueprint Rwanda, you agree to abide by our booking policies, respect property rules, and provide accurate information. Cancellations and refunds are subject to our terms. Misuse of the platform may result in account suspension.';
+      modalOverlay.style.display = 'flex';
+    };
+    document.getElementById('privacyLink').onclick = function(e) {
+      e.preventDefault();
+      modalTitle.textContent = 'Privacy Policy';
+      modalBody.innerHTML = '<strong>Privacy Policy</strong><br><br>Your personal information is protected and used only for booking and communication purposes. We do not share your data with third parties except as required by law. For more details, contact support.';
+      modalOverlay.style.display = 'flex';
+    };
+    closeModal.onclick = function() {
+      modalOverlay.style.display = 'none';
+    };
+    modalOverlay.onclick = function(e) {
+      if(e.target === modalOverlay) modalOverlay.style.display = 'none';
+    };
+  </script>
+  <script src="../assets/js/navbar.js"></script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+/* Admin Dashboard Styles */
+.admin-main {
+    padding-top: 100px;
+    padding-bottom: var(--space-lg);
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+}
+
+.admin-title h1 {
+    font-size: 2.5rem;
+    color: var(--primary);
+}
+
+.admin-title p {
+    color: var(--text-muted);
+}
+
+/* Kpi Grid */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+}
+
+.kpi-card {
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.kpi-card .icon {
+    width: 48px;
+    height: 48px;
+    background: var(--primary);
+    color: var(--secondary);
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.5rem;
+}
+
+.kpi-card .value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.kpi-card .label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.kpi-card .trend {
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.trend.up { color: var(--success); }
+.trend.down { color: var(--error); }
+
+/* Data Sections */
+.admin-data-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-md);
+}
+
+.data-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+}
+
+.data-card h3 {
+    margin-bottom: var(--space-md);
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+/* Modern Tables */
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    padding: 1rem;
+    background: var(--bg);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+}
+
+tr:hover td {
+    background: rgba(160, 82, 45, 0.03);
+}
+
+.user-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    background: var(--accent);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.75rem;
+}
+
+.status-pill {
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.status-active { background: #e6fffa; color: #234e52; }
+.status-pending { background: #fffaf0; color: #7b341e; }
+
+@media (max-width: 992px) {
+    .admin-data-grid {
+        grid-template-columns: 1fr;
+    }
+}

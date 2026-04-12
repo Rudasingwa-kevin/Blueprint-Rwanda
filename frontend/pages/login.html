@@ -1,83 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blueprint Rwanda - Login</title>
-  <link rel="stylesheet" href="../assets/css/global-responsive.css">
-  <link rel="stylesheet" href="../assets/css/ui-system.css">
-  <link rel="stylesheet" href="../assets/css/auth-pages.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Blueprint Rwanda</title>
+    <!-- Icons -->
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/ui-system.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <style>
+        .auth-main {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--bg) 0%, var(--surface) 100%);
+            padding: var(--space-md);
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 440px;
+            padding: var(--space-md);
+            text-align: center;
+        }
+
+        .auth-logo {
+            margin-bottom: var(--space-md);
+        }
+
+        .auth-title {
+            margin-bottom: var(--space-sm);
+            color: var(--primary);
+        }
+
+        .auth-form {
+            text-align: left;
+            margin-top: var(--space-md);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-sm);
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--white);
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.1);
+        }
+
+        .auth-footer {
+            margin-top: var(--space-md);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .auth-footer a {
+            color: var(--primary);
+            font-weight: 700;
+        }
+    </style>
 </head>
 <body>
-  <video autoplay loop muted playsinline class="bg-video"><source src="Visit Rwanda Soon.mp4" type="video/mp4"></video>
-  <div class="anime-overlay"></div>
+    <main class="auth-main">
+        <div class="card auth-card glass" data-animate>
+            <div class="auth-logo">
+                <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-heading); font-weight: 700; color: var(--primary); font-size: 1.5rem;">
+                    <i class="fas fa-landmark"></i>
+                    Blueprint Rwanda
+                </a>
+            </div>
+            
+            <h1 class="auth-title">Welcome Back</h1>
+            <p>Enter your details to access your account.</p>
 
-  <nav class="navbar">
-    <a href="index.html" class="nav-logo"><img src="../assets/images/branding/blueprint-logo.png" alt="Blueprint Rwanda Logo">Blueprint Rwanda</a>
-    <ul class="nav-menu">
-      <li><a href="all-services.html">Services</a></li>
-      <li><a href="owners.html">Owners</a></li>
-      <li><a href="portfolio.html">Portfolio</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <div class="nav-cta"><a href="signup.html">Sign Up</a></div>
-    <button class="hamburger"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
-  </nav>
+            <form class="auth-form" action="dashboard.html">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="name@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-md); font-size: 0.85rem;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="checkbox" style="width: auto;"> Remember me
+                    </label>
+                    <a href="password-reset-request.html" style="color: var(--primary); font-weight: 600;">Forgot password?</a>
+                </div>
 
-  <main class="auth-main">
-    <section class="auth-card">
-      <img src="../assets/images/branding/blueprint-logo.png" alt="Blueprint Rwanda Logo" class="auth-logo">
-      <h1 class="auth-title">Welcome Back</h1>
-      <p class="auth-subtitle">Sign in to your account</p>
-      <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
-        <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" required></div>
-        <div class="form-group"><label for="password">Password</label><input type="password" id="password" name="password" required><button type="button" class="toggle-password" onclick="togglePassword('password', this)">&#128065;</button></div>
-        <div id="alert" class="alert hidden"></div>
-        <button type="submit" class="welcome-btn" id="loginBtn">Login</button>
-        <p class="form-meta"><span class="form-link" onclick="window.location.href='password-reset-request.html'">Forgot password?</span></p>
-        <p class="form-meta">Don't have an account? <span class="form-link" onclick="window.location.href='signup.html'">Sign up</span></p>
-      </form>
-    </section>
-  </main>
+                <button type="submit" class="btn btn-primary w-100" style="width: 100%;">Sign In</button>
+            </form>
 
-  <script src="../assets/js/api-config.js"></script>
-  <script src="../assets/js/api-client.js"></script>
-  <script src="../assets/js/auth-guard.js"></script>
-  <script>
-    function togglePassword(inputId, button) {
-      const input = document.getElementById(inputId);
-      const type = input.type === 'password' ? 'text' : 'password';
-      input.type = type;
-      button.innerHTML = type === 'password' ? '&#128065;' : '&#128584;';
-    }
+            <p class="auth-footer">
+                Don't have an account? <a href="signup.html">Create an Account</a>
+            </p>
+        </div>
+    </main>
 
-    async function handleLogin(event) {
-      event.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      const alertDiv = document.getElementById('alert');
-      const loginBtn = document.getElementById('loginBtn');
-      alertDiv.classList.add('hidden');
-      loginBtn.disabled = true;
-      loginBtn.textContent = 'Logging in...';
-
-      try {
-        const response = await window.BP_API.post('/auth/login', { email, password });
-        localStorage.setItem(window.BP_CONFIG.FRONTEND_USER_STORAGE_KEY, JSON.stringify(response.user));
-        localStorage.setItem(window.BP_CONFIG.FRONTEND_ROLE_STORAGE_KEY, response.user.role);
-        if (response.user.role === 'admin') window.location.href = 'admin-dashboard.html';
-        else if (response.user.role === 'owner') window.location.href = 'user-dashboard.html';
-        else window.location.href = 'dashboard.html';
-      } catch (error) {
-        alertDiv.textContent = error.message || 'Login failed. Please try again.';
-        alertDiv.classList.remove('hidden');
-      } finally {
-        loginBtn.disabled = false;
-        loginBtn.textContent = 'Login';
-      }
-    }
-  </script>
-  <script src="../assets/js/navbar.js"></script>
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
 </body>
 </html>

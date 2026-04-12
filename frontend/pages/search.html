@@ -1,317 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search Results - Blueprint Rwanda</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - Blueprint Rwanda</title>
+    <!-- Icons -->
+    <link rel="shortcut icon" href="../assets/images/branding/blueprint-logo.png" type="image/x-icon">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/ui-system.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
     <style>
-  /* General Body Styles */
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f5e9da; /* beige */
-    color: #4e2e0e; /* chocolate */
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+        .search-main {
+            padding-top: 120px;
+            padding-bottom: var(--space-lg);
+        }
 
-  .welcome-btn {
-    background: #a0522d;
-    color: #fff8e7;
-    border: none;
-    border-radius: 20px;
-    padding: 0.8rem 2.2rem;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(160, 82, 45, 0.15);
-    transition: background 0.2s;
-  }
+        .search-controls {
+            margin-bottom: var(--space-lg);
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
 
-  .welcome-btn:hover {
-    background: #7c3f17;
-  }
+        .search-input-wrapper {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
 
-  
+        @media (max-width: 600px) {
+            .search-input-wrapper {
+                min-width: 100%;
+            }
+            .search-controls select, .search-controls button {
+                flex: 1;
+            }
+        }
 
-  /* Header Styles */
-  .navbar {
-    position: sticky;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(160, 82, 45, 0.85);
-    backdrop-filter: blur(8px);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 2rem;
-    z-index: 1000;
-    height: 70px;
-    box-shadow: 0 4px 20px rgba(160, 82, 45, 0.15);
-  }
+        .search-input-wrapper i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
 
-  .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #fff8e7;
-    cursor: pointer;
-    text-decoration: none;
-  }
+        .search-input-wrapper input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--border);
+            background: var(--white);
+            font-size: 1.1rem;
+            box-shadow: var(--shadow-sm);
+        }
 
-  .nav-logo img {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    transition: transform 0.3s ease;
-  }
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
 
-  .nav-logo:hover img {
-    transform: scale(1.1);
-  }
+        .result-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
 
-  .nav-menu {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
-    margin: 0;
-    padding: 0;
-    align-items: center;
-  }
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
 
-  .nav-menu li a {
-    color: #fff8e7;
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: 500;
-    transition: color 0.3s ease;
-    position: relative;
-    padding: 5px 0;
-  }
+        .result-img {
+            height: 200px;
+            overflow: hidden;
+        }
 
-  .nav-menu li a:hover {
-    color: #ffe4b5;
-  }
+        .result-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-  .nav-menu li a::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: #ffe4b5;
-    transform: scaleX(0);
-    transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
-  }
+        .result-info {
+            padding: 1.5rem;
+        }
 
-  .nav-menu li a:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-  }
+        .result-type {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
 
-  .nav-cta a {
-    background-color: #fff8e7;
-    color: #a0522d;
-    padding: 0.5rem 1.5rem;
-    border-radius: 20px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
+        .result-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
 
-  .nav-cta a:hover {
-    background-color: #ffe4b5;
-    color: #7c3f17;
-  }
+        .result-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
 
-  /* Hamburger Menu */
-  .hamburger {
-    display: none;
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    padding: 0;
-    z-index: 1001;
-  }
-
-  .bar {
-    display: block;
-    width: 25px;
-    height: 3px;
-    margin: 5px auto;
-    background-color: #fff8e7;
-    transition: all 0.3s ease-in-out;
-  }
-
-  /* Responsive Header */
-  @media (max-width: 850px) {
-    .nav-menu {
-      position: fixed;
-      left: -100%;
-      top: 0;
-      flex-direction: column;
-      background-color: rgba(160, 82, 45, 0.98);
-      width: 100%;
-      height: 100vh;
-      text-align: center;
-      transition: 0.3s;
-      box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-      justify-content: center;
-      gap: 2rem;
-    }
-
-    .nav-menu.active {
-      left: 0;
-    }
-
-    .nav-menu li {
-      margin: 1rem 0;
-    }
-
-    .hamburger {
-      display: block;
-    }
-
-    .hamburger.active .bar:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active .bar:nth-child(1) {
-      transform: translateY(8px) rotate(45deg);
-    }
-
-    .hamburger.active .bar:nth-child(3) {
-      transform: translateY(-8px) rotate(-45deg);
-    }
-  }
-
-  /* Hero Section */
-  .hero {
-    position: relative;
-    min-height: 80vh;
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-    background-size: cover;
-    background-position: center;
-  }
-
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(160, 82, 45, 0.35);
-    backdrop-filter: blur(2px);
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    color: #fff8e7;
-  }
-
-  .hero-content h1 {
-    font-size: 2.3rem;
-    margin-bottom: 0.5rem;
-    letter-spacing: 1px;
-  }
-
-  .hero-content p {
-    font-size: 1.1rem;
-    margin-bottom: 1.2rem;
-  }
-
-  /* Search Bar */
-  .search-bar-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    max-width: 420px;
-    background: rgba(255,255,255,0.7);
-    border-radius: 24px;
-    box-shadow: 0 2px 8px rgba(160,82,45,0.10);
-    padding: 0.3rem 0.5rem;
-  }
-
-  .search-bar {
-    flex: 1;
-    border: none;
-    outline: none;
-    padding: 0.7rem 1rem;
-    border-radius: 20px 0 0 20px;
-    font-size: 1rem;
-    background: transparent;
-  }
-
-  .search-btn {
-    border: none;
-    background: none;
-    color: #a0522d;
-    font-size: 1.3rem;
-    cursor: pointer;
-    padding: 0 1rem;
-  }
-
-  /* Main Content Styles */
-  main {
-    flex: 1 0 auto;
-    width: 100%;
-    padding: 0 0 2rem 0;
-  }
-
-  /* ... (Add other specific component styles here, like listing-card, modal, etc.) ... */ 
+        .result-price {
+            font-weight: 700;
+            color: var(--primary);
+        }
     </style>
-  <style>
-    body { background: #fff8e7; font-family: 'Segoe UI', 'Roboto', Arial, sans-serif; }
-    .search-container { max-width: 900px; margin: 3rem auto; background: #fff; border-radius: 18px; box-shadow: 0 8px 48px #a0522d22; padding: 2.5rem 2rem; }
-    .search-title { font-size: 2rem; color: #a0522d; font-weight: 700; margin-bottom: 2rem; text-align: center; }
-    .search-bar { width: 100%; padding: 0.7rem; border-radius: 8px; border: 1.5px solid #ffe4b5; font-size: 1.05rem; margin-bottom: 2rem; }
-    .search-results { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
-    .search-card { background: #fff8e7; border-radius: 12px; box-shadow: 0 1.5px 8px #a0522d11; padding: 1.2rem 1.5rem; border-left: 4px solid #ffe4b5; }
-    .search-card h4 { color: #a0522d; font-size: 1.18rem; margin-bottom: 0.5rem; font-weight: 700; }
-    .search-meta { color: #4e2e0e; font-size: 1.08rem; margin-bottom: 0.5rem; }
-    .search-btn { background: linear-gradient(90deg, #a0522d 80%, #ffb347 100%); color: #fff8e7; border: none; border-radius: 10px; padding: 0.5rem 1.2rem; font-size: 1.05rem; cursor: pointer; font-weight: 700; box-shadow: 0 2px 12px #a0522d22; }
-    .search-btn:hover { background: linear-gradient(90deg, #7c3f17 80%, #ffb347 100%); }
-  </style>
-  <link rel="stylesheet" href="../assets/css/global-responsive.css">
-  <link rel="stylesheet" href="../assets/css/ui-system.css">
 </head>
 <body>
-  <div class="search-container">
-    <div class="search-title">Search Results</div>
-    <input type="text" class="search-bar" placeholder="Search accommodations, cars, places...">
-    <div class="search-results">
-      <div class="search-card">
-        <h4>Kigali View Apartment</h4>
-        <div class="search-meta">Kigali, $40/night, 4.8★</div>
-        <a href="item-details.html?type=Accommodation&name=Kigali%20View%20Apartment" class="search-btn">View Details</a>
-      </div>
-      <div class="search-card">
-        <h4>Toyota RAV4</h4>
-        <div class="search-meta">Automatic, 5 seats, $50/day</div>
-        <a href="item-details.html?type=Car&name=Toyota%20RAV4" class="search-btn">View Details</a>
-      </div>
-      <div class="search-card">
-        <h4>Akagera Park Tour</h4>
-        <div class="search-meta">Eastern Rwanda, $120/tour, 4.9★</div>
-        <a href="item-details.html?type=Place&name=Akagera%20Park%20Tour" class="search-btn">View Details</a>
-      </div>
-    </div>
-  </div>
-  <script src="../assets/js/navbar.js"></script>
+    <main class="search-main container">
+        <header data-animate>
+            <h1 style="margin-bottom: 0.5rem;">Explore Rwanda</h1>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Found 12 matches for your search.</p>
+        </header>
+
+        <div class="search-controls" data-animate style="transition-delay: 0.1s;">
+            <div class="search-input-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search homes, cars, or sites..." value="Kigali">
+            </div>
+            <select class="btn btn-secondary" style="height: 52px; border-radius: 26px; padding: 0 1.5rem;">
+                <option>All Types</option>
+                <option>Accommodation</option>
+                <option>Cars</option>
+                <option>Tours</option>
+            </select>
+            <button class="btn btn-primary" style="height: 52px; border-radius: 26px;">Apply Filters</button>
+        </div>
+
+        <section class="results-grid">
+            <!-- Result 1 -->
+            <div class="result-card" data-animate style="transition-delay: 0.2s;">
+                <div class="result-img">
+                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=800" alt="">
+                </div>
+                <div class="result-info">
+                    <div class="result-type">Accommodation</div>
+                    <h3 class="result-title">Kigali View Apartment</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);"><i class="fas fa-map-marker-alt"></i> Kiyovu, Kigali</p>
+                    <div class="result-meta">
+                        <div class="result-price">$50 <small>/ night</small></div>
+                        <div class="rating"><i class="fas fa-star" style="color: #f6ad55;"></i> 4.9</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result 2 -->
+            <div class="result-card" data-animate style="transition-delay: 0.3s;">
+                <div class="result-img">
+                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=800" alt="">
+                </div>
+                <div class="result-info">
+                    <div class="result-type">Car Rental</div>
+                    <h3 class="result-title">Toyota RAV4</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);"><i class="fas fa-cog"></i> Automatic • 5 Seats</p>
+                    <div class="result-meta">
+                        <div class="result-price">$60 <small>/ day</small></div>
+                        <div class="rating"><i class="fas fa-star" style="color: #f6ad55;"></i> 4.8</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result 3 -->
+            <div class="result-card" data-animate style="transition-delay: 0.4s;">
+                <div class="result-img">
+                    <img src="https://images.unsplash.com/photo-1516422213481-9069d30560fe?auto=format&fit=crop&q=80&w=800" alt="">
+                </div>
+                <div class="result-info">
+                    <div class="result-type">Tour</div>
+                    <h3 class="result-title">Volcanoes National Park</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);"><i class="fas fa-hiking"></i> Musanze • Guided</p>
+                    <div class="result-meta">
+                        <div class="result-price">$150 <small>/ person</small></div>
+                        <div class="rating"><i class="fas fa-star" style="color: #f6ad55;"></i> 5.0</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
 </body>
 </html>

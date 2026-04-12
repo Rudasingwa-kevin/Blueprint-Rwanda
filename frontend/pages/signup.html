@@ -1,122 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blueprint Rwanda - Sign Up</title>
-  <link rel="stylesheet" href="../assets/css/global-responsive.css">
-  <link rel="stylesheet" href="../assets/css/ui-system.css">
-  <link rel="stylesheet" href="../assets/css/auth-pages.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Blueprint Rwanda</title>
+    <!-- Icons -->
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/ui-system.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <style>
+        .auth-main {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--bg) 0%, var(--surface) 100%);
+            padding: var(--space-md);
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 500px;
+            padding: var(--space-md);
+            text-align: center;
+        }
+
+        .auth-logo {
+            margin-bottom: var(--space-md);
+        }
+
+        .auth-title {
+            margin-bottom: var(--space-sm);
+            color: var(--primary);
+        }
+
+        .auth-form {
+            text-align: left;
+            margin-top: var(--space-md);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: var(--space-sm);
+        }
+
+        .form-group.full {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--white);
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.1);
+        }
+
+        .auth-footer {
+            margin-top: var(--space-md);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            grid-column: span 2;
+            text-align: center;
+        }
+
+        .auth-footer a {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        @media (max-width: 480px) {
+            .auth-form {
+                grid-template-columns: 1fr;
+            }
+            .form-group.full {
+                grid-column: span 1;
+            }
+        }
+    </style>
 </head>
 <body>
-  <video autoplay loop muted playsinline class="bg-video"><source src="Visit Rwanda Soon.mp4" type="video/mp4"></video>
-  <div class="anime-overlay"></div>
+    <main class="auth-main">
+        <div class="card auth-card glass" data-animate>
+            <div class="auth-logo">
+                <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-heading); font-weight: 700; color: var(--primary); font-size: 1.5rem;">
+                    <i class="fas fa-landmark"></i>
+                    Blueprint Rwanda
+                </a>
+            </div>
+            
+            <h1 class="auth-title">Create Account</h1>
+            <p>Join the premier agency for Rwanda services.</p>
 
-  <nav class="navbar">
-    <a href="index.html" class="nav-logo"><img src="../assets/images/branding/blueprint-logo.png" alt="Blueprint Rwanda Logo">Blueprint Rwanda</a>
-    <ul class="nav-menu">
-      <li><a href="all-services.html">Services</a></li>
-      <li><a href="owners.html">Owners</a></li>
-      <li><a href="portfolio.html">Portfolio</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <div class="nav-cta"><a href="login.html">Login</a></div>
-    <button class="hamburger"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
-  </nav>
+            <form class="auth-form" action="verification.html">
+                <div class="form-group">
+                    <label for="fname">First Name</label>
+                    <input type="text" id="fname" placeholder="John" required>
+                </div>
+                <div class="form-group">
+                    <label for="lname">Last Name</label>
+                    <input type="text" id="lname" placeholder="Doe" required>
+                </div>
+                <div class="form-group full">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="name@example.com" required>
+                </div>
+                <div class="form-group full">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+                <div class="form-group full">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" placeholder="••••••••" required>
+                </div>
+                
+                <div class="form-group full" style="font-size: 0.85rem; text-align: left;">
+                    <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer; text-transform: none; color: var(--text);">
+                        <input type="checkbox" style="width: auto; margin-top: 3px;" required> 
+                        I agree to the <a href="#" style="color: var(--primary); font-weight: 600;">Terms of Service</a> and <a href="#" style="color: var(--primary); font-weight: 600;">Privacy Policy</a>.
+                    </label>
+                </div>
 
-  <main class="auth-main">
-    <section class="auth-card">
-      <img src="../assets/images/branding/blueprint-logo.png" alt="Blueprint Rwanda Logo" class="auth-logo">
-      <h1 class="auth-title">Join Blueprint Rwanda</h1>
-      <p class="auth-subtitle">Create your account to get started</p>
-      <form id="signupForm" class="auth-form" onsubmit="handleSignup(event)">
-        <div class="form-group">
-          <label>I am signing up as:</label>
-          <div class="user-type-cards">
-            <div class="user-type-card" onclick="selectUserType('owner')" id="ownerCard"><div class="user-type-title">Owner</div><div class="user-type-desc">List your property, car, or place for explorers to book.</div></div>
-            <div class="user-type-card" onclick="selectUserType('explorer')" id="explorerCard"><div class="user-type-title">Explorer</div><div class="user-type-desc">Discover and book accommodations, cars, and places.</div></div>
-          </div>
-          <input type="hidden" id="userType" name="userType" required>
+                <div class="form-group full">
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+                </div>
+
+                <p class="auth-footer">
+                    Already have an account? <a href="login.html">Sign In</a>
+                </p>
+            </form>
         </div>
+    </main>
 
-        <div class="form-group"><label for="name">Full Name</label><input type="text" id="name" name="name" required></div>
-        <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" required></div>
-        <div class="form-group"><label for="password">Password</label><input type="password" id="password" name="password" required oninput="checkPassword()"><button type="button" class="toggle-password" onclick="togglePassword('password', this)">&#128065;</button></div>
-        <div class="form-group"><label for="confirmPassword">Confirm Password</label><input type="password" id="confirmPassword" name="confirmPassword" required oninput="checkPasswordMatch()"><button type="button" class="toggle-password" onclick="togglePassword('confirmPassword', this)">&#128065;</button></div>
-
-        <div class="password-conditions" id="passwordConditions">
-          <div class="condition-item" id="cond-length"><span class="cond-icon">?</span> At least 6 characters</div>
-          <div class="condition-item" id="cond-number"><span class="cond-icon">?</span> Includes a number</div>
-          <div class="condition-item" id="cond-special"><span class="cond-icon">?</span> Includes a special character</div>
-          <div class="condition-item" id="cond-match"><span class="cond-icon">?</span> Passwords match</div>
-        </div>
-
-        <div id="alert" class="alert hidden"></div>
-        <button type="submit" class="welcome-btn" id="signupBtn">Create Account</button>
-        <p class="form-meta">Already have an account? <span class="form-link" onclick="window.location.href='login.html'">Login</span></p>
-      </form>
-    </section>
-  </main>
-
-  <script src="../assets/js/api-config.js"></script>
-  <script src="../assets/js/api-client.js"></script>
-  <script src="../assets/js/auth-guard.js"></script>
-  <script>
-    let selectedUserType = null;
-    function togglePassword(inputId, button) {
-      const input = document.getElementById(inputId);
-      const type = input.type === 'password' ? 'text' : 'password';
-      input.type = type;
-      button.innerHTML = type === 'password' ? '&#128065;' : '&#128584;';
-    }
-    function selectUserType(type) {
-      selectedUserType = type;
-      document.getElementById('userType').value = type;
-      document.getElementById('ownerCard').classList.remove('selected');
-      document.getElementById('explorerCard').classList.remove('selected');
-      document.getElementById(type + 'Card').classList.add('selected');
-    }
-    function checkPassword() {
-      const password = document.getElementById('password').value;
-      const conditions = { length: password.length >= 6, number: /\d/.test(password), special: /[!@#$%^&*(),.?":{}|<>]/.test(password) };
-      Object.keys(conditions).forEach(cond => {
-        const element = document.getElementById('cond-' + cond);
-        if (conditions[cond]) { element.classList.add('completed'); element.querySelector('.cond-icon').textContent = '?'; }
-        else { element.classList.remove('completed'); element.querySelector('.cond-icon').textContent = '?'; }
-      });
-      checkPasswordMatch();
-    }
-    function checkPasswordMatch() {
-      const password = document.getElementById('password').value;
-      const confirmPassword = document.getElementById('confirmPassword').value;
-      const matchElement = document.getElementById('cond-match');
-      if (password && confirmPassword && password === confirmPassword) { matchElement.classList.add('completed'); matchElement.querySelector('.cond-icon').textContent = '?'; }
-      else { matchElement.classList.remove('completed'); matchElement.querySelector('.cond-icon').textContent = '?'; }
-    }
-    async function handleSignup(event) {
-      event.preventDefault();
-      const alertDiv = document.getElementById('alert');
-      if (!selectedUserType) { alertDiv.textContent = 'Please select whether you are an Owner or Explorer.'; alertDiv.classList.remove('hidden'); return; }
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      const confirmPassword = document.getElementById('confirmPassword').value;
-      const signupBtn = document.getElementById('signupBtn');
-      if (password !== confirmPassword) { alertDiv.textContent = 'Passwords do not match.'; alertDiv.classList.remove('hidden'); return; }
-      alertDiv.classList.add('hidden');
-      signupBtn.disabled = true; signupBtn.textContent = 'Creating account...';
-      try {
-        await window.BP_API.post('/auth/register', { name, email, password, password_confirmation: confirmPassword, role: selectedUserType });
-        window.location.href = 'verification.html?email=' + encodeURIComponent(email);
-      } catch (error) {
-        alertDiv.textContent = error.message || 'Registration failed. Please try again.';
-        alertDiv.classList.remove('hidden');
-      } finally {
-        signupBtn.disabled = false; signupBtn.textContent = 'Create Account';
-      }
-    }
-  </script>
-  <script src="../assets/js/navbar.js"></script>
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
 </body>
 </html>
