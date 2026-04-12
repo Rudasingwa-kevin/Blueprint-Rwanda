@@ -86,7 +86,51 @@
 .nav-actions {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
+}
+
+.mode-toggle-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--primary);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: var(--transition);
+}
+
+.mode-toggle-btn:hover {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+}
+
+.mode-toggle-btn i {
+    font-size: 1rem;
+}
+
+.btn-icon-nav {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.btn-icon-nav:hover {
+    background: var(--surface);
+    color: var(--primary);
 }
 
 .menu-toggle {
@@ -261,4 +305,59 @@
         align-items: center;
         gap: 1rem;
     }
+}
+/* Advanced Interaction Components */
+.card-image, .service-img, .listing-img, .visit-img, .featured-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+}
+
+.card-image img, .service-img img, .listing-img img, .visit-img img, .featured-image img {
+    transition: transform 0.6s cubic-bezier(0.15, 0, 0.15, 1), filter 0.6s ease;
+}
+
+.card:hover .card-image img, 
+.card:hover .service-img img, 
+.listing-card:hover .card-image img,
+.featured-hero:hover .featured-image img {
+    transform: scale(1.1);
+}
+
+/* Dark Mode Overrides */
+[data-theme="dark"] .navbar.scrolled {
+    background: rgba(13, 13, 13, 0.85);
+    border-bottom: 1px solid #333;
+}
+
+[data-theme="dark"] .card {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .footer {
+    background: #000;
+}
+
+[data-theme="dark"] .glass {
+    background: rgba(20, 20, 20, 0.7);
+    border-color: #444;
+}
+
+[data-theme="dark"] .btn-secondary {
+    background: #2a2a2a;
+    color: #f5e9da;
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: #333;
+}
+
+[data-theme="dark"] .nav-links a {
+    color: #d4a373;
+}
+
+[data-theme="dark"] .nav-links a:hover,
+[data-theme="dark"] .nav-links a.active {
+    color: #f5e9da;
 }

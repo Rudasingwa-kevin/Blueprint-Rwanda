@@ -3,130 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accommodation - Blueprint Rwanda</title>
-    <!-- Icons -->
-    <link rel="shortcut icon" href="../assets/images/branding/blueprint-logo.png" type="image/x-icon">
-    <!-- Styles -->
+    <title>Premium Stays - Blueprint Rwanda</title>
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="../assets/css/listings.css">
 </head>
 <body>
+    <!-- Hero Header -->
     <header class="listing-hero">
         <div class="container" data-animate>
-            <h1>Find Your Home in Rwanda</h1>
-            <p>From luxury apartments to cozy mountain retreats.</p>
+            <h1 class="gradient-text">Exceptional Journeys</h1>
+            <p>Curated luxury stays for the discerning traveler.</p>
         </div>
     </header>
 
-    <section class="search-section">
-        <div class="container">
-            <div class="search-box glass" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                <div style="flex: 1; display: flex; align-items: center; gap: 0.5rem; min-width: 250px;">
-                    <i class="fas fa-search" style="color: var(--primary);"></i>
-                    <input type="text" placeholder="Search by city, landmark, or property type..." style="width: 100%;">
+    <!-- Featured Spotlight -->
+    <section class="container" data-animate>
+        <div class="featured-hero">
+            <div class="featured-content">
+                <span class="featured-badge">Featured Property</span>
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">The Akagera Eco-Lodge</h2>
+                <p style="margin-bottom: 2rem; color: var(--text-muted); font-size: 1.1rem;">Experience the wild in unparalleled luxury. Private infinity pools, guided safaris, and 360-degree savanna views.</p>
+                <div style="display: flex; gap: 1rem;">
+                    <button class="btn btn-primary">Book Now</button>
+                    <button class="btn btn-secondary" onclick="location.href='item-details.html'">View Tour</button>
                 </div>
-                <button class="btn btn-primary" style="flex-shrink: 0;">Search</button>
+            </div>
+            <div class="featured-image">
+                <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=1200" alt="Eco Lodge">
             </div>
         </div>
     </section>
 
-    <main class="listing-section container">
-        <div class="listing-header" data-animate>
-            <div>
-                <p style="color: var(--primary); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Top Rated</p>
-                <h2>Available Accommodations</h2>
-            </div>
-            <div style="display: flex; gap: 1rem;">
-                <button class="btn btn-sm" style="background: var(--white); border: 1px solid var(--border); padding: 0.5rem 1rem;"><i class="fas fa-filter"></i> Filter</button>
-                <button class="btn btn-sm" style="background: var(--white); border: 1px solid var(--border); padding: 0.5rem 1rem;"><i class="fas fa-sort-amount-down"></i> Sort</button>
-            </div>
+    <!-- Category Discovery -->
+    <nav class="container">
+        <div class="category-filter">
+            <button class="filter-btn active">All Stays</button>
+            <button class="filter-btn">Luxury Villas</button>
+            <button class="filter-btn">Urban Penthouses</button>
+            <button class="filter-btn">Cultural Homes</button>
+            <button class="filter-btn">Safari Lodges</button>
         </div>
+    </nav>
 
+    <!-- Listings Grid -->
+    <main class="container listing-section">
         <div class="listing-grid">
-            <!-- Listing 1 -->
+            <!-- Item 1 -->
             <div class="listing-card" data-animate>
                 <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=800" alt="Kigali View Apartment">
-                    <span class="card-type">Apartment</span>
+                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=800&fm=webp" alt="Kigali View" loading="lazy">
+                    <span class="card-type">Penthouse</span>
                 </div>
                 <div class="card-content">
                     <div class="card-meta">
-                        <span class="rating"><i class="fas fa-star"></i> 4.92</span>
-                        <span style="font-size: 0.8rem; color: var(--text-muted);">(124 reviews)</span>
+                        <span class="rating"><i class="fas fa-star"></i> 4.98</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">Kigali · Kiyovu</span>
                     </div>
-                    <h3 class="card-title">Kigali View Apartment</h3>
-                    <p class="card-location"><i class="fas fa-map-marker-alt"></i> Kigali, Rwanda</p>
+                    <h3 class="card-title">Skyline View Penthouse</h3>
                     <div class="card-footer">
-                        <div class="price">$50<span> / night</span></div>
-                        <button class="btn btn-secondary btn-sm" style="padding: 0.5rem 1rem;">Details</button>
+                        <div class="price">$120<span> / night</span></div>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html'">Explore</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Listing 2 -->
+            <!-- Item 2 -->
             <div class="listing-card" data-animate style="transition-delay: 0.1s;">
                 <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800" alt="Musanze Retreat">
-                    <span class="card-type">Guesthouse</span>
+                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800&fm=webp" alt="Musanze" loading="lazy">
+                    <span class="card-type">Mountain Lodge</span>
                 </div>
                 <div class="card-content">
                     <div class="card-meta">
                         <span class="rating"><i class="fas fa-star"></i> 4.95</span>
-                        <span style="font-size: 0.8rem; color: var(--text-muted);">(86 reviews)</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">Musanze · Volcanoes</span>
                     </div>
-                    <h3 class="card-title">Musanze Mountain Retreat</h3>
-                    <p class="card-location"><i class="fas fa-map-marker-alt"></i> Musanze, Rwanda</p>
+                    <h3 class="card-title">Silverback Forest Lodge</h3>
                     <div class="card-footer">
-                        <div class="price">$80<span> / night</span></div>
-                        <button class="btn btn-secondary btn-sm" style="padding: 0.5rem 1rem;">Details</button>
+                        <div class="price">$250<span> / night</span></div>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html'">Explore</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Listing 3 -->
+            <!-- Item 3 -->
             <div class="listing-card" data-animate style="transition-delay: 0.2s;">
                 <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=800" alt="Lake Kivu Suite">
-                    <span class="card-type">Eco-Lodge</span>
+                    <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=800&fm=webp" alt="Lake Kivu" loading="lazy">
+                    <span class="card-type">Lakeside Villa</span>
                 </div>
                 <div class="card-content">
                     <div class="card-meta">
-                        <span class="rating"><i class="fas fa-star"></i> 5.0</span>
-                        <span style="font-size: 0.8rem; color: var(--text-muted);">(42 reviews)</span>
+                        <span class="rating"><i class="fas fa-star"></i> 5.00</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">Rubavu · Lake Kivu</span>
                     </div>
-                    <h3 class="card-title">Lake Kivu Luxury Suite</h3>
-                    <p class="card-location"><i class="fas fa-map-marker-alt"></i> Gisenyi, Rwanda</p>
+                    <h3 class="card-title">Blue Water Sanctuary</h3>
                     <div class="card-footer">
-                        <div class="price">$120<span> / night</span></div>
-                        <button class="btn btn-secondary btn-sm" style="padding: 0.5rem 1rem;">Details</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Listing 4 -->
-            <div class="listing-card" data-animate style="transition-delay: 0.3s;">
-                <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=800" alt="Huye Guesthouse">
-                    <span class="card-type">Cultural Stay</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="rating"><i class="fas fa-star"></i> 4.88</span>
-                        <span style="font-size: 0.8rem; color: var(--text-muted);">(56 reviews)</span>
-                    </div>
-                    <h3 class="card-title">Huye Heritage Guesthouse</h3>
-                    <p class="card-location"><i class="fas fa-map-marker-alt"></i> Huye, Rwanda</p>
-                    <div class="card-footer">
-                        <div class="price">$60<span> / night</span></div>
-                        <button class="btn btn-secondary btn-sm" style="padding: 0.5rem 1rem;">Details</button>
+                        <div class="price">$180<span> / night</span></div>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html'">Explore</button>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
+    <!-- Map Discovery -->
+    <section class="container map-discovery" data-animate>
+        <div class="section-title">
+            <h2 style="margin-bottom: 2rem;">Discover on Map</h2>
+        </div>
+        <div id="listing-map" class="card"></div>
+    </section>
+
     <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="../assets/js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const markers = [
+                { lat: -1.9441, lng: 30.0619, title: "Skyline Penthouse", desc: "Luxury Urban Stay" },
+                { lat: -1.5011, lng: 29.6331, title: "Silverback Lodge", desc: "Mountain Experience" },
+                { lat: -1.6917, lng: 29.2558, title: "Blue Water Sanctuary", desc: "Lakeside Bliss" }
+            ];
+            
+            // Wait slightly for Components to init if necessary, or just run
+            if (window.Components && window.Components.initMap) {
+                window.Components.initMap('listing-map', markers);
+            }
+        });
+    </script>
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      "name": "Blueprint Rwanda Accommodations",
+      "description": "Premium curated luxury stays and commercial inventory in Kigali and beyond.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Kigali",
+        "addressCountry": "RW"
+      },
+      "priceRange": "$$$"
+    }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.Components && window.Components.setPageMeta) {
+                window.Components.setPageMeta({
+                    title: "Curated Stays | Blueprint Rwanda",
+                    description: "Explore Rwanda's most exclusive residential and commercial assets. High-end hospitality engineered by Blueprint."
+                });
+            }
+        });
+    </script>
 </body>
 </html>

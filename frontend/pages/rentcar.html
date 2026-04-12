@@ -3,86 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rent a Car - Blueprint Rwanda</title>
-    <!-- Icons -->
-    <link rel="shortcut icon" href="../assets/images/branding/blueprint-logo.png" type="image/x-icon">
+    <title>Premium Mobility - Blueprint Rwanda</title>
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="../assets/css/listings.css">
 </head>
 <body>
-    <header class="listing-hero" style="background-image: url('../assets/images/ui/car.png');">
+    <!-- Hero -->
+    <header class="listing-hero" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=1920&fm=webp') center/cover;">
         <div class="container" data-animate>
-            <h1>Explore Rwanda at Your Own Pace</h1>
-            <p>Premium car rentals for city drives and mountain adventures.</p>
+            <h1 class="gradient-text">Elite Mobility</h1>
+            <p>High-end fleet for urban elegance and off-road excellence.</p>
         </div>
     </header>
 
-    <section class="search-section">
-        <div class="container">
-            <div class="search-box glass" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                <div style="flex: 1; display: flex; align-items: center; gap: 0.5rem; min-width: 250px;">
-                    <i class="fas fa-car" style="color: var(--primary);"></i>
-                    <input type="text" placeholder="Search for SUV, Sedan, or Luxury vehicles..." style="width: 100%;">
-                </div>
-                <button class="btn btn-primary" style="flex-shrink: 0;">Search</button>
-            </div>
+    <!-- Search Section -->
+    <section class="search-section container">
+        <div class="search-box glass" data-animate>
+            <i class="fas fa-car-side" style="padding-left: 1.5rem; color: var(--primary);"></i>
+            <input type="text" placeholder="Search 4x4s, luxury sedans, or electric vehicles...">
+            <button class="btn btn-primary" style="margin: 0.5rem;">Check Availability</button>
         </div>
     </section>
 
-    <main class="listing-section container">
-        <div class="listing-header" data-animate>
-            <div>
-                <p style="color: var(--primary); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Reliable Fleet</p>
-                <h2>Available Vehicles</h2>
-            </div>
-        </div>
-
+    <!-- Listings Grid -->
+    <main class="container listing-section">
         <div class="listing-grid">
-            <!-- Car 1 -->
+            <!-- Vehicle 1 -->
             <div class="listing-card" data-animate>
                 <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=800" alt="Toyota Land Cruiser">
-                    <span class="card-type">SUV / 4x4</span>
+                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=800&fm=webp" alt="Land Cruiser" loading="lazy">
+                    <span class="card-type">Luxury 4x4</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-meta">
+                        <span class="rating"><i class="fas fa-star"></i> 5.00</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">Toyota Land Cruiser V8</span>
+                    </div>
+                    <h3 class="card-title">Savanna Conqueror</h3>
+                    <p class="card-location"><i class="fas fa-gas-pump"></i> Diesel · Automatic · 7 Seats</p>
+                    <div class="card-footer">
+                        <div class="price">$150<span> / day</span></div>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html'">Reserve</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle 2 -->
+            <div class="listing-card" data-animate style="transition-delay: 0.1s;">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1525609004556-c46c7d6cf0a3?auto=format&fit=crop&q=80&w=800&fm=webp" alt="Luxury Sedan" loading="lazy">
+                    <span class="card-type">Premium Sedan</span>
                 </div>
                 <div class="card-content">
                     <div class="card-meta">
                         <span class="rating"><i class="fas fa-star"></i> 4.98</span>
-                        <span style="font-size: 0.8rem; color: var(--text-muted);">(45 reviews)</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">Mercedes-Benz E-Class</span>
                     </div>
-                    <h3 class="card-title">Toyota Land Cruiser V8</h3>
-                    <p class="card-location"><i class="fas fa-gas-pump"></i> Diesel • Automatic</p>
+                    <h3 class="card-title">Executive Urban Suite</h3>
+                    <p class="card-location"><i class="fas fa-bolt"></i> Hybrid · Automatic · 5 Seats</p>
                     <div class="card-footer">
-                        <div class="price">$150<span> / day</span></div>
-                        <button class="btn btn-secondary btn-sm" style="padding: 0.5rem 1rem;">Rent now</button>
+                        <div class="price">$120<span> / day</span></div>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html'">Reserve</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Car 2 -->
-            <div class="listing-card" data-animate style="transition-delay: 0.1s;">
+            <!-- Vehicle 3 -->
+            <div class="listing-card" data-animate style="transition-delay: 0.2s;">
                 <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=800" alt="Toyota RAV4">
-                    <span class="card-type">Compact SUV</span>
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800&fm=webp" alt="Safari Van" loading="lazy">
+                    <span class="card-type">Safari Custom</span>
                 </div>
                 <div class="card-content">
                     <div class="card-meta">
-                        <span class="rating"><i class="fas fa-star"></i> 4.90</span>
-                        <span style="font-size: 0.8rem; color: var(--text-muted);">(32 reviews)</span>
+                        <span class="rating"><i class="fas fa-star"></i> 4.95</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">Custom Safari Land Cruiser</span>
                     </div>
-                    <h3 class="card-title">Toyota RAV4</h3>
-                    <p class="card-location"><i class="fas fa-gas-pump"></i> Petrol • Automatic</p>
+                    <h3 class="card-title">Wilderness Explorer</h3>
+                    <p class="card-location"><i class="fas fa-binoculars"></i> Popup Roof · 4WD · 8 Seats</p>
                     <div class="card-footer">
-                        <div class="price">$70<span> / day</span></div>
-                        <button class="btn btn-secondary btn-sm" style="padding: 0.5rem 1rem;">Rent now</button>
+                        <div class="price">$180<span> / day</span></div>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html'">Reserve</button>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Scripts -->
-    <script src="../assets/js/components.js"></script>
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AutoRental",
+      "name": "Blueprint Rwanda Premium Mobility",
+      "description": "Elite fleet for urban elegance and off-road excellence in Rwanda.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Kigali",
+        "addressCountry": "RW"
+      }
+    }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.Components && window.Components.setPageMeta) {
+                window.Components.setPageMeta({
+                    title: "Elite Mobility | Blueprint Rwanda",
+                    description: "High-end fleet for urban elegance and off-road excellence. Reserve your premium vehicle today."
+                });
+            }
+        });
+    </script>
 </body>
 </html>

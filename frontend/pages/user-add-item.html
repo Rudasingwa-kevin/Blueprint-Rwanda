@@ -195,8 +195,10 @@
 
         document.getElementById('addItemForm').onsubmit = function(e) {
             e.preventDefault();
-            alert('Listing submitted! Our team will review it within 24 hours.');
-            location.href = 'user-dashboard.html';
+            Components.showToast('Listing submitted! Our team will review it within 24 hours.', 'success');
+            setTimeout(() => {
+                location.href = 'partner-dashboard.html';
+            }, 1500);
         };
     </script>
 </body>

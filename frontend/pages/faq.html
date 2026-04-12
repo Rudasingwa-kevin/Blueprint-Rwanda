@@ -3,158 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frequently Asked Questions - Blueprint Rwanda</title>
-    <!-- Icons -->
+    <title>Ecosystem Intelligence - Blueprint Rwanda</title>
     <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <style>
-        .faq-main {
-            padding-top: 150px;
+        .faq-hero {
+            padding-top: 180px;
             padding-bottom: var(--space-lg);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-header {
+            background: var(--surface);
             text-align: center;
-            margin-bottom: var(--space-lg);
         }
 
-        .faq-accordion {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+        .faq-container {
+            max-width: 900px;
+            margin: -60px auto var(--space-lg);
+            position: relative;
+            z-index: 10;
         }
 
         .faq-item {
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            background: var(--white);
-            overflow: hidden;
+            margin-bottom: 1.5rem;
             transition: var(--transition);
         }
 
         .faq-question {
-            padding: 1.5rem;
-            cursor: pointer;
+            padding: 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            cursor: pointer;
+            font-family: var(--font-heading);
             font-weight: 700;
+            font-size: 1.25rem;
             color: var(--primary);
-            transition: var(--transition);
-        }
-
-        .faq-question:hover {
-            background: var(--surface);
         }
 
         .faq-answer {
-            padding: 0 1.5rem 1.5rem 1.5rem;
-            display: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0 2rem;
             color: var(--text-muted);
-            line-height: 1.6;
+            font-size: 1.05rem;
+            line-height: 1.8;
         }
 
         .faq-item.active .faq-answer {
-            display: block;
+            max-height: 400px;
+            padding-bottom: 2rem;
         }
 
-        .faq-item.active .faq-question i {
+        .faq-item.active {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-md);
+        }
+
+        .faq-icon {
+            transition: var(--transition);
+            color: var(--accent);
+        }
+
+        .faq-item.active .faq-icon {
             transform: rotate(180deg);
         }
 
-        .faq-item i {
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 2rem;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--border);
+            background: var(--white);
+            color: var(--text-muted);
+            font-weight: 700;
+            cursor: pointer;
             transition: var(--transition);
-            font-size: 0.8rem;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
         }
     </style>
 </head>
 <body>
-    <main class="faq-main container">
-        <header class="faq-header" data-animate>
-            <h1 style="font-size: 3rem; margin-bottom: 1rem;">Help Center</h1>
-            <p style="font-size: 1.1rem; color: var(--text-muted);">Common questions about booking, payments, and our services.</p>
-        </header>
-
-        <section class="faq-accordion" data-animate style="transition-delay: 0.1s;">
-            <!-- FAQ 1 -->
-            <div class="faq-item">
-                <div class="faq-question">
-                    How do I book an accommodation or car?
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    Simply browse the listings on our "Stay" or "Rent a Car" pages. Once you find something you like, select your dates and follow the guided booking process to confirm your reservation.
-                </div>
-            </div>
-
-            <!-- FAQ 2 -->
-            <div class="faq-item">
-                <div class="faq-question">
-                    What payment methods are accepted?
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    We accept all major credit cards, Mobile Money (MTN & Airtel), and secure bank transfers. You can also choose to pay at check-in for select properties.
-                </div>
-            </div>
-
-            <!-- FAQ 3 -->
-            <div class="faq-item">
-                <div class="faq-question">
-                    Is there a cancellation policy?
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    Yes, each listing has its own cancellation policy clearly stated on the details page. Generally, most bookings offer free cancellation up to 48 hours before the start date.
-                </div>
-            </div>
-
-            <!-- FAQ 4 -->
-            <div class="faq-item">
-                <div class="faq-question">
-                    How can I become a partner?
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    Head over to our "Partners" page or sign up for an "Owner" account from the verification screen to start listing your own properties and services.
-                </div>
-            </div>
-
-            <!-- FAQ 5 -->
-            <div class="faq-item">
-                <div class="faq-question">
-                    Is transport between cities provided?
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    Yes, we offer professional car rental services and guided tours that include inter-city transport. You can browse these options in the "Logistics" section of our services.
-                </div>
+    <main>
+        <section class="faq-hero">
+            <div class="container" data-animate>
+                <div style="font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 1.5rem; color: var(--primary);">Intelligence Hub</div>
+                <h1 class="gradient-text" style="font-size: clamp(3rem, 7vw, 4.5rem); margin-bottom: 1.5rem;">Ecosystem Protocols</h1>
+                <p style="font-size: 1.25rem; max-width: 700px; margin: 0 auto; color: var(--text-muted);">Master the blueprint of modern Rwanda. In-depth insights into our operations, security, and premium services.</p>
             </div>
         </section>
 
-        <section style="text-align: center; margin-top: 4rem;" data-animate style="transition-delay: 0.2s;">
-            <p>Still have questions?</p>
-            <a href="contact.html" class="btn btn-secondary" style="margin-top: 1rem;">Contact Support</a>
+        <section class="container faq-container">
+            <div class="category-tabs" data-animate>
+                <button class="tab-btn active">General Protocols</button>
+                <button class="tab-btn">Elite Stays</button>
+                <button class="tab-btn">Global Mobility</button>
+                <button class="tab-btn">Partnerships</button>
+            </div>
+
+            <div class="faq-list" data-animate style="transition-delay: 0.2s;">
+                <div class="card glass faq-item">
+                    <div class="faq-question">
+                        <span>How does Blueprint Rwanda ensure the premium standard of its listings?</span>
+                        <div class="faq-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        We employ a rigorous 150-point inspection protocol for every estate and vehicle in our ecosystem. Our curation team evaluates structural integrity, architectural merit, and operational luxury to ensure only the gold standard remains.
+                    </div>
+                </div>
+
+                <div class="card glass faq-item">
+                    <div class="faq-question">
+                        <span>What are the requirements for becoming an Elite Partner?</span>
+                        <div class="faq-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        Potential partners must demonstrate a track record of excellence in hospitality, mobility, or urban development. We prioritize stakeholders who align with our vision of a modern, efficient, and aesthetically superior Rwanda.
+                    </div>
+                </div>
+
+                <div class="card glass faq-item">
+                    <div class="faq-question">
+                        <span>How is data security handled within the Blueprint platform?</span>
+                        <div class="faq-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        All stakeholder data is processed through industry-leading encryption protocols. Our cloud infrastructure is audited quarterly for compliance with international data standards, ensuring absolute confidentiality for our global users.
+                    </div>
+                </div>
+
+                <div class="card glass faq-item">
+                    <div class="faq-question">
+                        <span>Does Blueprint provide 24/7 on-ground assistance?</span>
+                        <div class="faq-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        Yes. Every premium booking includes access to our Executive Concierge service. Whether you require technical support for an estate or tactical assistance during mobility, our local team is always synchronized with your needs.
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 4rem;" data-animate>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Question not addressed in the protocols?</p>
+                <a href="contact.html" class="btn btn-primary">Submit Technical Inquiry</a>
+            </div>
         </section>
     </main>
 
     <!-- Scripts -->
     <script src="../assets/js/components.js"></script>
     <script>
-        document.querySelectorAll('.faq-question').forEach(q => {
-            q.onclick = () => {
-                const item = q.parentElement;
-                const isActive = item.classList.contains('active');
-                
-                // Close all others
-                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-                
-                if (!isActive) item.classList.add('active');
-            };
+        document.addEventListener('DOMContentLoaded', () => {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close others
+                    faqItems.forEach(i => i.classList.remove('active'));
+                    
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
         });
     </script>
 </body>

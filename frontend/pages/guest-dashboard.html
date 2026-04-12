@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Hub - Blueprint Rwanda</title>
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/ui-system.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <style>
+        .guest-main {
+            padding-top: 140px;
+            padding-bottom: var(--space-lg);
+        }
+
+        .dashboard-header {
+            margin-bottom: var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .dashboard-header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .guest-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+        }
+
+        /* Timeline Styles */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            border-left: 2px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.6rem;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 4px solid var(--bg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .booking-card {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .booking-card:hover {
+            transform: translateX(10px);
+            border-color: var(--primary);
+        }
+
+        .booking-img {
+            width: 120px;
+            height: 90px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+        }
+
+        /* Sidebar Widgets */
+        .saved-mini-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .saved-thumb {
+            aspect-ratio: 1;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .saved-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .saved-thumb:hover img {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 992px) {
+            .guest-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="guest-main container">
+        <header class="dashboard-header" data-animate>
+            <div>
+                <h1 class="gradient-text">Hello, Traveler</h1>
+                <p>Your upcoming Rwandan adventures and curated collection.</p>
+            </div>
+            <button class="btn btn-primary" onclick="location.href='accommodation.html'">
+                <i class="fas fa-search"></i> Explore More
+            </button>
+        </header>
+
+        <div class="guest-grid">
+            <!-- Left Column: Upcoming Journeys -->
+            <div class="content-area">
+                <h2 data-animate><i class="fas fa-route" style="color: var(--primary); margin-right: 1rem;"></i>Upcoming Journeys</h2>
+                
+                <div class="timeline">
+                    <!-- Journey 1 -->
+                    <div class="timeline-item" data-animate>
+                        <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--primary); margin-bottom: 0.5rem;">Oct 12 - Oct 15</div>
+                        <div class="card booking-card">
+                            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=200" class="booking-img" alt="">
+                            <div style="flex: 1;">
+                                <h4 style="font-size: 1.25rem;">Skyline Penthouse</h4>
+                                <p style="color: var(--text-muted); font-size: 0.9rem;"><i class="fas fa-map-marker-alt"></i> Kigali, Kiyovu</p>
+                                <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                                    <span class="status-pill status-active">Confirmed</span>
+                                    <span style="font-size: 0.8rem; color: var(--text-muted); padding: 0.4rem 0;">Booking ID: #BR-8829</span>
+                                </div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                <button class="btn btn-secondary btn-sm">View Ticket</button>
+                                <button class="btn btn-icon"><i class="fas fa-message"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Journey 2 -->
+                    <div class="timeline-item" data-animate style="transition-delay: 0.1s;">
+                        <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">Oct 15 - Oct 17</div>
+                        <div class="card booking-card" style="opacity: 0.8;">
+                            <img src="https://images.unsplash.com/photo-1493238792060-6c56c33c369a?auto=format&fit=crop&q=80&w=200" class="booking-img" alt="">
+                            <div style="flex: 1;">
+                                <h4 style="font-size: 1.25rem;">Luxury SUV Rental</h4>
+                                <p style="color: var(--text-muted); font-size: 0.9rem;"><i class="fas fa-car"></i> Toyota Land Cruiser</p>
+                                <div style="margin-top: 1rem;">
+                                    <span class="status-pill status-pending">Awaiting Pickup</span>
+                                </div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                <button class="btn btn-secondary btn-sm">Contact Fleet</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Context Widgets -->
+            <aside class="sidebar-area">
+                <div class="card" style="padding: 2rem;" data-animate style="transition-delay: 0.2s;">
+                    <h3><i class="fas fa-heart" style="color: #e63946; margin-right: 0.75rem;"></i>Saved Stays</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Quick access to your favorites.</p>
+                    <div class="saved-mini-grid">
+                        <a href="item-details.html" class="saved-thumb"><img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=150" alt=""></a>
+                        <a href="item-details.html" class="saved-thumb"><img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=150" alt=""></a>
+                        <a href="item-details.html" class="saved-thumb"><img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=150" alt=""></a>
+                        <div class="saved-thumb flex-center" style="background: var(--bg); color: var(--text-muted); font-size: 0.8rem;">+12 More</div>
+                    </div>
+                    <button class="btn btn-secondary w-100" style="width: 100%; margin-top: 1.5rem;">View Wishlist</button>
+                </div>
+
+                <div class="card" style="padding: 2rem; margin-top: 2rem; background: var(--gradient-gold);" data-animate style="transition-delay: 0.3s;">
+                    <h3 style="color: var(--white);">Become a Partner</h3>
+                    <p style="color: var(--secondary); font-size: 0.85rem; margin: 1rem 0;">Own a property or fleet? Start earning with Blueprint Rwanda.</p>
+                    <button class="btn btn-primary w-100" style="background: var(--white); color: var(--primary); width: 100%;">List Your Item</button>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
+</body>
+</html>

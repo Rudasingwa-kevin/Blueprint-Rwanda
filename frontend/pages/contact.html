@@ -3,102 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Blueprint Rwanda</title>
-    <!-- Icons -->
+    <title>Contact Excellence - Blueprint Rwanda</title>
     <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <style>
         .contact-hero {
-            padding-top: 150px;
+            padding-top: 200px;
             padding-bottom: var(--space-lg);
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1577412647305-991150c7d163?auto=format&fit=crop&q=80&w=1920');
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1577412647305-991150c7d163?auto=format&fit=crop&q=80&w=1920');
             background-size: cover;
             background-position: center;
             color: var(--white);
             text-align: center;
         }
 
-        .contact-grid {
+        .contact-section {
             display: grid;
             grid-template-columns: 1fr 1.5fr;
-            gap: 3rem;
-            margin-top: var(--space-lg);
+            gap: 4rem;
+            margin-top: -80px;
             margin-bottom: var(--space-lg);
+            position: relative;
+            z-index: 10;
         }
 
-        .contact-info-cards {
+        .contact-info-panel {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 2rem;
         }
 
-        .info-card {
+        .premium-info-card {
+            padding: 2.5rem;
             display: flex;
-            gap: 1.5rem;
-            align-items: flex-start;
+            gap: 2rem;
+            align-items: center;
+            transition: var(--transition);
         }
 
-        .icon-box {
-            width: 50px;
-            height: 50px;
-            background: var(--surface);
-            color: var(--primary);
+        .premium-info-card:hover {
+            transform: translateX(10px);
+            border-color: var(--primary);
+        }
+
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-gold);
+            color: var(--white);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: var(--radius-md);
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             flex-shrink: 0;
+            box-shadow: var(--shadow-sm);
         }
 
-        .contact-form-card {
-            padding: 2.5rem;
+        .contact-form-panel {
+            padding: 4rem;
         }
 
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group.full {
-            grid-column: span 2;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: var(--text-muted);
-        }
-
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border);
-            background: var(--bg);
-        }
-
-        .map-section {
+        .map-wrapper {
+            height: 500px;
             border-radius: var(--radius-lg);
             overflow: hidden;
-            height: 400px;
             margin-bottom: var(--space-lg);
             border: 1px solid var(--border);
+            box-shadow: var(--shadow-md);
         }
 
-        @media (max-width: 900px) {
-            .contact-grid {
+        @media (max-width: 992px) {
+            .contact-section {
                 grid-template-columns: 1fr;
+                margin-top: 2rem;
+            }
+            .contact-form-panel {
+                padding: 2.5rem;
             }
         }
     </style>
@@ -107,84 +90,104 @@
     <main>
         <section class="contact-hero">
             <div class="container" data-animate>
-                <h1 style="font-size: 3.5rem; margin-bottom: 1rem;">Get in Touch</h1>
-                <p style="font-size: 1.25rem; max-width: 600px; margin: 0 auto; opacity: 0.9;">Have questions about our services or want to partner with us? We're here to help you navigate Rwanda's potential.</p>
+                <div style="font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 1.5rem; color: var(--secondary);">Blueprint Communications</div>
+                <h1 style="font-size: clamp(3rem, 8vw, 5rem); line-height: 1; margin-bottom: 2rem;">Initiate Connection.</h1>
+                <p style="font-size: 1.25rem; max-width: 700px; margin: 0 auto; opacity: 0.9; font-weight: 300;">Our executive team is ready to synchronize with your Rwandan objectives. Reach out for strategic inquiries and elite stays.</p>
             </div>
         </section>
 
-        <section class="container contact-grid">
-            <div class="contact-info-cards" data-animate>
-                <div class="info-card">
-                    <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
+        <section class="container contact-section">
+            <!-- Left Side: Info -->
+            <div class="contact-info-panel" data-animate>
+                <div class="card glass premium-info-card">
+                    <div class="info-icon"><i class="fas fa-map-marked-alt"></i></div>
                     <div>
-                        <h4 style="margin-bottom: 0.25rem;">Our Office</h4>
-                        <p style="color: var(--text-muted);">Kigali Heights, 4th Floor<br>KG 7 Ave, Kigali, Rwanda</p>
+                        <h4 style="font-size: 1.2rem; color: var(--primary); margin-bottom: 0.5rem;">Corporate Headquarters</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Kigali Heights, Level 4<br>KG 7 Ave, Kigali Executive District</p>
                     </div>
                 </div>
 
-                <div class="info-card">
-                    <div class="icon-box"><i class="fas fa-phone-alt"></i></div>
+                <div class="card glass premium-info-card" style="transition-delay: 0.1s;">
+                    <div class="info-icon"><i class="fas fa-phone-office"></i></div>
                     <div>
-                        <h4 style="margin-bottom: 0.25rem;">Phone</h4>
-                        <p style="color: var(--text-muted);">+250 788 000 000<br>Available Mon-Fri 9AM-5PM</p>
+                        <h4 style="font-size: 1.2rem; color: var(--primary); margin-bottom: 0.5rem;">Global Relations</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">+250 788 000 000<br>Standard Operating Hours: 0800 - 1800 CAT</p>
                     </div>
                 </div>
 
-                <div class="info-card">
-                    <div class="icon-box"><i class="fas fa-envelope"></i></div>
+                <div class="card glass premium-info-card" style="transition-delay: 0.2s;">
+                    <div class="info-icon"><i class="fas fa-satellite"></i></div>
                     <div>
-                        <h4 style="margin-bottom: 0.25rem;">Email</h4>
-                        <p style="color: var(--text-muted);">info@blueprintrwanda.com<br>support@blueprintrwanda.com</p>
+                        <h4 style="font-size: 1.2rem; color: var(--primary); margin-bottom: 0.5rem;">Digital Synthesis</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">info@blueprint.rw<br>Response Target: < 4 Operational Hours</p>
                     </div>
                 </div>
 
-                <div class="card" style="margin-top: 1rem; padding: 1.5rem; border-left: 4px solid var(--primary);">
-                    <p style="font-size: 0.9rem; font-style: italic; color: var(--text-muted);">"Blueprint Rwanda is committed to delivering excellence in every interaction. We look forward to connecting with you."</p>
+                <div class="card" style="padding: 2rem; border-left: 5px solid var(--primary); background: var(--surface);">
+                    <p style="font-style: italic; font-weight: 500; color: var(--text-muted);">"Excellence is not an act, but a habit of discipline. We apply this rigor to every inquiry we receive."</p>
                 </div>
             </div>
 
-            <div class="card contact-form-card" data-animate style="transition-delay: 0.1s;">
-                <form id="contactForm">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" placeholder="John Doe" required>
+            <!-- Right Side: Form -->
+            <div class="card glass contact-form-panel" data-animate style="transition-delay: 0.2s;">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;" class="gradient-text">Electronic Inquiry</h2>
+                <p style="margin-bottom: 3rem; color: var(--text-muted);">Formulate your request and our appropriate department will acknowledge shortly.</p>
+                
+                <form id="contactForm" style="display: flex; flex-direction: column; gap: 2rem;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); display: block; margin-bottom: 0.75rem;">Identity</label>
+                            <input type="text" style="width: 100%; padding: 1.2rem; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--white);" placeholder="Your Full Name" required>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" placeholder="john@example.com" required>
-                        </div>
-                        <div class="form-group full">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" placeholder="How can we help?" required>
-                        </div>
-                        <div class="form-group full">
-                            <label for="message">Message</label>
-                            <textarea id="message" rows="5" placeholder="Tell us more about your request..." required></textarea>
-                        </div>
-                        <div class="form-group full">
-                            <button type="submit" class="btn btn-primary w-100" style="padding: 1rem;">Send Message</button>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); display: block; margin-bottom: 0.75rem;">Digital Address</label>
+                            <input type="email" style="width: 100%; padding: 1.2rem; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--white);" placeholder="email@example.com" required>
                         </div>
                     </div>
+
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); display: block; margin-bottom: 0.75rem;">Inquiry Subject</label>
+                        <select style="width: 100%; padding: 1.2rem; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--white);">
+                            <option>Premium Stays & Accommodation</option>
+                            <option>Elite Fleet & Mobility</option>
+                            <option>Strategic Partnerships</option>
+                            <option>Ecosystem Management</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); display: block; margin-bottom: 0.75rem;">Narrative</label>
+                        <textarea style="width: 100%; padding: 1.2rem; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--white); min-height: 200px;" placeholder="Detail your operational requirements..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="padding: 1.2rem;">Transmit Inquiry</button>
                 </form>
             </div>
         </section>
 
+        <!-- Map Section -->
         <section class="container">
-            <div class="map-section" data-animate>
-                <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Kigali+Heights,Kigali,Rwanda" allowfullscreen></iframe>
-            </div>
+            <div class="map-wrapper" id="contact-map" data-animate></div>
         </section>
     </main>
 
     <!-- Scripts -->
     <script src="../assets/js/components.js"></script>
     <script>
-        document.getElementById('contactForm').onsubmit = function(e) {
-            e.preventDefault();
-            alert('Your message has been sent successfully. We will get back to you soon!');
-            this.reset();
-        };
+        document.addEventListener('DOMContentLoaded', () => {
+            // Init contact map using the already established helper in components.js
+            if (window.Components && window.Components.initMap) {
+                window.Components.initMap('contact-map', [
+                    { lat: -1.9441, lng: 30.0919, title: "Blueprint HQ", desc: "Kigali Heights, Level 4" }
+                ]);
+            }
+
+            document.getElementById('contactForm').onsubmit = function(e) {
+                e.preventDefault();
+                Components.showToast('Inquiry Transmission Successful', 'success');
+                this.reset();
+            };
+        });
     </script>
 </body>
 </html>

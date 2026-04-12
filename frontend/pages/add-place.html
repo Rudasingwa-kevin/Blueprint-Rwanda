@@ -3,157 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Place - Admin</title>
-    <!-- Icons -->
+    <title>Landmark Curation - Blueprint Rwanda</title>
     <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
-    <style>
-        .form-main {
-            padding-top: 100px;
-            padding-bottom: var(--space-lg);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .form-header {
-            margin-bottom: var(--space-md);
-        }
-
-        .form-header h1 {
-            font-size: 2rem;
-            color: var(--primary);
-        }
-
-        .form-card {
-            padding: var(--space-md);
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.25rem;
-        }
-
-        .form-group.full {
-            grid-column: span 2;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-        }
-
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 0.75rem;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border);
-            background: var(--white);
-            font-family: inherit;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .image-upload-box {
-            border: 2px dashed var(--border);
-            border-radius: var(--radius-md);
-            padding: 2rem;
-            text-align: center;
-            background: var(--bg);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .image-upload-box:hover {
-            border-color: var(--primary);
-            background: var(--surface);
-        }
-
-        .form-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        @media (max-width: 600px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            .form-group.full {
-                grid-column: span 1;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 <body>
-    <main class="form-main container">
-        <header class="form-header" data-animate>
-            <h1>Add New Place</h1>
-            <p>Feature a new destination or landmark to inspire travelers.</p>
+    <main class="admin-main container">
+        <header class="admin-header" data-animate>
+            <div class="admin-title">
+                <h1 class="gradient-text">Landmark Curation</h1>
+                <p>Cataloging Rwanda's heritage and natural wonders for global discovery.</p>
+            </div>
+            <div class="admin-actions">
+                <button class="btn btn-secondary" onclick="history.back()">Discard Changes</button>
+            </div>
         </header>
 
-        <section class="card form-card" data-animate style="transition-delay: 0.1s;">
-            <form id="placeForm" class="form-grid">
-                <!-- Place Info -->
-                <div class="form-group full">
-                    <label for="name">Place Name</label>
-                    <input type="text" id="name" placeholder="e.g. Volcanoes National Park" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="category">Category</label>
-                    <select id="category">
-                        <option value="nature">Nature & Wildlife</option>
-                        <option value="culture">Culture & History</option>
-                        <option value="adventure">Adventure</option>
-                        <option value="urban">Urban Exploration</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="location">Primary Location (District)</label>
-                    <input type="text" id="location" placeholder="Musanze" required>
-                </div>
-
-                <div class="form-group full">
-                    <label for="description">About this Place</label>
-                    <textarea id="description" placeholder="Share the history, beauty, and why users should visit..."></textarea>
-                </div>
-
-                <div class="form-group full">
-                    <label for="highlights">Key Highlights (comma separated)</label>
-                    <input type="text" id="highlights" placeholder="Gorilla Trekking, Golden Monkeys, Hiking">
-                </div>
-
-                <!-- Media -->
-                <div class="form-group full">
-                    <label>Inspirational Photos</label>
-                    <div class="image-upload-box">
-                        <i class="fas fa-camera" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
-                        <p style="font-weight: 600; margin-bottom: 0.25rem;">Click to upload destination photos</p>
-                        <p style="font-size: 0.8rem; color: var(--text-muted);">High resolution photos work best</p>
+        <section class="admin-form-container">
+            <div class="card glass" style="padding: 3rem;" data-animate style="transition-delay: 0.1s;">
+                <form id="placeForm" class="form-grid">
+                    <!-- Landmark Identity -->
+                    <div class="form-group full">
+                        <label>Landmark / Destination Name</label>
+                        <input type="text" class="form-control" placeholder="e.g. Nyungwe Forest National Park" required>
                     </div>
-                </div>
 
-                <div class="form-actions full">
-                    <button type="button" class="btn btn-secondary" onclick="history.back()">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Publish Destination</button>
-                </div>
-            </form>
+                    <div class="form-group">
+                        <label>Ecosystem Category</label>
+                        <select class="form-control">
+                            <option>Conservation & National Park</option>
+                            <option>Heritage & Cultural Site</option>
+                            <option>Aquatic / Lake Experience</option>
+                            <option>Urban Landmark</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Administrative Sector</label>
+                        <input type="text" class="form-control" placeholder="Southern Province" required>
+                    </div>
+
+                    <!-- Spatial Markers -->
+                    <div class="form-group">
+                        <label>Latitude Correlation</label>
+                        <input type="text" class="form-control" placeholder="-2.4833">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Longitude Correlation</label>
+                        <input type="text" class="form-control" placeholder="29.2333">
+                    </div>
+
+                    <!-- Narrative -->
+                    <div class="form-group full">
+                        <label>Curational Narrative</label>
+                        <textarea class="form-control" placeholder="Synthesize the importance of this landmark, its unique biodiversity, and necessary protocols for access..."></textarea>
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Operational Highlights</label>
+                        <input type="text" class="form-control" placeholder="e.g. Canopy Walk, Bird Watching, Tea Plantation Tours">
+                    </div>
+
+                    <!-- Visual Assets -->
+                    <div class="form-group full">
+                        <label>Asset Documentation (Visuals)</label>
+                        <div class="upload-zone">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <h4>Deploy Landmark Imagery</h4>
+                            <p>Stunning 4K photography required for premium placement. Max 15MB total.</p>
+                        </div>
+                    </div>
+
+                    <div style="grid-column: span 2; display: flex; justify-content: flex-end; gap: 1.5rem; margin-top: 2rem;">
+                        <button type="submit" class="btn btn-primary" style="padding-left: 4rem; padding-right: 4rem;">Authorize Curation</button>
+                    </div>
+                </form>
+            </div>
         </section>
     </main>
 
@@ -162,8 +91,10 @@
     <script>
         document.getElementById('placeForm').onsubmit = function(e) {
             e.preventDefault();
-            alert('Destination published successfully!');
-            location.href = 'admin-places.html';
+            Components.showToast('Landmark Curation Synchronized', 'success');
+            setTimeout(() => {
+                location.href = 'admin-places.html';
+            }, 1500);
         };
     </script>
 </body>

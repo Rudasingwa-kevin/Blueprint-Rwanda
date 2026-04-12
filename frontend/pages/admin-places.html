@@ -3,134 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Places - Admin</title>
-    <!-- Icons -->
+    <title>Managed Destinations - Blueprint Rwanda</title>
     <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
-    <style>
-        .admin-main {
-            padding-top: 100px;
-            padding-bottom: var(--space-lg);
-        }
-
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: var(--space-lg);
-        }
-
-        .admin-title-group h1 {
-            font-size: 2.25rem;
-            color: var(--primary);
-        }
-
-        .admin-title-group p {
-            color: var(--text-muted);
-        }
-
-        .table-container {
-            margin-top: 1rem;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--white);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-        }
-
-        th {
-            background: var(--bg);
-            padding: 1rem;
-            text-align: left;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            border-bottom: 2px solid var(--border);
-        }
-
-        td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-            vertical-align: middle;
-        }
-
-        tr:hover {
-            background: var(--bg);
-        }
-
-        .item-preview {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .item-img {
-            width: 48px;
-            height: 48px;
-            border-radius: var(--radius-sm);
-            object-fit: cover;
-        }
-
-        .badge-tag {
-            padding: 0.25rem 0.75rem;
-            border-radius: var(--radius-pill);
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            background: var(--primary);
-            color: var(--secondary);
-        }
-
-        .btn-action {
-            width: 32px;
-            height: 32px;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border);
-            background: var(--white);
-            color: var(--text-muted);
-            transition: var(--transition);
-        }
-
-        .btn-action:hover {
-            color: var(--primary);
-            border-color: var(--primary);
-        }
-
-        .btn-delete:hover {
-            color: var(--danger);
-            border-color: var(--danger);
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 <body>
     <main class="admin-main container">
         <header class="admin-header" data-animate>
-            <div class="admin-title-group">
-                <h1>Places to Visit</h1>
-                <p>Manage attractions and destinations across Rwanda.</p>
+            <div class="admin-title">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                    <a href="admin-dashboard.html" style="color: var(--primary); text-decoration: none; font-weight: 700; font-size: 0.9rem;"><i class="fas fa-arrow-left"></i> Core Console</a>
+                </div>
+                <h1 class="gradient-text">Managed Destinations</h1>
+                <p>Curating Rwanda's points of interest and heritage sites.</p>
             </div>
-            <button class="btn btn-primary" onclick="location.href='add-place.html'">
-                <i class="fas fa-plus"></i> Add New
-            </button>
+            <div class="admin-actions">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="placeSearch" class="admin-search" placeholder="Search destinations by name or location...">
+                </div>
+                <button class="btn btn-primary btn-sm"><i class="fas fa-map-marker-alt"></i> Add Destination</button>
+            </div>
         </header>
 
-        <section class="card" data-animate style="transition-delay: 0.1s; padding: 0;">
-            <div class="table-container">
-                <table>
+        <section class="card data-card" data-animate style="transition-delay: 0.1s; padding: 0;">
+            <div class="table-wrapper">
+                <table class="admin-table">
                     <thead>
                         <tr>
-                            <th>Destination</th>
-                            <th>Category</th>
-                            <th>Highlights</th>
-                            <th>Rating</th>
-                            <th style="text-align: right;">Actions</th>
+                            <th>Destination Hierarchy</th>
+                            <th>Class / Tag</th>
+                            <th>Operational Focal Points</th>
+                            <th>Reputation Index</th>
+                            <th style="text-align: right;">Authorization</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -138,57 +46,63 @@
                         <tr>
                             <td>
                                 <div class="item-preview">
-                                    <img src="https://images.unsplash.com/photo-1516422213481-9069d30560fe?auto=format&fit=crop&q=80&w=150" alt="" class="item-img">
-                                    <div>
-                                        <div style="font-weight: 700; color: var(--primary);">Volcanoes National Park</div>
-                                        <div style="font-size: 0.8rem; color: var(--text-muted);">Musanze, Rwanda</div>
+                                    <img src="https://images.unsplash.com/photo-1516422213481-9069d30560fe?auto=format&fit=crop&q=80&w=150" alt="" class="item-img-sm">
+                                    <div class="item-info">
+                                        <h4>Volcanoes Biosphere</h4>
+                                        <span>LOC-MSZ-001</span>
                                     </div>
                                 </div>
                             </td>
-                            <td><span class="badge-tag">National Park</span></td>
-                            <td style="font-size: 0.9rem; color: var(--text-muted);">Gorilla Trekking, Hiking</td>
-                            <td>★ 5.0</td>
-                            <td style="text-align: right;">
-                                <button class="btn-action"><i class="fas fa-edit"></i></button>
-                                <button class="btn-action btn-delete"><i class="fas fa-trash"></i></button>
+                            <td><span class="status-pill status-active">National Park</span></td>
+                            <td style="font-size: 0.9rem; color: var(--text-muted);">Primate Conservation, High-Altitude Trekking</td>
+                            <td><i class="fas fa-star" style="color: var(--accent);"></i> 5.00</td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="btn-icon" title="View Map Coordinates"><i class="fas fa-map-marked-alt"></i></button>
+                                    <button class="btn-icon delete" title="De-list Landmark"><i class="fas fa-eye-slash"></i></button>
+                                </div>
                             </td>
                         </tr>
                         <!-- Row 2 -->
                         <tr>
                             <td>
                                 <div class="item-preview">
-                                    <img src="https://images.unsplash.com/photo-1605723511530-94d7c5874253?auto=format&fit=crop&q=80&w=150" alt="" class="item-img">
-                                    <div>
-                                        <div style="font-weight: 700; color: var(--primary);">Akagera National Park</div>
-                                        <div style="font-size: 0.8rem; color: var(--text-muted);">Kayonza, Rwanda</div>
+                                    <img src="https://images.unsplash.com/photo-1605723511530-94d7c5874253?auto=format&fit=crop&q=80&w=150" alt="" class="item-img-sm">
+                                    <div class="item-info">
+                                        <h4>Akagera Savannah</h4>
+                                        <span>LOC-KYZ-002</span>
                                     </div>
                                 </div>
                             </td>
-                            <td><span class="badge-tag">Safari</span></td>
-                            <td style="font-size: 0.9rem; color: var(--text-muted);">Big Five, Lake Ihema</td>
-                            <td>★ 4.95</td>
-                            <td style="text-align: right;">
-                                <button class="btn-action"><i class="fas fa-edit"></i></button>
-                                <button class="btn-action btn-delete"><i class="fas fa-trash"></i></button>
+                            <td><span class="status-pill status-active">Safari Zone</span></td>
+                            <td style="font-size: 0.9rem; color: var(--text-muted);">Big Five Safaris, Aquatic Birdwatching</td>
+                            <td><i class="fas fa-star" style="color: var(--accent);"></i> 4.95</td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="btn-icon" title="View Map Coordinates"><i class="fas fa-map-marked-alt"></i></button>
+                                    <button class="btn-icon delete" title="De-list Landmark"><i class="fas fa-eye-slash"></i></button>
+                                </div>
                             </td>
                         </tr>
                         <!-- Row 3 -->
                         <tr>
                             <td>
                                 <div class="item-preview">
-                                    <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=150" alt="" class="item-img">
-                                    <div>
-                                        <div style="font-weight: 700; color: var(--primary);">Nyungwe National Park</div>
-                                        <div style="font-size: 0.8rem; color: var(--text-muted);">Rusizi, Rwanda</div>
+                                    <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=150" alt="" class="item-img-sm">
+                                    <div class="item-info">
+                                        <h4>Nyungwe Canopy</h4>
+                                        <span>LOC-RSZ-003</span>
                                     </div>
                                 </div>
                             </td>
-                            <td><span class="badge-tag">Rainforest</span></td>
-                            <td style="font-size: 0.9rem; color: var(--text-muted);">Canopy Walk, Primates</td>
-                            <td>★ 4.90</td>
-                            <td style="text-align: right;">
-                                <button class="btn-action"><i class="fas fa-edit"></i></button>
-                                <button class="btn-action btn-delete"><i class="fas fa-trash"></i></button>
+                            <td><span class="status-pill status-active">Rainforest</span></td>
+                            <td style="font-size: 0.9rem; color: var(--text-muted);">Aerial Walkway, Chimpanzee Tracking</td>
+                            <td><i class="fas fa-star" style="color: var(--accent);"></i> 4.90</td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="btn-icon" title="View Map Coordinates"><i class="fas fa-map-marked-alt"></i></button>
+                                    <button class="btn-icon delete" title="De-list Landmark"><i class="fas fa-eye-slash"></i></button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -199,5 +113,13 @@
 
     <!-- Scripts -->
     <script src="../assets/js/components.js"></script>
+    <!-- Search Logic Injection -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.Components && window.Components.initAdminSearch) {
+                window.Components.initAdminSearch('placeSearch', '.admin-table');
+            }
+        });
+    </script>
 </body>
 </html>

@@ -3,88 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meet our Team - Blueprint Rwanda</title>
-    <!-- Icons -->
+    <title>Leadership & Vision - Blueprint Rwanda</title>
     <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <style>
         .team-hero {
-            padding-top: 150px;
+            padding-top: 200px;
             padding-bottom: var(--space-lg);
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1920');
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1920');
             background-size: cover;
             background-position: center;
             color: var(--white);
             text-align: center;
         }
 
+        .vision-section {
+            padding: var(--space-lg) 0;
+            text-align: center;
+        }
+
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-top: var(--space-lg);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
             margin-bottom: var(--space-lg);
         }
 
         .team-card {
-            padding: 2rem;
             text-align: center;
-            transition: var(--transition);
+            padding-bottom: 2.5rem;
+            overflow: hidden;
         }
 
-        .team-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
+        .member-img-wrapper {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            position: relative;
         }
 
-        .team-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
+        .member-img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            margin: 0 auto 1.5rem auto;
-            border: 4px solid var(--surface);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .team-card h4 {
-            margin-bottom: 0.25rem;
-        }
-
-        .team-card p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        .social-links a {
-            color: var(--text-muted);
-            font-size: 1.1rem;
             transition: var(--transition);
         }
 
-        .social-links a:hover {
-            color: var(--primary);
+        .team-card:hover .member-img {
+            transform: scale(1.05);
         }
 
-        @media (max-width: 1000px) {
-            .team-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .member-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: var(--white);
+            transform: translateY(100%);
+            transition: var(--transition);
         }
 
-        @media (max-width: 600px) {
-            .team-grid {
-                grid-template-columns: 1fr;
-            }
+        .team-card:hover .member-overlay {
+            transform: translateY(0);
+        }
+
+        .member-role {
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .member-name {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
         }
     </style>
 </head>
@@ -92,64 +91,72 @@
     <main>
         <section class="team-hero">
             <div class="container" data-animate>
-                <h1 style="font-size: 3.5rem; margin-bottom: 1rem;">The People Behind the Blueprint</h1>
-                <p style="font-size: 1.25rem; max-width: 700px; margin: 0 auto; opacity: 0.9;">A diverse team of locals and experts dedicated to showcasing the best of Rwanda to the world.</p>
+                <div style="font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 1.5rem; color: var(--secondary);">The Architects of Change</div>
+                <h1 style="font-size: clamp(3.5rem, 8vw, 5.5rem); line-height: 1; margin-bottom: 2rem;">Leadership & Vision.</h1>
+                <p style="font-size: 1.25rem; max-width: 800px; margin: 0 auto; opacity: 0.9; font-weight: 300;">Unified by a single objective: To elevate Rwanda's digital and physical infrastructures to international excellence.</p>
             </div>
         </section>
 
-        <section class="container">
+        <section class="container vision-section" data-animate>
+            <h2 class="gradient-text" style="font-size: 2.5rem; margin-bottom: 2rem;">Our Structural Foundation</h2>
+            <p style="max-width: 800px; margin: 0 auto 4rem; color: var(--text-muted); font-size: 1.15rem;">Blueprint Rwanda was founded on the principle that efficiency and aesthetics are the primary drivers of modern development. Our team comprises industry leaders in logistics, hospitality, and technological architecture.</p>
+
             <div class="team-grid">
-                <!-- Member 1 -->
+                <!-- Leader 1 -->
                 <div class="card team-card" data-animate>
-                    <img src="../assets/images/branding/blueprint-logo.png" alt="Jean Bosco" class="team-img">
-                    <h4>Jean Bosco</h4>
-                    <p>Founder & CEO</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    <div class="member-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600" alt="CEO" class="member-img">
+                        <div class="member-overlay">
+                            <div class="member-socials">
+                                <a href="#" style="color: var(--white); margin: 0 0.5rem;"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" style="color: var(--white); margin: 0 0.5rem;"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
                     </div>
+                    <div class="member-role">Chief Executive Strategist</div>
+                    <h3 class="member-name">Arsene Muvunyi</h3>
+                    <p style="color: var(--text-muted); padding: 0 2rem;">Pioneering the strategic vision and global partnerships of the ecosystem.</p>
                 </div>
 
-                <!-- Member 2 -->
+                <!-- Leader 2 -->
                 <div class="card team-card" data-animate style="transition-delay: 0.1s;">
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Mary K." class="team-img">
-                    <h4>Mary Kamanzi</h4>
-                    <p>Operations Manager</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    <div class="member-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600" alt="COO" class="member-img">
+                        <div class="member-overlay">
+                            <div class="member-socials">
+                                <a href="#" style="color: var(--white); margin: 0 0.5rem;"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" style="color: var(--white); margin: 0 0.5rem;"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
                     </div>
+                    <div class="member-role">Director of Operations</div>
+                    <h3 class="member-name">Clementine Uwase</h3>
+                    <p style="color: var(--text-muted); padding: 0 2rem;">Optimizing the logistics and operational standards of our hospitality network.</p>
                 </div>
 
-                <!-- Member 3 -->
+                <!-- Leader 3 -->
                 <div class="card team-card" data-animate style="transition-delay: 0.2s;">
-                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Eric M." class="team-img">
-                    <h4>Eric Mugisha</h4>
-                    <p>Lead Developer</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <div class="member-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=600" alt="CTO" class="member-img">
+                        <div class="member-overlay">
+                            <div class="member-socials">
+                                <a href="#" style="color: var(--white); margin: 0 0.5rem;"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" style="color: var(--white); margin: 0 0.5rem;"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <!-- Member 4 -->
-                <div class="card team-card" data-animate style="transition-delay: 0.3s;">
-                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Aline U." class="team-img">
-                    <h4>Aline Uwase</h4>
-                    <p>Customer Success</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
+                    <div class="member-role">Master Architect (Tech)</div>
+                    <h3 class="member-name">David Kagame</h3>
+                    <p style="color: var(--text-muted); padding: 0 2rem;">Engineering the digital framework and high-security protocols of the platform.</p>
                 </div>
             </div>
         </section>
 
-        <section class="container" style="text-align: center; margin-bottom: var(--space-lg);" data-animate>
-            <div class="card" style="padding: 3rem; background: var(--surface);">
-                <h3>Want to join the mission?</h3>
-                <p style="color: var(--text-muted); margin-bottom: 2rem;">We're always looking for passionate individuals to join our team.</p>
-                <a href="contact.html" class="btn btn-primary">View Careers</a>
+        <section class="container" style="padding-bottom: var(--space-lg); text-align: center;" data-animate>
+            <div class="card glass" style="padding: 4rem;">
+                <h3 style="font-size: 2rem; margin-bottom: 1.5rem;">Join the Evolution</h3>
+                <p style="color: var(--text-muted); margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto;">We are always seeking delegates who share our commitment to precision and excellence. Explore our current career opportunities.</p>
+                <button class="btn btn-primary">View Positions</button>
             </div>
         </section>
     </main>

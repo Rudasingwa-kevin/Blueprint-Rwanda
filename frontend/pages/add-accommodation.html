@@ -3,174 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Accommodation - Admin</title>
-    <!-- Icons -->
+    <title>Register Estate - Blueprint Rwanda</title>
     <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
-    <style>
-        .form-main {
-            padding-top: 100px;
-            padding-bottom: var(--space-lg);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .form-header {
-            margin-bottom: var(--space-md);
-        }
-
-        .form-header h1 {
-            font-size: 2rem;
-            color: var(--primary);
-        }
-
-        .form-card {
-            padding: var(--space-md);
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.25rem;
-        }
-
-        .form-group.full {
-            grid-column: span 2;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-        }
-
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 0.75rem;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border);
-            background: var(--white);
-            font-family: inherit;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .image-upload-box {
-            border: 2px dashed var(--border);
-            border-radius: var(--radius-md);
-            padding: 2rem;
-            text-align: center;
-            background: var(--bg);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .image-upload-box:hover {
-            border-color: var(--primary);
-            background: var(--surface);
-        }
-
-        .form-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        @media (max-width: 600px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            .form-group.full {
-                grid-column: span 1;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 <body>
-    <main class="form-main container">
-        <header class="form-header" data-animate>
-            <h1>Add New Accommodation</h1>
-            <p>Fill in the details below to list a new property.</p>
+    <main class="admin-main container">
+        <header class="admin-header" data-animate>
+            <div class="admin-title">
+                <h1 class="gradient-text">Register Estate</h1>
+                <p>Establishing the parameters for a new premium listing.</p>
+            </div>
+            <div class="admin-actions">
+                <button class="btn btn-secondary" onclick="history.back()">Discard Changes</button>
+            </div>
         </header>
 
-        <section class="card form-card" data-animate style="transition-delay: 0.1s;">
-            <form id="accommodationForm" class="form-grid">
-                <!-- Basic Info -->
-                <div class="form-group full">
-                    <label for="title">Property Title</label>
-                    <input type="text" id="title" placeholder="e.g. Modern Apartment in Kiyovu" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="type">Property Type</label>
-                    <select id="type">
-                        <option value="apartment">Apartment</option>
-                        <option value="house">House</option>
-                        <option value="villa">Villa</option>
-                        <option value="studio">Studio</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="price">Price per Night ($)</label>
-                    <input type="number" id="price" placeholder="50" required>
-                </div>
-
-                <!-- Location -->
-                <div class="form-group">
-                    <label for="city">City</label>
-                    <input type="text" id="city" placeholder="Kigali" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="neighborhood">Neighborhood</label>
-                    <input type="text" id="neighborhood" placeholder="Kiyovu">
-                </div>
-
-                <div class="form-group full">
-                    <label for="description">Detailed Description</label>
-                    <textarea id="description" placeholder="Describe the property, amenities, and surroundings..."></textarea>
-                </div>
-
-                <!-- Specs -->
-                <div class="form-group">
-                    <label for="bedrooms">Bedrooms</label>
-                    <input type="number" id="bedrooms" value="1" min="1">
-                </div>
-
-                <div class="form-group">
-                    <label for="bathrooms">Bathrooms</label>
-                    <input type="number" id="bathrooms" value="1" min="1">
-                </div>
-
-                <!-- Media -->
-                <div class="form-group full">
-                    <label>Property Photos</label>
-                    <div class="image-upload-box">
-                        <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
-                        <p style="font-weight: 600; margin-bottom: 0.25rem;">Click to upload or drag and drop</p>
-                        <p style="font-size: 0.8rem; color: var(--text-muted);">PNG, JPG (max. 5MB per file)</p>
+        <section class="admin-form-container">
+            <div class="card glass" style="padding: 3rem;" data-animate style="transition-delay: 0.1s;">
+                <form id="accommodationForm" class="form-grid">
+                    <!-- Identity Section -->
+                    <div class="form-group full">
+                        <label>Estate Title</label>
+                        <input type="text" class="form-control" placeholder="e.g. Skyline Executive Penthouse" required>
                     </div>
-                </div>
 
-                <div class="form-actions full">
-                    <button type="button" class="btn btn-secondary" onclick="history.back()">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Publish Listing</button>
-                </div>
-            </form>
+                    <div class="form-group">
+                        <label>Architecture Class</label>
+                        <select class="form-control">
+                            <option>Apartment Cluster</option>
+                            <option>Standalone Villa</option>
+                            <option>Commercial Suite</option>
+                            <option>Boutique Stay</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Valuation (USD / Night)</label>
+                        <input type="number" class="form-control" placeholder="250" required>
+                    </div>
+
+                    <!-- Location Engineering -->
+                    <div class="form-group">
+                        <label>Administrative District</label>
+                        <input type="text" class="form-control" placeholder="Kigali" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sector / Neighborhood</label>
+                        <input type="text" class="form-control" placeholder="Kiyovu">
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Executive Description</label>
+                        <textarea class="form-control" placeholder="Detail the structural advantages, amenities, and proximity to hubs..."></textarea>
+                    </div>
+
+                    <!-- Logistics -->
+                    <div class="form-group">
+                        <label>Residential Units / Bedrooms</label>
+                        <input type="number" class="form-control" value="2" min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sanitary Links / Bathrooms</label>
+                        <input type="number" class="form-control" value="2" min="1">
+                    </div>
+
+                    <!-- Visual Assets -->
+                    <div class="form-group full">
+                        <label>Asset Documentation (Visuals)</label>
+                        <div class="upload-zone">
+                            <i class="fas fa-camera-retro"></i>
+                            <h4>Deploy High-Fidelity Imagery</h4>
+                            <p>PNG, JPG up to 12MB. Standards require minimum 4K resolution recommended.</p>
+                        </div>
+                    </div>
+
+                    <div style="grid-column: span 2; display: flex; justify-content: flex-end; gap: 1.5rem; margin-top: 2rem;">
+                        <button type="submit" class="btn btn-primary" style="padding-left: 4rem; padding-right: 4rem;">Authorize Publishing</button>
+                    </div>
+                </form>
+            </div>
         </section>
     </main>
 
@@ -179,8 +96,10 @@
     <script>
         document.getElementById('accommodationForm').onsubmit = function(e) {
             e.preventDefault();
-            alert('Listing saved successfully!');
-            location.href = 'admin-accommodations.html';
+            Components.showToast('Estate Registration Synchronized', 'success');
+            setTimeout(() => {
+                location.href = 'admin-accommodations.html';
+            }, 1500);
         };
     </script>
 </body>

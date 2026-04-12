@@ -3,118 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Blueprint Rwanda</title>
-    <!-- Icons -->
+    <title>Global Access - Blueprint Rwanda</title>
     <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <style>
-        .auth-main {
-            min-height: 100vh;
+        .auth-split {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--bg);
+        }
+
+        .auth-visual {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=1200');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: var(--space-lg);
+            color: var(--white);
+        }
+
+        .auth-form-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, var(--bg) 0%, var(--surface) 100%);
-            padding: var(--space-md);
+            padding: var(--space-lg);
         }
 
         .auth-card {
             width: 100%;
-            max-width: 440px;
-            padding: var(--space-md);
-            text-align: center;
+            max-width: 480px;
         }
 
-        .auth-logo {
-            margin-bottom: var(--space-md);
+        .auth-header {
+            margin-bottom: 3rem;
         }
 
-        .auth-title {
-            margin-bottom: var(--space-sm);
-            color: var(--primary);
-        }
-
-        .auth-form {
-            text-align: left;
-            margin-top: var(--space-md);
+        .auth-header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
         }
 
         .form-group {
-            margin-bottom: var(--space-sm);
+            margin-bottom: 1.5rem;
         }
 
         .form-group label {
             display: block;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 800;
             text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.75rem;
+            color: var(--primary);
         }
 
-        .form-group input {
+        .form-control {
             width: 100%;
-            padding: 0.75rem 1rem;
-            border-radius: var(--radius-sm);
+            padding: 1rem;
+            border-radius: var(--radius-md);
             border: 1px solid var(--border);
             background: var(--white);
+            font-weight: 500;
             transition: var(--transition);
         }
 
-        .form-group input:focus {
+        .form-control:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.1);
+            box-shadow: var(--shadow-sm);
         }
 
-        .auth-footer {
-            margin-top: var(--space-md);
-            font-size: 0.9rem;
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
             color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 700;
         }
 
-        .auth-footer a {
-            color: var(--primary);
-            font-weight: 700;
+        .auth-divider::before, .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        @media (max-width: 900px) {
+            .auth-split {
+                grid-template-columns: 1fr;
+            }
+            .auth-visual {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <main class="auth-main">
-        <div class="card auth-card glass" data-animate>
-            <div class="auth-logo">
-                <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-heading); font-weight: 700; color: var(--primary); font-size: 1.5rem;">
-                    <i class="fas fa-landmark"></i>
-                    Blueprint Rwanda
-                </a>
+    <main class="auth-split">
+        <!-- Visual Side -->
+        <div class="auth-visual">
+            <div data-animate>
+                <div style="font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 1rem; color: var(--secondary);">Blueprint Experience</div>
+                <h2 style="font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem;">The Gold Standard of African Modernism.</h2>
+                <p style="font-size: 1.25rem; opacity: 0.9; max-width: 500px;">Access your personal ecosystem of luxury stays, mobility, and experiences.</p>
             </div>
-            
-            <h1 class="auth-title">Welcome Back</h1>
-            <p>Enter your details to access your account.</p>
+        </div>
 
-            <form class="auth-form" action="dashboard.html">
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" placeholder="name@example.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="••••••••" required>
-                </div>
-                
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-md); font-size: 0.85rem;">
-                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-                        <input type="checkbox" style="width: auto;"> Remember me
-                    </label>
-                    <a href="password-reset-request.html" style="color: var(--primary); font-weight: 600;">Forgot password?</a>
+        <!-- Form Side -->
+        <div class="auth-form-container">
+            <div class="auth-card" data-animate>
+                <div class="auth-header">
+                    <img src="../assets/images/branding/blueprint-logo.png" alt="Logo" style="width: 120px; margin-bottom: 2rem;">
+                    <h1 class="gradient-text">Welcome Back</h1>
+                    <p style="color: var(--text-muted);">Enter your credentials to manage your ecosystem.</p>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100" style="width: 100%;">Sign In</button>
-            </form>
+                <form class="auth-form" action="dashboard.html">
+                    <div class="form-group">
+                        <label>Email ID</label>
+                        <input type="email" class="form-control" placeholder="stakeholder@blueprint.rw" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Security Key</label>
+                        <input type="password" class="form-control" placeholder="••••••••" required>
+                    </div>
 
-            <p class="auth-footer">
-                Don't have an account? <a href="signup.html">Create an Account</a>
-            </p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; font-size: 0.9rem;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-weight: 600;">
+                            <input type="checkbox" style="width: auto;"> Session Persistence
+                        </label>
+                        <a href="#" style="color: var(--primary); font-weight: 700;">Lost Access?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100" style="width: 100%;">Authorize Access</button>
+                    
+                    <div class="auth-divider">Third Party Authentication</div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <button type="button" class="btn btn-secondary w-100" style="width: 100%;"><i class="fab fa-google"></i> Google</button>
+                        <button type="button" class="btn btn-secondary w-100" style="width: 100%;"><i class="fab fa-apple"></i> Apple</button>
+                    </div>
+
+                    <div style="margin-top: 3rem; text-align: center; color: var(--text-muted);">
+                        New stakeholder? <a href="signup.html" style="color: var(--primary); font-weight: 800;">Register Account</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </main>
 

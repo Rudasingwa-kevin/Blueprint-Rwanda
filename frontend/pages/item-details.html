@@ -3,24 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Item Details - Blueprint Rwanda</title>
-    <!-- Icons -->
+    <title>Skyline Penthouse - Blueprint Rwanda</title>
     <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
-    <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <style>
         .details-main {
-            padding-top: 100px;
+            padding-top: 140px;
             padding-bottom: var(--space-lg);
+        }
+
+        .gallery-header {
+            margin-bottom: var(--space-md);
+            position: relative;
         }
 
         .gallery-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            grid-template-rows: repeat(2, 250px);
-            gap: 1rem;
-            margin-bottom: var(--space-md);
+            grid-template-rows: repeat(2, 280px);
+            gap: 1.5rem;
             border-radius: var(--radius-lg);
             overflow: hidden;
         }
@@ -28,6 +30,7 @@
         .gallery-item {
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .gallery-item img {
@@ -38,97 +41,66 @@
         }
 
         .gallery-item:hover img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
-        .gallery-main-img {
+        .gallery-main {
             grid-row: span 2;
         }
 
         .details-grid {
             display: grid;
-            grid-template-columns: 1fr 380px;
-            gap: var(--space-lg);
+            grid-template-columns: 1fr 400px;
+            gap: 3rem;
+            margin-top: var(--space-md);
         }
 
-        .details-content h1 {
-            font-size: 2.5rem;
+        .property-title h1 {
+            font-size: 3rem;
             margin-bottom: 0.5rem;
-            color: var(--primary);
         }
 
-        .location-link {
+        .property-title p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
-        .description-card {
-            padding: var(--space-md);
-            margin-bottom: var(--space-md);
-        }
-
-        .description-card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .amenities-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .amenity {
-            display: flex;
+        .amenity-pill {
+            display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
-            color: var(--text);
-            font-weight: 500;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-pill);
+            font-weight: 600;
+            font-size: 0.9rem;
         }
 
-        .booking-sidebar {
+        .sidebar-card {
             position: sticky;
             top: 120px;
-            height: fit-content;
             padding: var(--space-md);
+            border-radius: var(--radius-lg);
         }
 
-        .price-tag {
-            font-size: 2rem;
+        .review-score {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             font-weight: 700;
+            font-size: 1.1rem;
             color: var(--primary);
-            margin-bottom: 1.5rem;
         }
 
-        .price-tag span {
-            font-size: 1rem;
-            font-weight: 400;
-            color: var(--text-muted);
-        }
-
-        .booking-form .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .booking-form label {
-            display: block;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 0.25rem;
-            color: var(--text-muted);
-        }
-
-        .booking-form input {
-            width: 100%;
-            padding: 0.75rem;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border);
+        #property-map {
+            height: 350px;
+            border-radius: var(--radius-md);
+            margin-top: 1.5rem;
         }
 
         @media (max-width: 992px) {
@@ -137,75 +109,90 @@
             }
             .gallery-grid {
                 grid-template-columns: 1fr;
-                grid-template-rows: 300px 150px 150px;
+                grid-template-rows: 350px 200px 200px;
             }
         }
     </style>
 </head>
 <body>
     <main class="details-main container">
-        <div class="gallery-grid" data-animate>
-            <div class="gallery-item gallery-main-img">
-                <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=1200" alt="Main View">
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800" alt="Interior">
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=800" alt="View">
+        <!-- Gallery Section -->
+        <div class="gallery-header" data-animate>
+            <div class="gallery-grid">
+                <div class="gallery-item gallery-main">
+                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=1200" alt="Main">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800" alt="Room 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=800" alt="Room 2">
+                </div>
             </div>
         </div>
 
         <div class="details-grid">
+            <!-- Content -->
             <div class="details-content" data-animate>
-                <h1>Kigali View Apartment</h1>
-                <a href="#" class="location-link"><i class="fas fa-map-marker-alt"></i> Kiyovu, Kigali, Rwanda</a>
-                
-                <div class="card description-card">
-                    <h2>About this place</h2>
-                    <p>Experience the ultimate comfort in the heart of Kigali. This high-end apartment offers breathtaking views of the city skyline, modern amenities, and a peaceful environment for business or leisure.</p>
-                    
-                    <div class="amenities-grid">
-                        <div class="amenity"><i class="fas fa-wifi"></i> High-speed WiFi</div>
-                        <div class="amenity"><i class="fas fa-parking"></i> Free Parking</div>
-                        <div class="amenity"><i class="fas fa-swimmer"></i> Shared Pool</div>
-                        <div class="amenity"><i class="fas fa-dumbbell"></i> Fitness Center</div>
-                        <div class="amenity"><i class="fas fa-snowflake"></i> Air Conditioning</div>
-                        <div class="amenity"><i class="fas fa-coffee"></i> Breakfast Included</div>
-                    </div>
+                <div class="property-title">
+                    <h1 class="gradient-text">Skyline Penthouse</h1>
+                    <p><i class="fas fa-map-marker-alt"></i> Kiyovu Luxury District, Kigali</p>
                 </div>
 
-                <div class="card description-card">
-                    <h2>Location & Directions</h2>
-                    <div style="height: 300px; border-radius: var(--radius-md); overflow: hidden; margin-bottom: 1rem;">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127593.425121431!2d30.01526684704084!3d-1.9301980313838043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca429ed861077%3A0x11bde9c2d7ca9582!2sKigali!5e0!3m2!1sen!2srw!4v1712914100000!5m2!1sen!2srw" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
-                    <button class="btn btn-secondary btn-sm"><i class="fas fa-directions"></i> Get Directions</button>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
+                    <div class="amenity-pill"><i class="fas fa-wifi"></i> Fiber Optic</div>
+                    <div class="amenity-pill"><i class="fas fa-parking"></i> Secure Parking</div>
+                    <div class="amenity-pill"><i class="fas fa-swimming-pool"></i> Infinity Pool</div>
+                    <div class="amenity-pill"><i class="fas fa-shield-alt"></i> 24/7 Security</div>
+                </div>
+
+                <div class="card" style="padding: 2rem; margin-bottom: 2rem;">
+                    <h2 style="margin-bottom: 1.5rem;">Authentic Modern Living</h2>
+                    <p style="font-size: 1.15rem; color: var(--text-muted); line-height: 1.8;">
+                        This architectural masterpiece combines traditional Rwandan motifs with ultra-modern design. Located in the exclusive Kiyovu district, it offers the city's finest vantage point for sunset views over the Land of a Thousand Hills.
+                    </p>
+                </div>
+
+                <div class="card" style="padding: 2rem;">
+                    <h2 style="margin-bottom: 1rem;">Location Map</h2>
+                    <div id="property-map"></div>
                 </div>
             </div>
 
-            <aside class="sidebar" data-animate style="transition-delay: 0.1s;">
-                <div class="card booking-sidebar glass">
-                    <div class="price-tag">$50 <span>/ night</span></div>
-                    
-                    <form class="booking-form">
-                        <div class="form-group">
-                            <label>Check-in</label>
-                            <input type="date" value="2026-04-12">
+            <!-- Booking Sidebar -->
+            <aside class="sidebar-area" data-animate style="transition-delay: 0.1s;">
+                <div class="card sidebar-card glass">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">$120 <span style="font-size: 1rem; font-weight: 400; color: var(--text-muted);">/ night</span></div>
+                        <div class="review-score"><i class="fas fa-star"></i> 4.98</div>
+                    </div>
+
+                    <form id="booking-form" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div class="grid-auto" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <label style="display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">Check In</label>
+                                <input type="date" value="2026-04-15" class="card" style="padding: 0.8rem; width: 100%;">
+                            </div>
+                            <div>
+                                <label style="display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">Check Out</label>
+                                <input type="date" value="2026-04-18" class="card" style="padding: 0.8rem; width: 100%;">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Check-out</label>
-                            <input type="date" value="2026-04-15">
+                        <div>
+                            <label style="display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">Guests</label>
+                            <select class="card" style="padding: 0.8rem; width: 100%;">
+                                <option>2 Guests</option>
+                                <option>3 Guests</option>
+                                <option>4 Guests</option>
+                            </select>
                         </div>
-                        <div class="form-group">
-                            <label>Guests</label>
-                            <input type="number" value="2" min="1">
-                        </div>
-                        <button type="button" class="btn btn-primary w-100" style="width: 100%; margin-top: 1rem;" onclick="location.href='booking-confirmation.html'">Reserve Now</button>
+                        <button type="button" class="btn btn-primary" style="width: 100%; border-radius: var(--radius-md);" id="reserve-btn">
+                            Confirm Reservation
+                        </button>
                     </form>
-                    
-                    <div style="text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted);">
-                        You won't be charged yet
+
+                    <div style="margin-top: 1.5rem; text-align: center; font-size: 0.9rem; color: var(--text-muted);">
+                        Dedicated support available 24/7
                     </div>
                 </div>
             </aside>
@@ -213,6 +200,30 @@
     </main>
 
     <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="../assets/js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Init Map
+            if (window.Components && window.Components.initMap) {
+                window.Components.initMap('property-map', [
+                    { lat: -1.9441, lng: 30.0619, title: "Skyline Penthouse", desc: "Premium Residency" }
+                ]);
+            }
+
+            // Reserve Logic
+            const reserveBtn = document.getElementById('reserve-btn');
+            if (reserveBtn) {
+                reserveBtn.addEventListener('click', () => {
+                    if (window.Components && window.Components.showToast) {
+                        window.Components.showToast('Reservation processing...', 'success');
+                        setTimeout(() => {
+                            location.href = 'booking-confirmation.html';
+                        }, 1500);
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

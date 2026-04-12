@@ -3,167 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Car - Admin</title>
-    <!-- Icons -->
+    <title>Fleet Integration - Blueprint Rwanda</title>
     <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
-    <style>
-        .form-main {
-            padding-top: 100px;
-            padding-bottom: var(--space-lg);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .form-header {
-            margin-bottom: var(--space-md);
-        }
-
-        .form-header h1 {
-            font-size: 2rem;
-            color: var(--primary);
-        }
-
-        .form-card {
-            padding: var(--space-md);
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.25rem;
-        }
-
-        .form-group.full {
-            grid-column: span 2;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-        }
-
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 0.75rem;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border);
-            background: var(--white);
-            font-family: inherit;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .image-upload-box {
-            border: 2px dashed var(--border);
-            border-radius: var(--radius-md);
-            padding: 2rem;
-            text-align: center;
-            background: var(--bg);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .image-upload-box:hover {
-            border-color: var(--primary);
-            background: var(--surface);
-        }
-
-        .form-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        @media (max-width: 600px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            .form-group.full {
-                grid-column: span 1;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 <body>
-    <main class="form-main container">
-        <header class="form-header" data-animate>
-            <h1>Add New Vehicle</h1>
-            <p>Expand your fleet by adding a new car to the rental catalog.</p>
+    <main class="admin-main container">
+        <header class="admin-header" data-animate>
+            <div class="admin-title">
+                <h1 class="gradient-text">Fleet Integration</h1>
+                <p>Establishing the operational parameters for a new vehicle asset.</p>
+            </div>
+            <div class="admin-actions">
+                <button class="btn btn-secondary" onclick="history.back()">Discard Changes</button>
+            </div>
         </header>
 
-        <section class="card form-card" data-animate style="transition-delay: 0.1s;">
-            <form id="carForm" class="form-grid">
-                <!-- Vehicle Info -->
-                <div class="form-group full">
-                    <label for="model">Car Model</label>
-                    <input type="text" id="model" placeholder="e.g. Toyota Land Cruiser V8" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="type">Vehicle Type</label>
-                    <select id="type">
-                        <option value="suv">SUV</option>
-                        <option value="sedan">Sedan</option>
-                        <option value="luxury">Luxury</option>
-                        <option value="4x4">4x4 / Off-road</option>
-                        <option value="van">Van / Minibus</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="price">Daily Rental Rate ($)</label>
-                    <input type="number" id="price" placeholder="60" required>
-                </div>
-
-                <!-- Features -->
-                <div class="form-group">
-                    <label for="transmission">Transmission</label>
-                    <select id="transmission">
-                        <option value="automatic">Automatic</option>
-                        <option value="manual">Manual</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="seats">Seating Capacity</label>
-                    <input type="number" id="seats" value="5" min="2">
-                </div>
-
-                <div class="form-group full">
-                    <label for="description">Vehicle Description & Features</label>
-                    <textarea id="description" placeholder="Mention features like A/C, 4WD, Bluetooth, sunroof, etc..."></textarea>
-                </div>
-
-                <!-- Media -->
-                <div class="form-group full">
-                    <label>Vehicle Photos</label>
-                    <div class="image-upload-box">
-                        <i class="fas fa-car" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
-                        <p style="font-weight: 600; margin-bottom: 0.25rem;">Click to upload car images</p>
-                        <p style="font-size: 0.8rem; color: var(--text-muted);">PNG, JPG (max. 5MB per file)</p>
+        <section class="admin-form-container">
+            <div class="card glass" style="padding: 3rem;" data-animate style="transition-delay: 0.1s;">
+                <form id="carForm" class="form-grid">
+                    <!-- Vehicle Identity -->
+                    <div class="form-group full">
+                        <label>Asset Model / Branding</label>
+                        <input type="text" class="form-control" placeholder="e.g. Toyota Land Cruiser V8 - 2024 Edition" required>
                     </div>
-                </div>
 
-                <div class="form-actions full">
-                    <button type="button" class="btn btn-secondary" onclick="history.back()">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add to Fleet</button>
-                </div>
-            </form>
+                    <div class="form-group">
+                        <label>Fleet Category</label>
+                        <select class="form-control">
+                            <option>Premium 4x4 / Off-Road</option>
+                            <option>Executive Sedan</option>
+                            <option>Luxury Compact</option>
+                            <option>Specialist Mobility</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Rental Yield (USD / Day)</label>
+                        <input type="number" class="form-control" placeholder="150" required>
+                    </div>
+
+                    <!-- Technical Specs -->
+                    <div class="form-group">
+                        <label>Propulsion Type</label>
+                        <select class="form-control">
+                            <option>Diesel - High Efficiency</option>
+                            <option>Petrol - High Performance</option>
+                            <option>Electric - Zero Emission</option>
+                            <option>Hybrid - Strategic</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Transmission Module</label>
+                        <select class="form-control">
+                            <option>Automatic - Adaptive</option>
+                            <option>Manual - Precision</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Asset Capacity (Seats)</label>
+                        <input type="number" class="form-control" value="5" min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label>License Plate Hash</label>
+                        <input type="text" class="form-control" placeholder="RAA 001 A">
+                    </div>
+
+                    <!-- Executive Summary -->
+                    <div class="form-group full">
+                        <label>Asset Summary</label>
+                        <textarea class="form-control" placeholder="Define the vehicle's unique selling points, off-road capabilities, or executive features..."></textarea>
+                    </div>
+
+                    <!-- Visual Assets -->
+                    <div class="form-group full">
+                        <label>Asset Documentation (Visuals)</label>
+                        <div class="upload-zone">
+                            <i class="fas fa-car"></i>
+                            <h4>Deploy Fleet Imagery</h4>
+                            <p>Capture the essence of the vehicle from multiple angles. Max 10MB per unit.</p>
+                        </div>
+                    </div>
+
+                    <div style="grid-column: span 2; display: flex; justify-content: flex-end; gap: 1.5rem; margin-top: 2rem;">
+                        <button type="submit" class="btn btn-primary" style="padding-left: 4rem; padding-right: 4rem;">Authorize Integration</button>
+                    </div>
+                </form>
+            </div>
         </section>
     </main>
 
@@ -172,8 +104,10 @@
     <script>
         document.getElementById('carForm').onsubmit = function(e) {
             e.preventDefault();
-            alert('Vehicle added successfully!');
-            location.href = 'admin-cars.html';
+            Components.showToast('Vehicle Integration Synchronized', 'success');
+            setTimeout(() => {
+                location.href = 'admin-cars.html';
+            }, 1500);
         };
     </script>
 </body>

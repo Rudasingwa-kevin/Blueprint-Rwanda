@@ -3,136 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Accommodations - Admin</title>
-    <!-- Icons -->
+    <title>Managed Estates - Blueprint Rwanda</title>
     <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
-    <style>
-        .admin-main {
-            padding-top: 100px;
-            padding-bottom: var(--space-lg);
-        }
-
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: var(--space-lg);
-        }
-
-        .admin-title-group h1 {
-            font-size: 2.25rem;
-            color: var(--primary);
-        }
-
-        .admin-title-group p {
-            color: var(--text-muted);
-        }
-
-        .table-container {
-            margin-top: 1rem;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--white);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-        }
-
-        th {
-            background: var(--bg);
-            padding: 1rem;
-            text-align: left;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            border-bottom: 2px solid var(--border);
-        }
-
-        td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-            vertical-align: middle;
-        }
-
-        tr:hover {
-            background: var(--bg);
-        }
-
-        .item-preview {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .item-img {
-            width: 48px;
-            height: 48px;
-            border-radius: var(--radius-sm);
-            object-fit: cover;
-        }
-
-        .badge-status {
-            padding: 0.25rem 0.75rem;
-            border-radius: var(--radius-pill);
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .status-active { background: #e6fffa; color: #234e52; }
-        .status-inactive { background: #fff5f5; color: #822727; }
-
-        .btn-action {
-            width: 32px;
-            height: 32px;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border);
-            background: var(--white);
-            color: var(--text-muted);
-            transition: var(--transition);
-        }
-
-        .btn-action:hover {
-            color: var(--primary);
-            border-color: var(--primary);
-        }
-
-        .btn-delete:hover {
-            color: var(--danger);
-            border-color: var(--danger);
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 <body>
     <main class="admin-main container">
         <header class="admin-header" data-animate>
-            <div class="admin-title-group">
-                <h1>Accommodations</h1>
-                <p>Manage all properties listed on the platform.</p>
+            <div class="admin-title">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                    <a href="admin-dashboard.html" style="color: var(--primary); text-decoration: none; font-weight: 700; font-size: 0.9rem;"><i class="fas fa-arrow-left"></i> Core Console</a>
+                </div>
+                <h1 class="gradient-text">Managed Estates</h1>
+                <p>Governing the premium residential and commercial inventory.</p>
             </div>
-            <button class="btn btn-primary" onclick="location.href='add-accommodation.html'">
-                <i class="fas fa-plus"></i> Add New
-            </button>
+            <div class="admin-actions">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="assetSearch" class="admin-search" placeholder="Search assets by name or status...">
+                </div>
+                <button class="btn btn-primary btn-sm" onclick="location.href='add-accommodation.html'">
+                    <i class="fas fa-plus"></i> Add New Asset
+                </button>
+            </div>
         </header>
 
-        <section class="card" data-animate style="transition-delay: 0.1s; padding: 0;">
-            <div class="table-container">
-                <table>
+        <section class="card data-card" data-animate style="transition-delay: 0.1s; padding: 0;">
+            <div class="table-wrapper">
+                <table class="admin-table">
                     <thead>
                         <tr>
-                            <th>Property</th>
-                            <th>Location</th>
-                            <th>Price</th>
-                            <th>Status</th>
-                            <th>Rating</th>
-                            <th style="text-align: right;">Actions</th>
+                            <th>Estate Details</th>
+                            <th>District</th>
+                            <th>Yield / Valuation</th>
+                            <th>Status Index</th>
+                            <th>Reputation</th>
+                            <th style="text-align: right;">Authorization</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -140,60 +49,66 @@
                         <tr>
                             <td>
                                 <div class="item-preview">
-                                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=150" alt="" class="item-img">
-                                    <div>
-                                        <div style="font-weight: 700; color: var(--primary);">Kigali View Apartment</div>
-                                        <div style="font-size: 0.8rem; color: var(--text-muted);">ID: #AC-001</div>
+                                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=150" alt="" class="item-img-sm">
+                                    <div class="item-info">
+                                        <h4>Kigali View Penthouse</h4>
+                                        <span>EST-KYV-001</span>
                                     </div>
                                 </div>
                             </td>
                             <td>Kiyovu, Kigali</td>
-                            <td>$50/night</td>
-                            <td><span class="badge-status status-active">Active</span></td>
-                            <td>★ 4.92</td>
-                            <td style="text-align: right;">
-                                <button class="btn-action"><i class="fas fa-edit"></i></button>
-                                <button class="btn-action btn-delete"><i class="fas fa-trash"></i></button>
+                            <td>$120 / night</td>
+                            <td><span class="status-pill status-active">Operational</span></td>
+                            <td><i class="fas fa-star" style="color: var(--accent);"></i> 4.98</td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="btn-icon" title="Edit Parameters"><i class="fas fa-sliders-h"></i></button>
+                                    <button class="btn-icon delete" title="Decommission"><i class="fas fa-shield-virus"></i></button>
+                                </div>
                             </td>
                         </tr>
                         <!-- Row 2 -->
                         <tr>
                             <td>
                                 <div class="item-preview">
-                                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=150" alt="" class="item-img">
-                                    <div>
-                                        <div style="font-weight: 700; color: var(--primary);">Musanze Highlands Inn</div>
-                                        <div style="font-size: 0.8rem; color: var(--text-muted);">ID: #AC-002</div>
+                                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=150" alt="" class="item-img-sm">
+                                    <div class="item-info">
+                                        <h4>Silverback Manor</h4>
+                                        <span>EST-MSZ-002</span>
                                     </div>
                                 </div>
                             </td>
                             <td>Musanze</td>
-                            <td>$80/night</td>
-                            <td><span class="badge-status status-active">Active</span></td>
-                            <td>★ 4.95</td>
-                            <td style="text-align: right;">
-                                <button class="btn-action"><i class="fas fa-edit"></i></button>
-                                <button class="btn-action btn-delete"><i class="fas fa-trash"></i></button>
+                            <td>$250 / night</td>
+                            <td><span class="status-pill status-active">Operational</span></td>
+                            <td><i class="fas fa-star" style="color: var(--accent);"></i> 4.95</td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="btn-icon" title="Edit Parameters"><i class="fas fa-sliders-h"></i></button>
+                                    <button class="btn-icon delete" title="Decommission"><i class="fas fa-shield-virus"></i></button>
+                                </div>
                             </td>
                         </tr>
                         <!-- Row 3 -->
                         <tr>
                             <td>
                                 <div class="item-preview">
-                                    <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=150" alt="" class="item-img">
-                                    <div>
-                                        <div style="font-weight: 700; color: var(--primary);">Gisenyi Waterfront Suite</div>
-                                        <div style="font-size: 0.8rem; color: var(--text-muted);">ID: #AC-003</div>
+                                    <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=150" alt="" class="item-img-sm">
+                                    <div class="item-info">
+                                        <h4>Blue Water Sanctuary</h4>
+                                        <span>EST-RBV-003</span>
                                     </div>
                                 </div>
                             </td>
                             <td>Lake Kivu, Rubavu</td>
-                            <td>$120/night</td>
-                            <td><span class="badge-status status-inactive">Sold Out</span></td>
-                            <td>★ 5.0</td>
-                            <td style="text-align: right;">
-                                <button class="btn-action"><i class="fas fa-edit"></i></button>
-                                <button class="btn-action btn-delete"><i class="fas fa-trash"></i></button>
+                            <td>$180 / night</td>
+                            <td><span class="status-pill status-pending">In maintenance</span></td>
+                            <td><i class="fas fa-star" style="color: var(--accent);"></i> 5.00</td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="btn-icon" title="Edit Parameters"><i class="fas fa-sliders-h"></i></button>
+                                    <button class="btn-icon delete" title="Decommission"><i class="fas fa-shield-virus"></i></button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -204,5 +119,13 @@
 
     <!-- Scripts -->
     <script src="../assets/js/components.js"></script>
+    <!-- Search Logic Injection -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.Components && window.Components.initAdminSearch) {
+                window.Components.initAdminSearch('assetSearch', '.admin-table');
+            }
+        });
+    </script>
 </body>
 </html>

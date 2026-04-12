@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Blueprint Rwanda</title>
-    <!-- Icons -->
+    <title>Global Console - Blueprint Rwanda</title>
     <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -17,11 +16,15 @@
     <main class="admin-main container">
         <header class="admin-header" data-animate>
             <div class="admin-title">
-                <h1>Admin Dashboard</h1>
-                <p>Performance insights and management overview.</p>
+                <h1 class="gradient-text">Global Console</h1>
+                <p>Scaling Rwanda's potential through data-driven management.</p>
             </div>
             <div class="admin-actions">
-                <button class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Add New Listing</button>
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="admin-search" placeholder="Search operational data...">
+                </div>
+                <button class="btn btn-primary btn-sm" onclick="location.href='add-accommodation.html'"><i class="fas fa-plus"></i> Add Listing</button>
             </div>
         </header>
 
@@ -29,87 +32,70 @@
         <div class="kpi-grid">
             <div class="card kpi-card" data-animate>
                 <div class="icon flex-center"><i class="fas fa-users"></i></div>
-                <div class="label">Total Users</div>
+                <div class="label">Total Ecosystem Users</div>
                 <div class="value">1,284</div>
-                <div class="trend up"><i class="fas fa-arrow-up"></i> 12% vs last month</div>
+                <div class="trend up"><i class="fas fa-arrow-up"></i> 12% Monthly Growth</div>
             </div>
             <div class="card kpi-card" data-animate style="transition-delay: 0.1s;">
-                <div class="icon flex-center"><i class="fas fa-building"></i></div>
-                <div class="label">Total Listings</div>
+                <div class="icon flex-center"><i class="fas fa-hotel"></i></div>
+                <div class="label">Total Managed Assets</div>
                 <div class="value">452</div>
-                <div class="trend up"><i class="fas fa-arrow-up"></i> 5% vs last month</div>
+                <div class="trend up"><i class="fas fa-arrow-up"></i> 5% Assets Added</div>
             </div>
             <div class="card kpi-card" data-animate style="transition-delay: 0.2s;">
-                <div class="icon flex-center"><i class="fas fa-shopping-cart"></i></div>
-                <div class="label">Total Bookings</div>
+                <div class="icon flex-center"><i class="fas fa-check-double"></i></div>
+                <div class="label">Completed Bookings</div>
                 <div class="value">890</div>
-                <div class="trend down"><i class="fas fa-arrow-down"></i> 2% vs last month</div>
+                <div class="trend up"><i class="fas fa-arrow-up"></i> 8% Success Velocity</div>
             </div>
             <div class="card kpi-card" data-animate style="transition-delay: 0.3s;">
-                <div class="icon flex-center"><i class="fas fa-dollar-sign"></i></div>
-                <div class="label">Total Revenue</div>
-                <div class="value">$45,200</div>
-                <div class="trend up"><i class="fas fa-arrow-up"></i> 18% vs last month</div>
+                <div class="icon flex-center"><i class="fas fa-chart-line"></i></div>
+                <div class="label">Gross Ecosystem Value</div>
+                <div class="value">$45.2k</div>
+                <div class="trend up"><i class="fas fa-arrow-up"></i> 18% Revenue Surge</div>
             </div>
         </div>
 
         <div class="admin-data-grid">
             <!-- Recent Activity -->
             <div class="data-card" data-animate>
-                <h3>Recent User Activity</h3>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>User</th>
-                                <th>Activity</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="user-cell">
-                                        <div class="user-avatar">JD</div>
-                                        <div><strong>John Doe</strong><br><small>john@example.com</small></div>
-                                    </div>
-                                </td>
-                                <td>Booked "Kigali View Apart..."</td>
-                                <td><span class="status-pill status-active">Active</span></td>
-                                <td>April 12, 2026</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="user-cell">
-                                        <div class="user-avatar" style="background: var(--primary);">AS</div>
-                                        <div><strong>Alice Smith</strong><br><small>alice@example.com</small></div>
-                                    </div>
-                                </td>
-                                <td>Submitted a Review</td>
-                                <td><span class="status-pill status-active">Active</span></td>
-                                <td>April 11, 2026</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="user-cell">
-                                        <div class="user-avatar" style="background: var(--primary-dark);">BW</div>
-                                        <div><strong>Bob Wilson</strong><br><small>bob@example.com</small></div>
-                                    </div>
-                                </td>
-                                <td>Refund Requested</td>
-                                <td><span class="status-pill status-pending">Pending</span></td>
-                                <td>April 10, 2026</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h3>Live Operations Feed</h3>
+                    <span class="status-pill status-active" style="font-size: 0.7rem;">Live Monitoring</span>
+                </div>
+                <div class="feed-container" id="adminFeed">
+                    <!-- Dynamic items will be injected here -->
+                    <div class="feed-item">
+                        <i class="fas fa-key"></i>
+                        <div class="feed-content">
+                            <h5>Reservation Confirmed</h5>
+                            <p><strong>John Doe</strong> secured <strong>Skyline Penthouse</strong> for Oct 12.</p>
+                        </div>
+                        <div class="feed-time">Just Now</div>
+                    </div>
                 </div>
             </div>
 
             <!-- Charts / Analytics -->
-            <div class="data-card" data-animate>
-                <h3>Listings Distribution</h3>
-                <canvas id="distributionChart" height="300"></canvas>
+            <div class="data-card" data-animate style="transition-delay: 0.1s;">
+                <h3>Ecosystem Distribution</h3>
+                <div style="margin-top: 2rem;">
+                    <canvas id="distributionChart" height="300"></canvas>
+                </div>
+                <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Hospitality</span>
+                        <strong>54%</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Mobility</span>
+                        <strong>28%</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Experiences</span>
+                        <strong>18%</strong>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -117,25 +103,52 @@
     <!-- Scripts -->
     <script src="../assets/js/components.js"></script>
     <script>
-        // Init Distribution Chart
-        const ctx = document.getElementById('distributionChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Accommodation', 'Car Rent', 'Places'],
-                datasets: [{
-                    data: [250, 120, 82],
-                    backgroundColor: ['#a0522d', '#ffe4b5', '#7c3f17'],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                plugins: {
-                    legend: {
-                        position: 'bottom'
+        document.addEventListener('DOMContentLoaded', () => {
+            // Chart.js implementation
+            const ctx = document.getElementById('distributionChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Hospitality', 'Mobility', 'Experiences'],
+                    datasets: [{
+                        data: [250, 120, 82],
+                        backgroundColor: ['#a0522d', '#d4a373', '#7c3f17'],
+                        borderWidth: 0,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    cutout: '70%',
+                    plugins: {
+                        legend: { display: false }
                     }
                 }
-            }
+            });
+
+            // Live Feed Simulation
+            const feed = document.getElementById('adminFeed');
+            const events = [
+                { icon: 'fa-user-plus', title: 'New Delegate Registered', desc: 'Alice K. joined the ecosystem from Kigali Central.' },
+                { icon: 'fa-car', title: 'Fleet Deployment', desc: 'Toyota RAV4 assigned to Contract #882.' },
+                { icon: 'fa-check-circle', title: 'Asset Verified', desc: 'Rubavu Lakeside Villa passed safety audit.' },
+                { icon: 'fa-star', title: 'Elite Rating Received', desc: '5-Star perspective submitted for Akagera Park.' }
+            ];
+
+            setInterval(() => {
+                const event = events[Math.floor(Math.random() * events.length)];
+                const item = document.createElement('div');
+                item.className = 'feed-item';
+                item.innerHTML = `
+                    <i class="fas ${event.icon}"></i>
+                    <div class="feed-content">
+                        <h5>${event.title}</h5>
+                        <p>${event.desc}</p>
+                    </div>
+                    <div class="feed-time">Just Now</div>
+                `;
+                feed.prepend(item);
+                if (feed.children.length > 5) feed.lastElementChild.remove();
+            }, 8000);
         });
     </script>
 </body>

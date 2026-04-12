@@ -3,106 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Places to Visit - Blueprint Rwanda</title>
-    <!-- Icons -->
-    <link rel="shortcut icon" href="../assets/images/branding/blueprint-logo.png" type="image/x-icon">
+    <title>Experiences - Blueprint Rwanda</title>
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="../assets/css/listings.css">
 </head>
 <body>
-    <header class="listing-hero" style="background-image: url('../assets/images/ui/visit.png');">
+    <!-- Hero -->
+    <header class="listing-hero" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1516422213481-9069d30560fe?auto=format&fit=crop&q=80&w=1920&fm=webp') center/cover;">
         <div class="container" data-animate>
-            <h1>Discover Rwanda's Must-See Destinations</h1>
-            <p>From lush national parks to vibrant cities, explore the heart of Africa.</p>
+            <h1 class="gradient-text">Timeless Wonders</h1>
+            <p>From mist-covered peaks to cultural sanctuaries.</p>
         </div>
     </header>
 
-    <section class="search-section">
-        <div class="container">
-            <div class="search-box glass" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                <div style="flex: 1; display: flex; align-items: center; gap: 0.5rem; min-width: 250px;">
-                    <i class="fas fa-map-marked-alt" style="color: var(--primary);"></i>
-                    <input type="text" placeholder="Search by park, city, or attraction..." style="width: 100%;">
-                </div>
-                <button class="btn btn-primary" style="flex-shrink: 0;">Search</button>
-            </div>
+    <!-- Search Section -->
+    <section class="search-section container">
+        <div class="search-box glass" data-animate>
+            <i class="fas fa-search" style="padding-left: 1.5rem; color: var(--primary);"></i>
+            <input type="text" placeholder="Discover landmarks, national parks, or cultural tours...">
+            <button class="btn btn-primary" style="margin: 0.5rem;">Explore Now</button>
         </div>
     </section>
 
-    <main class="listing-section container">
-        <div class="listing-header" data-animate>
-            <div>
-                <p style="color: var(--primary); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Top Experiences</p>
-                <h2>Premium Destinations</h2>
-            </div>
-        </div>
-
+    <!-- Listings Grid -->
+    <main class="container listing-section">
         <div class="listing-grid">
-            <!-- Place 1 -->
+            <!-- Experience 1 -->
             <div class="listing-card" data-animate>
                 <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1516422213481-9069d30560fe?auto=format&fit=crop&q=80&w=800" alt="Volcanoes National Park">
+                    <img src="https://images.unsplash.com/photo-1516422213481-9069d30560fe?auto=format&fit=crop&q=80&w=800&fm=webp" alt="Volcanoes" loading="lazy">
                     <span class="card-type">National Park</span>
                 </div>
                 <div class="card-content">
                     <div class="card-meta">
-                        <span class="rating"><i class="fas fa-star"></i> 5.0</span>
-                        <span style="font-size: 0.8rem; color: var(--text-muted);">(2.5k reviews)</span>
+                        <span class="rating"><i class="fas fa-star"></i> 4.99</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">Musanze</span>
                     </div>
                     <h3 class="card-title">Volcanoes National Park</h3>
-                    <p class="card-location"><i class="fas fa-map-marker-alt"></i> Musanze, Rwanda</p>
+                    <p class="card-location"><i class="fas fa-map-marker-alt"></i> Home of the Mountain Gorillas</p>
                     <div class="card-footer">
-                        <div class="price">Gorilla Trekking</div>
-                        <button class="btn btn-secondary btn-sm" style="padding: 0.5rem 1rem;">View Details</button>
+                        <div class="price">From $1500</div>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html'">Details</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Place 2 -->
+            <!-- Experience 2 -->
             <div class="listing-card" data-animate style="transition-delay: 0.1s;">
                 <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1605723511530-94d7c5874253?auto=format&fit=crop&q=80&w=800" alt="Akagera National Park">
-                    <span class="card-type">Safari</span>
+                    <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=800&fm=webp" alt="Lake Kivu" loading="lazy">
+                    <span class="card-type">Lake Experience</span>
                 </div>
                 <div class="card-content">
                     <div class="card-meta">
                         <span class="rating"><i class="fas fa-star"></i> 4.95</span>
-                        <span style="font-size: 0.8rem; color: var(--text-muted);">(1.8k reviews)</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">Rubavu</span>
                     </div>
-                    <h3 class="card-title">Akagera National Park</h3>
-                    <p class="card-location"><i class="fas fa-map-marker-alt"></i> Kayonza, Rwanda</p>
+                    <h3 class="card-title">Lake Kivu Island Tour</h3>
+                    <p class="card-location"><i class="fas fa-map-marker-alt"></i> Sunset boat rides & coffee tours</p>
                     <div class="card-footer">
-                        <div class="price">Big Five Safari</div>
-                        <button class="btn btn-secondary btn-sm" style="padding: 0.5rem 1rem;">View Details</button>
+                        <div class="price">From $80</div>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html'">Details</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Place 3 -->
+            <!-- Experience 3 -->
             <div class="listing-card" data-animate style="transition-delay: 0.2s;">
                 <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=800" alt="Nyungwe Forest">
+                    <img src="https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&q=80&w=800&fm=webp" alt="Nyungwe" loading="lazy">
                     <span class="card-type">Rainforest</span>
                 </div>
                 <div class="card-content">
                     <div class="card-meta">
                         <span class="rating"><i class="fas fa-star"></i> 4.90</span>
-                        <span style="font-size: 0.8rem; color: var(--text-muted);">(1.2k reviews)</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">Southern Province</span>
                     </div>
-                    <h3 class="card-title">Nyungwe National Park</h3>
-                    <p class="card-location"><i class="fas fa-map-marker-alt"></i> Rusizi, Rwanda</p>
+                    <h3 class="card-title">Nyungwe Canopy Walk</h3>
+                    <p class="card-location"><i class="fas fa-map-marker-alt"></i> High-altitude rainforest exploration</p>
                     <div class="card-footer">
-                        <div class="price">Canopy Walk</div>
-                        <button class="btn btn-secondary btn-sm" style="padding: 0.5rem 1rem;">View Details</button>
+                        <div class="price">From $120</div>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html'">Details</button>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
+    <!-- Map Discovery -->
+    <section class="container map-discovery" data-animate>
+        <div class="section-title">
+            <h2 style="margin-bottom: 2rem;">Experience Roadmap</h2>
+        </div>
+        <div id="listing-map" class="card"></div>
+    </section>
+
     <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="../assets/js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.Components && window.Components.initMap) {
+                window.Components.initMap('listing-map', [
+                    { lat: -1.5032, lng: 29.6338, title: "Volcanoes NP", desc: "Gorilla Trekking" },
+                    { lat: -1.6917, lng: 29.2558, title: "Lake Kivu", desc: "Island Hopping" },
+                    { lat: -2.4833, lng: 29.2333, title: "Nyungwe Forest", desc: "Canopy Adventure" }
+                ]);
+            }
+        });
+    </script>
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TouristInformationCenter",
+      "name": "Blueprint Rwanda Experiences",
+      "description": "Timeless wonders of Rwanda, from mist-covered peaks to cultural sanctuaries.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Musanze",
+        "addressCountry": "RW"
+      }
+    }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.Components && window.Components.setPageMeta) {
+                window.Components.setPageMeta({
+                    title: "Rwandan Experiences | Blueprint Rwanda",
+                    description: "Discover the timeless wonders of Rwanda. National parks, islands tours, and canopy walks engineered for excellence."
+                });
+            }
+        });
+    </script>
 </body>
 </html>

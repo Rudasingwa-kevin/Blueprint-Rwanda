@@ -3,31 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit Review - Blueprint Rwanda</title>
-    <!-- Icons -->
+    <title>Share Your Legacy - Blueprint Rwanda</title>
     <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <style>
         .review-main {
-            padding-top: 120px;
+            padding-top: 200px;
             padding-bottom: var(--space-lg);
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
         .review-header {
             text-align: center;
-            margin-bottom: var(--space-md);
+            margin-bottom: 4rem;
+        }
+
+        .rating-hub {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--bg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
         }
 
         .rating-stars {
             display: flex;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 1rem;
             margin: 1.5rem 0;
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: var(--border);
         }
 
@@ -37,51 +45,89 @@
         }
 
         .rating-stars i.active {
-            color: #f6ad55;
+            color: var(--accent);
+            text-shadow: 0 0 15px rgba(212, 163, 115, 0.4);
         }
 
         .review-form-card {
-            padding: var(--space-md);
+            padding: 4rem;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .form-group label {
             display: block;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--text-muted);
             font-size: 0.8rem;
+            font-weight: 800;
             text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.75rem;
+            color: var(--primary);
         }
 
-        .form-group input, .form-group textarea {
+        .form-control {
             width: 100%;
-            padding: 0.75rem;
+            padding: 1.25rem;
             border-radius: var(--radius-sm);
             border: 1px solid var(--border);
-            background: var(--bg);
+            background: var(--white);
+            color: var(--text);
+            font-weight: 500;
+            transition: var(--transition);
         }
 
-        .form-group textarea {
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(160, 82, 45, 0.08);
+        }
+
+        textarea.form-control {
+            min-height: 200px;
             resize: vertical;
-            min-height: 150px;
+        }
+
+        .upload-experience {
+            border: 2px dashed var(--border);
+            padding: 3rem;
+            text-align: center;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--surface);
+        }
+
+        .upload-experience:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .upload-experience i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .review-form-card {
+                padding: 2rem;
+            }
         }
     </style>
 </head>
 <body>
     <main class="review-main container">
         <header class="review-header" data-animate>
-            <h1>Share Your Experience</h1>
-            <p>Your feedback helps the community and our partners improve.</p>
+            <div style="font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 1rem; color: var(--primary);">Guest Narrative</div>
+            <h1 class="gradient-text" style="font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 1rem;">Share Your Legacy</h1>
+            <p style="color: var(--text-muted); font-size: 1.15rem;">Document your experience within the Blueprint ecosystem to guide future delegates.</p>
         </header>
 
-        <section class="card review-form-card" data-animate style="transition-delay: 0.1s;">
+        <section class="card glass review-form-card" data-animate style="transition-delay: 0.1s;">
             <form id="reviewForm">
-                <div class="form-group" style="text-align: center;">
-                    <label>Overall Rating</label>
+                <div class="rating-hub">
+                    <label style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--primary);">Experience Rating</label>
                     <div class="rating-stars" id="stars">
                         <i class="fas fa-star" data-value="1"></i>
                         <i class="fas fa-star" data-value="2"></i>
@@ -89,27 +135,32 @@
                         <i class="fas fa-star" data-value="4"></i>
                         <i class="fas fa-star" data-value="5"></i>
                     </div>
+                    <p id="ratingLabel" style="font-size: 0.9rem; font-weight: 600; color: var(--accent);">Select your rating</p>
                 </div>
 
                 <div class="form-group">
-                    <label for="reviewTitle">Review Title</label>
-                    <input type="text" id="reviewTitle" placeholder="e.g. Amazing Stay!" required>
+                    <label for="reviewTitle">Narrative Summary</label>
+                    <input type="text" id="reviewTitle" class="form-control" placeholder="Summarize your experience in a few words..." required>
                 </div>
 
                 <div class="form-group">
-                    <label for="reviewContent">Detailed Feedback</label>
-                    <textarea id="reviewContent" placeholder="Tell us about the service, facilities, and your overall experience..." required></textarea>
+                    <label for="reviewContent">Detailed Perspective</label>
+                    <textarea id="reviewContent" class="form-control" placeholder="Provide a thorough account of the service, aesthetics, and operational excellence..." required></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label>Add Photos (Optional)</label>
-                    <div style="border: 2px dashed var(--border); padding: 2rem; text-align: center; border-radius: var(--radius-md); cursor: pointer;">
-                        <i class="fas fa-camera" style="font-size: 1.5rem; color: var(--primary); margin-bottom: 0.5rem;"></i>
-                        <p style="font-size: 0.8rem; color: var(--text-muted);">Click to upload experience photos</p>
+                    <label>Visual Evidence</label>
+                    <div class="upload-experience">
+                        <i class="fas fa-images"></i>
+                        <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Upload Presence Media</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">High-fidelity documentation encouraged. JPG, PNG up to 10MB.</p>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100">Submit Review</button>
+                <div style="margin-top: 3rem;">
+                    <button type="submit" class="btn btn-primary w-100" style="padding: 1.25rem;">Finalize & Submit Perspective</button>
+                    <p style="text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted);">By submitting, you authorize the display of this review within the Blueprint ecosystem.</p>
+                </div>
             </form>
         </section>
     </main>
@@ -118,12 +169,21 @@
     <script src="../assets/js/components.js"></script>
     <script>
         const stars = document.querySelectorAll('#stars i');
+        const ratingLabel = document.getElementById('ratingLabel');
+        const labels = {
+            1: "Inadequate Experience",
+            2: "Below Blueprint Standard",
+            3: "Standard Execution",
+            4: "Exceptional Service",
+            5: "World-Class Excellence"
+        };
         let selectedRating = 0;
 
         stars.forEach(star => {
             star.addEventListener('mouseover', function() {
                 resetStars();
                 highlightStars(this.dataset.value);
+                ratingLabel.textContent = labels[this.dataset.value];
             });
 
             star.addEventListener('click', function() {
@@ -134,7 +194,12 @@
 
         document.getElementById('stars').addEventListener('mouseleave', function() {
             resetStars();
-            if (selectedRating > 0) highlightStars(selectedRating);
+            if (selectedRating > 0) {
+                highlightStars(selectedRating);
+                ratingLabel.textContent = labels[selectedRating];
+            } else {
+                ratingLabel.textContent = "Select your rating";
+            }
         });
 
         function highlightStars(val) {
@@ -150,11 +215,13 @@
         document.getElementById('reviewForm').onsubmit = function(e) {
             e.preventDefault();
             if (selectedRating === 0) {
-                alert('Please provide a rating.');
+                Components.showToast('Please provide a rating before proceeding', 'error');
                 return;
             }
-            alert('Thank you for your review!');
-            history.back();
+            Components.showToast('Perspective Submitted Successfully', 'success');
+            setTimeout(() => {
+                history.back();
+            }, 2000);
         };
     </script>
 </body>

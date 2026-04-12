@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner Console - Blueprint Rwanda</title>
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/ui-system.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/admin.css"> <!-- Reusing admin utilities for governance -->
+    <style>
+        .partner-main {
+            padding-top: 140px;
+            padding-bottom: var(--space-lg);
+        }
+
+        .dashboard-header {
+            margin-bottom: var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .partner-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .booking-request-card {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .request-user {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        @media (max-width: 992px) {
+            .partner-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="partner-main container">
+        <header class="dashboard-header" data-animate>
+            <div>
+                <h1 class="gradient-text">Partner Console</h1>
+                <p>Governing your contribution to the Rwanda ecosystem.</p>
+            </div>
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn btn-secondary btn-sm" onclick="location.href='add-car.html'"><i class="fas fa-car"></i> Add Car</button>
+                <button class="btn btn-primary btn-sm" onclick="location.href='add-accommodation.html'"><i class="fas fa-plus"></i> Add Property</button>
+            </div>
+        </header>
+
+        <!-- Dynamic Statistics -->
+        <div class="kpi-grid">
+            <div class="card kpi-card" data-animate>
+                <div class="icon flex-center"><i class="fas fa-wallet"></i></div>
+                <div class="label">Total Revenue</div>
+                <div class="value">$12,450</div>
+                <div class="trend up"><i class="fas fa-arrow-up"></i> 14% this month</div>
+            </div>
+            <div class="card kpi-card" data-animate style="transition-delay: 0.1s;">
+                <div class="icon flex-center"><i class="fas fa-calendar-check"></i></div>
+                <div class="label">Total Bookings</div>
+                <div class="value">42</div>
+                <div class="trend up"><i class="fas fa-arrow-up"></i> 8 new requests</div>
+            </div>
+            <div class="card kpi-card" data-animate style="transition-delay: 0.2s;">
+                <div class="icon flex-center"><i class="fas fa-star"></i></div>
+                <div class="label">Average Rating</div>
+                <div class="value">4.92</div>
+                <div class="trend"><i class="fas fa-minus"></i> Stable</div>
+            </div>
+        </div>
+
+        <div class="partner-grid">
+            <!-- Left Column: Operations -->
+            <div class="content-area">
+                <!-- Booking Requests -->
+                <div class="data-card" data-animate>
+                    <h3 style="margin-bottom: 2rem;">Incoming Requests</h3>
+                    <div class="booking-request-card card">
+                        <div class="request-user">MK</div>
+                        <div style="flex: 1;">
+                            <h4 style="font-size: 1rem;">Mariya K. <small>· 4.8★ Traveler</small></h4>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">Requesting: <strong>Skyline Penthouse</strong> for 3 nights</p>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn btn-primary btn-sm">Approve</button>
+                            <button class="btn btn-secondary btn-sm">Details</button>
+                        </div>
+                    </div>
+
+                    <div class="booking-request-card card" style="border-left-color: var(--secondary);">
+                        <div class="request-user">RW</div>
+                        <div style="flex: 1;">
+                            <h4 style="font-size: 1rem;">Roger W. <small>· 5.0★ Traveler</small></h4>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">Requesting: <strong>Land Cruiser V8</strong> for 5 days</p>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn btn-primary btn-sm">Approve</button>
+                            <button class="btn btn-secondary btn-sm">Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Portfolio -->
+                <div class="data-card" data-animate style="margin-top: 2rem; transition-delay: 0.1s;">
+                    <h3 style="margin-bottom: 2rem;">Active Portfolio</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Asset Details</th>
+                                    <th>Daily Rate</th>
+                                    <th>Status</th>
+                                    <th style="text-align: right;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="item-preview">
+                                            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=100" class="item-img-sm" alt="">
+                                            <div class="item-info">
+                                                <h4>Skyline Penthouse</h4>
+                                                <span>Accommodations · Kiyovu</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>$120</td>
+                                    <td><span class="status-pill status-active">Live</span></td>
+                                    <td style="text-align: right;"><button class="btn btn-icon"><i class="fas fa-edit"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="item-preview">
+                                            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=100" class="item-img-sm" alt="">
+                                            <div class="item-info">
+                                                <h4>Lakeside Sanctuary</h4>
+                                                <span>Accommodations · Rubavu</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>$180</td>
+                                    <td><span class="status-pill status-pending">Auditing</span></td>
+                                    <td style="text-align: right;"><button class="btn btn-icon"><i class="fas fa-edit"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Analytics & Insights -->
+            <aside class="sidebar-area">
+                <div class="card" style="padding: 2rem;" data-animate style="transition-delay: 0.2s;">
+                    <h3>Revenue Forecast</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 2rem;">Estimated earnings for the current quarter.</p>
+                    <canvas id="partnerRevenueChart" height="250"></canvas>
+                </div>
+
+                <div class="card" style="padding: 2rem; margin-top: 2rem;" data-animate style="transition-delay: 0.3s;">
+                    <h3>Operator Tips</h3>
+                    <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                            <i class="fas fa-lightbulb" style="color: var(--secondary); margin-top: 3px;"></i>
+                            <p style="font-size: 0.85rem;">Properties with professional photos get **3x more bookings**.</p>
+                        </div>
+                        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                            <i class="fas fa-clock" style="color: var(--secondary); margin-top: 3px;"></i>
+                            <p style="font-size: 0.85rem;">Response time under **1 hour** improves your search ranking.</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('partnerRevenueChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jul', 'Aug', 'Sep', 'Oct'],
+                    datasets: [{
+                        label: 'Projected',
+                        data: [4200, 3800, 5100, 6200],
+                        backgroundColor: '#a0522d',
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, display: false },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

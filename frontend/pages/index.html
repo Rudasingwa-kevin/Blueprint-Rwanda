@@ -3,24 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blueprint Rwanda - Your Online Agency for Rwanda</title>
-    <!-- Icons -->
+    <title>Blueprint Rwanda - The Gold Standard</title>
     <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <style>
-        /* Page-specific overrides */
         .hero {
-            position: relative;
             height: 100vh;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             background: var(--text);
         }
-        
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.5;
+            z-index: 1;
+            /* Gradient overlay for text readability */
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=1920&fm=webp');
+            background-size: cover;
+            background-position: center;
+        }
+
         .hero-video {
             position: absolute;
             top: 0;
@@ -28,73 +41,130 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.6;
             z-index: 1;
+            opacity: 0.6;
         }
-        
+
         .hero-content {
             position: relative;
-            z-index: 2;
+            z-index: 10;
             text-align: center;
             color: var(--white);
-            max-width: 800px;
-        }
-
-        .welcome-card {
+            max-width: 900px;
             padding: var(--space-md);
-            border-radius: var(--radius-lg);
-            max-width: 480px;
-            margin: 0 auto;
         }
 
-        .welcome-card h1 {
-            color: var(--primary);
-            font-size: 3rem;
+        .hero-title {
+            font-size: clamp(3.5rem, 10vw, 6rem);
             margin-bottom: var(--space-sm);
+            line-height: 1;
+            font-weight: 800;
         }
 
-        .services-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin: var(--space-sm) 0 var(--space-md);
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            margin-bottom: var(--space-lg);
+            opacity: 0.9;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        .services-list li {
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: var(--primary-dark);
+        .discover-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
         }
 
-        @media (max-width: 600px) {
-            .welcome-card h1 {
-                font-size: 2rem;
+        .discover-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .discover-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-10px);
+            border-color: var(--secondary);
+        }
+
+        .discover-card i {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .discover-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        @media (max-width: 900px) {
+            .discover-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
-<body data-no-navbar>
+<body data-no-navbar data-no-footer>
     <section class="hero">
+        <!-- High-end video background (fallback to css image if missing) -->
+        <div class="hero-bg"></div>
         <video autoplay loop muted playsinline class="hero-video">
             <source src="Visit Rwanda Soon.mp4" type="video/mp4">
         </video>
-        
+
         <div class="hero-content" data-animate>
-            <div class="welcome-card glass">
-                <img src="../assets/images/branding/blueprint-logo.png" alt="Blueprint Rwanda Logo" style="width: 160px; margin-bottom: 1rem;">
-                <h1>Blueprint Rwanda</h1>
-                <p class="subtitle">Your Premier Online Agency for:</p>
-                <ul class="services-list">
-                    <li><i class="fas fa-bed"></i> Accommodation</li>
-                    <li><i class="fas fa-map-marked-alt"></i> Places to Visit</li>
-                    <li><i class="fas fa-car-side"></i> Rent Car</li>
-                </ul>
-                <a href="dashboard.html" class="btn btn-primary">Welcome to Rwanda</a>
+            <div style="margin-bottom: 2rem;">
+                <img src="../assets/images/branding/blueprint-logo.png" alt="Logo" style="width: 140px; margin-bottom: 2rem;">
+                <p class="hero-subtitle">Engineering Excellence in Rwanda</p>
+                <h1 class="hero-title gradient-text">Blueprint Rwanda</h1>
+                <p style="font-size: 1.25rem; max-width: 600px; margin: 0 auto 3rem; opacity: 0.8;">Your gateway to high-end hospitality, strategic mobility, and curated Rwandan experiences.</p>
+                
+                <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="dashboard.html" class="btn btn-primary" style="padding: 1rem 3rem;">Enter Experience</a>
+                    <a href="portfolio.html" class="btn btn-secondary" style="padding: 1rem 3rem;">View Portfolio</a>
+                </div>
+            </div>
+
+            <div class="discover-grid" data-animate style="transition-delay: 0.2s;">
+                <div class="discover-card" onclick="location.href='accommodation.html'">
+                    <i class="fas fa-hotel"></i>
+                    <h3>Stays</h3>
+                    <p>Curated luxury clusters.</p>
+                </div>
+                <div class="discover-card" onclick="location.href='visit.html'">
+                    <i class="fas fa-mountain"></i>
+                    <h3>Places</h3>
+                    <p>Heritage & Culture.</p>
+                </div>
+                <div class="discover-card" onclick="location.href='rentcar.html'">
+                    <i class="fas fa-car-side"></i>
+                    <h3>Mobility</h3>
+                    <p>Premium fleet access.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Scripts -->
     <script src="../assets/js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.Components && window.Components.setPageMeta) {
+                window.Components.setPageMeta({
+                    title: "Blueprint Rwanda | The Gold Standard of Hospitality",
+                    description: "Engineering excellence in Rwanda. Discover luxury stays, strategic mobility, and curated experiences."
+                });
+            }
+        });
+    </script>
 </body>
 </html>

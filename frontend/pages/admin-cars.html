@@ -3,136 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Cars - Admin</title>
-    <!-- Icons -->
+    <title>Managed Fleet - Blueprint Rwanda</title>
     <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
-    <style>
-        .admin-main {
-            padding-top: 100px;
-            padding-bottom: var(--space-lg);
-        }
-
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: var(--space-lg);
-        }
-
-        .admin-title-group h1 {
-            font-size: 2.25rem;
-            color: var(--primary);
-        }
-
-        .admin-title-group p {
-            color: var(--text-muted);
-        }
-
-        .table-container {
-            margin-top: 1rem;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--white);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-        }
-
-        th {
-            background: var(--bg);
-            padding: 1rem;
-            text-align: left;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            border-bottom: 2px solid var(--border);
-        }
-
-        td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-            vertical-align: middle;
-        }
-
-        tr:hover {
-            background: var(--bg);
-        }
-
-        .item-preview {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .item-img {
-            width: 48px;
-            height: 48px;
-            border-radius: var(--radius-sm);
-            object-fit: cover;
-        }
-
-        .badge-status {
-            padding: 0.25rem 0.75rem;
-            border-radius: var(--radius-pill);
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .status-available { background: #e6fffa; color: #234e52; }
-        .status-rented { background: #fff5f5; color: #822727; }
-
-        .btn-action {
-            width: 32px;
-            height: 32px;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border);
-            background: var(--white);
-            color: var(--text-muted);
-            transition: var(--transition);
-        }
-
-        .btn-action:hover {
-            color: var(--primary);
-            border-color: var(--primary);
-        }
-
-        .btn-delete:hover {
-            color: var(--danger);
-            border-color: var(--danger);
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 <body>
     <main class="admin-main container">
         <header class="admin-header" data-animate>
-            <div class="admin-title-group">
-                <h1>Car Fleet</h1>
-                <p>Manage all vehicles available for rental.</p>
+            <div class="admin-title">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                    <a href="admin-dashboard.html" style="color: var(--primary); text-decoration: none; font-weight: 700; font-size: 0.9rem;"><i class="fas fa-arrow-left"></i> Core Console</a>
+                </div>
+                <h1 class="gradient-text">Managed Fleet</h1>
+                <p>Strategic oversight of the high-end mobility inventory.</p>
             </div>
-            <button class="btn btn-primary" onclick="location.href='add-car.html'">
-                <i class="fas fa-plus"></i> Add New
-            </button>
+            <div class="admin-actions">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="carSearch" class="admin-search" placeholder="Search fleet by model or plate...">
+                </div>
+                <button class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Add Vehicle</button>
+            </div>
         </header>
 
-        <section class="card" data-animate style="transition-delay: 0.1s; padding: 0;">
-            <div class="table-container">
-                <table>
+        <section class="card data-card" data-animate style="transition-delay: 0.1s; padding: 0;">
+            <div class="table-wrapper">
+                <table class="admin-table">
                     <thead>
                         <tr>
-                            <th>Vehicle</th>
-                            <th>Type</th>
-                            <th>Price</th>
-                            <th>Status</th>
-                            <th>Rating</th>
-                            <th style="text-align: right;">Actions</th>
+                            <th>Vehicle Assets</th>
+                            <th>Class Architecture</th>
+                            <th>Rental Yield</th>
+                            <th>Operational Status</th>
+                            <th>Reputation</th>
+                            <th style="text-align: right;">Fleet Authority</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -140,60 +47,66 @@
                         <tr>
                             <td>
                                 <div class="item-preview">
-                                    <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=150" alt="" class="item-img">
-                                    <div>
-                                        <div style="font-weight: 700; color: var(--primary);">Toyota Land Cruiser V8</div>
-                                        <div style="font-size: 0.8rem; color: var(--text-muted);">ID: #CR-001</div>
+                                    <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=150" alt="" class="item-img-sm">
+                                    <div class="item-info">
+                                        <h4>Land Cruiser V8</h4>
+                                        <span>FLT-TR-001</span>
                                     </div>
                                 </div>
                             </td>
                             <td>4x4, Luxury</td>
-                            <td>$120/day</td>
-                            <td><span class="badge-status status-available">Available</span></td>
-                            <td>★ 4.98</td>
-                            <td style="text-align: right;">
-                                <button class="btn-action"><i class="fas fa-edit"></i></button>
-                                <button class="btn-action btn-delete"><i class="fas fa-trash"></i></button>
+                            <td>$150 / day</td>
+                            <td><span class="status-pill status-available">Operational</span></td>
+                            <td><i class="fas fa-star" style="color: var(--accent);"></i> 4.98</td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="btn-icon" title="Diagnostics"><i class="fas fa-microchip"></i></button>
+                                    <button class="btn-icon delete" title="Suspend"><i class="fas fa-ban"></i></button>
+                                </div>
                             </td>
                         </tr>
                         <!-- Row 2 -->
                         <tr>
                             <td>
                                 <div class="item-preview">
-                                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=150" alt="" class="item-img">
-                                    <div>
-                                        <div style="font-weight: 700; color: var(--primary);">Toyota RAV4</div>
-                                        <div style="font-size: 0.8rem; color: var(--text-muted);">ID: #CR-002</div>
+                                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=150" alt="" class="item-img-sm">
+                                    <div class="item-info">
+                                        <h4>Mercedes-Benz E-Class</h4>
+                                        <span>FLT-MB-002</span>
                                     </div>
                                 </div>
                             </td>
-                            <td>SUV, Compact</td>
-                            <td>$60/day</td>
-                            <td><span class="badge-status status-available">Available</span></td>
-                            <td>★ 4.85</td>
-                            <td style="text-align: right;">
-                                <button class="btn-action"><i class="fas fa-edit"></i></button>
-                                <button class="btn-action btn-delete"><i class="fas fa-trash"></i></button>
+                            <td>Sedan, Executive</td>
+                            <td>$120 / day</td>
+                            <td><span class="status-pill status-available">Operational</span></td>
+                            <td><i class="fas fa-star" style="color: var(--accent);"></i> 4.95</td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="btn-icon" title="Diagnostics"><i class="fas fa-microchip"></i></button>
+                                    <button class="btn-icon delete" title="Suspend"><i class="fas fa-ban"></i></button>
+                                </div>
                             </td>
                         </tr>
                         <!-- Row 3 -->
                         <tr>
                             <td>
                                 <div class="item-preview">
-                                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=150" alt="" class="item-img">
-                                    <div>
-                                        <div style="font-weight: 700; color: var(--primary);">Suzuki Jimny</div>
-                                        <div style="font-size: 0.8rem; color: var(--text-muted);">ID: #CR-003</div>
+                                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=150" alt="" class="item-img-sm">
+                                    <div class="item-info">
+                                        <h4>Safari Jeep Custom</h4>
+                                        <span>FLT-SJ-003</span>
                                     </div>
                                 </div>
                             </td>
-                            <td>SUV, Off-road</td>
-                            <td>$45/day</td>
-                            <td><span class="badge-status status-rented">Rented</span></td>
-                            <td>★ 4.70</td>
-                            <td style="text-align: right;">
-                                <button class="btn-action"><i class="fas fa-edit"></i></button>
-                                <button class="btn-action btn-delete"><i class="fas fa-trash"></i></button>
+                            <td>Custom, Off-road</td>
+                            <td>$180 / day</td>
+                            <td><span class="status-pill status-rented">In Service</span></td>
+                            <td><i class="fas fa-star" style="color: var(--accent);"></i> 5.00</td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="btn-icon" title="Diagnostics"><i class="fas fa-microchip"></i></button>
+                                    <button class="btn-icon delete" title="Suspend"><i class="fas fa-ban"></i></button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -204,5 +117,13 @@
 
     <!-- Scripts -->
     <script src="../assets/js/components.js"></script>
+    <!-- Search Logic Injection -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.Components && window.Components.initAdminSearch) {
+                window.Components.initAdminSearch('carSearch', '.admin-table');
+            }
+        });
+    </script>
 </body>
 </html>

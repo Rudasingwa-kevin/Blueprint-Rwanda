@@ -3,150 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - Blueprint Rwanda</title>
-    <!-- Icons -->
+    <title>Stakeholder Registration - Blueprint Rwanda</title>
     <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <style>
-        .auth-main {
-            min-height: 100vh;
+        .auth-split {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--bg);
+        }
+
+        .auth-visual {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1516422213481-9069d30560fe?auto=format&fit=crop&q=80&w=1200');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: var(--space-lg);
+            color: var(--white);
+        }
+
+        .auth-form-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, var(--bg) 0%, var(--surface) 100%);
-            padding: var(--space-md);
+            padding: var(--space-lg);
+            overflow-y: auto;
         }
 
         .auth-card {
             width: 100%;
-            max-width: 500px;
-            padding: var(--space-md);
-            text-align: center;
+            max-width: 480px;
+            padding: var(--space-md) 0;
         }
 
-        .auth-logo {
-            margin-bottom: var(--space-md);
+        .auth-header {
+            margin-bottom: 2rem;
         }
 
-        .auth-title {
-            margin-bottom: var(--space-sm);
-            color: var(--primary);
-        }
-
-        .auth-form {
-            text-align: left;
-            margin-top: var(--space-md);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+        .auth-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
         }
 
         .form-group {
-            margin-bottom: var(--space-sm);
-        }
-
-        .form-group.full {
-            grid-column: span 2;
+            margin-bottom: 1.25rem;
         }
 
         .form-group label {
             display: block;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 800;
             text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
         }
 
-        .form-group input {
+        .form-control {
             width: 100%;
-            padding: 0.75rem 1rem;
-            border-radius: var(--radius-sm);
+            padding: 0.85rem;
+            border-radius: var(--radius-md);
             border: 1px solid var(--border);
             background: var(--white);
+            font-weight: 500;
             transition: var(--transition);
         }
 
-        .form-group input:focus {
+        .form-control:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.1);
+            box-shadow: var(--shadow-sm);
         }
 
-        .auth-footer {
-            margin-top: var(--space-md);
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            grid-column: span 2;
-            text-align: center;
-        }
-
-        .auth-footer a {
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        @media (max-width: 480px) {
-            .auth-form {
+        @media (max-width: 900px) {
+            .auth-split {
                 grid-template-columns: 1fr;
             }
-            .form-group.full {
-                grid-column: span 1;
+            .auth-visual {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
-    <main class="auth-main">
-        <div class="card auth-card glass" data-animate>
-            <div class="auth-logo">
-                <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-heading); font-weight: 700; color: var(--primary); font-size: 1.5rem;">
-                    <i class="fas fa-landmark"></i>
-                    Blueprint Rwanda
-                </a>
+    <main class="auth-split">
+        <!-- Form Side -->
+        <div class="auth-form-container">
+            <div class="auth-card" data-animate>
+                <div class="auth-header">
+                    <img src="../assets/images/branding/blueprint-logo.png" alt="Logo" style="width: 100px; margin-bottom: 1.5rem;">
+                    <h1 class="gradient-text">Join the Ecosystem</h1>
+                    <p style="color: var(--text-muted);">Scale your Rwandan experience or business with us.</p>
+                </div>
+
+                <form class="auth-form" action="verification.html">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" class="form-control" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" placeholder="Doe" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Business Email</label>
+                        <input type="email" class="form-control" placeholder="name@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Stakeholder Type</label>
+                        <select class="form-control">
+                            <option>Individual Traveler</option>
+                            <option>Property Owner</option>
+                            <option>Corporate Partner</option>
+                            <option>Tourism Professional</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Secret Key</label>
+                        <input type="password" class="form-control" placeholder="Minimum 12 characters" required>
+                    </div>
+
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 2rem;">
+                        By registering, you agree to our <a href="#" style="color: var(--primary); font-weight: 700;">Protocols</a> and <a href="#" style="color: var(--primary); font-weight: 700;">Data Standards</a>.
+                    </p>
+
+                    <button type="submit" class="btn btn-primary w-100" style="width: 100%;">Initiate Registration</button>
+                    
+                    <div style="margin-top: 2rem; text-align: center; color: var(--text-muted);">
+                        Existing stakeholder? <a href="login.html" style="color: var(--primary); font-weight: 800;">Authorize Access</a>
+                    </div>
+                </form>
             </div>
-            
-            <h1 class="auth-title">Create Account</h1>
-            <p>Join the premier agency for Rwanda services.</p>
+        </div>
 
-            <form class="auth-form" action="verification.html">
-                <div class="form-group">
-                    <label for="fname">First Name</label>
-                    <input type="text" id="fname" placeholder="John" required>
-                </div>
-                <div class="form-group">
-                    <label for="lname">Last Name</label>
-                    <input type="text" id="lname" placeholder="Doe" required>
-                </div>
-                <div class="form-group full">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" placeholder="name@example.com" required>
-                </div>
-                <div class="form-group full">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="••••••••" required>
-                </div>
-                <div class="form-group full">
-                    <label for="confirm-password">Confirm Password</label>
-                    <input type="password" id="confirm-password" placeholder="••••••••" required>
-                </div>
-                
-                <div class="form-group full" style="font-size: 0.85rem; text-align: left;">
-                    <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer; text-transform: none; color: var(--text);">
-                        <input type="checkbox" style="width: auto; margin-top: 3px;" required> 
-                        I agree to the <a href="#" style="color: var(--primary); font-weight: 600;">Terms of Service</a> and <a href="#" style="color: var(--primary); font-weight: 600;">Privacy Policy</a>.
-                    </label>
-                </div>
-
-                <div class="form-group full">
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
-                </div>
-
-                <p class="auth-footer">
-                    Already have an account? <a href="login.html">Sign In</a>
-                </p>
-            </form>
+        <!-- Visual Side -->
+        <div class="auth-visual">
+            <div data-animate>
+                <div style="font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 1rem; color: var(--secondary);">Blueprint Vision</div>
+                <h2 style="font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem;">The Gateway to Modern Rwanda.</h2>
+                <p style="font-size: 1.25rem; opacity: 0.9; max-width: 500px;">Join a network of excellence and discover the potential of the Land of a Thousand Hills.</p>
+            </div>
         </div>
     </main>
 
