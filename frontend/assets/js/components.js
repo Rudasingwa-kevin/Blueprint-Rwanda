@@ -51,8 +51,8 @@ const Components = {
             <nav class="navbar fixed-top">
                 <div class="container nav-content">
                     <a href="index.html" class="nav-logo">
-                        <div class="logo-icon"><i class="fas fa-landmark"></i></div>
-                        <span>Blueprint Rwanda ${role === 'admin' ? '<small style="font-size: 0.6rem; opacity: 0.6; margin-left: 5px;">GOV</small>' : ''}</span>
+                        <img src="../assets/Images/Branding/title-logo.png" alt="Blueprint Rwanda Logo" style="height: 54px; width: auto; object-fit: preserve; filter: drop-shadow(0 4px 10px rgba(160, 82, 45, 0.15));">
+                        <span style="font-size: 1.35rem; tracking: -0.5px;">Blueprint Rwanda ${role === 'admin' ? '<small style="font-size: 0.6rem; opacity: 0.6; margin-left: 5px;">GOV</small>' : ''}</span>
                     </a>
                     <ul class="nav-links">
                         ${links}
@@ -185,8 +185,8 @@ const Components = {
                 <div class="container footer-grid">
                     <div class="footer-brand">
                         <a href="index.html" class="footer-logo">
-                            <i class="fas fa-landmark"></i>
-                            <span>Blueprint Rwanda</span>
+                            <img src="../assets/Images/Branding/title-logo.png" alt="Blueprint Rwanda Logo" style="height: 60px; width: auto; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));">
+                            <span style="font-size: 1.8rem; margin-top: 5px;">Blueprint Rwanda</span>
                         </a>
                         <p>${role === 'admin' ? 'Monitoring the pulse of Rwanda’s premium marketplace.' : 'Your trusted partner for discovering the best of Rwanda.'}</p>
                         <div class="social-links">
@@ -318,27 +318,33 @@ const Components = {
      * Enhanced Map Initialization (Leaflet).
      */
     initMap(containerId, markers = []) {
-        if (!document.getElementById(containerId)) return;
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        
+        // Debug visibility
+        container.style.backgroundColor = 'rgba(255,255,255,0.05)';
+        container.style.display = 'block';
+
+        // Check if map is already initialized to prevent errors
+        if (container._leaflet_id) return;
         
         // Ensure Leaflet is loaded
         if (typeof L === 'undefined') {
-            console.error('Leaflet is required for maps');
+            console.error('Leaflet is required for maps, but the script failed to load.');
+            container.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--error);">Failed to load map engine (Leaflet).</div>';
             return;
         }
 
         const map = L.map(containerId).setView([-1.9441, 30.0619], 12); 
 
-        L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
             maxZoom: 19,
-            attribution: '© OpenStreetMap moderators'
+            attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a>'
         }).addTo(map);
 
         const customIcon = L.divIcon({
             className: 'premium-marker',
-            html: `
-                <div class="marker-pulse"></div>
-                <div class="marker-core"></div>
-            `,
+            html: `<div class="marker-pulse"></div><div class="marker-core"></div>`,
             iconSize: [40, 40],
             iconAnchor: [20, 20]
         });
@@ -346,23 +352,22 @@ const Components = {
         const bounds = [];
         markers.forEach(m => {
             const marker = L.marker([m.lat, m.lng], { icon: customIcon }).addTo(map);
-            
-            const popupContent = `
-                <div class="map-popup">
-                    <strong>${m.title}</strong>
-                    <p style="margin: 5px 0 10px; font-size: 0.8rem; opacity: 0.8;">${m.desc}</p>
-                    ${m.url ? `<a href="${m.url}" class="btn btn-primary btn-sm" style="width: 100%; display: block; text-align: center; color: var(--secondary); text-decoration: none;">View Details</a>` : ''}
-                </div>
-            `;
-            
-            marker.bindPopup(popupContent);
+            marker.bindPopup(`<div class="map-popup"><strong>${m.title}</strong><p style="margin: 5px 0; font-size: 0.8rem; opacity: 0.8;">${m.desc}</p>${m.url ? `<a href="${m.url}" class="btn btn-primary btn-sm">View</a>` : ''}</div>`);
             bounds.push([m.lat, m.lng]);
         });
 
-        if (bounds.length > 0) map.fitBounds(bounds, { padding: [50, 50] });
-        else map.setView([-1.9441, 30.0619], 13);
+        if (bounds.length > 0) {
+            map.fitBounds(bounds, { padding: [50, 50] });
+        } else {
+            map.setView([-1.9441, 30.0619], 13);
+        }
         
-        // Ensure map renders correctly if initialized while hidden/animating
+        // Robust resize handling for animated/hidden containers
+        const resizeObserver = new ResizeObserver(() => {
+            map.invalidateSize();
+        });
+        resizeObserver.observe(container);
+        
         setTimeout(() => map.invalidateSize(), 500);
 
         return map;
@@ -554,3 +559,4 @@ const Components = {
 
 // Auto-run on DOM ready
 document.addEventListener('DOMContentLoaded', () => Components.init());
+window.Components = Components;
