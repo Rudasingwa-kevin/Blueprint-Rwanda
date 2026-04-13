@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Landmark, Instagram, Twitter, Facebook, Mail, Phone, MapPin } from 'lucide-react';
+import { Landmark, Mail, Phone, MapPin, Globe, Share2, MessageCircle } from 'lucide-react';
 
 const Footer: React.FC = () => {
+  const socialLinks = [
+    { Icon: Globe, label: 'Website' },
+    { Icon: MessageCircle, label: 'Contact' },
+    { Icon: Share2, label: 'Social' }
+  ];
+
   return (
     <footer className="bg-text text-surface pt-16 pb-8">
       <div className="container overflow-hidden">
@@ -19,8 +25,8 @@ const Footer: React.FC = () => {
               Your trusted partner for discovering the best of Rwanda. Unforgettable journeys start here.
             </p>
             <div className="flex gap-4">
-              {[Instagram, Twitter, Facebook].map((Icon, i) => (
-                <a key={i} href="#" className="p-2 bg-text-muted/20 border border-text-muted/30 rounded-lg hover:bg-primary hover:text-secondary transition-all">
+              {socialLinks.map(({ Icon, label }, i) => (
+                <a key={i} href="#" aria-label={label} className="p-2 bg-text-muted/20 border border-text-muted/30 rounded-lg hover:bg-primary hover:text-secondary transition-all">
                   <Icon size={20} />
                 </a>
               ))}

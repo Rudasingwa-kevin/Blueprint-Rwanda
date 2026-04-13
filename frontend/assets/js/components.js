@@ -5,37 +5,68 @@
 
 const Components = {
     /**
+     * Determines the active role based on URL context and persistence.
+     */
+    getRole() {
+        const path = window.location.pathname;
+        if (path.includes('admin-')) return 'admin';
+        return localStorage.getItem('userMode') || 'guest';
+    },
+
+    /**
      * Injects the modern Navbar into the top of the body.
      */
     injectNavbar() {
         if (document.body.hasAttribute('data-no-navbar')) return;
         
-        const currentMode = localStorage.getItem('userMode') || 'guest';
-        const dashboardLink = currentMode === 'partner' ? 'partner-dashboard.html' : 'guest-dashboard.html';
-        const modeLabel = currentMode === 'partner' ? 'Switch to Guest' : 'Switch to Partner';
+        const role = this.getRole();
+        const modeLabel = role === 'partner' ? 'Switch to Guest' : 'Switch to Partner';
+        const dashboardLink = role === 'partner' ? 'partner-dashboard.html' : 'guest-dashboard.html';
+        
+        // Define Link Templates
+        let links = '';
+        if (role === 'admin') {
+            links = `
+                <li><a href="admin-dashboard.html" class="${this.isActive('admin-dashboard')}">Overview</a></li>
+                <li><a href="admin-users.html" class="${this.isActive('admin-users')}">Users</a></li>
+                <li><a href="admin-accommodations.html" class="${this.isActive('admin-accommodations')}">Stays</a></li>
+                <li><a href="admin-cars.html" class="${this.isActive('admin-cars')}">Mobility</a></li>
+            `;
+        } else if (role === 'partner') {
+            links = `
+                <li><a href="partner-dashboard.html" class="${this.isActive('partner-dashboard')}">Console</a></li>
+                <li><a href="portfolio.html" class="${this.isActive('portfolio')}">My Portfolio</a></li>
+                <li><a href="user-add-item.html" class="${this.isActive('user-add-item')}">Add Listing</a></li>
+            `;
+        } else {
+            links = `
+                <li><a href="accommodation.html" class="${this.isActive('accommodation')}">Accommodation</a></li>
+                <li><a href="visit.html" class="${this.isActive('visit')}">Place to Visit</a></li>
+                <li><a href="rentcar.html" class="${this.isActive('rentcar')}">Car Rent</a></li>
+                <li><a href="partners.html" class="${this.isActive('partners')}">Partners</a></li>
+            `;
+        }
         
         const navbar = `
             <nav class="navbar fixed-top">
                 <div class="container nav-content">
                     <a href="index.html" class="nav-logo">
                         <div class="logo-icon"><i class="fas fa-landmark"></i></div>
-                        <span>Blueprint Rwanda</span>
+                        <span>Blueprint Rwanda ${role === 'admin' ? '<small style="font-size: 0.6rem; opacity: 0.6; margin-left: 5px;">GOV</small>' : ''}</span>
                     </a>
                     <ul class="nav-links">
-                        <li><a href="accommodation.html" class="${this.isActive('accommodation')}">Accommodation</a></li>
-                        <li><a href="visit.html" class="${this.isActive('visit')}">Place to Visit</a></li>
-                        <li><a href="rentcar.html" class="${this.isActive('rentcar')}">Car Rent</a></li>
-                        <li><a href="partners.html" class="${this.isActive('partners')}">Partners</a></li>
+                        ${links}
                     </ul>
                     <div class="nav-actions">
+                        ${role !== 'admin' ? `
                         <button id="mode-switcher" class="btn btn-secondary btn-sm mode-toggle-btn">
-                            <i class="fas ${currentMode === 'partner' ? 'fa-suitcase' : 'fa-handshake'}"></i>
+                            <i class="fas ${role === 'partner' ? 'fa-suitcase' : 'fa-handshake'}"></i>
                             <span>${modeLabel}</span>
-                        </button>
+                        </button>` : ''}
                         <button id="theme-toggle" class="btn-icon-nav" aria-label="Toggle Theme">
                             <i class="fas fa-moon"></i>
                         </button>
-                        <a href="${dashboardLink}" class="btn btn-primary btn-sm"><i class="fas fa-user-circle"></i> Dashboard</a>
+                        ${role !== 'admin' ? `<a href="${dashboardLink}" class="btn btn-primary btn-sm"><i class="fas fa-user-circle"></i> Dashboard</a>` : ''}
                         <button class="menu-toggle" aria-label="Toggle Menu">
                             <span class="bar"></span>
                             <span class="bar"></span>
@@ -45,13 +76,12 @@ const Components = {
                 </div>
                 <div class="mobile-menu glass">
                     <ul class="mobile-links">
-                        <li><a href="accommodation.html">Accommodation</a></li>
-                        <li><a href="visit.html">Place to Visit</a></li>
-                        <li><a href="rentcar.html">Car Rent</a></li>
-                        <li><a href="partners.html">Partners</a></li>
+                        ${links}
                         <li><button id="theme-toggle-mobile" class="btn btn-secondary w-100 mb-2">Toggle Dark Mode</button></li>
+                        ${role !== 'admin' ? `
                         <li><button id="mode-switcher-mobile" class="btn btn-primary w-100 mb-2">${modeLabel}</button></li>
                         <li><a href="${dashboardLink}" class="btn btn-primary w-100">Go to Dashboard</a></li>
+                        ` : ''}
                     </ul>
                 </div>
             </nav>
@@ -59,7 +89,7 @@ const Components = {
         document.body.insertAdjacentHTML('afterbegin', navbar);
         this.initNavbarLogic();
         this.initThemeToggle();
-        this.initRoleSwitcher();
+        if (role !== 'admin') this.initRoleSwitcher();
     },
 
     /**
@@ -70,7 +100,7 @@ const Components = {
         switchBtns.forEach(btn => {
             if (!btn) return;
             btn.addEventListener('click', () => {
-                const currentMode = localStorage.getItem('userMode') || 'guest';
+                const currentMode = this.getRole();
                 const newMode = currentMode === 'partner' ? 'guest' : 'partner';
                 localStorage.setItem('userMode', newMode);
                 
@@ -86,6 +116,69 @@ const Components = {
      */
     injectFooter() {
         if (document.body.hasAttribute('data-no-footer')) return;
+        const role = this.getRole();
+
+        let footerContent = '';
+        if (role === 'admin') {
+            footerContent = `
+                <div class="footer-links">
+                    <h4>Governance</h4>
+                    <a href="admin-dashboard.html">System Health</a>
+                    <a href="admin-users.html">User Directory</a>
+                    <a href="#">Audit Logs</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Operations</h4>
+                    <a href="admin-accommodations.html">Stay Management</a>
+                    <a href="admin-cars.html">Fleet Management</a>
+                </div>
+                <div class="footer-contact">
+                    <h4>Admin Support</h4>
+                    <p><i class="fas fa-shield-alt"></i> Secure Console</p>
+                    <p><i class="fas fa-terminal"></i> Build v2.4.0</p>
+                </div>
+            `;
+        } else if (role === 'partner') {
+            footerContent = `
+                <div class="footer-links">
+                    <h4>Business</h4>
+                    <a href="partner-dashboard.html">Earnings</a>
+                    <a href="portfolio.html">My Portfolio</a>
+                    <a href="user-add-item.html">List New Service</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <a href="#">Host Guidelines</a>
+                    <a href="faq.html">Partner FAQ</a>
+                    <a href="contact.html">Owner Support</a>
+                </div>
+                <div class="footer-contact">
+                    <h4>Partner Desk</h4>
+                    <p><i class="fas fa-envelope"></i> partners@blueprintrwanda.com</p>
+                </div>
+            `;
+        } else {
+            footerContent = `
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <a href="accommodation.html">Accommodation</a>
+                    <a href="rentcar.html">Car Rentals</a>
+                    <a href="visit.html">Tours & Experiences</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Explore</h4>
+                    <a href="faq.html">FAQ</a>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="team.html">Our Story</a>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-envelope"></i> info@blueprintrwanda.com</p>
+                    <p><i class="fas fa-phone"></i> +250 788 123 456</p>
+                    <p><i class="fas fa-map-marker-alt"></i> KG 123 St, Kigali, Rwanda</p>
+                </div>
+            `;
+        }
 
         const footer = `
             <footer class="footer">
@@ -95,35 +188,18 @@ const Components = {
                             <i class="fas fa-landmark"></i>
                             <span>Blueprint Rwanda</span>
                         </a>
-                        <p>Your trusted partner for discovering the best of Rwanda. Unforgettable journeys start here.</p>
+                        <p>${role === 'admin' ? 'Monitoring the pulse of Rwanda’s premium marketplace.' : 'Your trusted partner for discovering the best of Rwanda.'}</p>
                         <div class="social-links">
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
                         </div>
                     </div>
-                    <div class="footer-links">
-                        <h4>Services</h4>
-                        <a href="accommodation.html">Accommodation</a>
-                        <a href="rentcar.html">Car Rentals</a>
-                        <a href="visit.html">Tours & Experiences</a>
-                    </div>
-                    <div class="footer-links">
-                        <h4>Explore</h4>
-                        <a href="faq.html">FAQ</a>
-                        <a href="contact.html">Contact Us</a>
-                        <a href="team.html">Our Story</a>
-                    </div>
-                    <div class="footer-contact">
-                        <h4>Contact</h4>
-                        <p><i class="fas fa-envelope"></i> info@blueprintrwanda.com</p>
-                        <p><i class="fas fa-phone"></i> +250 788 123 456</p>
-                        <p><i class="fas fa-map-marker-alt"></i> KG 123 St, Kigali, Rwanda</p>
-                    </div>
+                    ${footerContent}
                 </div>
                 <div class="footer-bottom">
                     <div class="container footer-bottom-content">
-                        <p>&copy; 2026 Blueprint Rwanda. All Rights Reserved.</p>
+                        <p>&copy; 2026 Blueprint Rwanda. ${role === 'admin' ? 'Administrative Access Only.' : 'All Rights Reserved.'}</p>
                         <div class="legal-links">
                             <a href="#">Privacy Policy</a>
                             <a href="#">Terms of Service</a>
@@ -250,7 +326,7 @@ const Components = {
             return;
         }
 
-        const map = L.map(containerId).setView([-1.9441, 30.0619], 13); // Default Kigali
+        const map = L.map(containerId).setView([-1.9441, 30.0619], 12); 
 
         L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -258,22 +334,37 @@ const Components = {
         }).addTo(map);
 
         const customIcon = L.divIcon({
-            className: 'custom-marker',
-            html: `<div style="width: 30px; height: 30px; background: var(--primary); border: 3px solid var(--white); border-radius: 50%; box-shadow: var(--shadow-md);"></div>`,
-            iconSize: [30, 30],
-            iconAnchor: [15, 15]
+            className: 'premium-marker',
+            html: `
+                <div class="marker-pulse"></div>
+                <div class="marker-core"></div>
+            `,
+            iconSize: [40, 40],
+            iconAnchor: [20, 20]
         });
 
         const bounds = [];
         markers.forEach(m => {
-            L.marker([m.lat, m.lng], { icon: customIcon })
-                .addTo(map)
-                .bindPopup(`<strong>${m.title}</strong><br>${m.desc}`);
+            const marker = L.marker([m.lat, m.lng], { icon: customIcon }).addTo(map);
+            
+            const popupContent = `
+                <div class="map-popup">
+                    <strong>${m.title}</strong>
+                    <p style="margin: 5px 0 10px; font-size: 0.8rem; opacity: 0.8;">${m.desc}</p>
+                    ${m.url ? `<a href="${m.url}" class="btn btn-primary btn-sm" style="width: 100%; display: block; text-align: center; color: var(--secondary); text-decoration: none;">View Details</a>` : ''}
+                </div>
+            `;
+            
+            marker.bindPopup(popupContent);
             bounds.push([m.lat, m.lng]);
         });
 
         if (bounds.length > 0) map.fitBounds(bounds, { padding: [50, 50] });
+        else map.setView([-1.9441, 30.0619], 13);
         
+        // Ensure map renders correctly if initialized while hidden/animating
+        setTimeout(() => map.invalidateSize(), 500);
+
         return map;
     },
 

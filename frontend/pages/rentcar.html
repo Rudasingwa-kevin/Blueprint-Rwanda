@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="../assets/css/listings.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 <body>
     <!-- Hero -->
@@ -106,6 +107,29 @@
         "addressCountry": "RW"
       }
     }
+    </script>
+    <!-- Map Discovery -->
+    <section class="container map-discovery" data-animate>
+        <div class="section-title">
+            <h2 style="margin-bottom: 2rem;">Hub Roadmap</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-muted);">Pick up your premium vehicle from our strategic hubs across the country.</p>
+        </div>
+        <div id="listing-map" class="card" style="height: 400px;"></div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.Components && window.Components.initMap) {
+                window.Components.initMap('listing-map', [
+                    { lat: -1.9631, lng: 30.1331, title: "Kigali Intl Airport", desc: "Main Gateway Pick-up" },
+                    { lat: -1.9441, lng: 30.0619, title: "Downtown Hub", desc: "Kiyovu Executive Office" },
+                    { lat: -1.5011, lng: 29.6331, title: "Musanze Hub", desc: "Northern Province Station" }
+                ]);
+            }
+        });
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {

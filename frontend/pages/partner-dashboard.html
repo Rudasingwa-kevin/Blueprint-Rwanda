@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="../assets/css/admin.css"> <!-- Reusing admin utilities for governance -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <style>
         .partner-main {
             padding-top: 140px;
@@ -182,25 +183,28 @@
                     <canvas id="partnerRevenueChart" height="250"></canvas>
                 </div>
 
-                <div class="card" style="padding: 2rem; margin-top: 2rem;" data-animate style="transition-delay: 0.3s;">
-                    <h3>Operator Tips</h3>
-                    <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
-                        <div style="display: flex; gap: 1rem; align-items: flex-start;">
-                            <i class="fas fa-lightbulb" style="color: var(--secondary); margin-top: 3px;"></i>
-                            <p style="font-size: 0.85rem;">Properties with professional photos get **3x more bookings**.</p>
-                        </div>
-                        <div style="display: flex; gap: 1rem; align-items: flex-start;">
-                            <i class="fas fa-clock" style="color: var(--secondary); margin-top: 3px;"></i>
-                            <p style="font-size: 0.85rem;">Response time under **1 hour** improves your search ranking.</p>
-                        </div>
-                    </div>
+                <div class="card" style="padding: 2rem; margin-top: 2rem;" data-animate style="transition-delay: 0.4s;">
+                    <h3><i class="fas fa-satellite-dish" style="color: var(--primary); margin-right: 0.75rem;"></i>Portfolio Footprint</h3>
+                    <div id="asset-map" style="height: 250px; border-radius: var(--radius-md); margin-top: 1rem;"></div>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem;">Geographic distribution of your managed assets.</p>
                 </div>
             </aside>
         </div>
     </main>
 
     <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="../assets/js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.Components && window.Components.initMap) {
+                window.Components.initMap('asset-map', [
+                    { lat: -1.9441, lng: 30.0619, title: "Skyline Penthouse", desc: "Live · Kigali" },
+                    { lat: -1.9501, lng: 30.0588, title: "Executive Sedan", desc: "Available · Kigali Downtown" }
+                ]);
+            }
+        });
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const ctx = document.getElementById('partnerRevenueChart').getContext('2d');

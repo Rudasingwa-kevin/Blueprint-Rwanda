@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="../assets/css/listings.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 <body>
     <!-- Hero Header -->
@@ -123,9 +124,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const markers = [
-                { lat: -1.9441, lng: 30.0619, title: "Skyline Penthouse", desc: "Luxury Urban Stay" },
-                { lat: -1.5011, lng: 29.6331, title: "Silverback Lodge", desc: "Mountain Experience" },
-                { lat: -1.6917, lng: 29.2558, title: "Blue Water Sanctuary", desc: "Lakeside Bliss" }
+                { lat: -1.9441, lng: 30.0619, title: "Skyline Penthouse", desc: "Luxury Urban Stay", url: 'item-details.html' },
+                { lat: -1.5011, lng: 29.6331, title: "Silverback Lodge", desc: "Mountain Experience", url: 'item-details.html' },
+                { lat: -1.6917, lng: 29.2558, title: "Blue Water Sanctuary", desc: "Lakeside Bliss", url: 'item-details.html' }
             ];
             
             // Wait slightly for Components to init if necessary, or just run

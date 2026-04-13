@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="../assets/css/listings.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 <body>
     <!-- Hero -->
@@ -108,9 +109,9 @@
         document.addEventListener('DOMContentLoaded', () => {
             if (window.Components && window.Components.initMap) {
                 window.Components.initMap('listing-map', [
-                    { lat: -1.5032, lng: 29.6338, title: "Volcanoes NP", desc: "Gorilla Trekking" },
-                    { lat: -1.6917, lng: 29.2558, title: "Lake Kivu", desc: "Island Hopping" },
-                    { lat: -2.4833, lng: 29.2333, title: "Nyungwe Forest", desc: "Canopy Adventure" }
+                    { lat: -1.5032, lng: 29.6338, title: "Volcanoes NP", desc: "Gorilla Trekking", url: 'item-details.html' },
+                    { lat: -1.6917, lng: 29.2558, title: "Lake Kivu", desc: "Island Hopping", url: 'item-details.html' },
+                    { lat: -2.4833, lng: 29.2333, title: "Nyungwe Forest", desc: "Canopy Adventure", url: 'item-details.html' }
                 ]);
             }
         });

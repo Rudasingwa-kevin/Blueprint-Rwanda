@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 <body>
     <main class="admin-main container">
@@ -55,6 +56,15 @@
                 <div class="trend up"><i class="fas fa-arrow-up"></i> 18% Revenue Surge</div>
             </div>
         </div>
+
+        <!-- Global Operations Map -->
+        <section class="admin-map-section card" data-animate style="margin-bottom: var(--space-md); padding: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3>Global Operations Map</h3>
+                <span class="status-pill status-active" style="font-size: 0.7rem;">Live Asset Tracking</span>
+            </div>
+            <div id="admin-global-map" style="height: 400px; border-radius: var(--radius-md);"></div>
+        </section>
 
         <div class="admin-data-grid">
             <!-- Recent Activity -->
@@ -101,7 +111,20 @@
     </main>
 
     <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="../assets/js/components.js"></script>
+    <!-- Search Logic Injection -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.Components && window.Components.initMap) {
+                window.Components.initMap('admin-global-map', [
+                    { lat: -1.9441, lng: 30.0619, title: "Kigali Operations", desc: "Heavy Activity · 242 Assets", url: 'admin-accommodations.html' },
+                    { lat: -1.5011, lng: 29.6331, title: "Northern Province", desc: "Moderate Activity · 84 Assets", url: 'admin-places.html' },
+                    { lat: -1.6917, lng: 29.2558, title: "Western Frontier", desc: "Growing Sector · 56 Assets", url: 'admin-cars.html' }
+                ]);
+            }
+        });
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Chart.js implementation
