@@ -23,9 +23,17 @@ const Components = {
         const modeLabel = role === 'partner' ? 'Switch to Guest' : 'Switch to Partner';
         const dashboardLink = role === 'partner' ? 'partner-dashboard.html' : 'guest-dashboard.html';
         
+        const isPublic = document.body.getAttribute('data-perspective') === 'public';
+        
         // Define Link Templates
         let links = '';
-        if (role === 'admin') {
+        if (isPublic) {
+            links = `
+                <li><a href="index.html" class="${this.isActive('index')}">Home</a></li>
+                <li><a href="team.html" class="${this.isActive('team')}">Our Vision</a></li>
+                <li><a href="partners.html" class="${this.isActive('partners')}">Our Partners</a></li>
+            `;
+        } else if (role === 'admin') {
             links = `
                 <li><a href="admin-dashboard.html" class="${this.isActive('admin-dashboard')}">Overview</a></li>
                 <li><a href="admin-users.html" class="${this.isActive('admin-users')}">Users</a></li>
@@ -58,15 +66,17 @@ const Components = {
                         ${links}
                     </ul>
                     <div class="nav-actions">
-                        ${role !== 'admin' ? `
+                        ${(!isPublic && role !== 'admin') ? `
                         <button id="mode-switcher" class="btn btn-secondary btn-sm mode-toggle-btn">
                             <i class="fas ${role === 'partner' ? 'fa-suitcase' : 'fa-handshake'}"></i>
-                            <span>${modeLabel}</span>
+                            <span class="btn-label">${modeLabel}</span>
                         </button>` : ''}
                         <button id="theme-toggle" class="btn-icon-nav" aria-label="Toggle Theme">
                             <i class="fas fa-moon"></i>
                         </button>
-                        ${role !== 'admin' ? `<a href="${dashboardLink}" class="btn btn-primary btn-sm"><i class="fas fa-user-circle"></i> Dashboard</a>` : ''}
+                        ${isPublic ? `
+                            <a href="login.html" class="btn btn-primary btn-sm"><i class="fas fa-sign-in-alt"></i><span class="btn-label"> Join</span></a>
+                        ` : (role !== 'admin' ? `<a href="${dashboardLink}" class="btn btn-primary btn-sm"><i class="fas fa-user-circle"></i><span class="btn-label"> Dashboard</span></a>` : '')}
                         <button class="menu-toggle" aria-label="Toggle Menu">
                             <span class="bar"></span>
                             <span class="bar"></span>
@@ -78,10 +88,12 @@ const Components = {
                     <ul class="mobile-links">
                         ${links}
                         <li><button id="theme-toggle-mobile" class="btn btn-secondary w-100 mb-2">Toggle Dark Mode</button></li>
-                        ${role !== 'admin' ? `
-                        <li><button id="mode-switcher-mobile" class="btn btn-primary w-100 mb-2">${modeLabel}</button></li>
-                        <li><a href="${dashboardLink}" class="btn btn-primary w-100">Go to Dashboard</a></li>
-                        ` : ''}
+                        ${isPublic ? `
+                            <li><a href="login.html" class="btn btn-primary w-100">Join the Ecosystem</a></li>
+                        ` : (role !== 'admin' ? `
+                            <li><button id="mode-switcher-mobile" class="btn btn-primary w-100 mb-2">${modeLabel}</button></li>
+                            <li><a href="${dashboardLink}" class="btn btn-primary w-100">Go to Dashboard</a></li>
+                        ` : '')}
                     </ul>
                 </div>
             </nav>
@@ -116,10 +128,30 @@ const Components = {
      */
     injectFooter() {
         if (document.body.hasAttribute('data-no-footer')) return;
+        const isPublic = document.body.getAttribute('data-perspective') === 'public';
         const role = this.getRole();
 
         let footerContent = '';
-        if (role === 'admin') {
+        if (isPublic) {
+            footerContent = `
+                <div class="footer-links">
+                    <h4>Blueprint Ecosystem</h4>
+                    <a href="team.html">Our Vision</a>
+                    <a href="partners.html">Partners</a>
+                    <a href="login.html">Join Us</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <a href="faq.html">FAQ</a>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+                <div class="footer-contact">
+                    <h4>Blueprint HQ</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Kigali, Rwanda</p>
+                    <p><i class="fas fa-envelope"></i> info@blueprint.rw</p>
+                </div>
+            `;
+        } else if (role === 'admin') {
             footerContent = `
                 <div class="footer-links">
                     <h4>Governance</h4>
@@ -328,10 +360,21 @@ const Components = {
         // Check if map is already initialized to prevent errors
         if (container._leaflet_id) return;
         
-        // Ensure Leaflet is loaded
+        // Ensure Leaflet is loaded (with a small retry logic for injected scripts)
         if (typeof L === 'undefined') {
-            console.error('Leaflet is required for maps, but the script failed to load.');
-            container.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--error);">Failed to load map engine (Leaflet).</div>';
+            let retries = 0;
+            const maxRetries = 10;
+            const retryInterval = setInterval(() => {
+                if (typeof L !== 'undefined') {
+                    clearInterval(retryInterval);
+                    this.initMap(containerId, markers);
+                } else if (retries >= maxRetries) {
+                    clearInterval(retryInterval);
+                    console.error('Leaflet is required for maps, but the script failed to load.');
+                    container.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--error);">Failed to load map engine (Leaflet).</div>';
+                }
+                retries++;
+            }, 100);
             return;
         }
 
@@ -545,6 +588,13 @@ const Components = {
             fa.rel = 'stylesheet';
             fa.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
             document.head.appendChild(fa);
+        }
+
+        // Add Leaflet JS if not present
+        if (!document.querySelector('script[src*="leaflet"]')) {
+            const ljs = document.createElement('script');
+            ljs.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+            document.head.appendChild(ljs);
         }
 
         // Add Leaflet CSS if not present

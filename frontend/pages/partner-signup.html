@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stakeholder Registration - Blueprint Rwanda</title>
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/ui-system.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <style>
+        .auth-split {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--bg);
+        }
+
+        .auth-visual {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1200');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: var(--space-lg);
+            color: var(--white);
+        }
+
+        .auth-form-container {
+            display: flex;
+            align-items: flex-start; /* Fixes top cutoff on scroll */
+            justify-content: center;
+            padding: 4rem 2rem;
+            overflow-y: auto;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 480px;
+            padding: var(--space-md) 0;
+        }
+
+        .auth-header {
+            margin-bottom: 2rem;
+        }
+
+        .auth-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.85rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background: var(--white);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        @media (max-width: 900px) {
+            .auth-split {
+                grid-template-columns: 1fr;
+            }
+            .auth-visual {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body data-no-navbar data-no-footer>
+    <main class="auth-split">
+        <!-- Form Side -->
+        <div class="auth-form-container">
+            <div class="auth-card" data-animate>
+                <!-- Portal Toggle -->
+                <div style="display: flex; background: var(--bg); border: 1px solid var(--border); border-radius: 50px; padding: 0.25rem; margin-bottom: 2rem; width: fit-content; gap: 0.25rem;">
+                    <a href="signup.html" style="padding: 0.5rem 1.5rem; border-radius: 50px; color: var(--text-muted); font-weight: 700; text-decoration: none; font-size: 0.8rem; text-transform: uppercase; transition: var(--transition);">Guest Portal</a>
+                    <a href="partner-signup.html" style="padding: 0.5rem 1.5rem; border-radius: 50px; background: var(--primary); color: var(--white); font-weight: 700; text-decoration: none; font-size: 0.8rem; text-transform: uppercase; box-shadow: var(--shadow-sm);">Partner Portal</a>
+                </div>
+
+                <div class="auth-header">
+                    <img src="../assets/Images/Branding/title-logo.png" alt="Logo" style="height: 100px; margin-bottom: 1.5rem; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1));">
+                    <h1 class="gradient-text">Register Business</h1>
+                    <p style="color: var(--text-muted);">List properties and scale your operations with Blueprint.</p>
+                </div>
+
+                <form class="auth-form" action="verification.html">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label>Business Name</label>
+                            <input type="text" class="form-control" placeholder="Company Ltd" required>
+                        </div>
+                        <div class="form-group">
+                            <label>RDB Registration No.</label>
+                            <input type="text" class="form-control" placeholder="10XXXXXX" required>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label>Business Email</label>
+                            <input type="email" class="form-control" placeholder="info@company.rw" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Number</label>
+                            <input type="tel" class="form-control" placeholder="+250 788 000 000" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Physical Location</label>
+                        <input type="text" class="form-control" placeholder="Kigali, Rwanda" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Business Type</label>
+                        <select class="form-control">
+                            <option>Property Owner (Real Estate/Hotel)</option>
+                            <option>Mobility & Logistics</option>
+                            <option>Experience & Tour Operator</option>
+                            <option>Corporate Partner</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Secret Key</label>
+                        <input type="password" class="form-control" placeholder="Minimum 12 characters" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Business Registration / ID <span style="text-transform: none; color: var(--text-muted); font-weight: 500;">(Optional)</span></label>
+                        <input type="file" class="form-control" style="padding: 0.65rem;" accept=".pdf,.jpg,.jpeg,.png">
+                        <small style="display: block; margin-top: 0.25rem; font-size: 0.7rem; color: var(--text-muted);">Provide additional documentation to expedite verification.</small>
+                    </div>
+
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 2rem;">
+                        By registering, you agree to our <a href="#" style="color: var(--primary); font-weight: 700;">Protocols</a> and <a href="#" style="color: var(--primary); font-weight: 700;">Data Standards</a>.
+                    </p>
+
+                    <button type="submit" class="btn btn-primary w-100" style="width: 100%;">Initiate Registration</button>
+                    
+                    <div style="margin-top: 2rem; text-align: center; color: var(--text-muted);">
+                        Existing Partner? <a href="partner-login.html" style="color: var(--primary); font-weight: 800;">Authorize Access</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Visual Side -->
+        <div class="auth-visual">
+            <div data-animate>
+                <div style="font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 1rem; color: var(--secondary);">Blueprint Vision</div>
+                <h2 style="font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem;">Empowering Your Growth.</h2>
+                <p style="font-size: 1.25rem; opacity: 0.9; max-width: 500px;">Join an exclusive network of high-performing assets and providers in Rwanda.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script>
+        document.querySelector('.auth-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Simulate successful registration
+            localStorage.setItem('userMode', 'partner');
+            Components.showToast('Partner Registration Successful', 'success');
+            
+            setTimeout(() => {
+                location.href = 'partner-pending.html';
+            }, 800);
+        });
+    </script>
+</body>
+</html>

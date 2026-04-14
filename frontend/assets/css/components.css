@@ -371,6 +371,52 @@
         gap: 1rem;
     }
 }
+
+/* ── Mobile Navbar: prevent header collision on phones ───────────────── */
+@media (max-width: 768px) {
+    .nav-content {
+        padding: 0 var(--space-sm);
+    }
+
+    .nav-actions {
+        gap: 0.5rem;
+    }
+
+    /* Shrink logo image on mobile */
+    .nav-logo img {
+        height: 42px !important;
+    }
+
+    /* On medium-small screens, hide button text – keep only icon */
+    .nav-actions .btn-label,
+    .mode-toggle-btn .btn-label {
+        display: none;
+    }
+
+    /* Tighten primary/secondary nav buttons so they don't push hamburger off */
+    .nav-actions .btn {
+        padding: 0.45rem 0.65rem;
+        min-width: unset;
+    }
+
+    /* Hide the mode-switcher text on small screens */
+    .mode-toggle-btn {
+        padding: 0.45rem 0.65rem;
+        gap: 0;
+    }
+}
+
+@media (max-width: 450px) {
+    /* Hide the "Blueprint Rwanda" wordmark next to the logo icon */
+    .nav-logo > span {
+        display: none;
+    }
+
+    /* Give a tiny bit more breathing room to the hamburger */
+    .menu-toggle {
+        margin-left: 0.25rem;
+    }
+}
 /* Advanced Interaction Components */
 .card-image, .service-img, .listing-img, .visit-img, .featured-image {
     position: relative;

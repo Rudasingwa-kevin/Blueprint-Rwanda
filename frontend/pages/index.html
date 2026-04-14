@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,10 +27,9 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.5;
-            z-index: 1;
-            /* Gradient overlay for text readability */
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=1920&fm=webp');
+            z-index: 2;
+            /* Gradient overlay for text readability - now over the video */
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
             background-size: cover;
             background-position: center;
         }
@@ -42,7 +42,7 @@
             height: 100%;
             object-fit: cover;
             z-index: 1;
-            opacity: 0.6;
+            opacity: 1;
         }
 
         .hero-content {
@@ -113,39 +113,42 @@
         }
     </style>
 </head>
-<body data-no-navbar data-no-footer>
+
+<body data-perspective="public">
     <section class="hero">
         <!-- High-end video background (fallback to css image if missing) -->
         <div class="hero-bg"></div>
         <video autoplay loop muted playsinline class="hero-video">
-            <source src="Visit Rwanda Soon.mp4" type="video/mp4">
+            <source src="../assets/Images/Branding/Visit Rwanda Soon.mp4" type="video/mp4">
         </video>
 
         <div class="hero-content" data-animate>
             <div style="margin-bottom: 2rem;">
-                <img src="../assets/Images/Branding/title-logo.png" alt="Logo" style="height: 140px; margin-bottom: 2rem; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1));">
-                <p class="hero-subtitle">Engineering Excellence in Rwanda</p>
+                <img src="../assets/Images/Branding/title-logo.png" alt="Logo"
+                    style="height: 140px; margin-bottom: 2rem; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1));">
                 <h1 class="hero-title gradient-text">Blueprint Rwanda</h1>
-                <p style="font-size: 1.25rem; max-width: 600px; margin: 0 auto 3rem; opacity: 0.8;">Your gateway to high-end hospitality, strategic mobility, and curated Rwandan experiences.</p>
-                
+                <p style="font-size: 1.25rem; max-width: 600px; margin: 0 auto 3rem; opacity: 0.8;">Your gateway to
+                    high-end hospitality, strategic mobility, and curated Rwandan experiences.</p>
+
                 <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="accommodation.html" class="btn btn-primary" style="padding: 1rem 3rem;">Start Exploring</a>
-                    <a href="partner-dashboard.html" class="btn btn-secondary" style="padding: 1rem 3rem;">View Portfolio</a>
+                    <a href="login.html" class="btn btn-primary" style="padding: 1rem 3rem;">Start Exploring</a>
+                    <a href="team.html" class="btn btn-secondary" style="padding: 1rem 3rem;">View
+                        Portfolio</a>
                 </div>
             </div>
 
             <div class="discover-grid" data-animate style="transition-delay: 0.2s;">
-                <div class="discover-card" onclick="location.href='accommodation.html'">
+                <div class="discover-card" onclick="location.href='login.html'">
                     <i class="fas fa-hotel"></i>
                     <h3>Stays</h3>
                     <p>Curated luxury clusters.</p>
                 </div>
-                <div class="discover-card" onclick="location.href='visit.html'">
+                <div class="discover-card" onclick="location.href='login.html'">
                     <i class="fas fa-mountain"></i>
                     <h3>Places</h3>
                     <p>Heritage & Culture.</p>
                 </div>
-                <div class="discover-card" onclick="location.href='rentcar.html'">
+                <div class="discover-card" onclick="location.href='login.html'">
                     <i class="fas fa-car-side"></i>
                     <h3>Mobility</h3>
                     <p>Premium fleet access.</p>
@@ -167,4 +170,5 @@
         });
     </script>
 </body>
+
 </html>

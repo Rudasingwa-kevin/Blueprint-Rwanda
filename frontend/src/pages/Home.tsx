@@ -17,7 +17,7 @@ const Home: React.FC = () => {
             playsInline 
             className="w-full h-full object-cover scale-105"
           >
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-mountain-landscape-4028-large.mp4" type="video/mp4" />
+            <source src="/assets/Images/Branding/Visit Rwanda Soon.mp4" type="video/mp4" />
           </video>
         </div>
 

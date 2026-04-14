@@ -10,20 +10,33 @@
     <link rel="stylesheet" href="../assets/css/components.css">
     <style>
         .contact-hero {
-            padding-top: 200px;
-            padding-bottom: var(--space-lg);
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1577412647305-991150c7d163?auto=format&fit=crop&q=80&w=1920');
+            padding-top: 250px;
+            padding-bottom: 180px;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1920');
             background-size: cover;
             background-position: center;
             color: var(--white);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(transparent, var(--bg));
+            pointer-events: none;
         }
 
         .contact-section {
             display: grid;
             grid-template-columns: 1fr 1.5fr;
             gap: 4rem;
-            margin-top: -80px;
+            margin-top: -120px;
             margin-bottom: var(--space-lg);
             position: relative;
             z-index: 10;
@@ -36,43 +49,83 @@
         }
 
         .premium-info-card {
-            padding: 2.5rem;
+            padding: 3rem;
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             align-items: center;
-            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
         .premium-info-card:hover {
-            transform: translateX(10px);
+            transform: translateX(10px) translateY(-5px);
             border-color: var(--primary);
+            background: var(--white);
         }
 
         .info-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-gold);
-            color: var(--white);
-            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            background: var(--primary);
+            color: var(--secondary);
+            border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             flex-shrink: 0;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 10px 20px rgba(160, 82, 45, 0.3);
+            transition: var(--transition);
+        }
+
+        .premium-info-card:hover .info-icon {
+            transform: rotate(-10deg) scale(1.1);
+            background: var(--primary-dark);
         }
 
         .contact-form-panel {
-            padding: 4rem;
+            padding: 5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(160, 82, 45, 0.1);
+        }
+
+        .form-control-premium {
+            width: 100%;
+            padding: 1.4rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .form-control-premium:focus {
+            background: var(--white);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(160, 82, 45, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .decorative-blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(160, 82, 45, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(40px);
         }
 
         .map-wrapper {
-            height: 500px;
+            height: 600px;
             border-radius: var(--radius-lg);
             overflow: hidden;
             margin-bottom: var(--space-lg);
             border: 1px solid var(--border);
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-lg);
         }
 
         @media (max-width: 992px) {
@@ -81,87 +134,99 @@
                 margin-top: 2rem;
             }
             .contact-form-panel {
-                padding: 2.5rem;
+                padding: 3rem;
+            }
+            .contact-hero {
+                padding-top: 150px;
+                padding-bottom: 100px;
             }
         }
     </style>
 </head>
-<body>
+<body data-perspective="public">
     <main>
         <section class="contact-hero">
             <div class="container" data-animate>
-                <div style="font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 1.5rem; color: var(--secondary);">Blueprint Communications</div>
-                <h1 style="font-size: clamp(3rem, 8vw, 5rem); line-height: 1; margin-bottom: 2rem;">Initiate Connection.</h1>
-                <p style="font-size: 1.25rem; max-width: 700px; margin: 0 auto; opacity: 0.9; font-weight: 300;">Our executive team is ready to synchronize with your Rwandan objectives. Reach out for strategic inquiries and elite stays.</p>
+                <div style="font-size: 0.9rem; font-weight: 800; text-transform: uppercase; letter-spacing: 6px; margin-bottom: 2rem; color: var(--secondary); opacity: 0.8;">Executive Communications</div>
+                <h1 style="font-size: clamp(3.5rem, 10vw, 6rem); line-height: 0.9; margin-bottom: 2.5rem; font-weight: 800; letter-spacing: -2px;">Initiate<br><span class="gradient-text">Connection.</span></h1>
+                <p style="font-size: 1.4rem; max-width: 700px; margin: 0 auto; opacity: 0.9; font-weight: 300; line-height: 1.6;">Our strategic team is synchronized and ready to facilitate your Rwandan objectives. Reach out for elite inquiries.</p>
             </div>
         </section>
 
-        <section class="container contact-section">
-            <!-- Left Side: Info -->
-            <div class="contact-info-panel" data-animate>
-                <div class="card glass premium-info-card">
-                    <div class="info-icon"><i class="fas fa-map-marked-alt"></i></div>
-                    <div>
-                        <h4 style="font-size: 1.2rem; color: var(--primary); margin-bottom: 0.5rem;">Corporate Headquarters</h4>
-                        <p style="color: var(--text-muted); font-size: 0.95rem;">Kigali Heights, Level 4<br>KG 7 Ave, Kigali Executive District</p>
-                    </div>
-                </div>
+        <section class="container" style="position: relative;">
+            <div class="decorative-blob" style="top: -100px; left: -200px;"></div>
+            <div class="decorative-blob" style="bottom: -200px; right: -200px; background: radial-gradient(circle, rgba(212, 163, 115, 0.1) 0%, transparent 70%);"></div>
 
-                <div class="card glass premium-info-card" style="transition-delay: 0.1s;">
-                    <div class="info-icon"><i class="fas fa-phone-office"></i></div>
-                    <div>
-                        <h4 style="font-size: 1.2rem; color: var(--primary); margin-bottom: 0.5rem;">Global Relations</h4>
-                        <p style="color: var(--text-muted); font-size: 0.95rem;">+250 788 000 000<br>Standard Operating Hours: 0800 - 1800 CAT</p>
-                    </div>
-                </div>
-
-                <div class="card glass premium-info-card" style="transition-delay: 0.2s;">
-                    <div class="info-icon"><i class="fas fa-satellite"></i></div>
-                    <div>
-                        <h4 style="font-size: 1.2rem; color: var(--primary); margin-bottom: 0.5rem;">Digital Synthesis</h4>
-                        <p style="color: var(--text-muted); font-size: 0.95rem;">info@blueprint.rw<br>Response Target: < 4 Operational Hours</p>
-                    </div>
-                </div>
-
-                <div class="card" style="padding: 2rem; border-left: 5px solid var(--primary); background: var(--surface);">
-                    <p style="font-style: italic; font-weight: 500; color: var(--text-muted);">"Excellence is not an act, but a habit of discipline. We apply this rigor to every inquiry we receive."</p>
-                </div>
-            </div>
-
-            <!-- Right Side: Form -->
-            <div class="card glass contact-form-panel" data-animate style="transition-delay: 0.2s;">
-                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;" class="gradient-text">Electronic Inquiry</h2>
-                <p style="margin-bottom: 3rem; color: var(--text-muted);">Formulate your request and our appropriate department will acknowledge shortly.</p>
-                
-                <form id="contactForm" style="display: flex; flex-direction: column; gap: 2rem;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); display: block; margin-bottom: 0.75rem;">Identity</label>
-                            <input type="text" style="width: 100%; padding: 1.2rem; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--white);" placeholder="Your Full Name" required>
-                        </div>
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); display: block; margin-bottom: 0.75rem;">Digital Address</label>
-                            <input type="email" style="width: 100%; padding: 1.2rem; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--white);" placeholder="email@example.com" required>
+            <div class="contact-section">
+                <!-- Left Side: Info -->
+                <div class="contact-info-panel" data-animate>
+                    <div class="card glass premium-info-card">
+                        <div class="info-icon"><i class="fas fa-map-marked-alt"></i></div>
+                        <div>
+                            <h4 style="font-size: 1.35rem; color: var(--primary); margin-bottom: 0.5rem; letter-spacing: -0.5px;">Corporate Headquarters</h4>
+                            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.5;">Kigali Heights, Level 4<br>KG 7 Ave, Kigali Executive District</p>
                         </div>
                     </div>
 
-                    <div class="form-group" style="margin-bottom: 0;">
-                        <label style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); display: block; margin-bottom: 0.75rem;">Inquiry Subject</label>
-                        <select style="width: 100%; padding: 1.2rem; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--white);">
-                            <option>Premium Stays & Accommodation</option>
-                            <option>Elite Fleet & Mobility</option>
-                            <option>Strategic Partnerships</option>
-                            <option>Ecosystem Management</option>
-                        </select>
+                    <div class="card glass premium-info-card" style="transition-delay: 0.1s;">
+                        <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div>
+                            <h4 style="font-size: 1.35rem; color: var(--primary); margin-bottom: 0.5rem; letter-spacing: -0.5px;">Global Relations</h4>
+                            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.5;">+250 788 000 000<br>08:00 - 18:00 CAT (Mon-Fri)</p>
+                        </div>
                     </div>
 
-                    <div class="form-group" style="margin-bottom: 0;">
-                        <label style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); display: block; margin-bottom: 0.75rem;">Narrative</label>
-                        <textarea style="width: 100%; padding: 1.2rem; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--white); min-height: 200px;" placeholder="Detail your operational requirements..." required></textarea>
+                    <div class="card glass premium-info-card" style="transition-delay: 0.2s;">
+                        <div class="info-icon"><i class="fas fa-satellite-dish"></i></div>
+                        <div>
+                            <h4 style="font-size: 1.35rem; color: var(--primary); margin-bottom: 0.5rem; letter-spacing: -0.5px;">Digital Synthesis</h4>
+                            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.5;">info@blueprint.rw<br>Response Target: < 4 Hours</p>
+                        </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary" style="padding: 1.2rem;">Transmit Inquiry</button>
-                </form>
+                    <div class="card" style="padding: 3rem; border-left: 8px solid var(--primary); background: var(--surface); box-shadow: var(--shadow-md);">
+                        <p style="font-style: italic; font-size: 1.15rem; font-weight: 500; color: var(--text-muted); line-height: 1.6;">"Excellence is not an act, but a habit of discipline. We apply this rigor to every strategic inquiry we receive."</p>
+                    </div>
+                </div>
+
+                <!-- Right Side: Form -->
+                <div class="card glass contact-form-panel" data-animate style="transition-delay: 0.2s;">
+                    <h2 style="font-size: 3rem; margin-bottom: 1rem; letter-spacing: -1px;" class="gradient-text">Electronic Inquiry</h2>
+                    <p style="margin-bottom: 3.5rem; color: var(--text-muted); font-size: 1.1rem;">Formulate your request below, and our specialized department will acknowledge your inquiry shortly.</p>
+                    
+                    <form id="contactForm" style="display: flex; flex-direction: column; gap: 2.5rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label style="font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: var(--primary); display: block; margin-bottom: 1rem; opacity: 0.7;">Full Identity</label>
+                                <input type="text" class="form-control-premium" placeholder="e.g. Jean-Luc Bizimana" required>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label style="font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: var(--primary); display: block; margin-bottom: 1rem; opacity: 0.7;">Digital Address</label>
+                                <input type="email" class="form-control-premium" placeholder="name@domain.com" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label style="font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: var(--primary); display: block; margin-bottom: 1rem; opacity: 0.7;">Inquiry Objective</label>
+                            <select class="form-control-premium" style="appearance: none;">
+                                <option>Premium Stays & Accommodation</option>
+                                <option>Elite Fleet & Mobility</option>
+                                <option>Strategic Partnerships</option>
+                                <option>Ecosystem Management</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label style="font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: var(--primary); display: block; margin-bottom: 1rem; opacity: 0.7;">Detailed Narrative</label>
+                            <textarea class="form-control-premium" style="min-height: 180px;" placeholder="Describe your operational requirements in detail..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="padding: 1.5rem; font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase;">
+                            <span>Transmit Inquiry</span>
+                            <i class="fas fa-paper-plane" style="margin-left: 10px; font-size: 0.9rem;"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
         </section>
 
