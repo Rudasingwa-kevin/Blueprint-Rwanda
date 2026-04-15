@@ -3,142 +3,492 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Confirmed - Blueprint Rwanda</title>
-    <!-- Icons -->
+    <title>Booking Confirmed — Blueprint Rwanda</title>
+    <meta name="description" content="Your Blueprint Rwanda reservation is confirmed. View your booking details and receipt.">
     <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
-    <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .confirmation-main {
-            padding-top: 100px;
-            padding-bottom: var(--space-lg);
+        /* ── Page ────────────────────────────────────── */
+        .confirm-main {
+            min-height: 100vh;
+            padding: 100px 0 var(--space-lg);
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            min-height: 90vh;
+            justify-content: flex-start;
         }
 
-        .receipt-card {
-            max-width: 500px;
+        /* ── Step Bar ────────────────────────────────── */
+        .flow-steps {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin-bottom: 3rem;
             width: 100%;
-            padding: var(--space-lg);
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border);
-            text-align: center;
+            max-width: 520px;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex: 1;
             position: relative;
+        }
+
+        .flow-step:not(:last-child)::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: var(--primary);
+            margin: 0 0.6rem;
+        }
+
+        .step-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--success);
+            background: var(--success);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .step-name {
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--success);
+            white-space: nowrap;
+        }
+
+        /* ── Receipt Card ────────────────────────────── */
+        .receipt-card {
+            width: 100%;
+            max-width: 560px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* ── Card Header ─────────────────────────────── */
+        .receipt-header {
+            background: var(--gradient-gold);
+            padding: 3rem 2.5rem 2.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .receipt-header::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 220px; height: 220px;
+            background: rgba(255,255,255,.08);
+            border-radius: 50%;
+        }
+
+        .receipt-header::after {
+            content: '';
+            position: absolute;
+            bottom: -80px; left: -40px;
+            width: 220px; height: 220px;
+            background: rgba(255,255,255,.05);
+            border-radius: 50%;
         }
 
         .success-icon {
             width: 80px;
             height: 80px;
-            background: #e6fffa;
-            color: #234e52;
+            background: rgba(255,255,255,.2);
+            border: 3px solid rgba(255,255,255,.5);
             border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 2rem;
-            margin: 0 auto 1.5rem auto;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            z-index: 1;
+            animation: pop-in .5s cubic-bezier(.175,.885,.32,1.275) both;
         }
 
-        .receipt-card h1 {
-            font-size: 1.75rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
+        @keyframes pop-in {
+            from { transform: scale(0); opacity: 0; }
+            to   { transform: scale(1); opacity: 1; }
         }
 
-        .receipt-card p {
-            color: var(--text-muted);
-            margin-bottom: 2rem;
+        .receipt-header h1 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 0.4rem;
+            position: relative;
+            z-index: 1;
         }
 
+        .receipt-header p {
+            opacity: .85;
+            font-size: .95rem;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── Booking ID Banner ───────────────────────── */
+        .booking-id-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .6rem;
+            background: rgba(255,255,255,.15);
+            border: 1px solid rgba(255,255,255,.25);
+            border-radius: var(--radius-pill);
+            padding: .45rem 1.2rem;
+            margin-top: 1.25rem;
+            font-size: .85rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+        }
+
+        /* ── Card Body ───────────────────────────────── */
+        .receipt-body {
+            background: var(--white);
+            padding: 2.5rem;
+        }
+
+        /* ── Details Box ─────────────────────────────── */
         .details-box {
             background: var(--bg);
             border-radius: var(--radius-md);
             padding: 1.5rem;
-            text-align: left;
             margin-bottom: 2rem;
+            border: 1px solid var(--border);
         }
 
         .receipt-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 0.75rem;
-            font-size: 0.95rem;
+            align-items: center;
+            padding: .65rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: .92rem;
         }
 
-        .receipt-row:last-child {
-            margin-bottom: 0;
-            padding-top: 0.75rem;
-            border-top: 1px dashed var(--border);
-            font-weight: 700;
-            color: var(--primary);
-        }
+        .receipt-row:last-child { border-bottom: none; }
 
         .receipt-label {
             color: var(--text-muted);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
         }
 
+        .receipt-label i { width: 16px; text-align: center; }
+
+        .receipt-value {
+            font-weight: 700;
+            color: var(--text);
+            text-align: right;
+        }
+
+        .receipt-row.total-row {
+            border-bottom: none;
+            border-top: 2px dashed var(--border);
+            margin-top: .5rem;
+            padding-top: 1rem;
+        }
+
+        .receipt-row.total-row .receipt-label { font-size: 1rem; font-weight: 800; color: var(--text); }
+        .receipt-row.total-row .receipt-value { font-size: 1.2rem; color: var(--primary); }
+
+        /* ── Method Badge ────────────────────────────── */
+        .method-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            background: rgba(160,82,45,.08);
+            border: 1px solid rgba(160,82,45,.2);
+            border-radius: var(--radius-pill);
+            padding: .3rem .9rem;
+            font-size: .78rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: .8px;
+        }
+
+        /* ── Email Notice ────────────────────────────── */
+        .email-notice {
+            display: flex;
+            align-items: center;
+            gap: .65rem;
+            background: rgba(47,133,90,.07);
+            border: 1px solid rgba(47,133,90,.2);
+            border-radius: var(--radius-sm);
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.75rem;
+            font-size: .85rem;
+            color: #276749;
+            font-weight: 600;
+            line-height: 1.55;
+        }
+
+        .email-notice i { font-size: 1rem; flex-shrink: 0; }
+
+        /* ── Actions ─────────────────────────────────── */
         .receipt-actions {
             display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 1rem;
         }
 
+        .btn-action {
+            padding: .9rem 1rem;
+            border-radius: var(--radius-pill);
+            font-weight: 800;
+            font-size: .85rem;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+        }
+
+        .btn-action.primary {
+            background: var(--primary);
+            color: var(--secondary);
+        }
+
+        .btn-action.primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-action.outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-action.outline:hover {
+            background: rgba(160,82,45,.07);
+            transform: translateY(-2px);
+        }
+
+        /* ── Confetti Dots ───────────────────────────── */
+        .confetti-row {
+            display: flex;
+            justify-content: center;
+            gap: .4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .confetti-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            animation: bounce-dot .8s ease-in-out infinite alternate;
+        }
+
+        .confetti-dot:nth-child(2) { animation-delay: .1s; }
+        .confetti-dot:nth-child(3) { animation-delay: .2s; }
+        .confetti-dot:nth-child(4) { animation-delay: .3s; }
+        .confetti-dot:nth-child(5) { animation-delay: .4s; }
+
+        @keyframes bounce-dot {
+            from { transform: translateY(0); opacity: .5; }
+            to   { transform: translateY(-8px); opacity: 1; }
+        }
+
+        /* ── Responsive ──────────────────────────────── */
         @media (max-width: 600px) {
-            .receipt-card {
-                padding: var(--space-md);
-            }
+            .receipt-body { padding: 1.75rem 1.25rem; }
+            .receipt-header { padding: 2.5rem 1.5rem 2rem; }
+            .receipt-actions { grid-template-columns: 1fr; }
+            .receipt-card { border-radius: var(--radius-md); }
+        }
+
+        @media print {
+            .flow-steps, .receipt-actions, .email-notice { display: none !important; }
+            .confirm-main { padding-top: 2rem; }
+            .receipt-card { box-shadow: none; border: 1px solid #ddd; }
         }
     </style>
 </head>
 <body>
-    <main class="confirmation-main container">
-        <div class="card receipt-card" data-animate>
-            <div class="success-icon flex-center">
+<main class="confirm-main container">
+
+    <!-- Step Progress -->
+    <div class="flow-steps" data-animate>
+        <div class="flow-step">
+            <div class="step-dot"><i class="fas fa-check" style="font-size:.6rem;"></i></div>
+            <span class="step-name">Details</span>
+        </div>
+        <div class="flow-step">
+            <div class="step-dot"><i class="fas fa-check" style="font-size:.6rem;"></i></div>
+            <span class="step-name">Payment</span>
+        </div>
+        <div class="flow-step">
+            <div class="step-dot"><i class="fas fa-check" style="font-size:.6rem;"></i></div>
+            <span class="step-name">Confirmed</span>
+        </div>
+    </div>
+
+    <!-- Receipt Card -->
+    <div class="receipt-card" data-animate style="transition-delay: 0.1s;">
+
+        <!-- Header -->
+        <div class="receipt-header">
+            <div class="success-icon">
                 <i class="fas fa-check"></i>
             </div>
             <h1>Booking Confirmed!</h1>
-            <p>Thank you for choosing Blueprint Rwanda. Your payment was successful and your booking is secured.</p>
+            <p>Thank you for choosing Blueprint Rwanda. Your reservation is secured.</p>
+            <div class="booking-id-row">
+                <i class="fas fa-hashtag"></i>
+                <span id="bookingRef">BR-00000</span>
+            </div>
+        </div>
 
+        <!-- Body -->
+        <div class="receipt-body">
+
+            <!-- Animated dots -->
+            <div class="confetti-row">
+                <div class="confetti-dot" style="background: var(--primary);"></div>
+                <div class="confetti-dot" style="background: var(--accent);"></div>
+                <div class="confetti-dot" style="background: var(--secondary); border: 1px solid var(--accent);"></div>
+                <div class="confetti-dot" style="background: var(--accent);"></div>
+                <div class="confetti-dot" style="background: var(--primary);"></div>
+            </div>
+
+            <!-- Details Box -->
             <div class="details-box">
                 <div class="receipt-row">
-                    <span class="receipt-label">Booking ID</span>
-                    <span>#BR-29384</span>
+                    <span class="receipt-label"><i class="fas fa-tag"></i> Item</span>
+                    <span class="receipt-value" id="rcptItem">—</span>
                 </div>
                 <div class="receipt-row">
-                    <span class="receipt-label">Item</span>
-                    <span>Kigali View Apartment</span>
+                    <span class="receipt-label"><i class="fas fa-layer-group"></i> Type</span>
+                    <span class="receipt-value" id="rcptType">—</span>
                 </div>
                 <div class="receipt-row">
-                    <span class="receipt-label">Dates</span>
-                    <span>July 10 — 15, 2026</span>
+                    <span class="receipt-label"><i class="fas fa-calendar-check"></i> Check-in</span>
+                    <span class="receipt-value" id="rcptDate">—</span>
                 </div>
                 <div class="receipt-row">
-                    <span class="receipt-label">Guests</span>
-                    <span>2 Guests</span>
+                    <span class="receipt-label"><i class="fas fa-moon"></i> Duration</span>
+                    <span class="receipt-value" id="rcptDays">—</span>
                 </div>
-                <div class="receipt-row" style="margin-top: 1rem;">
-                    <span class="receipt-label">Total Paid</span>
-                    <span>$150.00</span>
+                <div class="receipt-row">
+                    <span class="receipt-label"><i class="fas fa-user"></i> Guest</span>
+                    <span class="receipt-value" id="rcptUser">—</span>
+                </div>
+                <div class="receipt-row">
+                    <span class="receipt-label"><i class="fas fa-wallet"></i> Payment</span>
+                    <span class="receipt-value">
+                        <span class="method-badge" id="rcptMethod">—</span>
+                    </span>
+                </div>
+                <div class="receipt-row total-row">
+                    <span class="receipt-label"><i class="fas fa-receipt"></i> Total Paid</span>
+                    <span class="receipt-value" id="rcptTotal">—</span>
                 </div>
             </div>
 
+            <!-- Email Notice -->
+            <div class="email-notice">
+                <i class="fas fa-envelope-open-text"></i>
+                <span>A confirmation receipt has been sent to <strong id="rcptEmail">your email</strong>. Check your inbox for full booking details.</span>
+            </div>
+
+            <!-- Actions -->
             <div class="receipt-actions">
-                <button class="btn btn-primary" onclick="window.print()">
+                <button class="btn-action primary" onclick="window.print()">
                     <i class="fas fa-print"></i> Print Receipt
                 </button>
-                <a href="dashboard.html" class="btn btn-secondary">
-                    Go to Dashboard
+                <a href="my-bookings.html" class="btn-action outline">
+                    <i class="fas fa-list"></i> My Bookings
                 </a>
             </div>
-            
-            <p style="font-size: 0.8rem; margin-top: 2rem;">
-                A confirmation email has been sent to <strong>samuel@example.com</strong>
-            </p>
-        </div>
-    </main>
 
-    <!-- Scripts -->
-    <script src="../assets/js/components.js"></script>
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <a href="accommodation.html" style="font-size: .85rem; font-weight: 700; color: var(--text-muted); text-decoration: none; transition: var(--transition);"
+                   onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'">
+                    <i class="fas fa-arrow-left" style="margin-right: .3rem;"></i> Continue Exploring
+                </a>
+            </div>
+
+        </div><!-- /receipt-body -->
+    </div><!-- /receipt-card -->
+
+</main>
+
+<script src="../assets/js/components.js"></script>
+<script>
+    // ── Read URL Params ───────────────────────────────────
+    const p = new URLSearchParams(window.location.search);
+
+    const itemName  = p.get('name')   || 'Blueprint Stay';
+    const itemType  = p.get('type')   || 'Accommodation';
+    const guestName = p.get('user')   || 'Guest';
+    const email     = p.get('email')  || '';
+    const checkIn   = p.get('date')   || '';
+    const days      = parseInt(p.get('days')  || '1');
+    const total     = parseFloat(p.get('total') || '0');
+    const method    = p.get('method') || 'card';
+    const ref       = p.get('ref')    || ('BR-' + Math.floor(10000 + Math.random() * 90000));
+
+    // ── Method Labels ─────────────────────────────────────
+    const methodLabels = {
+        card: '💳 Card Payment',
+        momo: '📱 Mobile Money',
+        cash: '💵 Pay at Check-in'
+    };
+
+    // ── Duration Label ────────────────────────────────────
+    const durationLabel = itemType.toLowerCase() === 'car'
+        ? (days + (days === 1 ? ' day' : ' days'))
+        : (days + (days === 1 ? ' night' : ' nights'));
+
+    // ── Format Date ───────────────────────────────────────
+    let dateDisplay = '—';
+    if (checkIn) {
+        try {
+            dateDisplay = new Date(checkIn).toLocaleDateString('en-US', {
+                weekday: 'short', month: 'long', day: 'numeric', year: 'numeric'
+            });
+        } catch(e) { dateDisplay = checkIn; }
+    }
+
+    // ── Populate Receipt ──────────────────────────────────
+    document.getElementById('bookingRef').textContent  = ref;
+    document.getElementById('rcptItem').textContent    = itemName;
+    document.getElementById('rcptType').textContent    = itemType;
+    document.getElementById('rcptDate').textContent    = dateDisplay;
+    document.getElementById('rcptDays').textContent    = durationLabel;
+    document.getElementById('rcptUser').textContent    = guestName;
+    document.getElementById('rcptMethod').textContent  = methodLabels[method] || method;
+    document.getElementById('rcptTotal').textContent   = total > 0 ? '$' + total.toFixed(2) : (method === 'cash' ? 'Due at Check-in' : '—');
+    document.getElementById('rcptEmail').textContent   = email || 'your registered email';
+</script>
 </body>
 </html>

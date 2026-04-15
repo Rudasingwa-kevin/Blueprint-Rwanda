@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -212,16 +212,42 @@
                 ]);
             }
 
-            // Reserve Logic
+            // Reserve Logic — route through book-item → payment → confirmation
             const reserveBtn = document.getElementById('reserve-btn');
             if (reserveBtn) {
                 reserveBtn.addEventListener('click', () => {
-                    if (window.Components && window.Components.showToast) {
-                        window.Components.showToast('Reservation processing...', 'success');
-                        setTimeout(() => {
-                            location.href = 'booking-confirmation.html';
-                        }, 1500);
+                    const checkInInput  = document.querySelector('input[type="date"]:nth-of-type(1)');
+                    const checkOutInput = document.querySelector('input[type="date"]:nth-of-type(2)');
+
+                    const checkIn  = checkInInput  ? checkInInput.value  : '';
+                    const checkOut = checkOutInput ? checkOutInput.value : '';
+
+                    // Calculate nights
+                    let nights = 1;
+                    if (checkIn && checkOut) {
+                        const diff = new Date(checkOut) - new Date(checkIn);
+                        if (diff > 0) nights = Math.round(diff / (1000 * 60 * 60 * 24));
                     }
+
+                    if (!checkIn) {
+                        Components.showToast('Please select a check-in date', 'error');
+                        return;
+                    }
+
+                    const itemName = 'Skyline Penthouse';
+                    const itemType = 'Accommodation';
+                    const rate     = 120;
+                    const imgUrl   = 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=600';
+
+                    const url = 'book-item.html'
+                        + '?type='  + encodeURIComponent(itemType)
+                        + '&name='  + encodeURIComponent(itemName)
+                        + '&date='  + encodeURIComponent(checkIn)
+                        + '&days='  + nights
+                        + '&rate='  + rate
+                        + '&img='   + encodeURIComponent(imgUrl);
+
+                    window.location.href = url;
                 });
             }
         });
