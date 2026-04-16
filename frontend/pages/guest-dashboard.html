@@ -1,91 +1,301 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guest Hub - Blueprint Rwanda</title>
+    <title>My Hub — Blueprint Rwanda</title>
+    <meta name="description" content="Manage your bookings, saved stays and trip roadmap on Blueprint Rwanda.">
     <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
-    <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ── Page ────────────────────────────────────── */
         .guest-main {
-            padding-top: 140px;
+            padding-top: 130px;
             padding-bottom: var(--space-lg);
         }
 
-        .dashboard-header {
-            margin-bottom: var(--space-lg);
+        /* ── Header ──────────────────────────────────── */
+        .dash-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             flex-wrap: wrap;
-            gap: 2rem;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
         }
 
-        .dashboard-header h1 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
+        .dash-greeting { font-size: 2.8rem; margin-bottom: 0.3rem; }
+        .dash-sub { color: var(--text-muted); font-size: 1rem; }
+
+        /* ── Stat Pills ──────────────────────────────── */
+        .stat-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
         }
 
-        .guest-grid {
+        .stat-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0.85rem 1.3rem;
+            transition: var(--transition);
+            cursor: default;
+        }
+
+        .stat-pill:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(-2px);
+        }
+
+        .stat-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .stat-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+        .stat-value { font-size: 1.4rem; font-weight: 800; color: var(--text); line-height: 1; }
+
+        /* ── 2-Column Grid ───────────────────────────── */
+        .dash-grid {
             display: grid;
-            grid-template-columns: 1fr 350px;
+            grid-template-columns: 1fr 340px;
             gap: 2rem;
+            align-items: start;
         }
 
-        /* Timeline Styles */
+        /* ── Filter Tabs ─────────────────────────────── */
+        .filter-bar {
+            display: flex;
+            gap: 0.25rem;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-pill);
+            padding: 0.25rem;
+            margin-bottom: 2rem;
+            width: fit-content;
+        }
+
+        .filter-tab {
+            padding: 0.55rem 1.3rem;
+            border-radius: var(--radius-pill);
+            font-weight: 700;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: var(--transition);
+            border: none;
+            background: none;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .filter-tab:hover { color: var(--text); }
+
+        .filter-tab.active {
+            background: var(--primary);
+            color: var(--secondary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .filter-tab .tab-count {
+            background: rgba(255,255,255,0.25);
+            border-radius: var(--radius-pill);
+            padding: 0.05rem 0.45rem;
+            font-size: 0.7rem;
+            font-weight: 800;
+        }
+
+        .filter-tab:not(.active) .tab-count {
+            background: var(--border);
+            color: var(--text-muted);
+        }
+
+        /* ── Panel Visibility ────────────────────────── */
+        .booking-panel { display: none; }
+        .booking-panel.active { display: block; }
+
+        /* ── Timeline (Upcoming) ─────────────────────── */
         .timeline {
             position: relative;
-            padding-left: 2rem;
+            padding-left: 2.5rem;
             border-left: 2px solid var(--border);
-            margin-top: 2rem;
         }
 
         .timeline-item {
             position: relative;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
         }
 
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -2.6rem;
-            top: 0.5rem;
-            width: 1rem;
-            height: 1rem;
+            left: -3rem;
+            top: 1.2rem;
+            width: 14px;
+            height: 14px;
             background: var(--primary);
             border-radius: 50%;
-            border: 4px solid var(--bg);
-            box-shadow: var(--shadow-sm);
+            border: 3px solid var(--bg);
+            box-shadow: 0 0 0 3px rgba(160,82,45,0.2);
         }
 
+        .timeline-date {
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--primary);
+            margin-bottom: 0.6rem;
+        }
+
+        /* ── Booking Card ────────────────────────────── */
         .booking-card {
-            display: flex;
-            gap: 1.5rem;
-            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: 110px 1fr auto;
+            gap: 1.25rem;
+            padding: 1.25rem;
+            align-items: center;
             transition: var(--transition);
         }
 
         .booking-card:hover {
-            transform: translateX(10px);
             border-color: var(--primary);
+            transform: translateX(6px);
         }
 
         .booking-img {
-            width: 120px;
-            height: 90px;
+            width: 110px;
+            height: 80px;
             border-radius: var(--radius-sm);
             object-fit: cover;
         }
 
-        /* Sidebar Widgets */
-        .saved-mini-grid {
+        .booking-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+
+        .booking-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem 1.25rem;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin: 0.4rem 0 0.6rem;
+        }
+
+        .booking-meta i { margin-right: 0.3rem; }
+
+        .booking-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: flex-end;
+            min-width: 130px;
+        }
+
+        .booking-price {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            white-space: nowrap;
+        }
+
+        /* ── Status Badges ───────────────────────────── */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-confirmed  { background: #c6f6d5; color: #276749; }
+        .status-pending    { background: #feebc8; color: #c05621; }
+        .status-completed  { background: #ebf8ff; color: #2c5282; }
+        .status-cancelled  { background: #fff5f5; color: #c53030; }
+
+        /* ── Action Buttons ──────────────────────────── */
+        .btn-sm-action {
+            padding: 0.45rem 0.9rem;
+            border-radius: var(--radius-pill);
+            font-weight: 700;
+            font-size: 0.78rem;
+            border: 1.5px solid var(--border);
+            background: var(--white);
+            color: var(--text);
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .btn-sm-action:hover { border-color: var(--primary); color: var(--primary); }
+
+        .btn-sm-cancel {
+            border-color: #feb2b2;
+            color: #c53030;
+        }
+
+        .btn-sm-cancel:hover { background: #fff5f5; }
+
+        /* ── Empty State ─────────────────────────────── */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-muted);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        /* ── Sidebar ─────────────────────────────────── */
+        .sidebar-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            position: sticky;
+            top: 110px;
+        }
+
+        /* ── Map ─────────────────────────────────────── */
+        #trip-map {
+            height: 220px;
+            border-radius: var(--radius-sm);
+            margin-top: 1rem;
+        }
+
+        /* ── Saved Stays ─────────────────────────────── */
+        .saved-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 1.5rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
         }
 
         .saved-thumb {
@@ -93,6 +303,7 @@
             border-radius: var(--radius-sm);
             overflow: hidden;
             position: relative;
+            cursor: pointer;
         }
 
         .saved-thumb img {
@@ -102,115 +313,390 @@
             transition: var(--transition);
         }
 
-        .saved-thumb:hover img {
-            transform: scale(1.1);
+        .saved-thumb:hover img { transform: scale(1.1); }
+
+        .saved-more {
+            aspect-ratio: 1;
+            border-radius: var(--radius-sm);
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
         }
 
-        @media (max-width: 992px) {
-            .guest-grid {
-                grid-template-columns: 1fr;
-            }
+        .saved-more:hover { background: var(--primary); color: var(--secondary); }
+
+        /* ── Partner CTA ─────────────────────────────── */
+        .partner-cta {
+            background: var(--gradient-gold);
+            padding: 1.75rem;
+            border-radius: var(--radius-md);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .partner-cta::before {
+            content: '';
+            position: absolute;
+            top: -40px; right: -40px;
+            width: 140px; height: 140px;
+            background: rgba(255,255,255,.08);
+            border-radius: 50%;
+        }
+
+        .partner-cta h3 { color: #fff; margin-bottom: 0.5rem; font-size: 1.15rem; }
+        .partner-cta p  { color: var(--secondary); font-size: 0.85rem; margin-bottom: 1.25rem; line-height: 1.55; opacity: .9; }
+
+        /* ── Add New Booking CTA ─────────────────────── */
+        .new-booking-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            cursor: pointer;
+        }
+
+        /* ── Responsive ──────────────────────────────── */
+        @media (max-width: 1060px) {
+            .dash-grid { grid-template-columns: 1fr; }
+            .sidebar-col { position: static; }
+        }
+
+        @media (max-width: 680px) {
+            .booking-card { grid-template-columns: 80px 1fr; gap: 1rem; }
+            .booking-img  { width: 80px; height: 65px; }
+            .booking-actions { grid-column: span 2; flex-direction: row; justify-content: space-between; align-items: center; }
+            .dash-greeting { font-size: 2rem; }
+            .filter-bar { flex-wrap: wrap; }
         }
     </style>
 </head>
 <body>
-    <main class="guest-main container">
-        <header class="dashboard-header" data-animate>
-            <div>
-                <h1 class="gradient-text">Hello, Traveler</h1>
-                <p>Your upcoming Rwandan adventures and curated collection.</p>
-            </div>
-            <button class="btn btn-primary" onclick="location.href='accommodation.html'">
-                <i class="fas fa-search"></i> Explore More
-            </button>
-        </header>
+<main class="guest-main container">
 
-        <div class="guest-grid">
-            <!-- Left Column: Upcoming Journeys -->
-            <div class="content-area">
-                <h2 data-animate><i class="fas fa-route" style="color: var(--primary); margin-right: 1rem;"></i>Upcoming Journeys</h2>
-                
-                <div class="timeline">
-                    <!-- Journey 1 -->
-                    <div class="timeline-item" data-animate>
-                        <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--primary); margin-bottom: 0.5rem;">Oct 12 - Oct 15</div>
-                        <div class="card booking-card">
-                            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=200" class="booking-img" alt="">
-                            <div style="flex: 1;">
-                                <h4 style="font-size: 1.25rem;">Skyline Penthouse</h4>
-                                <p style="color: var(--text-muted); font-size: 0.9rem;"><i class="fas fa-map-marker-alt"></i> Kigali, Kiyovu</p>
-                                <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
-                                    <span class="status-pill status-active">Confirmed</span>
-                                    <span style="font-size: 0.8rem; color: var(--text-muted); padding: 0.4rem 0;">Booking ID: #BR-8829</span>
-                                </div>
-                            </div>
-                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                                <button class="btn btn-secondary btn-sm">View Ticket</button>
-                                <button class="btn btn-icon"><i class="fas fa-message"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Journey 2 -->
-                    <div class="timeline-item" data-animate style="transition-delay: 0.1s;">
-                        <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">Oct 15 - Oct 17</div>
-                        <div class="card booking-card" style="opacity: 0.8;">
-                            <img src="https://images.unsplash.com/photo-1493238792060-6c56c33c369a?auto=format&fit=crop&q=80&w=200" class="booking-img" alt="">
-                            <div style="flex: 1;">
-                                <h4 style="font-size: 1.25rem;">Luxury SUV Rental</h4>
-                                <p style="color: var(--text-muted); font-size: 0.9rem;"><i class="fas fa-car"></i> Toyota Land Cruiser</p>
-                                <div style="margin-top: 1rem;">
-                                    <span class="status-pill status-pending">Awaiting Pickup</span>
-                                </div>
-                            </div>
-                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                                <button class="btn btn-secondary btn-sm">Contact Fleet</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Column: Context Widgets -->
-            <aside class="sidebar-area">
-                <div class="card" style="padding: 2rem;" data-animate style="transition-delay: 0.2s;">
-                    <h3><i class="fas fa-heart" style="color: #e63946; margin-right: 0.75rem;"></i>Saved Stays</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted);">Quick access to your favorites.</p>
-                    <div class="saved-mini-grid">
-                        <a href="item-details.html" class="saved-thumb"><img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=150" alt=""></a>
-                        <a href="item-details.html" class="saved-thumb"><img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=150" alt=""></a>
-                        <a href="item-details.html" class="saved-thumb"><img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=150" alt=""></a>
-                        <div class="saved-thumb flex-center" style="background: var(--bg); color: var(--text-muted); font-size: 0.8rem;">+12 More</div>
-                    </div>
-                    <button class="btn btn-secondary w-100" style="width: 100%; margin-top: 1.5rem;">View Wishlist</button>
-                </div>
-
-                <div class="card" style="padding: 2rem; margin-top: 2rem; background: var(--gradient-gold);" data-animate style="transition-delay: 0.3s;">
-                    <h3 style="color: var(--white);">Become a Partner</h3>
-                    <p style="color: var(--secondary); font-size: 0.85rem; margin: 1rem 0;">Own a property or fleet? Start earning with Blueprint Rwanda.</p>
-                    <button class="btn btn-primary w-100" style="background: var(--white); color: var(--primary); width: 100%;">List Your Item</button>
-                </div>
-                <div class="card" style="padding: 2rem; margin-top: 2rem;" data-animate style="transition-delay: 0.4s;">
-                    <h3><i class="fas fa-map-marked-alt" style="color: var(--primary); margin-right: 0.75rem;"></i>Trip Roadmap</h3>
-                    <div id="trip-map" style="height: 250px; border-radius: var(--radius-md); margin-top: 1rem;"></div>
-                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem;">Live view of your Curated Rwandan Experience.</p>
-                </div>
-            </aside>
+    <!-- ── Dashboard Header ── -->
+    <header class="dash-header" data-animate>
+        <div>
+            <h1 class="dash-greeting gradient-text">Hello, Traveler 👋</h1>
+            <p class="dash-sub">Your Blueprint Rwanda journey — bookings, stays, and roadmap in one place.</p>
         </div>
-    </main>
+        <button class="btn btn-primary new-booking-btn" onclick="location.href='accommodation.html'">
+            <i class="fas fa-search"></i> Explore More
+        </button>
+    </header>
 
-    <!-- Scripts -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="../assets/js/components.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            if (window.Components && window.Components.initMap) {
-                window.Components.initMap('trip-map', [
-                    { lat: -1.9441, lng: 30.0619, title: "Kigali Stay", desc: "Skyline Penthouse" },
-                    { lat: -1.5011, lng: 29.6331, title: "Adventure Hub", desc: "Musanze Pick-up" }
-                ]);
-            }
+    <!-- ── Stat Pills ── -->
+    <div class="stat-row" data-animate style="transition-delay: 0.1s;">
+        <div class="stat-pill">
+            <div class="stat-icon" style="background: rgba(160,82,45,.1); color: var(--primary);">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+            <div>
+                <div class="stat-label">Upcoming</div>
+                <div class="stat-value">2</div>
+            </div>
+        </div>
+        <div class="stat-pill">
+            <div class="stat-icon" style="background: rgba(47,133,90,.1); color: #276749;">
+                <i class="fas fa-check-double"></i>
+            </div>
+            <div>
+                <div class="stat-label">Completed</div>
+                <div class="stat-value">5</div>
+            </div>
+        </div>
+        <div class="stat-pill">
+            <div class="stat-icon" style="background: rgba(235,139,20,.1); color: #b7791f;">
+                <i class="fas fa-heart"></i>
+            </div>
+            <div>
+                <div class="stat-label">Saved Stays</div>
+                <div class="stat-value">15</div>
+            </div>
+        </div>
+        <div class="stat-pill">
+            <div class="stat-icon" style="background: rgba(44,82,130,.1); color: #2c5282;">
+                <i class="fas fa-star"></i>
+            </div>
+            <div>
+                <div class="stat-label">Reviews Given</div>
+                <div class="stat-value">3</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Main 2-Column Grid ── -->
+    <div class="dash-grid">
+
+        <!-- LEFT: Bookings Area -->
+        <div class="bookings-area" data-animate style="transition-delay: 0.15s;">
+
+            <!-- Section title -->
+            <h2 style="margin-bottom: 1.5rem; font-size: 1.6rem;">
+                <i class="fas fa-route" style="color: var(--primary); margin-right: 0.75rem; font-size: 1.2rem;"></i>
+                My Reservations
+            </h2>
+
+            <!-- Filter Tabs -->
+            <div class="filter-bar">
+                <button class="filter-tab active" data-tab="upcoming">
+                    <i class="fas fa-clock"></i> Upcoming <span class="tab-count">2</span>
+                </button>
+                <button class="filter-tab" data-tab="completed">
+                    <i class="fas fa-check"></i> Completed <span class="tab-count">5</span>
+                </button>
+                <button class="filter-tab" data-tab="cancelled">
+                    <i class="fas fa-times"></i> Cancelled <span class="tab-count">1</span>
+                </button>
+            </div>
+
+            <!-- ── PANEL: Upcoming ── -->
+            <div class="booking-panel active" id="panel-upcoming">
+                <div class="timeline">
+
+                    <!-- Booking 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-date"><i class="fas fa-calendar-alt"></i> Oct 12 — Oct 15, 2026</div>
+                        <div class="card booking-card">
+                            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=300"
+                                 alt="Skyline Penthouse" class="booking-img">
+                            <div>
+                                <span class="status-badge status-confirmed"><i class="fas fa-circle" style="font-size:.45rem;"></i> Confirmed</span>
+                                <div class="booking-title">Skyline Penthouse</div>
+                                <div class="booking-meta">
+                                    <span><i class="fas fa-map-marker-alt" style="color:var(--primary);"></i> Kiyovu, Kigali</span>
+                                    <span><i class="fas fa-moon"></i> 3 nights</span>
+                                    <span><i class="fas fa-user-friends"></i> 2 guests</span>
+                                </div>
+                                <span style="font-size: 0.78rem; color: var(--text-muted);">Ref: #BR-8829</span>
+                            </div>
+                            <div class="booking-actions">
+                                <div class="booking-price">$360</div>
+                                <button class="btn-sm-action" onclick="location.href='booking-confirmation.html?ref=BR-8829&name=Skyline Penthouse&type=Accommodation&total=360&method=card&user=Traveler'">
+                                    <i class="fas fa-receipt"></i> View Receipt
+                                </button>
+                                <button class="btn-sm-action" onclick="location.href='item-details.html'">
+                                    <i class="fas fa-info-circle"></i> Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Booking 2 -->
+                    <div class="timeline-item">
+                        <div class="timeline-date" style="color: var(--text-muted);"><i class="fas fa-calendar-alt"></i> Oct 15 — Oct 17, 2026</div>
+                        <div class="card booking-card">
+                            <img src="https://images.unsplash.com/photo-1493238792060-6c56c33c369a?auto=format&fit=crop&q=80&w=300"
+                                 alt="SUV Rental" class="booking-img">
+                            <div>
+                                <span class="status-badge status-pending"><i class="fas fa-circle" style="font-size:.45rem;"></i> Awaiting Pickup</span>
+                                <div class="booking-title">Luxury SUV Rental</div>
+                                <div class="booking-meta">
+                                    <span><i class="fas fa-car" style="color:var(--primary);"></i> Toyota Land Cruiser</span>
+                                    <span><i class="fas fa-road"></i> 2 days</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> Kigali Airport</span>
+                                </div>
+                                <span style="font-size: 0.78rem; color: var(--text-muted);">Ref: #BR-9102</span>
+                            </div>
+                            <div class="booking-actions">
+                                <div class="booking-price">$240</div>
+                                <button class="btn-sm-action" onclick="location.href='item-details.html'">
+                                    <i class="fas fa-phone-alt"></i> Contact Fleet
+                                </button>
+                                <button class="btn-sm-action btn-sm-cancel" onclick="cancelBooking(this, 'BR-9102')">
+                                    <i class="fas fa-times"></i> Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ── PANEL: Completed ── -->
+            <div class="booking-panel" id="panel-completed">
+                <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+
+                    <div class="card booking-card">
+                        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=300"
+                             alt="Kigali View" class="booking-img">
+                        <div>
+                            <span class="status-badge status-completed"><i class="fas fa-check-circle" style="font-size:.7rem;"></i> Completed</span>
+                            <div class="booking-title">Kigali View Apartment</div>
+                            <div class="booking-meta">
+                                <span><i class="fas fa-calendar-alt"></i> Jul 10 — Jul 15, 2025</span>
+                                <span><i class="fas fa-moon"></i> 5 nights</span>
+                            </div>
+                        </div>
+                        <div class="booking-actions">
+                            <div class="booking-price">$750</div>
+                            <button class="btn-sm-action" onclick="location.href='submit-review.html?name=' + encodeURIComponent(this.closest('.booking-card').querySelector('.booking-title').textContent) + '&type=Accommodation'">
+                                <i class="fas fa-star"></i> Leave Review
+                            </button>
+                            <button class="btn-sm-action" onclick="location.href='book-item.html?name=Kigali View Apartment&type=Accommodation'">
+                                <i class="fas fa-redo"></i> Book Again
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card booking-card">
+                        <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=300"
+                             alt="Toyota RAV4" class="booking-img">
+                        <div>
+                            <span class="status-badge status-completed"><i class="fas fa-check-circle" style="font-size:.7rem;"></i> Completed</span>
+                            <div class="booking-title">Toyota RAV4 Rental</div>
+                            <div class="booking-meta">
+                                <span><i class="fas fa-calendar-alt"></i> Jun 5 — Jun 8, 2025</span>
+                                <span><i class="fas fa-road"></i> 3 days</span>
+                            </div>
+                        </div>
+                        <div class="booking-actions">
+                            <div class="booking-price">$180</div>
+                            <button class="btn-sm-action" onclick="location.href='submit-review.html?name=' + encodeURIComponent(this.closest('.booking-card').querySelector('.booking-title').textContent) + '&type=Accommodation'">
+                                <i class="fas fa-star"></i> Leave Review
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ── PANEL: Cancelled ── -->
+            <div class="booking-panel" id="panel-cancelled">
+                <div class="card booking-card">
+                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=300"
+                         alt="Lake House" class="booking-img">
+                    <div>
+                        <span class="status-badge status-cancelled"><i class="fas fa-times-circle" style="font-size:.7rem;"></i> Cancelled</span>
+                        <div class="booking-title">Lake House Retreat</div>
+                        <div class="booking-meta">
+                            <span><i class="fas fa-calendar-alt"></i> May 20 — May 23, 2025</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Kivu, Rubavu</span>
+                        </div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">
+                            <i class="fas fa-info-circle"></i> Refund processed within 5–7 business days.
+                        </div>
+                    </div>
+                    <div class="booking-actions">
+                        <div class="booking-price" style="text-decoration: line-through; opacity: .5;">$420</div>
+                        <button class="btn-sm-action" onclick="location.href='accommodation.html'">
+                            <i class="fas fa-search"></i> Find Similar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /bookings-area -->
+
+        <!-- ── RIGHT: Sidebar ── -->
+        <aside class="sidebar-col">
+
+            <!-- Trip Roadmap Map -->
+            <div class="card" style="padding: 1.5rem;" data-animate style="transition-delay: 0.2s;">
+                <h3 style="margin-bottom: 0.25rem;">
+                    <i class="fas fa-map-marked-alt" style="color: var(--primary); margin-right: 0.6rem;"></i>
+                    Trip Roadmap
+                </h3>
+                <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0;">Live view of your curated Rwandan journey.</p>
+                <div id="trip-map"></div>
+            </div>
+
+            <!-- Saved Stays -->
+            <div class="card" style="padding: 1.5rem;" data-animate style="transition-delay: 0.3s;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
+                    <h3><i class="fas fa-heart" style="color: #e63946; margin-right: 0.6rem;"></i>Saved Stays</h3>
+                    <a href="accommodation.html" style="font-size: 0.78rem; font-weight: 700; color: var(--primary); text-decoration: none;">See all →</a>
+                </div>
+                <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0;">Quick access to your wishlist.</p>
+                <div class="saved-grid">
+                    <a href="item-details.html" class="saved-thumb">
+                        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=150" alt="">
+                    </a>
+                    <a href="item-details.html" class="saved-thumb">
+                        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=150" alt="">
+                    </a>
+                    <a href="item-details.html" class="saved-thumb">
+                        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=150" alt="">
+                    </a>
+                    <a href="item-details.html" class="saved-thumb">
+                        <img src="https://images.unsplash.com/photo-1493238792060-6c56c33c369a?auto=format&fit=crop&q=80&w=150" alt="">
+                    </a>
+                    <a href="item-details.html" class="saved-thumb">
+                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=150" alt="">
+                    </a>
+                    <div class="saved-more" onclick="location.href='accommodation.html'">+10</div>
+                </div>
+            </div>
+
+            <!-- Partner CTA -->
+            <div class="partner-cta" data-animate style="transition-delay: 0.4s;">
+                <h3>Become a Partner</h3>
+                <p>Own a property or fleet? Start earning with Blueprint Rwanda today.</p>
+                <button class="btn btn-primary w-100"
+                        style="background: rgba(255,255,255,0.92); color: var(--primary); width: 100%;"
+                        onclick="location.href='partner-signup.html'">
+                    <i class="fas fa-handshake"></i> List Your Item
+                </button>
+            </div>
+
+        </aside>
+
+    </div><!-- /dash-grid -->
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="../assets/js/components.js"></script>
+<script>
+    // ── Filter Tabs ───────────────────────────────────
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.booking-panel').forEach(p => p.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
         });
-    </script>
+    });
+
+    // ── Cancel Booking ────────────────────────────────
+    function cancelBooking(btn, ref) {
+        if (!confirm('Cancel reservation ' + ref + '? This action cannot be undone.')) return;
+        const card = btn.closest('.timeline-item');
+        card.style.transition = 'opacity 0.4s, transform 0.4s';
+        card.style.opacity = '0';
+        card.style.transform = 'translateX(-20px)';
+        setTimeout(() => card.remove(), 400);
+        Components.showToast('Reservation ' + ref + ' cancelled. Refund initiated.', 'success');
+    }
+
+    // ── Trip Map ──────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.Components && window.Components.initMap) {
+            window.Components.initMap('trip-map', [
+                { lat: -1.9441, lng: 30.0619, title: 'Skyline Penthouse', desc: 'Oct 12 – Kigali Stay' },
+                { lat: -1.5011, lng: 29.6331, title: 'SUV Pickup',         desc: 'Oct 15 – Musanze' }
+            ]);
+        } else {
+            // Fallback: raw Leaflet
+            try {
+                const map = L.map('trip-map', { zoomControl: false }).setView([-1.72, 29.89], 8);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    { attribution: '© OpenStreetMap', maxZoom: 18 }).addTo(map);
+                const icon = L.divIcon({
+                    className: '',
+                    html: '<div style="width:12px;height:12px;background:#a0522d;border-radius:50%;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);"></div>',
+                    iconSize: [12, 12], iconAnchor: [6, 6]
+                });
+                L.marker([-1.9441, 30.0619], { icon }).bindPopup('<b>Skyline Penthouse</b><br>Oct 12 — Kigali').addTo(map);
+                L.marker([-1.5011, 29.6331], { icon }).bindPopup('<b>SUV Pickup</b><br>Oct 15 — Musanze').addTo(map);
+                setTimeout(() => map.invalidateSize(), 300);
+            } catch(e) { console.warn('Map init failed:', e); }
+        }
+    });
+</script>
 </body>
 </html>

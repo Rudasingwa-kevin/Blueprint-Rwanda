@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -430,6 +430,15 @@
                 </a>
             </div>
 
+
+            <div style="margin-top:1.5rem; padding:1.25rem; background:rgba(160,82,45,.06); border:1px solid rgba(160,82,45,.2); border-radius:var(--radius-sm); text-align:center;">
+                <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.75rem;">
+                    <i class="fas fa-star" style="color:#f6ad55;"></i> Already stayed here? Share your experience.
+                </p>
+                <a id="leaveReviewBtn" href="submit-review.html" class="btn btn-secondary" style="font-size:0.82rem; padding:0.55rem 1.25rem;">
+                    <i class="fas fa-pen"></i> Write a Review
+                </a>
+            </div>
             <div style="text-align: center; margin-top: 1.5rem;">
                 <a href="accommodation.html" style="font-size: .85rem; font-weight: 700; color: var(--text-muted); text-decoration: none; transition: var(--transition);"
                    onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'">
@@ -489,6 +498,17 @@
     document.getElementById('rcptMethod').textContent  = methodLabels[method] || method;
     document.getElementById('rcptTotal').textContent   = total > 0 ? '$' + total.toFixed(2) : (method === 'cash' ? 'Due at Check-in' : '—');
     document.getElementById('rcptEmail').textContent   = email || 'your registered email';
+
+    // ── Wire "Write a Review" link with item context ──────
+    const reviewBtn = document.getElementById('leaveReviewBtn');
+    if (reviewBtn) {
+        const reviewUrl = 'submit-review.html'
+            + '?name='  + encodeURIComponent(itemName)
+            + '&type='  + encodeURIComponent(itemType)
+            + '&date='  + encodeURIComponent(checkIn)
+            + '&ref='   + encodeURIComponent(ref);
+        reviewBtn.href = reviewUrl;
+    }
 </script>
 </body>
 </html>

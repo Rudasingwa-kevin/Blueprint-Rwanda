@@ -3,226 +3,941 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Share Your Legacy - Blueprint Rwanda</title>
+    <title>Rate Your Experience — Blueprint Rwanda</title>
+    <meta name="description" content="Share your honest experience and help future travellers on Blueprint Rwanda.">
     <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
-    <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/ui-system.css">
     <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ── Layout ────────────────────────────────── */
         .review-main {
-            padding-top: 200px;
+            padding-top: 120px;
             padding-bottom: var(--space-lg);
-            max-width: 800px;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 2rem;
+            align-items: start;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
-        .review-header {
-            text-align: center;
-            margin-bottom: 4rem;
+        /* ── Form Card ─────────────────────────────── */
+        .review-card {
+            padding: 2.5rem;
         }
 
-        .rating-hub {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding: 2rem;
+        /* ── Section Header ────────────────────────── */
+        .section-label {
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* ── Overall Star Rating ───────────────────── */
+        .overall-stars-wrap {
             background: var(--bg);
-            border-radius: var(--radius-md);
             border: 1px solid var(--border);
-        }
-
-        .rating-stars {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 1.5rem 0;
-            font-size: 2.5rem;
-            color: var(--border);
-        }
-
-        .rating-stars i {
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .rating-stars i.active {
-            color: var(--accent);
-            text-shadow: 0 0 15px rgba(212, 163, 115, 0.4);
-        }
-
-        .review-form-card {
-            padding: 4rem;
-        }
-
-        .form-group {
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            text-align: center;
             margin-bottom: 2rem;
         }
 
+        .stars-row {
+            display: flex;
+            justify-content: center;
+            gap: 0.6rem;
+            font-size: 2.8rem;
+            color: var(--border);
+            margin: 1rem 0 0.75rem;
+        }
+
+        .stars-row i {
+            cursor: pointer;
+            transition: color 0.15s, transform 0.15s;
+        }
+
+        .stars-row i:hover,
+        .stars-row i.hovered,
+        .stars-row i.selected {
+            color: #f6ad55;
+        }
+
+        .stars-row i:hover { transform: scale(1.2); }
+
+        .rating-label-text {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--accent);
+            min-height: 1.4em;
+            transition: var(--transition);
+        }
+
+        /* ── Category Ratings ──────────────────────── */
+        .category-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-item {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1rem 1.25rem;
+            transition: var(--transition);
+        }
+
+        .category-item:hover { border-color: var(--accent); }
+
+        .category-name {
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .mini-stars {
+            display: flex;
+            gap: 0.25rem;
+            font-size: 1.1rem;
+            color: var(--border);
+        }
+
+        .mini-stars i {
+            cursor: pointer;
+            transition: color 0.12s, transform 0.12s;
+        }
+
+        .mini-stars i:hover,
+        .mini-stars i.hovered,
+        .mini-stars i.selected {
+            color: #f6ad55;
+        }
+
+        .mini-stars i:hover { transform: scale(1.15); }
+
+        /* ── Section Divider ───────────────────────── */
+        .form-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 2rem 0;
+        }
+
+        /* ── Form Fields ───────────────────────────── */
+        .form-group { margin-bottom: 1.75rem; }
+
         .form-group label {
             display: block;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.65rem;
             color: var(--primary);
         }
 
         .form-control {
             width: 100%;
-            padding: 1.25rem;
+            padding: 1rem 1.1rem;
             border-radius: var(--radius-sm);
-            border: 1px solid var(--border);
+            border: 1.5px solid var(--border);
             background: var(--white);
             color: var(--text);
             font-weight: 500;
+            font-size: 0.95rem;
             transition: var(--transition);
+            font-family: inherit;
         }
 
         .form-control:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(160, 82, 45, 0.08);
+            box-shadow: 0 0 0 4px rgba(160,82,45,.09);
+            outline: none;
         }
 
         textarea.form-control {
-            min-height: 200px;
+            min-height: 160px;
             resize: vertical;
+            line-height: 1.6;
         }
 
-        .upload-experience {
+        .char-counter {
+            text-align: right;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-top: 0.35rem;
+            transition: color 0.3s;
+        }
+
+        .char-counter.warn { color: #c05621; }
+
+        /* ── Highlight Tags ────────────────────────── */
+        .tags-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tag-chip {
+            padding: 0.45rem 1rem;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-pill);
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--text-muted);
+            background: var(--white);
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .tag-chip:hover { border-color: var(--accent); color: var(--text); }
+
+        .tag-chip.selected {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--secondary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ── Recommend Toggle ──────────────────────── */
+        .recommend-row {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .recommend-btn {
+            flex: 1;
+            padding: 0.9rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .recommend-btn:hover { border-color: var(--accent); color: var(--text); }
+        .recommend-btn.yes.selected { border-color: var(--success); background: #c6f6d5; color: #276749; }
+        .recommend-btn.no.selected  { border-color: var(--error); background: #fff5f5; color: #c53030; }
+
+        /* ── Photo Upload ──────────────────────────── */
+        .upload-zone {
             border: 2px dashed var(--border);
-            padding: 3rem;
-            text-align: center;
             border-radius: var(--radius-md);
+            padding: 2rem;
+            text-align: center;
             cursor: pointer;
             transition: var(--transition);
             background: var(--surface);
+            position: relative;
         }
 
-        .upload-experience:hover {
+        .upload-zone:hover,
+        .upload-zone.drag-over {
             border-color: var(--primary);
+            background: rgba(160,82,45,.04);
+        }
+
+        .upload-zone input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+
+        .upload-zone i { font-size: 2rem; color: var(--accent); margin-bottom: 0.75rem; }
+        .upload-zone h4 { color: var(--primary); margin-bottom: 0.35rem; font-size: 1rem; }
+        .upload-zone p  { font-size: 0.82rem; color: var(--text-muted); }
+
+        .photo-previews {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 1rem;
+        }
+
+        .photo-thumb {
+            width: 72px;
+            height: 72px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+            position: relative;
+            border: 2px solid var(--border);
+        }
+
+        .photo-thumb-wrap {
+            position: relative;
+            display: inline-block;
+        }
+
+        .photo-remove {
+            position: absolute;
+            top: -6px; right: -6px;
+            width: 20px; height: 20px;
+            background: var(--error);
+            color: #fff;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ── Submit Button ─────────────────────────── */
+        .btn-submit {
+            width: 100%;
+            padding: 1.1rem;
+            border-radius: var(--radius-pill);
+            background: var(--primary);
+            color: var(--secondary);
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.65rem;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            background: var(--primary-dark);
             transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
-        .upload-experience i {
-            font-size: 2rem;
-            color: var(--accent);
+        .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .btn-submit .spinner {
+            width: 16px; height: 16px;
+            border: 2px solid rgba(255,228,181,.3);
+            border-top-color: var(--secondary);
+            border-radius: 50%;
+            animation: spin .7s linear infinite;
+            display: none;
+        }
+
+        .btn-submit.loading .spinner { display: block; }
+        .btn-submit.loading .btn-text { display: none; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── Success Overlay ───────────────────────── */
+        .success-overlay {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1.25rem;
+            padding: 3rem 1rem;
+        }
+
+        .success-icon {
+            width: 90px; height: 90px;
+            border-radius: 50%;
+            background: var(--success);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 2.2rem;
+            animation: pop-in .5s cubic-bezier(.175,.885,.32,1.275) both;
+        }
+
+        @keyframes pop-in {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* ── Sidebar ───────────────────────────────── */
+        .sidebar-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            position: sticky;
+            top: 110px;
+        }
+
+        /* ── Item Preview Card ─────────────────────── */
+        .item-preview {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .item-preview-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .item-preview-body {
+            padding: 1.25rem;
+        }
+
+        .item-preview-type {
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .item-preview-name {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-preview-date {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* ── Reviewer Tips ─────────────────────────── */
+        .tips-card {
+            padding: 1.5rem;
+        }
+
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
             margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
         }
 
-        @media (max-width: 768px) {
-            .review-form-card {
-                padding: 2rem;
-            }
+        .tip-item:last-child { margin-bottom: 0; }
+
+        .tip-icon {
+            width: 28px; height: 28px;
+            border-radius: var(--radius-sm);
+            background: rgba(160,82,45,.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        /* ── Responsive ────────────────────────────── */
+        @media (max-width: 992px) {
+            .review-grid { grid-template-columns: 1fr; }
+            .sidebar-col { position: static; order: -1; }
+            .review-card { padding: 1.75rem; }
+            .category-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <main class="review-main container">
-        <header class="review-header" data-animate>
-            <div style="font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 1rem; color: var(--primary);">Guest Narrative</div>
-            <h1 class="gradient-text" style="font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 1rem;">Share Your Legacy</h1>
-            <p style="color: var(--text-muted); font-size: 1.15rem;">Document your experience within the Blueprint ecosystem to guide future delegates.</p>
-        </header>
+<main class="review-main">
+    <div class="container">
 
-        <section class="card glass review-form-card" data-animate style="transition-delay: 0.1s;">
-            <form id="reviewForm">
-                <div class="rating-hub">
-                    <label style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--primary);">Experience Rating</label>
-                    <div class="rating-stars" id="stars">
-                        <i class="fas fa-star" data-value="1"></i>
-                        <i class="fas fa-star" data-value="2"></i>
-                        <i class="fas fa-star" data-value="3"></i>
-                        <i class="fas fa-star" data-value="4"></i>
-                        <i class="fas fa-star" data-value="5"></i>
+        <!-- Page Title -->
+        <div style="text-align: center; margin-bottom: 2.5rem;" data-animate>
+            <div class="section-label">Guest Narrative</div>
+            <h1 class="gradient-text" style="font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 0.5rem;">Rate Your Experience</h1>
+            <p style="color: var(--text-muted); font-size: 1rem;">Your honest feedback helps future travellers and rewards great partners.</p>
+        </div>
+
+        <div class="review-grid">
+
+            <!-- ── Left: Review Form ── -->
+            <div>
+                <div class="card review-card glass" data-animate style="transition-delay: 0.1s;">
+
+                    <!-- Form Wrapper -->
+                    <div id="formWrapper">
+                        <form id="reviewForm" novalidate>
+
+                            <!-- 1. Overall Rating -->
+                            <div class="section-label">Overall Rating</div>
+                            <div class="overall-stars-wrap">
+                                <div class="stars-row" id="overallStars">
+                                    <i class="fas fa-star" data-val="1"></i>
+                                    <i class="fas fa-star" data-val="2"></i>
+                                    <i class="fas fa-star" data-val="3"></i>
+                                    <i class="fas fa-star" data-val="4"></i>
+                                    <i class="fas fa-star" data-val="5"></i>
+                                </div>
+                                <div class="rating-label-text" id="overallLabel">Tap to rate your stay</div>
+                            </div>
+
+                            <!-- 2. Category Ratings -->
+                            <div class="section-label">Category Breakdown</div>
+                            <div class="category-grid" id="categoryGrid">
+
+                                <div class="category-item">
+                                    <div class="category-name"><i class="fas fa-broom"></i> Cleanliness</div>
+                                    <div class="mini-stars" data-cat="cleanliness">
+                                        <i class="fas fa-star" data-val="1"></i>
+                                        <i class="fas fa-star" data-val="2"></i>
+                                        <i class="fas fa-star" data-val="3"></i>
+                                        <i class="fas fa-star" data-val="4"></i>
+                                        <i class="fas fa-star" data-val="5"></i>
+                                    </div>
+                                </div>
+
+                                <div class="category-item">
+                                    <div class="category-name"><i class="fas fa-map-marker-alt"></i> Location</div>
+                                    <div class="mini-stars" data-cat="location">
+                                        <i class="fas fa-star" data-val="1"></i>
+                                        <i class="fas fa-star" data-val="2"></i>
+                                        <i class="fas fa-star" data-val="3"></i>
+                                        <i class="fas fa-star" data-val="4"></i>
+                                        <i class="fas fa-star" data-val="5"></i>
+                                    </div>
+                                </div>
+
+                                <div class="category-item">
+                                    <div class="category-name"><i class="fas fa-concierge-bell"></i> Service</div>
+                                    <div class="mini-stars" data-cat="service">
+                                        <i class="fas fa-star" data-val="1"></i>
+                                        <i class="fas fa-star" data-val="2"></i>
+                                        <i class="fas fa-star" data-val="3"></i>
+                                        <i class="fas fa-star" data-val="4"></i>
+                                        <i class="fas fa-star" data-val="5"></i>
+                                    </div>
+                                </div>
+
+                                <div class="category-item">
+                                    <div class="category-name"><i class="fas fa-tag"></i> Value</div>
+                                    <div class="mini-stars" data-cat="value">
+                                        <i class="fas fa-star" data-val="1"></i>
+                                        <i class="fas fa-star" data-val="2"></i>
+                                        <i class="fas fa-star" data-val="3"></i>
+                                        <i class="fas fa-star" data-val="4"></i>
+                                        <i class="fas fa-star" data-val="5"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-divider"></div>
+
+                            <!-- 3. Highlight Tags -->
+                            <div class="form-group">
+                                <label>What stood out? <span style="font-weight: 500; opacity: .6;">(Pick all that apply)</span></label>
+                                <div class="tags-grid" id="tagsGrid">
+                                    <span class="tag-chip" data-tag="Great View">🌅 Great View</span>
+                                    <span class="tag-chip" data-tag="Excellent Service">⭐ Excellent Service</span>
+                                    <span class="tag-chip" data-tag="Spotlessly Clean">✨ Spotlessly Clean</span>
+                                    <span class="tag-chip" data-tag="Prime Location">📍 Prime Location</span>
+                                    <span class="tag-chip" data-tag="Great Value">💰 Great Value</span>
+                                    <span class="tag-chip" data-tag="Fast WiFi">📶 Fast WiFi</span>
+                                    <span class="tag-chip" data-tag="Comfortable Beds">🛏️ Comfortable Beds</span>
+                                    <span class="tag-chip" data-tag="Friendly Staff">😊 Friendly Staff</span>
+                                    <span class="tag-chip" data-tag="Secure Parking">🅿️ Secure Parking</span>
+                                    <span class="tag-chip" data-tag="Amazing Breakfast">🍳 Amazing Breakfast</span>
+                                </div>
+                            </div>
+
+                            <div class="form-divider"></div>
+
+                            <!-- 4. Written Review -->
+                            <div class="form-group">
+                                <label for="reviewTitle">Review Headline</label>
+                                <input type="text" id="reviewTitle" class="form-control"
+                                       placeholder="e.g. An unforgettable view over the hills…" required maxlength="100">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="reviewContent">
+                                    Your Experience
+                                    <span style="font-weight:500;opacity:.6;">(min 50 characters)</span>
+                                </label>
+                                <textarea id="reviewContent" class="form-control"
+                                          placeholder="Tell future guests what made this experience special — the service, atmosphere, standout moments…"
+                                          required minlength="50" maxlength="1500"></textarea>
+                                <div class="char-counter" id="charCounter">0 / 1500</div>
+                            </div>
+
+                            <div class="form-divider"></div>
+
+                            <!-- 5. Recommend -->
+                            <div class="form-group">
+                                <label>Would you recommend this to a friend?</label>
+                                <div class="recommend-row">
+                                    <button type="button" class="recommend-btn yes" id="recYes" onclick="setRecommend(true)">
+                                        <i class="fas fa-thumbs-up"></i> Yes, absolutely
+                                    </button>
+                                    <button type="button" class="recommend-btn no" id="recNo" onclick="setRecommend(false)">
+                                        <i class="fas fa-thumbs-down"></i> Not this time
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-divider"></div>
+
+                            <!-- 6. Photo Upload -->
+                            <div class="form-group">
+                                <label>Add Photos <span style="font-weight:500;opacity:.6;">(optional, up to 5)</span></label>
+                                <div class="upload-zone" id="uploadZone">
+                                    <input type="file" id="photoInput" accept="image/*" multiple>
+                                    <i class="fas fa-images"></i>
+                                    <h4>Drop photos here or click to browse</h4>
+                                    <p>JPG, PNG, WEBP · Max 10 MB each · Up to 5 photos</p>
+                                </div>
+                                <div class="photo-previews" id="photoPreviews"></div>
+                            </div>
+
+                            <!-- 7. Submit -->
+                            <button type="submit" class="btn-submit" id="submitBtn">
+                                <div class="spinner"></div>
+                                <span class="btn-text"><i class="fas fa-paper-plane"></i>&nbsp; Submit Review</span>
+                            </button>
+
+                            <p style="text-align:center; margin-top:1rem; font-size:.8rem; color:var(--text-muted);">
+                                By submitting you confirm this reflects your genuine experience.
+                            </p>
+
+                        </form>
                     </div>
-                    <p id="ratingLabel" style="font-size: 0.9rem; font-weight: 600; color: var(--accent);">Select your rating</p>
-                </div>
 
-                <div class="form-group">
-                    <label for="reviewTitle">Narrative Summary</label>
-                    <input type="text" id="reviewTitle" class="form-control" placeholder="Summarize your experience in a few words..." required>
-                </div>
+                    <!-- Success State -->
+                    <div class="success-overlay" id="successOverlay">
+                        <div class="success-icon"><i class="fas fa-star"></i></div>
+                        <h2 class="gradient-text" style="font-size: 2rem;">Review Submitted!</h2>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 340px;">
+                            Thank you for sharing your experience. Your review will help future travellers make the right choice.
+                        </p>
+                        <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-top:0.5rem;">
+                            <a href="guest-dashboard.html" class="btn btn-primary">
+                                <i class="fas fa-home"></i> Back to Hub
+                            </a>
+                            <a href="accommodation.html" class="btn btn-secondary">
+                                <i class="fas fa-search"></i> Explore More
+                            </a>
+                        </div>
+                    </div>
 
-                <div class="form-group">
-                    <label for="reviewContent">Detailed Perspective</label>
-                    <textarea id="reviewContent" class="form-control" placeholder="Provide a thorough account of the service, aesthetics, and operational excellence..." required></textarea>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label>Visual Evidence</label>
-                    <div class="upload-experience">
-                        <i class="fas fa-images"></i>
-                        <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Upload Presence Media</h4>
-                        <p style="font-size: 0.85rem; color: var(--text-muted);">High-fidelity documentation encouraged. JPG, PNG up to 10MB.</p>
+            <!-- ── Right: Sidebar ── -->
+            <aside class="sidebar-col">
+
+                <!-- Item being reviewed -->
+                <div class="card item-preview" data-animate style="transition-delay: 0.15s;">
+                    <img id="sidebarImg"
+                         src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=600"
+                         alt="Item" class="item-preview-img">
+                    <div class="item-preview-body">
+                        <div class="item-preview-type" id="sidebarType">Accommodation</div>
+                        <div class="item-preview-name" id="sidebarName">Blueprint Stay</div>
+                        <div class="item-preview-date">
+                            <i class="fas fa-calendar-check" style="color:var(--primary);"></i>
+                            <span id="sidebarDate">Stayed recently</span>
+                        </div>
                     </div>
                 </div>
 
-                <div style="margin-top: 3rem;">
-                    <button type="submit" class="btn btn-primary w-100" style="padding: 1.25rem;">Finalize & Submit Perspective</button>
-                    <p style="text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted);">By submitting, you authorize the display of this review within the Blueprint ecosystem.</p>
+                <!-- Live rating preview -->
+                <div class="card tips-card" data-animate style="transition-delay: 0.2s;">
+                    <div class="section-label" style="margin-bottom:1rem;">Your Rating So Far</div>
+
+                    <div id="liveRatingDisplay" style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1.5rem;">
+                        <div style="font-size:2.5rem; font-weight:900; color:var(--primary); line-height:1;" id="liveScore">—</div>
+                        <div>
+                            <div style="display:flex; gap:3px; font-size:0.9rem; color:#f6ad55;" id="liveStars">
+                                <i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                            </div>
+                            <div style="font-size:0.75rem;color:var(--text-muted);font-weight:700;margin-top:0.2rem;" id="liveLabel">Not rated yet</div>
+                        </div>
+                    </div>
+
+                    <!-- Category breakdown bars -->
+                    <div id="liveCats" style="display:flex;flex-direction:column;gap:0.6rem;"></div>
                 </div>
-            </form>
-        </section>
-    </main>
 
-    <!-- Scripts -->
-    <script src="../assets/js/components.js"></script>
-    <script>
-        const stars = document.querySelectorAll('#stars i');
-        const ratingLabel = document.getElementById('ratingLabel');
-        const labels = {
-            1: "Inadequate Experience",
-            2: "Below Blueprint Standard",
-            3: "Standard Execution",
-            4: "Exceptional Service",
-            5: "World-Class Excellence"
-        };
-        let selectedRating = 0;
+                <!-- Writing tips -->
+                <div class="card tips-card" data-animate style="transition-delay: 0.25s;">
+                    <div class="section-label" style="margin-bottom:1rem;">Writing Tips</div>
+                    <div class="tip-item">
+                        <div class="tip-icon"><i class="fas fa-check"></i></div>
+                        <span>Be specific — mention exact features like the view, breakfast quality, or check-in speed.</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon"><i class="fas fa-balance-scale"></i></div>
+                        <span>Be balanced — highlight both strengths and areas for improvement.</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon"><i class="fas fa-eye"></i></div>
+                        <span>Write for future guests — would this help them make a decision?</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon"><i class="fas fa-ban"></i></div>
+                        <span>Avoid personal data and inappropriate language. Reviews are moderated.</span>
+                    </div>
+                </div>
 
-        stars.forEach(star => {
-            star.addEventListener('mouseover', function() {
-                resetStars();
-                highlightStars(this.dataset.value);
-                ratingLabel.textContent = labels[this.dataset.value];
-            });
+            </aside>
 
-            star.addEventListener('click', function() {
-                selectedRating = this.dataset.value;
-                highlightStars(selectedRating);
-            });
+        </div>
+    </div>
+</main>
+
+<script src="../assets/js/components.js"></script>
+<script>
+// ── Context from URL ──────────────────────────────────
+const params   = new URLSearchParams(window.location.search);
+const itemName = params.get('name')  || 'Blueprint Stay';
+const itemType = params.get('type')  || 'Accommodation';
+const itemDate = params.get('date')  || '';
+const itemImg  = params.get('img')   || 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=600';
+const itemRef  = params.get('ref')   || '';
+
+document.getElementById('sidebarName').textContent = itemName;
+document.getElementById('sidebarType').textContent = itemType;
+document.getElementById('sidebarImg').src          = itemImg;
+
+if (itemDate) {
+    try {
+        const d = new Date(itemDate);
+        document.getElementById('sidebarDate').textContent =
+            'Stayed ' + d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    } catch(e) {}
+}
+
+// ── Overall Star Rating ───────────────────────────────
+const overallStars  = document.querySelectorAll('#overallStars i');
+const overallLabel  = document.getElementById('overallLabel');
+let overallRating   = 0;
+
+const ratingLabels = {
+    1: 'Poor — needs significant improvement',
+    2: 'Fair — below my expectations',
+    3: 'Good — met expectations',
+    4: 'Very Good — exceeded expectations',
+    5: 'Excellent — world-class experience!'
+};
+
+function applyStars(stars, val, cls = 'selected') {
+    stars.forEach(s => {
+        s.classList.remove('selected', 'hovered');
+        if (parseInt(s.dataset.val) <= val) s.classList.add(cls);
+    });
+}
+
+overallStars.forEach(star => {
+    star.addEventListener('mouseover', () => {
+        applyStars(overallStars, parseInt(star.dataset.val), 'hovered');
+        overallLabel.textContent = ratingLabels[star.dataset.val];
+    });
+    star.addEventListener('click', () => {
+        overallRating = parseInt(star.dataset.val);
+        applyStars(overallStars, overallRating);
+        overallLabel.textContent = ratingLabels[overallRating];
+        updateLiveSidebar();
+    });
+    star.addEventListener('mouseleave', () => {
+        applyStars(overallStars, overallRating);
+        overallLabel.textContent = overallRating ? ratingLabels[overallRating] : 'Tap to rate your stay';
+    });
+});
+
+// ── Category Ratings ──────────────────────────────────
+const catRatings = { cleanliness: 0, location: 0, service: 0, value: 0 };
+const catLabels  = { cleanliness: 'Cleanliness', location: 'Location', service: 'Service', value: 'Value' };
+
+document.querySelectorAll('.mini-stars').forEach(group => {
+    const cat   = group.dataset.cat;
+    const stars = group.querySelectorAll('i');
+
+    stars.forEach(star => {
+        star.addEventListener('mouseover', () => applyStars(stars, parseInt(star.dataset.val), 'hovered'));
+        star.addEventListener('click', () => {
+            catRatings[cat] = parseInt(star.dataset.val);
+            applyStars(stars, catRatings[cat]);
+            updateLiveSidebar();
         });
+        star.addEventListener('mouseleave', () => applyStars(stars, catRatings[cat]));
+    });
+});
 
-        document.getElementById('stars').addEventListener('mouseleave', function() {
-            resetStars();
-            if (selectedRating > 0) {
-                highlightStars(selectedRating);
-                ratingLabel.textContent = labels[selectedRating];
-            } else {
-                ratingLabel.textContent = "Select your rating";
-            }
-        });
+// ── Live Sidebar Update ───────────────────────────────
+function updateLiveSidebar() {
+    // Overall score
+    document.getElementById('liveScore').textContent = overallRating || '—';
+    document.getElementById('liveLabel').textContent = overallRating ? ratingLabels[overallRating] : 'Not rated yet';
 
-        function highlightStars(val) {
-            stars.forEach(s => {
-                if (s.dataset.value <= val) s.classList.add('active');
-            });
-        }
+    // Live stars
+    const liveStarsEl = document.getElementById('liveStars');
+    liveStarsEl.innerHTML = [1,2,3,4,5].map(i =>
+        `<i class="${i <= overallRating ? 'fas' : 'far'} fa-star"></i>`
+    ).join('');
 
-        function resetStars() {
-            stars.forEach(s => s.classList.remove('active'));
-        }
+    // Category bars
+    const liveCats = document.getElementById('liveCats');
+    liveCats.innerHTML = Object.entries(catLabels).map(([key, label]) => {
+        const val = catRatings[key];
+        const pct = val ? (val / 5 * 100) : 0;
+        return `
+            <div>
+                <div style="display:flex;justify-content:space-between;font-size:.75rem;font-weight:700;color:var(--text-muted);margin-bottom:.3rem;">
+                    <span>${label}</span>
+                    <span style="color:${val ? 'var(--primary)' : 'var(--border)'};">${val ? val + '.0' : '—'}</span>
+                </div>
+                <div style="height:5px;background:var(--border);border-radius:3px;overflow:hidden;">
+                    <div style="height:100%;width:${pct}%;background:var(--gradient-gold);border-radius:3px;transition:width .4s;"></div>
+                </div>
+            </div>`;
+    }).join('');
+}
 
-        document.getElementById('reviewForm').onsubmit = function(e) {
-            e.preventDefault();
-            if (selectedRating === 0) {
-                Components.showToast('Please provide a rating before proceeding', 'error');
-                return;
-            }
-            Components.showToast('Perspective Submitted Successfully', 'success');
-            setTimeout(() => {
-                history.back();
-            }, 2000);
+updateLiveSidebar(); // init
+
+// ── Tag Chips ─────────────────────────────────────────
+document.querySelectorAll('.tag-chip').forEach(chip => {
+    chip.addEventListener('click', () => chip.classList.toggle('selected'));
+});
+
+// ── Recommend ─────────────────────────────────────────
+let recommend = null;
+
+function setRecommend(val) {
+    recommend = val;
+    document.getElementById('recYes').classList.toggle('selected', val === true);
+    document.getElementById('recNo').classList.toggle('selected',  val === false);
+}
+
+// ── Character Counter ─────────────────────────────────
+const textarea    = document.getElementById('reviewContent');
+const charCounter = document.getElementById('charCounter');
+const MAX_CHARS   = 1500;
+
+textarea.addEventListener('input', () => {
+    const len = textarea.value.length;
+    charCounter.textContent = len + ' / ' + MAX_CHARS;
+    charCounter.classList.toggle('warn', len > MAX_CHARS * 0.9);
+});
+
+// ── Photo Upload ──────────────────────────────────────
+const photoInput    = document.getElementById('photoInput');
+const photoPreviews = document.getElementById('photoPreviews');
+const uploadZone    = document.getElementById('uploadZone');
+let photoFiles      = [];
+
+photoInput.addEventListener('change', handleFiles);
+
+uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+uploadZone.addEventListener('drop', e => {
+    e.preventDefault();
+    uploadZone.classList.remove('drag-over');
+    handleFiles({ target: { files: e.dataTransfer.files } });
+});
+
+function handleFiles(e) {
+    const newFiles = Array.from(e.target.files).slice(0, 5 - photoFiles.length);
+    newFiles.forEach(file => {
+        if (!file.type.startsWith('image/')) return;
+        photoFiles.push(file);
+        const reader = new FileReader();
+        reader.onload = ev => {
+            const wrap = document.createElement('div');
+            wrap.className = 'photo-thumb-wrap';
+            wrap.innerHTML = `
+                <img src="${ev.target.result}" class="photo-thumb" alt="">
+                <button class="photo-remove" onclick="removePhoto(this, '${file.name}')">
+                    <i class="fas fa-times"></i>
+                </button>`;
+            photoPreviews.appendChild(wrap);
         };
-    </script>
+        reader.readAsDataURL(file);
+    });
+    photoInput.value = '';
+}
+
+function removePhoto(btn, name) {
+    photoFiles = photoFiles.filter(f => f.name !== name);
+    btn.closest('.photo-thumb-wrap').remove();
+}
+
+// ── Form Submission ───────────────────────────────────
+document.getElementById('reviewForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    if (!overallRating) {
+        Components.showToast('Please set an overall star rating', 'error');
+        document.getElementById('overallStars').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+
+    const title   = document.getElementById('reviewTitle').value.trim();
+    const content = document.getElementById('reviewContent').value.trim();
+
+    if (!title) {
+        Components.showToast('Please add a review headline', 'error');
+        document.getElementById('reviewTitle').focus();
+        return;
+    }
+
+    if (content.length < 50) {
+        Components.showToast('Please write at least 50 characters in your review', 'error');
+        textarea.focus();
+        return;
+    }
+
+    // Collect tags
+    const tags = Array.from(document.querySelectorAll('.tag-chip.selected'))
+                      .map(t => t.dataset.tag);
+
+    // Submit state
+    const btn = document.getElementById('submitBtn');
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    // Simulate API
+    setTimeout(() => {
+        btn.classList.remove('loading');
+        document.getElementById('formWrapper').style.cssText = 'opacity:0;transition:opacity .4s;';
+        setTimeout(() => {
+            document.getElementById('formWrapper').style.display = 'none';
+            const overlay = document.getElementById('successOverlay');
+            overlay.style.display = 'flex';
+        }, 400);
+        Components.showToast('Review submitted — thank you!', 'success');
+    }, 1800);
+});
+</script>
 </body>
 </html>

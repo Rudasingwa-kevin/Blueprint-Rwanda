@@ -158,6 +158,148 @@
                     <h2 style="margin-bottom: 1rem;">Location Map</h2>
                     <div id="property-map"></div>
                 </div>
+
+                <!-- ── Guest Reviews ── -->
+                <div class="card" style="padding: 2rem; margin-top: 2rem;" data-animate>
+                    <!-- Header Row -->
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
+                        <div>
+                            <h2 style="margin-bottom:0.25rem;">Guest Reviews</h2>
+                            <div style="display:flex; align-items:center; gap:0.5rem; color:var(--text-muted); font-size:0.9rem;">
+                                <span style="color:#f6ad55; font-size:1rem;">★★★★★</span>
+                                <strong style="color:var(--primary);">4.98</strong> · 124 verified reviews
+                            </div>
+                        </div>
+                        <a href="submit-review.html?name=Skyline+Penthouse&type=Accommodation&img=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1522708323590-d24dbb6b0267%3Fauto%3Dformat%26fit%3Dcrop%26q%3D80%26w%3D600"
+                           class="btn btn-secondary" style="font-size:0.82rem; padding:0.6rem 1.3rem;">
+                            <i class="fas fa-star"></i> Write a Review
+                        </a>
+                    </div>
+
+                    <!-- Category Score Bar -->
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem 2rem; margin-bottom:2rem; padding:1.25rem; background:var(--bg); border-radius:var(--radius-sm); border:1px solid var(--border);">
+                        <div>
+                            <div style="display:flex; justify-content:space-between; font-size:0.78rem; font-weight:700; color:var(--text-muted); margin-bottom:0.3rem;">
+                                <span><i class="fas fa-broom"></i> Cleanliness</span><span style="color:var(--primary);">5.0</span>
+                            </div>
+                            <div style="height:5px; background:var(--border); border-radius:3px;">
+                                <div style="height:100%; width:100%; background:var(--gradient-gold); border-radius:3px;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display:flex; justify-content:space-between; font-size:0.78rem; font-weight:700; color:var(--text-muted); margin-bottom:0.3rem;">
+                                <span><i class="fas fa-map-marker-alt"></i> Location</span><span style="color:var(--primary);">4.9</span>
+                            </div>
+                            <div style="height:5px; background:var(--border); border-radius:3px;">
+                                <div style="height:100%; width:98%; background:var(--gradient-gold); border-radius:3px;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display:flex; justify-content:space-between; font-size:0.78rem; font-weight:700; color:var(--text-muted); margin-bottom:0.3rem;">
+                                <span><i class="fas fa-concierge-bell"></i> Service</span><span style="color:var(--primary);">5.0</span>
+                            </div>
+                            <div style="height:5px; background:var(--border); border-radius:3px;">
+                                <div style="height:100%; width:100%; background:var(--gradient-gold); border-radius:3px;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display:flex; justify-content:space-between; font-size:0.78rem; font-weight:700; color:var(--text-muted); margin-bottom:0.3rem;">
+                                <span><i class="fas fa-tag"></i> Value</span><span style="color:var(--primary);">4.8</span>
+                            </div>
+                            <div style="height:5px; background:var(--border); border-radius:3px;">
+                                <div style="height:100%; width:96%; background:var(--gradient-gold); border-radius:3px;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review Cards -->
+                    <div id="reviewList" style="display:flex; flex-direction:column; gap:1.5rem;">
+
+                        <!-- Review 1 -->
+                        <div style="padding:1.5rem; background:var(--surface); border-radius:var(--radius-sm); border:1px solid var(--border);">
+                            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+                                <div style="display:flex; align-items:center; gap:0.75rem;">
+                                    <div style="width:40px; height:40px; border-radius:50%; background:var(--gradient-gold); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:1rem;">A</div>
+                                    <div>
+                                        <div style="font-weight:800; font-size:0.95rem;">Amara K.</div>
+                                        <div style="font-size:0.75rem; color:var(--text-muted);">Nairobi, Kenya</div>
+                                    </div>
+                                </div>
+                                <div style="text-align:right;">
+                                    <div style="color:#f6ad55; font-size:0.85rem;">★★★★★</div>
+                                    <div style="font-size:0.75rem; color:var(--text-muted);">March 2026</div>
+                                </div>
+                            </div>
+                            <p style="font-weight:700; margin-bottom:0.4rem; font-size:0.95rem;">An unforgettable panoramic experience</p>
+                            <p style="color:var(--text-muted); font-size:0.88rem; line-height:1.7;">
+                                The penthouse exceeded every expectation. Waking up to the Kigali skyline was worth every franc. The service was impeccable — staff anticipated needs before we even voiced them. The infinity pool at sunset is a memory I will carry for years.
+                            </p>
+                            <div style="margin-top:0.75rem; display:flex; flex-wrap:wrap; gap:0.4rem;">
+                                <span style="font-size:0.72rem; font-weight:700; padding:0.2rem 0.7rem; background:rgba(160,82,45,.08); color:var(--primary); border-radius:var(--radius-pill); border:1px solid rgba(160,82,45,.15);">Great View</span>
+                                <span style="font-size:0.72rem; font-weight:700; padding:0.2rem 0.7rem; background:rgba(160,82,45,.08); color:var(--primary); border-radius:var(--radius-pill); border:1px solid rgba(160,82,45,.15);">Excellent Service</span>
+                                <span style="font-size:0.72rem; font-weight:700; padding:0.2rem 0.7rem; background:rgba(160,82,45,.08); color:var(--primary); border-radius:var(--radius-pill); border:1px solid rgba(160,82,45,.15);">Spotlessly Clean</span>
+                            </div>
+                        </div>
+
+                        <!-- Review 2 -->
+                        <div style="padding:1.5rem; background:var(--surface); border-radius:var(--radius-sm); border:1px solid var(--border);">
+                            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+                                <div style="display:flex; align-items:center; gap:0.75rem;">
+                                    <div style="width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,#2f855a,#276749); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:1rem;">M</div>
+                                    <div>
+                                        <div style="font-weight:800; font-size:0.95rem;">Marcus T.</div>
+                                        <div style="font-size:0.75rem; color:var(--text-muted);">London, UK</div>
+                                    </div>
+                                </div>
+                                <div style="text-align:right;">
+                                    <div style="color:#f6ad55; font-size:0.85rem;">★★★★★</div>
+                                    <div style="font-size:0.75rem; color:var(--text-muted);">February 2026</div>
+                                </div>
+                            </div>
+                            <p style="font-weight:700; margin-bottom:0.4rem; font-size:0.95rem;">Blueprint Rwanda redefined luxury for me</p>
+                            <p style="color:var(--text-muted); font-size:0.88rem; line-height:1.7;">
+                                I've stayed at five-star hotels across 40 countries. This penthouse sits comfortably among the very best. The architectural fusion of Rwandan heritage and modern design is breathtaking. The team went above and beyond to curate local experiences for us.
+                            </p>
+                            <div style="margin-top:0.75rem; display:flex; flex-wrap:wrap; gap:0.4rem;">
+                                <span style="font-size:0.72rem; font-weight:700; padding:0.2rem 0.7rem; background:rgba(160,82,45,.08); color:var(--primary); border-radius:var(--radius-pill); border:1px solid rgba(160,82,45,.15);">Prime Location</span>
+                                <span style="font-size:0.72rem; font-weight:700; padding:0.2rem 0.7rem; background:rgba(160,82,45,.08); color:var(--primary); border-radius:var(--radius-pill); border:1px solid rgba(160,82,45,.15);">Friendly Staff</span>
+                            </div>
+                        </div>
+
+                        <!-- Review 3 -->
+                        <div style="padding:1.5rem; background:var(--surface); border-radius:var(--radius-sm); border:1px solid var(--border);">
+                            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+                                <div style="display:flex; align-items:center; gap:0.75rem;">
+                                    <div style="width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,#2b6cb0,#2c5282); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:1rem;">S</div>
+                                    <div>
+                                        <div style="font-weight:800; font-size:0.95rem;">Sophie N.</div>
+                                        <div style="font-size:0.75rem; color:var(--text-muted);">Kigali, Rwanda</div>
+                                    </div>
+                                </div>
+                                <div style="text-align:right;">
+                                    <div style="color:#f6ad55; font-size:0.85rem;">★★★★<span style="opacity:0.3;">★</span></div>
+                                    <div style="font-size:0.75rem; color:var(--text-muted);">January 2026</div>
+                                </div>
+                            </div>
+                            <p style="font-weight:700; margin-bottom:0.4rem; font-size:0.95rem;">Outstanding — minor WiFi hiccup aside</p>
+                            <p style="color:var(--text-muted); font-size:0.88rem; line-height:1.7;">
+                                Absolutely stunning property. The interior design is cohesive and premium throughout. The only slight issue was WiFi dropping once during a work call — but they resolved it within 20 minutes. Would stay again without hesitation.
+                            </p>
+                            <div style="margin-top:0.75rem; display:flex; flex-wrap:wrap; gap:0.4rem;">
+                                <span style="font-size:0.72rem; font-weight:700; padding:0.2rem 0.7rem; background:rgba(160,82,45,.08); color:var(--primary); border-radius:var(--radius-pill); border:1px solid rgba(160,82,45,.15);">Great Value</span>
+                                <span style="font-size:0.72rem; font-weight:700; padding:0.2rem 0.7rem; background:rgba(160,82,45,.08); color:var(--primary); border-radius:var(--radius-pill); border:1px solid rgba(160,82,45,.15);">Comfortable Beds</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Load More -->
+                    <div style="text-align:center; margin-top:2rem;">
+                        <button class="btn btn-secondary" onclick="loadMoreReviews(this)" style="font-size:0.85rem;">
+                            <i class="fas fa-chevron-down"></i> Show More Reviews (121 remaining)
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <!-- Booking Sidebar -->
@@ -251,6 +393,66 @@
                 });
             }
         });
+
+        // Load more reviews
+        const extraReviews = [
+            {
+                initial: 'J', color: 'linear-gradient(135deg,#6b46c1,#553c9a)',
+                name: 'James O.', location: 'Lagos, Nigeria', stars: '★★★★★', date: 'December 2025',
+                headline: 'The best accommodation I have ever booked online',
+                body: 'From the seamless booking process to the immaculate check-out, Blueprint Rwanda delivered perfection at every turn. The penthouse itself is an architectural poem — I cannot recommend it highly enough.',
+                tags: ['Excellent Service', 'Great View', 'Friendly Staff']
+            },
+            {
+                initial: 'L', color: 'linear-gradient(135deg,#c05621,#dd6b20)',
+                name: 'Lena M.', location: 'Paris, France', stars: '★★★★★', date: 'November 2025',
+                headline: 'Rwanda through a luxury lens',
+                body: 'I came for a conference and extended my stay by 3 days purely because of this property. The rooftop access and city views at night are something I have never experienced anywhere in Africa or Europe.',
+                tags: ['Prime Location', 'Great Value', 'Amazing Breakfast']
+            }
+        ];
+
+        let moreLoaded = false;
+
+        function loadMoreReviews(btn) {
+            if (moreLoaded) { btn.style.display = 'none'; return; }
+            moreLoaded = true;
+            const list = document.getElementById('reviewList');
+
+            extraReviews.forEach((r, i) => {
+                const tagPillStyle = 'font-size:0.72rem;font-weight:700;padding:0.2rem 0.7rem;background:rgba(160,82,45,.08);color:var(--primary);border-radius:9999px;border:1px solid rgba(160,82,45,.15);';
+                const tags = r.tags.map(t => `<span style="${tagPillStyle}">${t}</span>`).join('');
+                const el = document.createElement('div');
+                el.style.cssText = 'padding:1.5rem;background:var(--surface);border-radius:var(--radius-sm);border:1px solid var(--border);opacity:0;transform:translateY(12px);transition:opacity 0.5s,transform 0.5s;';
+                el.style.transitionDelay = (i * 0.1) + 's';
+                el.innerHTML = `
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem;">
+                        <div style="display:flex;align-items:center;gap:0.75rem;">
+                            <div style="width:40px;height:40px;border-radius:50%;background:${r.color};display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1rem;">${r.initial}</div>
+                            <div>
+                                <div style="font-weight:800;font-size:0.95rem;">${r.name}</div>
+                                <div style="font-size:0.75rem;color:var(--text-muted);">${r.location}</div>
+                            </div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="color:#f6ad55;font-size:0.85rem;">${r.stars}</div>
+                            <div style="font-size:0.75rem;color:var(--text-muted);">${r.date}</div>
+                        </div>
+                    </div>
+                    <p style="font-weight:700;margin-bottom:0.4rem;font-size:0.95rem;">${r.headline}</p>
+                    <p style="color:var(--text-muted);font-size:0.88rem;line-height:1.7;">${r.body}</p>
+                    <div style="margin-top:0.75rem;display:flex;flex-wrap:wrap;gap:0.4rem;">${tags}</div>`;
+                list.appendChild(el);
+                requestAnimationFrame(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                });
+            });
+
+            btn.innerHTML = '<i class="fas fa-check"></i> All reviews loaded';
+            btn.disabled = true;
+            btn.style.opacity = '0.6';
+        }
     </script>
 </body>
 </html>
