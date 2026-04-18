@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Asset Inventory - Blueprint Rwanda</title>
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/ui-system.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <style>
+        .filter-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
+            overflow-x: auto;
+        }
+
+        .filter-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .telemetry-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .telemetry-stat {
+            background: rgba(26, 15, 10, 0.5);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .telemetry-stat i {
+            font-size: 2rem;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <main class="admin-main container">
+        <header class="admin-header" data-animate>
+            <div class="admin-title">
+                <h1 class="gradient-text">Global Asset Inventory</h1>
+                <p>Governing the entire ecosystem's premium inventory matrix.</p>
+            </div>
+            <div class="admin-actions">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="inventorySearch" class="admin-search" placeholder="Search system by ID or name...">
+                </div>
+            </div>
+        </header>
+
+        <!-- Master Telemetry Bar -->
+        <div class="telemetry-bar" data-animate style="transition-delay: 0.05s;">
+            <div class="telemetry-stat" style="border-bottom: 3px solid #10b981;">
+                <i class="fas fa-satellite-dish" style="color: #10b981;"></i>
+                <div>
+                    <h4 style="font-size: 1.5rem; margin-bottom: 0.2rem;">452</h4>
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Live Nodes</span>
+                </div>
+            </div>
+            <div class="telemetry-stat" style="border-bottom: 3px solid var(--primary);">
+                <i class="fas fa-boxes" style="color: var(--primary);"></i>
+                <div>
+                    <h4 style="font-size: 1.5rem; margin-bottom: 0.2rem;">84</h4>
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Partner Portfolios</span>
+                </div>
+            </div>
+            <div class="telemetry-stat" style="border-bottom: 3px solid #f59e0b;">
+                <i class="fas fa-tools" style="color: #f59e0b;"></i>
+                <div>
+                    <h4 style="font-size: 1.5rem; margin-bottom: 0.2rem;">12</h4>
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">In Maintenance</span>
+                </div>
+            </div>
+            <div class="telemetry-stat" style="border-bottom: 3px solid var(--error);">
+                <i class="fas fa-ban" style="color: var(--error);"></i>
+                <div>
+                    <h4 style="font-size: 1.5rem; margin-bottom: 0.2rem;">3</h4>
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Suspended Ops</span>
+                </div>
+            </div>
+        </div>
+
+        <section class="card data-card" data-animate style="transition-delay: 0.1s; padding: 2rem;">
+            <!-- Category Filters -->
+            <nav class="filter-nav">
+                <button class="filter-btn active" data-filter="all">Master Overview</button>
+                <button class="filter-btn" data-filter="stay">Governing Estates</button>
+                <button class="filter-btn" data-filter="car">Fleet Mobility</button>
+                <button class="filter-btn" data-filter="place">Authorized Experiences</button>
+            </nav>
+
+            <!-- Unified Table -->
+            <div class="table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Asset Identity</th>
+                            <th>Partner Syndicate</th>
+                            <th>Pricing / Value Structure</th>
+                            <th>Status Parameter</th>
+                            <th>Reputation Index</th>
+                            <th style="text-align: right;">System Authority</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventory-tbody">
+                        
+                        <!-- Estate / Accommodation Item -->
+                        <tr class="inventory-item" data-category="stay">
+                            <td>
+                                <div class="item-preview">
+                                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=150" alt="" class="item-img-sm">
+                                    <div class="item-info">
+                                        <h4>Kigali View Penthouse</h4>
+                                        <span style="font-size: 0.75rem; color: var(--primary);"><i class="fas fa-building"></i> EST-KYV-001</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span style="font-weight: 700;">Global Properties Ltd</span></td>
+                            <td>$120 / night</td>
+                            <td><span class="status-pill status-active">Operational</span></td>
+                            <td><div style="display:flex; align-items:center; gap: 0.5rem;"><i class="fas fa-star" style="color: var(--accent);"></i> 4.98</div></td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="btn-icon" title="Audit Telemetry"><i class="fas fa-microchip"></i></button>
+                                    <button class="btn-icon delete" title="Suspend Asset"><i class="fas fa-ban"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Estate Item 2 -->
+                        <tr class="inventory-item" data-category="stay">
+                            <td>
+                                <div class="item-preview">
+                                    <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=150" alt="" class="item-img-sm">
+                                    <div class="item-info">
+                                        <h4>Blue Water Sanctuary</h4>
+                                        <span style="font-size: 0.75rem; color: var(--primary);"><i class="fas fa-building"></i> EST-RBV-003</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span style="font-weight: 700;">Lakeside Tours Ltd</span></td>
+                            <td>$180 / night</td>
+                            <td><span class="status-pill status-pending">Maintenance Pending</span></td>
+                            <td><div style="display:flex; align-items:center; gap: 0.5rem;"><i class="fas fa-star" style="color: var(--accent);"></i> 5.00</div></td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="btn-icon" title="Audit Telemetry"><i class="fas fa-microchip"></i></button>
+                                    <button class="btn-icon" title="Lift Suspension"><i class="fas fa-play"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Car / Fleet Item -->
+                        <tr class="inventory-item" data-category="car">
+                            <td>
+                                <div class="item-preview">
+                                    <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=150" alt="" class="item-img-sm">
+                                    <div class="item-info">
+                                        <h4>Land Cruiser V8</h4>
+                                        <span style="font-size: 0.75rem; color: var(--secondary);"><i class="fas fa-car-alt"></i> FLT-TR-001</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span style="font-weight: 700;">Kigali Fleet Ops</span></td>
+                            <td>$150 / day</td>
+                            <td><span class="status-pill status-active">Operational</span></td>
+                            <td><div style="display:flex; align-items:center; gap: 0.5rem;"><i class="fas fa-star" style="color: var(--accent);"></i> 4.90</div></td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="btn-icon" title="Audit Telemetry"><i class="fas fa-microchip"></i></button>
+                                    <button class="btn-icon delete" title="Suspend Asset"><i class="fas fa-ban"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Place / Experience Item -->
+                        <tr class="inventory-item" data-category="place">
+                            <td>
+                                <div class="item-preview">
+                                    <img src="https://images.unsplash.com/photo-1547471080-7fc2caa6f17f?auto=format&fit=crop&q=80&w=150" alt="" class="item-img-sm">
+                                    <div class="item-info">
+                                        <h4>Nyungwe Canopy Walk</h4>
+                                        <span style="font-size: 0.75rem; color: #10b981;"><i class="fas fa-map-marked-alt"></i> PLC-NY-001</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span style="font-weight: 700;">RDB Central</span></td>
+                            <td>$40 / entry</td>
+                            <td><span class="status-pill status-active">Operational</span></td>
+                            <td><div style="display:flex; align-items:center; gap: 0.5rem;"><i class="fas fa-star" style="color: var(--accent);"></i> 4.99</div></td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="btn-icon" title="Audit Telemetry"><i class="fas fa-microchip"></i></button>
+                                    <button class="btn-icon delete" title="Suspend Asset"><i class="fas fa-ban"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Setup Search
+            if (window.Components && window.Components.initAdminSearch) {
+                window.Components.initAdminSearch('inventorySearch', '.admin-table');
+            }
+
+            // Setup Filter Logic
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const listItems = document.querySelectorAll('.inventory-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update Active Button
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // Filter Rows
+                    const filterValue = btn.getAttribute('data-filter');
+                    listItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.style.display = '';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Demo setup for System Authority Actions (Admin-side suspension logic)
+            const tableBody = document.getElementById('inventory-tbody');
+            if (tableBody) {
+                tableBody.addEventListener('click', function(e) {
+                    const btn = e.target.closest('button');
+                    if (!btn) return;
+                    
+                    const icon = btn.querySelector('i.fa-ban');
+                    if (icon) {
+                        const row = btn.closest('tr');
+                        const isConfirmed = confirm("EMERGENCY PROTOCOL: Suspending this asset will instantly decouple it from the general marketplace. Proceed?");
+                        if(isConfirmed) {
+                            const pill = row.querySelector('.status-pill');
+                            if(pill) {
+                                pill.className = 'status-pill status-pending';
+                                pill.textContent = 'Suspended (Admin)';
+                            }
+                            icon.className = 'fas fa-play';
+                            btn.title = "Lift Suspension";
+                            btn.classList.remove('delete');
+                            if(window.Components) Components.showToast('Asset Suspended due to Authority override.', 'success');
+                        }
+                    } else {
+                        const playIcon = btn.querySelector('i.fa-play');
+                        if (playIcon) {
+                            const row = btn.closest('tr');
+                            const pill = row.querySelector('.status-pill');
+                            if(pill) {
+                                pill.className = 'status-pill status-active';
+                                pill.textContent = 'Operational';
+                            }
+                            playIcon.className = 'fas fa-ban';
+                            btn.title = "Suspend Asset";
+                            btn.classList.add('delete');
+                            if(window.Components) Components.showToast('Node reintegrated into marketplace.', 'success');
+                        }
+                    }
+
+                    // Simulated Diagnostics
+                    const chipIcon = btn.querySelector('i.fa-microchip');
+                    if (chipIcon) {
+                        if(window.Components) Components.showToast('Initiating Deep Telemetry Audit (Simulated)...', 'success');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

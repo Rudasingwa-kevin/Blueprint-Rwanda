@@ -872,7 +872,7 @@
                 <p>A hand-picked selection from our growing portfolio of managed assets across Rwanda.</p>
             </div>
             <div class="projects-grid">
-                <div class="project-card" data-animate onclick="routeCheck('item-details.html')">
+                <div class="project-card" data-animate onclick="routeCheck('item-details.html?type=accommodation')">
                     <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800" alt="Skyline Penthouse" loading="lazy">
                     <div class="project-overlay">
                         <span class="project-tag">Residential</span>
@@ -881,7 +881,7 @@
                         <div class="project-action"><i class="fas fa-arrow-right"></i> View Details</div>
                     </div>
                 </div>
-                <div class="project-card" data-animate style="transition-delay:0.08s;" onclick="routeCheck('item-details.html')">
+                <div class="project-card" data-animate style="transition-delay:0.08s;" onclick="routeCheck('item-details.html?type=accommodation')">
                     <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=800" alt="Akagera Eco Lodge" loading="lazy">
                     <div class="project-overlay">
                         <span class="project-tag">Eco-Tourism</span>
@@ -890,7 +890,7 @@
                         <div class="project-action"><i class="fas fa-arrow-right"></i> View Details</div>
                     </div>
                 </div>
-                <div class="project-card" data-animate style="transition-delay:0.16s;" onclick="routeCheck('item-details.html')">
+                <div class="project-card" data-animate style="transition-delay:0.16s;" onclick="routeCheck('item-details.html?type=accommodation')">
                     <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=800" alt="Blue Water Sanctuary" loading="lazy">
                     <div class="project-overlay">
                         <span class="project-tag">Lakeside</span>
@@ -899,7 +899,7 @@
                         <div class="project-action"><i class="fas fa-arrow-right"></i> View Details</div>
                     </div>
                 </div>
-                <div class="project-card" data-animate style="transition-delay:0.24s;" onclick="routeCheck('item-details.html')">
+                <div class="project-card" data-animate style="transition-delay:0.24s;" onclick="routeCheck('item-details.html?type=accommodation')">
                     <img src="https://images.unsplash.com/photo-1504615755583-2916b52192a3?auto=format&fit=crop&q=80&w=800" alt="Silverback Forest Lodge" loading="lazy">
                     <div class="project-overlay">
                         <span class="project-tag">Mountain</span>
@@ -908,7 +908,7 @@
                         <div class="project-action"><i class="fas fa-arrow-right"></i> View Details</div>
                     </div>
                 </div>
-                <div class="project-card" data-animate style="transition-delay:0.32s;" onclick="routeCheck('item-details.html')">
+                <div class="project-card" data-animate style="transition-delay:0.32s;" onclick="routeCheck('item-details.html?type=accommodation')">
                     <img src="https://images.unsplash.com/photo-1568495248636-6432b97bd949?auto=format&fit=crop&q=80&w=800" alt="Executive Hub" loading="lazy">
                     <div class="project-overlay">
                         <span class="project-tag">Commercial</span>
@@ -917,7 +917,7 @@
                         <div class="project-action"><i class="fas fa-arrow-right"></i> View Details</div>
                     </div>
                 </div>
-                <div class="project-card" data-animate style="transition-delay:0.40s;" onclick="routeCheck('item-details.html')">
+                <div class="project-card" data-animate style="transition-delay:0.40s;" onclick="routeCheck('item-details.html?type=accommodation')">
                     <img src="https://images.unsplash.com/photo-1601921004897-b7d582836990?auto=format&fit=crop&q=80&w=800" alt="Cultural Guesthouse" loading="lazy">
                     <div class="project-overlay">
                         <span class="project-tag">Cultural</span>
@@ -1025,7 +1025,7 @@
             'visit.html',
             'rentcar.html',
             'book-item.html',
-            'item-details.html',
+            'item-details.html?type=accommodation',
             'partner-dashboard.html',
             'guest-dashboard.html',
             'user-add-item.html'
@@ -1102,11 +1102,11 @@
 
             /* ── Map ───────────────────────────────────────────────── */
             const projects = [
-                { lat: -1.9441, lng: 30.0619, title: "Kigali HQ",       desc: "Urban Operations Hub",        url: 'item-details.html' },
-                { lat: -1.5032, lng: 29.6338, title: "Northern Hub",     desc: "Tourism & Conservation",      url: 'item-details.html' },
-                { lat: -2.0588, lng: 29.2845, title: "Lake Kivu Base",   desc: "Lakeside Hospitality",        url: 'item-details.html' },
-                { lat: -2.3407, lng: 30.5337, title: "Akagera Lodge",    desc: "Safari & Eco-Tourism",        url: 'item-details.html' },
-                { lat: -2.1945, lng: 29.7358, title: "Kibuye Retreat",   desc: "Wellness & Lake Views",       url: 'item-details.html' }
+                { lat: -1.9441, lng: 30.0619, title: "Kigali HQ",       desc: "Urban Operations Hub",        url: 'item-details.html?type=accommodation' },
+                { lat: -1.5032, lng: 29.6338, title: "Northern Hub",     desc: "Tourism & Conservation",      url: 'item-details.html?type=accommodation' },
+                { lat: -2.0588, lng: 29.2845, title: "Lake Kivu Base",   desc: "Lakeside Hospitality",        url: 'item-details.html?type=accommodation' },
+                { lat: -2.3407, lng: 30.5337, title: "Akagera Lodge",    desc: "Safari & Eco-Tourism",        url: 'item-details.html?type=accommodation' },
+                { lat: -2.1945, lng: 29.7358, title: "Kibuye Retreat",   desc: "Wellness & Lake Views",       url: 'item-details.html?type=accommodation' }
             ];
 
             if (window.Components && window.Components.initMap) {

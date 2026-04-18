@@ -28,7 +28,7 @@
                 <p style="margin-bottom: 2rem; color: var(--text-muted); font-size: 1.1rem;">Experience the wild in unparalleled luxury. Private infinity pools, guided safaris, and 360-degree savanna views.</p>
                 <div style="display: flex; gap: 1rem;">
                     <button class="btn btn-primary">Book Now</button>
-                    <button class="btn btn-secondary" onclick="location.href='item-details.html'">View Tour</button>
+                    <button class="btn btn-secondary" onclick="location.href='item-details.html?type=accommodation'">View Tour</button>
                 </div>
             </div>
             <div class="featured-image">
@@ -65,7 +65,7 @@
                     <h3 class="card-title">Skyline View Penthouse</h3>
                     <div class="card-footer">
                         <div class="price">$120<span> / night</span></div>
-                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html'">Explore</button>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html?type=accommodation'">Explore</button>
                     </div>
                 </div>
             </div>
@@ -84,7 +84,7 @@
                     <h3 class="card-title">Silverback Forest Lodge</h3>
                     <div class="card-footer">
                         <div class="price">$250<span> / night</span></div>
-                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html'">Explore</button>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html?type=accommodation'">Explore</button>
                     </div>
                 </div>
             </div>
@@ -103,7 +103,7 @@
                     <h3 class="card-title">Blue Water Sanctuary</h3>
                     <div class="card-footer">
                         <div class="price">$180<span> / night</span></div>
-                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html'">Explore</button>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html?type=accommodation'">Explore</button>
                     </div>
                 </div>
             </div>
@@ -124,9 +124,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const markers = [
-                { lat: -1.9441, lng: 30.0619, title: "Skyline Penthouse", desc: "Luxury Urban Stay", url: 'item-details.html' },
-                { lat: -1.5011, lng: 29.6331, title: "Silverback Lodge", desc: "Mountain Experience", url: 'item-details.html' },
-                { lat: -1.6917, lng: 29.2558, title: "Blue Water Sanctuary", desc: "Lakeside Bliss", url: 'item-details.html' }
+                { lat: -1.9441, lng: 30.0619, title: "Skyline Penthouse", desc: "Luxury Urban Stay", url: 'item-details.html?type=accommodation' },
+                { lat: -1.5011, lng: 29.6331, title: "Silverback Lodge", desc: "Mountain Experience", url: 'item-details.html?type=accommodation' },
+                { lat: -1.6917, lng: 29.2558, title: "Blue Water Sanctuary", desc: "Lakeside Bliss", url: 'item-details.html?type=accommodation' }
             ];
             
             // Wait slightly for Components to init if necessary, or just run

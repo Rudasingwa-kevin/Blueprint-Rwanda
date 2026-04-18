@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Listings - Blueprint Rwanda</title>
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/ui-system.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <style>
+        .filter-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
+            overflow-x: auto;
+        }
+
+        .filter-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .partner-action-menu {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <main class="admin-main container" style="padding-top: 140px; padding-bottom: var(--space-lg);">
+        <header class="dashboard-header" data-animate style="margin-bottom: var(--space-lg); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+            <div>
+                <h1 class="gradient-text">Manage Listings</h1>
+                <p>Curate and manage your local inventory on the Blueprint Rwanda ecosystem.</p>
+            </div>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <button class="btn btn-secondary btn-sm" onclick="location.href='add-car.html'"><i class="fas fa-car"></i> Add Car</button>
+                <button class="btn btn-secondary btn-sm" onclick="location.href='add-place.html'"><i class="fas fa-map-marked-alt"></i> Add Place</button>
+                <button class="btn btn-primary btn-sm" onclick="location.href='add-accommodation.html'"><i class="fas fa-plus"></i> Add Property</button>
+            </div>
+        </header>
+
+        <section class="card data-card" data-animate style="transition-delay: 0.1s; padding: 2rem;">
+            <!-- Category Filters -->
+            <nav class="filter-nav">
+                <button class="filter-btn active" data-filter="all">All Assets</button>
+                <button class="filter-btn" data-filter="stay">Accommodations</button>
+                <button class="filter-btn" data-filter="car">Cars & Mobility</button>
+                <button class="filter-btn" data-filter="place">Experiences & Places</button>
+            </nav>
+
+            <!-- Search Area -->
+            <div style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap;">
+                <div class="search-container" style="flex: 1; max-width: 400px; margin: 0;">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="assetSearch" class="admin-search" placeholder="Search your assets by name or ID...">
+                </div>
+            </div>
+
+            <!-- Unified Table -->
+            <div class="table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Asset Details</th>
+                            <th>Category</th>
+                            <th>Pricing / Value</th>
+                            <th>Status Parameter</th>
+                            <th style="text-align: right;">Action Control</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listings-tbody">
+                        <!-- Stay Item -->
+                        <tr class="listing-item" data-category="stay">
+                            <td>
+                                <div class="item-preview">
+                                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=150" alt="" class="item-img-sm">
+                                    <div class="item-info">
+                                        <h4>Skyline Penthouse</h4>
+                                        <span>LIST-STY-001</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span style="font-size: 0.8rem; font-weight: 700; color: var(--primary);"><i class="fas fa-building"></i> Accommodation</span></td>
+                            <td>$120 / night</td>
+                            <td><span class="status-pill status-active">Live on Market</span></td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="btn-icon" title="Edit Listing"><i class="fas fa-pen"></i></button>
+                                    <button class="btn-icon" title="Pause Listing"><i class="fas fa-pause"></i></button>
+                                    <button class="btn-icon delete" title="Delete Listing"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Stay Item 2 -->
+                        <tr class="listing-item" data-category="stay">
+                            <td>
+                                <div class="item-preview">
+                                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=150" alt="" class="item-img-sm">
+                                    <div class="item-info">
+                                        <h4>Lakeside Sanctuary</h4>
+                                        <span>LIST-STY-002</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span style="font-size: 0.8rem; font-weight: 700; color: var(--primary);"><i class="fas fa-building"></i> Accommodation</span></td>
+                            <td>$180 / night</td>
+                            <td><span class="status-pill status-pending">Drafting</span></td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="btn-icon" title="Edit Listing"><i class="fas fa-pen"></i></button>
+                                    <button class="btn-icon" title="Publish Listing"><i class="fas fa-play"></i></button>
+                                    <button class="btn-icon delete" title="Delete Listing"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Car Item -->
+                        <tr class="listing-item" data-category="car">
+                            <td>
+                                <div class="item-preview">
+                                    <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&q=80&w=150" alt="" class="item-img-sm">
+                                    <div class="item-info">
+                                        <h4>Executive Land Cruiser</h4>
+                                        <span>LIST-CAR-001</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span style="font-size: 0.8rem; font-weight: 700; color: var(--secondary);"><i class="fas fa-car"></i> Mobility</span></td>
+                            <td>$80 / day</td>
+                            <td><span class="status-pill status-active">Live on Market</span></td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="btn-icon" title="Edit Listing"><i class="fas fa-pen"></i></button>
+                                    <button class="btn-icon" title="Pause Listing"><i class="fas fa-pause"></i></button>
+                                    <button class="btn-icon delete" title="Delete Listing"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Place Item -->
+                        <tr class="listing-item" data-category="place">
+                            <td>
+                                <div class="item-preview">
+                                    <img src="https://images.unsplash.com/photo-1547471080-7fc2caa6f17f?auto=format&fit=crop&q=80&w=150" alt="" class="item-img-sm">
+                                    <div class="item-info">
+                                        <h4>Nyungwe Canopy Walk</h4>
+                                        <span>LIST-PLC-001</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span style="font-size: 0.8rem; font-weight: 700; color: #10b981;"><i class="fas fa-tree"></i> Experience</span></td>
+                            <td>$40 / person</td>
+                            <td><span class="status-pill status-active">Live on Market</span></td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="btn-icon" title="Edit Listing"><i class="fas fa-pen"></i></button>
+                                    <button class="btn-icon" title="Pause Listing"><i class="fas fa-pause"></i></button>
+                                    <button class="btn-icon delete" title="Delete Listing"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Setup Search
+            if (window.Components && window.Components.initAdminSearch) {
+                window.Components.initAdminSearch('assetSearch', '.admin-table');
+            }
+
+            // Setup Filter Logic
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const listItems = document.querySelectorAll('.listing-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update Active Button
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // Filter Rows
+                    const filterValue = btn.getAttribute('data-filter');
+                    listItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.style.display = '';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Demo setup for Delete actions
+            const deleteBtns = document.querySelectorAll('.delete');
+            deleteBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    const isConfirmed = confirm("Are you sure you want to permanently delete this listing?");
+                    if(isConfirmed) {
+                        row.style.transition = 'opacity 0.3s';
+                        row.style.opacity = '0';
+                        setTimeout(() => {
+                            row.remove();
+                            if(window.Components) Components.showToast('Listing permanently deleted', 'success');
+                        }, 300);
+                    }
+                });
+            });
+            
+            // Demo setup for Edit actions
+            const editBtns = document.querySelectorAll('.fa-pen');
+            editBtns.forEach(icon => {
+                const btn = icon.parentElement;
+                btn.addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    const category = row.getAttribute('data-category');
+                    const title = row.querySelector('.item-info h4').innerText;
+                    // Safely encode for URL injection
+                    location.href = 'edit-listing.html?type=' + encodeURIComponent(category) + '&name=' + encodeURIComponent(title);
+                });
+            });
+
+            // Demo setup for Pause/Publish toggle actions
+            const tableBody = document.getElementById('listings-tbody');
+            if (tableBody) {
+                tableBody.addEventListener('click', function(e) {
+                    const btn = e.target.closest('button');
+                    if (!btn) return;
+                    
+                    const icon = btn.querySelector('i.fa-pause, i.fa-play');
+                    if (!icon) return;
+
+                    const row = btn.closest('tr');
+                    const pill = row.querySelector('.status-pill');
+
+                    if (icon.classList.contains('fa-pause')) {
+                        // Pause it
+                        if(pill) {
+                            pill.className = 'status-pill status-pending';
+                            pill.textContent = 'Paused';
+                        }
+                        icon.className = 'fas fa-play';
+                        btn.title = "Publish Listing";
+                        if(window.Components) Components.showToast('Listing availability paused', 'success');
+                    } else if (icon.classList.contains('fa-play')) {
+                        // Publish it
+                        if(pill) {
+                            pill.className = 'status-pill status-active';
+                            pill.textContent = 'Live on Market';
+                        }
+                        icon.className = 'fas fa-pause';
+                        btn.title = "Pause Listing";
+                        if(window.Components) Components.showToast('Listing published successfully', 'success');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

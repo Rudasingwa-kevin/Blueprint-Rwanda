@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -121,13 +121,13 @@
         <div class="gallery-header" data-animate>
             <div class="gallery-grid">
                 <div class="gallery-item gallery-main">
-                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=1200" alt="Main">
+                    <img id="item-image-1" src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=1200" alt="Main">
                 </div>
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800" alt="Room 1">
+                    <img id="item-image-2" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800" alt="Room 1">
                 </div>
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=800" alt="Room 2">
+                    <img id="item-image-3" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=800" alt="Room 2">
                 </div>
             </div>
         </div>
@@ -136,11 +136,11 @@
             <!-- Content -->
             <div class="details-content" data-animate>
                 <div class="property-title">
-                    <h1 class="gradient-text">Skyline Penthouse</h1>
-                    <p><i class="fas fa-map-marker-alt"></i> Kiyovu Luxury District, Kigali</p>
+                    <h1 class="gradient-text" id="item-title">Skyline Penthouse</h1>
+                    <p id="item-location"><i class="fas fa-map-marker-alt"></i> Kiyovu Luxury District, Kigali</p>
                 </div>
 
-                <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
+                <div id="item-amenities" style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
                     <div class="amenity-pill"><i class="fas fa-wifi"></i> Fiber Optic</div>
                     <div class="amenity-pill"><i class="fas fa-parking"></i> Secure Parking</div>
                     <div class="amenity-pill"><i class="fas fa-swimming-pool"></i> Infinity Pool</div>
@@ -148,8 +148,8 @@
                 </div>
 
                 <div class="card" style="padding: 2rem; margin-bottom: 2rem;">
-                    <h2 style="margin-bottom: 1.5rem;">Authentic Modern Living</h2>
-                    <p style="font-size: 1.15rem; color: var(--text-muted); line-height: 1.8;">
+                    <h2 id="item-desc-headline" style="margin-bottom: 1.5rem;">Authentic Modern Living</h2>
+                    <p id="item-desc-text" style="font-size: 1.15rem; color: var(--text-muted); line-height: 1.8;">
                         This architectural masterpiece combines traditional Rwandan motifs with ultra-modern design. Located in the exclusive Kiyovu district, it offers the city's finest vantage point for sunset views over the Land of a Thousand Hills.
                     </p>
                 </div>
@@ -306,28 +306,30 @@
             <aside class="sidebar-area" data-animate style="transition-delay: 0.1s;">
                 <div class="card sidebar-card glass">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                        <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">$120 <span style="font-size: 1rem; font-weight: 400; color: var(--text-muted);">/ night</span></div>
+                        <div id="item-price-display" style="font-size: 2rem; font-weight: 700; color: var(--primary);">$120 <span style="font-size: 1rem; font-weight: 400; color: var(--text-muted);">/ night</span></div>
                         <div class="review-score"><i class="fas fa-star"></i> 4.98</div>
                     </div>
 
                     <form id="booking-form" style="display: flex; flex-direction: column; gap: 1.5rem;">
-                        <div class="grid-auto" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <div>
-                                <label style="display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">Check In</label>
-                                <input type="date" value="2026-04-15" class="card" style="padding: 0.8rem; width: 100%;">
+                        <div id="item-form-fields">
+                            <div class="grid-auto" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div>
+                                    <label style="display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">Check In</label>
+                                    <input type="date" value="2026-04-15" class="card" style="padding: 0.8rem; width: 100%;">
+                                </div>
+                                <div>
+                                    <label style="display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">Check Out</label>
+                                    <input type="date" value="2026-04-18" class="card" style="padding: 0.8rem; width: 100%;">
+                                </div>
                             </div>
                             <div>
-                                <label style="display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">Check Out</label>
-                                <input type="date" value="2026-04-18" class="card" style="padding: 0.8rem; width: 100%;">
+                                <label style="display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">Guests</label>
+                                <select class="card" style="padding: 0.8rem; width: 100%;">
+                                    <option>2 Guests</option>
+                                    <option>3 Guests</option>
+                                    <option>4 Guests</option>
+                                </select>
                             </div>
-                        </div>
-                        <div>
-                            <label style="display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">Guests</label>
-                            <select class="card" style="padding: 0.8rem; width: 100%;">
-                                <option>2 Guests</option>
-                                <option>3 Guests</option>
-                                <option>4 Guests</option>
-                            </select>
                         </div>
                         <button type="button" class="btn btn-primary" style="width: 100%; border-radius: var(--radius-md);" id="reserve-btn">
                             Confirm Reservation
@@ -346,12 +348,170 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="../assets/js/components.js"></script>
     <script>
+        const serviceData = {
+            accommodation: {
+                title: "Skyline Penthouse",
+                location: "Kiyovu Luxury District, Kigali",
+                price: "$120",
+                priceUnit: "/ night",
+                amenities: [
+                    { icon: "fas fa-wifi", label: "Fiber Optic" },
+                    { icon: "fas fa-parking", label: "Secure Parking" },
+                    { icon: "fas fa-swimming-pool", label: "Infinity Pool" },
+                    { icon: "fas fa-shield-alt", label: "24/7 Security" }
+                ],
+                descriptionHeadline: "Authentic Modern Living",
+                descriptionText: "This architectural masterpiece combines traditional Rwandan motifs with ultra-modern design. Located in the exclusive Kiyovu district, it offers the city's finest vantage point for sunset views over the Land of a Thousand Hills.",
+                images: [
+                    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=1200",
+                    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=800"
+                ],
+                formTemplate: `
+                    <div class="grid-auto" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <label style="display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">Check In</label>
+                            <input type="date" value="2026-04-15" class="card" style="padding: 0.8rem; width: 100%;">
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">Check Out</label>
+                            <input type="date" value="2026-04-18" class="card" style="padding: 0.8rem; width: 100%;">
+                        </div>
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">Guests</label>
+                        <select class="card" style="padding: 0.8rem; width: 100%;">
+                            <option>2 Guests</option>
+                            <option>3 Guests</option>
+                            <option>4 Guests</option>
+                        </select>
+                    </div>
+                `,
+                mapCoords: { lat: -1.9441, lng: 30.0619, title: "Skyline Penthouse", desc: "Premium Residency" },
+                itemType: 'Accommodation'
+            },
+            visit: {
+                title: "Volcanoes National Park",
+                location: "Musanze District, Rwanda",
+                price: "$1500",
+                priceUnit: "/ person",
+                amenities: [
+                    { icon: "fas fa-hiking", label: "Guided Tour" },
+                    { icon: "fas fa-camera", label: "Photography Allowed" },
+                    { icon: "fas fa-leaf", label: "Eco-Friendly" }
+                ],
+                descriptionHeadline: "Gorilla Trekking Adventure",
+                descriptionText: "Experience the thrill of a lifetime as you trek through the lush rainforests of Volcanoes National Park to encounter majestic mountain gorillas in their natural habitat. A truly transformative conservation experience.",
+                images: [
+                    "https://images.unsplash.com/photo-1547471080-7cb2ac647132?auto=format&fit=crop&q=80&w=1200",
+                    "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1627918361099-281b3749b5ae?auto=format&fit=crop&q=80&w=800"
+                ],
+                formTemplate: `
+                    <div>
+                        <label style="display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">Tour Date</label>
+                        <input type="date" value="2026-05-10" class="card" style="padding: 0.8rem; width: 100%;">
+                    </div>
+                    <div style="margin-top:1rem;">
+                        <label style="display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">Travelers</label>
+                        <select class="card" style="padding: 0.8rem; width: 100%;">
+                            <option>1 Person</option>
+                            <option>2 People</option>
+                            <option>3 People</option>
+                            <option>4+ People</option>
+                        </select>
+                    </div>
+                `,
+                mapCoords: { lat: -1.5032, lng: 29.6338, title: "Volcanoes NP", desc: "Gorilla Trekking" },
+                itemType: 'Places'
+            },
+            rentcar: {
+                title: "Toyota Land Cruiser V8",
+                location: "Kigali International Airport (KGL)",
+                price: "$180",
+                priceUnit: "/ day",
+                amenities: [
+                    { icon: "fas fa-cogs", label: "Automatic" },
+                    { icon: "fas fa-car", label: "4x4 Drive" },
+                    { icon: "fas fa-gas-pump", label: "Diesel" },
+                    { icon: "fas fa-users", label: "5 Seats" }
+                ],
+                descriptionHeadline: "Premium Safari Vehicle",
+                descriptionText: "The ultimate 4x4 for your Rwandan adventure. Perfectly maintained, incredibly reliable, and equipped with all the comforts needed for long drives across the Land of a Thousand Hills.",
+                images: [
+                    "https://images.unsplash.com/photo-1550261172-1c19b0231cfb?auto=format&fit=crop&q=80&w=1200",
+                    "https://images.unsplash.com/photo-1549646876-0bf19cceb0bf?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&q=80&w=800"
+                ],
+                formTemplate: `
+                    <div class="grid-auto" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <label style="display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">Pick-up</label>
+                            <input type="date" value="2026-04-20" class="card" style="padding: 0.8rem; width: 100%;">
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">Drop-off</label>
+                            <input type="date" value="2026-04-25" class="card" style="padding: 0.8rem; width: 100%;">
+                        </div>
+                    </div>
+                    <div style="margin-top:1rem;">
+                        <label style="display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">Driver Option</label>
+                        <select class="card" style="padding: 0.8rem; width: 100%;">
+                            <option>Self Drive</option>
+                            <option>With Chauffeur (+$40/day)</option>
+                        </select>
+                    </div>
+                `,
+                mapCoords: { lat: -1.9686, lng: 30.1365, title: "Kigali Intl Airport", desc: "Vehicle Pickup Location" },
+                itemType: 'Car Rent'
+            }
+        };
+
         document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const type = urlParams.get('type') || 'accommodation';
+            const data = serviceData[type] || serviceData['accommodation'];
+
+            // Populate text content
+            document.title = `${data.title} - Blueprint Rwanda`;
+            const itemTitle = document.getElementById('item-title');
+            if (itemTitle) itemTitle.textContent = data.title;
+            const itemLocation = document.getElementById('item-location');
+            if (itemLocation) itemLocation.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${data.location}`;
+            const devPrice = document.getElementById('item-price-display');
+            if (devPrice) devPrice.innerHTML = `${data.price} <span style="font-size: 1rem; font-weight: 400; color: var(--text-muted);">${data.priceUnit}</span>`;
+            const headerPrice = document.getElementById('item-price-display');
+
+            // Populate description
+            document.getElementById('item-desc-headline').textContent = data.descriptionHeadline;
+            document.getElementById('item-desc-text').textContent = data.descriptionText;
+
+            // Populate amenities
+            const amenitiesContainer = document.getElementById('item-amenities');
+            if (amenitiesContainer) {
+                amenitiesContainer.innerHTML = '';
+                data.amenities.forEach(amenity => {
+                    const div = document.createElement('div');
+                    div.className = 'amenity-pill';
+                    div.innerHTML = `<i class="${amenity.icon}"></i> ${amenity.label}`;
+                    amenitiesContainer.appendChild(div);
+                });
+            }
+
+            // Populate images
+            if (data.images.length >= 3) {
+                document.getElementById('item-image-1').src = data.images[0];
+                document.getElementById('item-image-2').src = data.images[1];
+                document.getElementById('item-image-3').src = data.images[2];
+            }
+
+            // Populate form
+            const formFields = document.getElementById('item-form-fields');
+            if (formFields) formFields.innerHTML = data.formTemplate;
+
             // Init Map
             if (window.Components && window.Components.initMap) {
-                window.Components.initMap('property-map', [
-                    { lat: -1.9441, lng: 30.0619, title: "Skyline Penthouse", desc: "Premium Residency" }
-                ]);
+                window.Components.initMap('property-map', [data.mapCoords]);
             }
 
             // Reserve Logic — route through book-item → payment → confirmation
@@ -361,25 +521,34 @@
                     const checkInInput  = document.querySelector('input[type="date"]:nth-of-type(1)');
                     const checkOutInput = document.querySelector('input[type="date"]:nth-of-type(2)');
 
-                    const checkIn  = checkInInput  ? checkInInput.value  : '';
-                    const checkOut = checkOutInput ? checkOutInput.value : '';
-
-                    // Calculate nights
+                    // Logic could vary depending on the template (visit may only have 1 date)
+                    // Let's do a generic grab
+                    const dates = document.querySelectorAll('input[type="date"]');
+                    let checkIn = '';
+                    let checkOut = '';
                     let nights = 1;
-                    if (checkIn && checkOut) {
-                        const diff = new Date(checkOut) - new Date(checkIn);
-                        if (diff > 0) nights = Math.round(diff / (1000 * 60 * 60 * 24));
+
+                    if (dates.length >= 2) {
+                        checkIn = dates[0].value;
+                        checkOut = dates[1].value;
+                        if (checkIn && checkOut) {
+                            const diff = new Date(checkOut) - new Date(checkIn);
+                            if (diff > 0) nights = Math.round(diff / (1000 * 60 * 60 * 24));
+                        }
+                    } else if (dates.length === 1) {
+                        checkIn = dates[0].value;
+                        checkOut = checkIn; // Same day for tours
                     }
 
                     if (!checkIn) {
-                        Components.showToast('Please select a check-in date', 'error');
+                        Components.showToast('Please select the required dates', 'error');
                         return;
                     }
 
-                    const itemName = 'Skyline Penthouse';
-                    const itemType = 'Accommodation';
-                    const rate     = 120;
-                    const imgUrl   = 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=600';
+                    const itemName = data.title;
+                    const itemType = data.itemType;
+                    const rate     = parseInt(data.price.replace('$', ''));
+                    const imgUrl   = data.images[0];
 
                     const url = 'book-item.html'
                         + '?type='  + encodeURIComponent(itemType)

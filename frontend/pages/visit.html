@@ -47,7 +47,7 @@
                     <p class="card-location"><i class="fas fa-map-marker-alt"></i> Home of the Mountain Gorillas</p>
                     <div class="card-footer">
                         <div class="price">From $1500</div>
-                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html'">Details</button>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html?type=visit'">Details</button>
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                     <p class="card-location"><i class="fas fa-map-marker-alt"></i> Sunset boat rides & coffee tours</p>
                     <div class="card-footer">
                         <div class="price">From $80</div>
-                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html'">Details</button>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html?type=visit'">Details</button>
                     </div>
                 </div>
             </div>
@@ -87,7 +87,7 @@
                     <p class="card-location"><i class="fas fa-map-marker-alt"></i> High-altitude rainforest exploration</p>
                     <div class="card-footer">
                         <div class="price">From $120</div>
-                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html'">Details</button>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html?type=visit'">Details</button>
                     </div>
                 </div>
             </div>
@@ -109,9 +109,9 @@
         document.addEventListener('DOMContentLoaded', () => {
             if (window.Components && window.Components.initMap) {
                 window.Components.initMap('listing-map', [
-                    { lat: -1.5032, lng: 29.6338, title: "Volcanoes NP", desc: "Gorilla Trekking", url: 'item-details.html' },
-                    { lat: -1.6917, lng: 29.2558, title: "Lake Kivu", desc: "Island Hopping", url: 'item-details.html' },
-                    { lat: -2.4833, lng: 29.2333, title: "Nyungwe Forest", desc: "Canopy Adventure", url: 'item-details.html' }
+                    { lat: -1.5032, lng: 29.6338, title: "Volcanoes NP", desc: "Gorilla Trekking", url: 'item-details.html?type=visit' },
+                    { lat: -1.6917, lng: 29.2558, title: "Lake Kivu", desc: "Island Hopping", url: 'item-details.html?type=visit' },
+                    { lat: -2.4833, lng: 29.2333, title: "Nyungwe Forest", desc: "Canopy Adventure", url: 'item-details.html?type=visit' }
                 ]);
             }
         });

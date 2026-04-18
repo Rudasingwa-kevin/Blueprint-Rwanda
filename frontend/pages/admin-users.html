@@ -25,6 +25,51 @@
             </div>
         </header>
 
+        <!-- Pending Applications -->
+        <section class="card data-card" id="pending-applications-section" data-animate style="padding: 0; margin-bottom: 2rem;">
+            <div style="padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border);">
+                <h3 style="margin: 0; font-size: 1.25rem;">Pending Partner Applications</h3>
+                <span class="status-pill status-pending" id="pending-count">1 Pending</span>
+            </div>
+            <div class="table-wrapper">
+                <table class="admin-table" id="pending-table">
+                    <thead>
+                        <tr>
+                            <th>Business / User</th>
+                            <th>Registration No.</th>
+                            <th>Type</th>
+                            <th>Date Applied</th>
+                            <th style="text-align: right;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Demo Pending Row -->
+                        <tr id="demo-pending-application">
+                            <td>
+                                <div class="item-preview">
+                                    <div class="user-avatar" style="background: var(--secondary); color: var(--white); font-weight: 800;">LT</div>
+                                    <div class="item-info">
+                                        <h4>Lakeside Tours Ltd</h4>
+                                        <span id="applicant-email">Current Local User</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>108829331</td>
+                            <td>Experience & Tour Operator</td>
+                            <td>Today, 08:30 AM</td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="btn btn-secondary btn-sm" onclick="approvePartnerApplication()"><i class="fas fa-check"></i> Approve</button>
+                                    <button class="btn-icon delete" title="Reject"><i class="fas fa-times"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Managed Delegates -->
         <section class="card data-card" data-animate style="transition-delay: 0.1s; padding: 0;">
             <div class="table-wrapper">
                 <table class="admin-table">
@@ -117,7 +162,45 @@
             if (window.Components && window.Components.initAdminSearch) {
                 window.Components.initAdminSearch('userSearch', '.admin-table');
             }
+
+            // Initialization logic logic for simulating pending partner from this local session
+            const status = localStorage.getItem('partnerStatus');
+            const pendingRow = document.getElementById('demo-pending-application');
+            const countBadge = document.getElementById('pending-count');
+            
+            if (status === 'approved') {
+                if (pendingRow) pendingRow.remove();
+                if (countBadge) {
+                   countBadge.textContent = '0 Pending';
+                   countBadge.classList.replace('status-pending', 'status-active');
+                }
+            } else if (!status) {
+                // Not even pending but we can show it as demo, or hide it.
+                // We'll leave it visible so they can see the layout.
+            }
         });
+
+        function approvePartnerApplication() {
+            // Simulate approving the application
+            localStorage.setItem('partnerStatus', 'approved');
+            
+            const pendingRow = document.getElementById('demo-pending-application');
+            if (pendingRow) {
+                pendingRow.style.transition = 'opacity 0.3s';
+                pendingRow.style.opacity = '0';
+                setTimeout(() => {
+                    pendingRow.remove();
+                    const countBadge = document.getElementById('pending-count');
+                    if (countBadge) {
+                        countBadge.textContent = '0 Pending';
+                        countBadge.classList.replace('status-pending', 'status-active');
+                    }
+                    if (window.Components) {
+                        Components.showToast('Partner Application Approved!', 'success');
+                    }
+                }, 300);
+            }
+        }
     </script>
 </body>
 </html>

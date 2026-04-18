@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Listing - Blueprint Rwanda</title>
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/ui-system.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <style>
+        .dynamic-section {
+            display: none;
+        }
+        .dynamic-section.active {
+            display: contents; /* Flows directly into grid */
+        }
+        
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text);
+            cursor: pointer;
+        }
+        
+        .checkbox-container input {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <main class="admin-main container">
+        <header class="admin-header" data-animate>
+            <div class="admin-title">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                    <button class="btn-icon" onclick="history.back()" title="Go Back"><i class="fas fa-arrow-left"></i></button>
+                    <h1 class="gradient-text" id="page-title">Modify Asset</h1>
+                </div>
+                <p id="page-subtitle">Update the operational parameters for your listing.</p>
+            </div>
+            <div class="admin-actions">
+                <button class="btn btn-secondary" onclick="history.back()">Discard Changes</button>
+            </div>
+        </header>
+
+        <section class="admin-form-container">
+            <div class="card glass" style="padding: 3rem;" data-animate style="transition-delay: 0.1s;">
+                <form id="editForm" class="form-grid">
+                    
+                    <!-- Core Identifiers (Always Visible) -->
+                    <div class="form-group full" style="border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; margin-bottom: 0.5rem;">
+                        <h3 style="font-size: 1.1rem; color: var(--primary);"><i class="fas fa-fingerprint"></i> Core Identity</h3>
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Asset Title</label>
+                        <input type="text" class="form-control" id="asset-title" placeholder="e.g. Skyline Penthouse" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Pricing / Yield (USD)</label>
+                        <input type="number" class="form-control" id="asset-price" placeholder="150" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Visibility Status</label>
+                        <select class="form-control" id="asset-status">
+                            <option value="active">Live on Market (Active)</option>
+                            <option value="paused">Temporarily Paused</option>
+                            <option value="draft">Draft (Hidden)</option>
+                        </select>
+                    </div>
+
+                    <!-- Stay Specific Fields -->
+                    <div id="section-stay" class="dynamic-section">
+                        <div class="form-group full" style="border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">
+                            <h3 style="font-size: 1.1rem; color: var(--primary);"><i class="fas fa-building"></i> Accommodation Specs</h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Property Category</label>
+                            <select class="form-control">
+                                <option>Luxury Villa</option>
+                                <option>Executive Apartment</option>
+                                <option>Eco-Lodge</option>
+                                <option>Boutique Hotel</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Location / District</label>
+                            <input type="text" class="form-control" value="Kiyovu, Kigali">
+                        </div>
+                        <div class="form-group">
+                            <label>Max Occupants</label>
+                            <input type="number" class="form-control" value="4">
+                        </div>
+                        <div class="form-group">
+                            <label>Bedrooms</label>
+                            <input type="number" class="form-control" value="2">
+                        </div>
+                        <div class="form-group full">
+                            <label>Amenities Setup</label>
+                            <div class="amenities-grid">
+                                <label class="checkbox-container"><input type="checkbox" checked> Fast WiFi</label>
+                                <label class="checkbox-container"><input type="checkbox" checked> Infinity Pool</label>
+                                <label class="checkbox-container"><input type="checkbox" checked> Smart Home</label>
+                                <label class="checkbox-container"><input type="checkbox"> Fitness Center</label>
+                                <label class="checkbox-container"><input type="checkbox" checked> Concierge</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Car Specific Fields -->
+                    <div id="section-car" class="dynamic-section">
+                        <div class="form-group full" style="border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">
+                            <h3 style="font-size: 1.1rem; color: var(--secondary);"><i class="fas fa-car"></i> Mobility Specs</h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Propulsion Type</label>
+                            <select class="form-control">
+                                <option>Petrol - High Performance</option>
+                                <option>Diesel - High Efficiency</option>
+                                <option>Hybrid - Strategic</option>
+                                <option>Electric - Zero Emission</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Transmission Module</label>
+                            <select class="form-control">
+                                <option>Automatic - Adaptive</option>
+                                <option>Manual - Precision</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Capacity (Seats)</label>
+                            <input type="number" class="form-control" value="5">
+                        </div>
+                        <div class="form-group">
+                            <label>License Plate</label>
+                            <input type="text" class="form-control" value="RAC 000 A">
+                        </div>
+                    </div>
+
+                    <!-- Place Specific Fields -->
+                    <div id="section-place" class="dynamic-section">
+                        <div class="form-group full" style="border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">
+                            <h3 style="font-size: 1.1rem; color: #10b981;"><i class="fas fa-map-marked-alt"></i> Experience Specs</h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Activity Type</label>
+                            <select class="form-control">
+                                <option>Nature & Wildlife</option>
+                                <option>Urban Exploration</option>
+                                <option>Cultural Immersion</option>
+                                <option>Adrenaline & Sports</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Duration</label>
+                            <input type="text" class="form-control" value="Half-Day (4 Hours)">
+                        </div>
+                        <div class="form-group full">
+                            <label>Inclusions</label>
+                            <div class="amenities-grid">
+                                <label class="checkbox-container"><input type="checkbox" checked> Professional Guide</label>
+                                <label class="checkbox-container"><input type="checkbox" checked> Transport</label>
+                                <label class="checkbox-container"><input type="checkbox"> Meals Included</label>
+                                <label class="checkbox-container"><input type="checkbox" checked> Entry Fees</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Description & Visuals (Always Visible) -->
+                    <div class="form-group full" style="border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">
+                        <h3 style="font-size: 1.1rem; color: var(--primary);"><i class="fas fa-align-left"></i> Presentation</h3>
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Executive Summary / Description</label>
+                        <textarea class="form-control" rows="5" id="asset-desc" required></textarea>
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Asset Imagery</label>
+                        <div class="upload-zone" style="height: auto; padding: 2rem;">
+                            <div style="display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; margin-bottom: 1rem;" id="current-images">
+                                <!-- Populated dynamically based on type for visual proof -->
+                            </div>
+                            <button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-upload"></i> Upload Additional Imagery</button>
+                        </div>
+                    </div>
+
+                    <div style="grid-column: span 2; display: flex; justify-content: flex-end; gap: 1.5rem; margin-top: 2rem;">
+                        <button type="submit" class="btn btn-primary" style="padding-left: 4rem; padding-right: 4rem;"><i class="fas fa-save margin-right"></i> Save Modifications</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Simulated Data Retrieval based on query parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const type = urlParams.get('type') || 'stay';
+            const name = urlParams.get('name') || '';
+
+            // Update UI blocks based on the type (stay, car, place)
+            document.querySelectorAll('.dynamic-section').forEach(sec => sec.classList.remove('active'));
+            const targetSection = document.getElementById('section-' + type);
+            if (targetSection) targetSection.classList.add('active');
+
+            // Populate form context visually
+            const titleEl = document.getElementById('page-title');
+            const assetTitle = document.getElementById('asset-title');
+            const descEl = document.getElementById('asset-desc');
+            const imgContainer = document.getElementById('current-images');
+
+            if (type === 'stay') {
+                titleEl.textContent = 'Modify Accommodation';
+                assetTitle.value = name || 'Skyline Penthouse';
+                descEl.value = 'Perched above the city, this executive penthouse delivers unrivaled views and bespoke comfort. Engineered for the modern delegate.';
+                imgContainer.innerHTML = `
+                    <div style="width: 120px; height: 80px; border-radius: 8px; overflow: hidden;"><img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=150" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    <div style="width: 120px; height: 80px; border-radius: 8px; overflow: hidden;"><img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=150" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                `;
+            } else if (type === 'car') {
+                titleEl.textContent = 'Modify Vehicle';
+                assetTitle.value = name || 'Executive Land Cruiser';
+                descEl.value = 'A pristine off-road capable vehicle blending interior absolute luxury with unyielding performance capability.';
+                document.getElementById('asset-price').value = '80';
+                imgContainer.innerHTML = `
+                    <div style="width: 120px; height: 80px; border-radius: 8px; overflow: hidden;"><img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&q=80&w=150" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                `;
+            } else if (type === 'place') {
+                titleEl.textContent = 'Modify Experience';
+                assetTitle.value = name || 'Nyungwe Canopy Walk';
+                descEl.value = 'Ascend into the ancient canopy. A thrilling walk suspended high above the ancient rainforest floor.';
+                document.getElementById('asset-price').value = '40';
+                imgContainer.innerHTML = `
+                    <div style="width: 120px; height: 80px; border-radius: 8px; overflow: hidden;"><img src="https://images.unsplash.com/photo-1547471080-7fc2caa6f17f?auto=format&fit=crop&q=80&w=150" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                `;
+            }
+
+            // Handle submission simulation
+            document.getElementById('editForm').onsubmit = function(e) {
+                e.preventDefault();
+                if(window.Components) Components.showToast('Listing Modifications Secured!', 'success');
+                setTimeout(() => {
+                    location.href = 'manage-listings.html';
+                }, 1200);
+            };
+        });
+    </script>
+</body>
+</html>

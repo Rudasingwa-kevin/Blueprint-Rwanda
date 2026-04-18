@@ -8,8 +8,15 @@ const Components = {
      * Determines the active role based on URL context and persistence.
      */
     getRole() {
-        const path = window.location.pathname;
+        const path = window.location.pathname.toLowerCase();
         if (path.includes('admin-')) return 'admin';
+        
+        // Contextual override: if on a dedicated partner tool/page, render the partner navbar
+        const partnerPages = ['partner-dashboard', 'portfolio', 'partner-pending', 'manage-listings', 'edit-listing', 'add-place', 'add-accommodation', 'add-car', 'user-add-item'];
+        if (partnerPages.some(page => path.includes(page))) {
+            return 'partner';
+        }
+
         return localStorage.getItem('userMode') || 'guest';
     },
 
@@ -35,16 +42,15 @@ const Components = {
             `;
         } else if (role === 'admin') {
             links = `
-                <li><a href="admin-dashboard.html" class="${this.isActive('admin-dashboard')}">Overview</a></li>
-                <li><a href="admin-users.html" class="${this.isActive('admin-users')}">Users</a></li>
-                <li><a href="admin-accommodations.html" class="${this.isActive('admin-accommodations')}">Stays</a></li>
-                <li><a href="admin-cars.html" class="${this.isActive('admin-cars')}">Mobility</a></li>
+                <li><a href="admin-dashboard.html" class="${this.isActive('admin-dashboard')}"><i class="fas fa-chart-pie"></i> Console</a></li>
+                <li><a href="admin-users.html" class="${this.isActive('admin-users')}"><i class="fas fa-users-cog"></i> Delegates</a></li>
+                <li><a href="admin-inventory.html" class="${this.isActive('admin-inventory') || this.isActive('admin-accommodations') || this.isActive('admin-cars') || this.isActive('admin-places')}"><i class="fas fa-boxes"></i> Global Assets</a></li>
             `;
         } else if (role === 'partner') {
             links = `
                 <li><a href="partner-dashboard.html" class="${this.isActive('partner-dashboard')}">Console</a></li>
                 <li><a href="portfolio.html" class="${this.isActive('portfolio')}">My Portfolio</a></li>
-                <li><a href="user-add-item.html" class="${this.isActive('user-add-item')}">Add Listing</a></li>
+                <li><a href="manage-listings.html" class="${this.isActive('manage-listings')}">Manage Listings</a></li>
             `;
         } else {
             links = `
@@ -114,6 +120,22 @@ const Components = {
             btn.addEventListener('click', () => {
                 const currentMode = this.getRole();
                 const newMode = currentMode === 'partner' ? 'guest' : 'partner';
+                
+                // Enforce Partner Application Process
+                if (currentMode === 'guest' && newMode === 'partner') {
+                    const status = localStorage.getItem('partnerStatus');
+                    if (!status) {
+                        this.showToast('Verification Required', 'error');
+                        setTimeout(() => location.href = 'partner-signup.html', 1000);
+                        return;
+                    } else if (status === 'pending') {
+                        this.showToast('Application Under Review', 'error');
+                        setTimeout(() => location.href = 'partner-pending.html', 1000);
+                        return;
+                    }
+                    // If status === 'approved', it proceeds below
+                }
+
                 localStorage.setItem('userMode', newMode);
                 
                 const targetPage = newMode === 'partner' ? 'partner-dashboard.html' : 'guest-dashboard.html';

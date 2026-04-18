@@ -183,9 +183,9 @@
     <script>
         document.querySelector('.auth-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            // Simulate successful registration
-            localStorage.setItem('userMode', 'partner');
-            Components.showToast('Partner Registration Successful', 'success');
+            // Simulate successful registration receipt
+            localStorage.setItem('partnerStatus', 'pending');
+            Components.showToast('Partner Registration Submitted', 'success');
             
             setTimeout(() => {
                 location.href = 'partner-pending.html';
