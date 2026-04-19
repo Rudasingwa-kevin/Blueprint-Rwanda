@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Partner Portfolio – Blueprint Rwanda</title>
+    <meta name="description" content="Manage and showcase your executive portfolio of assets on Blueprint Rwanda.">
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="../assets/css/ui-system.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <style>
+        /* ── Custom Hero ────────────────────────────────────────────── */
+        .partner-hero {
+            padding-top: 180px;
+            padding-bottom: 120px;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('../partner_portfolio_hero_1776594333364.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+        }
+
+        .partner-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
+        }
+
+        .partner-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--glass-dark);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .partner-hero h1 {
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .partner-hero p {
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* ── Portfolio Stats ───────────────────────────────────────── */
+        .partner-stats {
+            margin-top: -80px;
+            position: relative;
+            z-index: 10;
+            padding-bottom: var(--space-lg);
+        }
+
+        .stat-card-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-glass {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-glass:hover {
+            transform: translateY(-5px);
+            background: var(--surface);
+            border-color: var(--primary);
+        }
+
+        .stat-glass h3 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-glass p {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        /* ── Asset Showcase ────────────────────────────────────────── */
+        .asset-section {
+            padding-bottom: var(--space-lg);
+        }
+
+        .filter-ribbon {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            padding: 0.6rem 1.8rem;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text-muted);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-chip:hover,
+        .filter-chip.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .asset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .asset-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .asset-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+        }
+
+        .asset-img {
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .asset-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .asset-card:hover .asset-img img {
+            transform: scale(1.1);
+        }
+
+        .asset-category {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--glass-dark);
+            color: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.7rem;
+            font-weight: 700;
+            backdrop-filter: blur(5px);
+        }
+
+        .asset-content {
+            padding: 1.5rem;
+        }
+
+        .asset-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .asset-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .asset-price {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .asset-status {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .status-live {
+            color: #10b981;
+        }
+
+        .status-draft {
+            color: #f59e0b;
+        }
+
+        /* ── Map ───────────────────────────────────────────────────── */
+        .map-wrapper {
+            background: var(--surface);
+            padding: var(--space-lg) 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        #partner-footprint {
+            height: 500px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        /* ── About Partner ─────────────────────────────────────────── */
+        .ethos-section {
+            padding: var(--space-lg) 0;
+        }
+
+        .ethos-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .ethos-image {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .ethos-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .ethos-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .ethos-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .partner-hero {
+                padding-top: 140px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ════════════════════ HERO ════════════════════ -->
+    <header class="partner-hero">
+        <div class="container" data-animate>
+            <div class="partner-badge">
+                <i class="fas fa-crown"></i> Elite Partner
+            </div>
+            <h1 id="partner-name">Premium Assets Portfolio</h1>
+            <p>Showcasing a curated collection of luxury properties, high-performance mobility, and unique Rwandan
+                experiences managed with excellence.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <button class="btn btn-primary" onclick="location.href='manage-listings.html'">
+                    <i class="fas fa-plus"></i> Add New Asset
+                </button>
+                <button class="btn btn-secondary" onclick="location.href='partner-dashboard.html'">
+                    <i class="fas fa-chart-line"></i> View Insights
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ════════════════════ STATS ════════════════════ -->
+    <section class="container partner-stats" data-animate>
+        <div class="stat-card-row">
+            <div class="stat-glass">
+                <h3 id="stat-total-assets">12</h3>
+                <p>Total Assets</p>
+            </div>
+            <div class="stat-glass">
+                <h3 id="stat-avg-rating">4.9</h3>
+                <p>Service Rating</p>
+            </div>
+            <div class="stat-glass">
+                <h3 id="stat-market-value">$4.2M</h3>
+                <p>Portfolio Value</p>
+            </div>
+            <div class="stat-glass">
+                <h3 id="stat-bookings">150+</h3>
+                <p>Successful Bookings</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════ ASSETS ════════════════════ -->
+    <section class="container asset-section">
+        <div class="section-header" data-animate>
+            <span class="eyebrow">Inventory Showcase</span>
+            <h2>Managed <span class="gradient-text">Excellence</span></h2>
+        </div>
+
+        <div class="filter-ribbon" data-animate>
+            <button class="filter-chip active" data-filter="all">All Assets</button>
+            <button class="filter-chip" data-filter="stay">Accommodations</button>
+            <button class="filter-chip" data-filter="car">Mobility</button>
+            <button class="filter-chip" data-filter="place">Experiences</button>
+        </div>
+
+        <div class="asset-grid" data-animate>
+            <!-- Asset 1 -->
+            <div class="asset-card" data-category="stay">
+                <div class="asset-img">
+                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=800"
+                        alt="">
+                    <span class="asset-category">Stay</span>
+                </div>
+                <div class="asset-content">
+                    <h3>Skyline Penthouse</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><i class="fas fa-map-marker-alt"></i>
+                        Kiyovu, Kigali</p>
+                    <div class="asset-meta">
+                        <span class="asset-price">$120/night</span>
+                        <span class="asset-status status-live">Live</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Asset 2 -->
+            <div class="asset-card" data-category="car">
+                <div class="asset-img">
+                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=800"
+                        alt="">
+                    <span class="asset-category">Car</span>
+                </div>
+                <div class="asset-content">
+                    <h3>Executive Range Rover</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><i class="fas fa-map-marker-alt"></i>
+                        Kigali Downtown</p>
+                    <div class="asset-meta">
+                        <span class="asset-price">$150/day</span>
+                        <span class="asset-status status-live">Live</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Asset 3 -->
+            <div class="asset-card" data-category="stay">
+                <div class="asset-img">
+                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800"
+                        alt="">
+                    <span class="asset-category">Stay</span>
+                </div>
+                <div class="asset-content">
+                    <h3>Lakeside Sanctuary</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><i class="fas fa-map-marker-alt"></i>
+                        Gisenyi, Rubavu</p>
+                    <div class="asset-meta">
+                        <span class="asset-price">$180/night</span>
+                        <span class="asset-status status-draft">Draft</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Asset 4 -->
+            <div class="asset-card" data-category="place">
+                <div class="asset-img">
+                    <img src="https://images.unsplash.com/photo-1547471080-7fc2caa6f17f?auto=format&fit=crop&q=80&w=800"
+                        alt="">
+                    <span class="asset-category">Experience</span>
+                </div>
+                <div class="asset-content">
+                    <h3>Nyungwe Canopy Tour</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><i class="fas fa-map-marker-alt"></i>
+                        Nyungwe National Park</p>
+                    <div class="asset-meta">
+                        <span class="asset-price">$45/person</span>
+                        <span class="asset-status status-live">Live</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════ MAP ════════════════════ -->
+    <section class="map-wrapper">
+        <div class="container">
+            <div class="section-header" data-animate>
+                <span class="eyebrow">Geographic Presence</span>
+                <h2>Operational <span class="gradient-text">Footprint</span></h2>
+            </div>
+            <div id="partner-footprint" data-animate></div>
+        </div>
+    </section>
+
+    <!-- ════════════════════ ETHOS ════════════════════ -->
+    <section class="container ethos-section">
+        <div class="ethos-container">
+            <div class="ethos-image" data-animate>
+                <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=800"
+                    alt="Partner Ethos">
+            </div>
+            <div class="ethos-text" data-animate>
+                <h2>Sustainable <span class="gradient-text">Growth.</span></h2>
+                <p>We believe in more than just management; we believe in creating worth. Every asset in our portfolio
+                    is optimized for sustainability, community impact, and premium guest experiences.</p>
+                <p>Our mission is to bridge the gap between Rwandan potential and global standards, ensuring that every
+                    interaction within our ecosystem adds value to the Land of a Thousand Hills.</p>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                    <div class="card" style="padding: 1rem; text-align: center;">
+                        <i class="fas fa-leaf" style="color: var(--primary); margin-bottom: 0.5rem;"></i>
+                        <h4 style="font-size: 0.9rem;">Eco-Conscious</h4>
+                    </div>
+                    <div class="card" style="padding: 1rem; text-align: center;">
+                        <i class="fas fa-users" style="color: var(--primary); margin-bottom: 0.5rem;"></i>
+                        <h4 style="font-size: 0.9rem;">Community Led</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Setup Filter Logic
+            const chips = document.querySelectorAll('.filter-chip');
+            const assets = document.querySelectorAll('.asset-card');
+
+            chips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    chips.forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+
+                    const filter = chip.getAttribute('data-filter');
+                    assets.forEach(asset => {
+                        if (filter === 'all' || asset.getAttribute('data-category') === filter) {
+                            asset.style.display = 'block';
+                        } else {
+                            asset.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Initialize Map
+            if (window.Components && window.Components.initMap) {
+                window.Components.initMap('partner-footprint', [
+                    { lat: -1.9441, lng: 30.0619, title: "Skyline Penthouse", desc: "Live · Kigali" },
+                    { lat: -1.6961, lng: 29.2558, title: "Lakeside Sanctuary", desc: "Draft · Rubavu" },
+                    { lat: -2.4842, lng: 29.2319, title: "Nyungwe Canopy", desc: "Live · Experience" }
+                ]);
+            }
+        });
+    </script>
+</body>
+
+</html>

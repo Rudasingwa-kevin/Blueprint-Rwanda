@@ -10,9 +10,9 @@ const Components = {
     getRole() {
         const path = window.location.pathname.toLowerCase();
         if (path.includes('admin-')) return 'admin';
-        
+
         // Contextual override: if on a dedicated partner tool/page, render the partner navbar
-        const partnerPages = ['partner-dashboard', 'portfolio', 'partner-pending', 'manage-listings', 'edit-listing', 'add-place', 'add-accommodation', 'add-car', 'user-add-item'];
+        const partnerPages = ['partner-dashboard', 'partner-portfolio', 'partner-pending', 'manage-listings', 'edit-listing', 'add-place', 'add-accommodation', 'add-car', 'user-add-item'];
         if (partnerPages.some(page => path.includes(page))) {
             return 'partner';
         }
@@ -25,20 +25,20 @@ const Components = {
      */
     injectNavbar() {
         if (document.body.hasAttribute('data-no-navbar')) return;
-        
+
         const role = this.getRole();
         const modeLabel = role === 'partner' ? 'Switch to Guest' : 'Switch to Partner';
         const dashboardLink = role === 'partner' ? 'partner-dashboard.html' : 'guest-dashboard.html';
-        
+
         const isPublic = document.body.getAttribute('data-perspective') === 'public';
-        
+
         // Define Link Templates
         let links = '';
         if (isPublic) {
             links = `
                 <li><a href="index.html" class="${this.isActive('index')}">Home</a></li>
-                <li><a href="team.html" class="${this.isActive('team')}">Our Vision</a></li>
-                <li><a href="partners.html" class="${this.isActive('partners')}">Our Partners</a></li>
+                <li><a href="portfolio.html" class="${this.isActive('team')}">our vision</a></li>
+                <li><a href="partners.html" class="${this.isActive('partners')}">Our partner</a></li>
             `;
         } else if (role === 'admin') {
             links = `
@@ -49,7 +49,7 @@ const Components = {
         } else if (role === 'partner') {
             links = `
                 <li><a href="partner-dashboard.html" class="${this.isActive('partner-dashboard')}">Console</a></li>
-                <li><a href="portfolio.html" class="${this.isActive('portfolio')}">My Portfolio</a></li>
+                <li><a href="partner-portfolio.html" class="${this.isActive('partner-portfolio')}">My Portfolio</a></li>
                 <li><a href="manage-listings.html" class="${this.isActive('manage-listings')}">Manage Listings</a></li>
             `;
         } else {
@@ -60,7 +60,7 @@ const Components = {
                 <li><a href="partners.html" class="${this.isActive('partners')}">Partners</a></li>
             `;
         }
-        
+
         const navbar = `
             <nav class="navbar fixed-top">
                 <div class="container nav-content">
@@ -120,7 +120,7 @@ const Components = {
             btn.addEventListener('click', () => {
                 const currentMode = this.getRole();
                 const newMode = currentMode === 'partner' ? 'guest' : 'partner';
-                
+
                 // Enforce Partner Application Process
                 if (currentMode === 'guest' && newMode === 'partner') {
                     const status = localStorage.getItem('partnerStatus');
@@ -137,7 +137,7 @@ const Components = {
                 }
 
                 localStorage.setItem('userMode', newMode);
-                
+
                 const targetPage = newMode === 'partner' ? 'partner-dashboard.html' : 'guest-dashboard.html';
                 this.showToast(`Switching to ${newMode.charAt(0).toUpperCase() + newMode.slice(1)} Perspective...`, 'success');
                 setTimeout(() => location.href = targetPage, 1000);
@@ -197,7 +197,7 @@ const Components = {
                 <div class="footer-links">
                     <h4>Business</h4>
                     <a href="partner-dashboard.html">Earnings</a>
-                    <a href="portfolio.html">My Portfolio</a>
+                    <a href="partner-portfolio.html">My Portfolio</a>
                     <a href="user-add-item.html">List New Service</a>
                 </div>
                 <div class="footer-links">
@@ -278,10 +278,10 @@ const Components = {
     initThemeToggle() {
         const toggleBtns = [document.getElementById('theme-toggle'), document.getElementById('theme-toggle-mobile')];
         const currentTheme = localStorage.getItem('theme') || 'light';
-        
+
         if (currentTheme === 'dark') {
             document.documentElement.setAttribute('data-theme', 'dark');
-            toggleBtns.forEach(btn => { if(btn && btn.querySelector('i')) btn.querySelector('i').className = 'fas fa-sun'; });
+            toggleBtns.forEach(btn => { if (btn && btn.querySelector('i')) btn.querySelector('i').className = 'fas fa-sun'; });
         }
 
         toggleBtns.forEach(btn => {
@@ -290,10 +290,10 @@ const Components = {
                 const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
                 document.documentElement.setAttribute('data-theme', theme);
                 localStorage.setItem('theme', theme);
-                
+
                 const iconClass = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-                toggleBtns.forEach(b => { if(b && b.querySelector('i')) b.querySelector('i').className = iconClass; });
-                
+                toggleBtns.forEach(b => { if (b && b.querySelector('i')) b.querySelector('i').className = iconClass; });
+
                 this.showToast(`${theme.charAt(0).toUpperCase() + theme.slice(1)} Mode Activated`, 'success');
             };
         });
@@ -304,7 +304,7 @@ const Components = {
      */
     initCustomCursor() {
         if (window.innerWidth < 1024) return;
-        
+
         const cursor = document.createElement('div');
         cursor.id = 'blueprint-cursor';
         document.body.appendChild(cursor);
@@ -374,14 +374,14 @@ const Components = {
     initMap(containerId, markers = []) {
         const container = document.getElementById(containerId);
         if (!container) return;
-        
+
         // Debug visibility
         container.style.backgroundColor = 'rgba(255,255,255,0.05)';
         container.style.display = 'block';
 
         // Check if map is already initialized to prevent errors
         if (container._leaflet_id) return;
-        
+
         // Ensure Leaflet is loaded (with a small retry logic for injected scripts)
         if (typeof L === 'undefined') {
             let retries = 0;
@@ -400,7 +400,7 @@ const Components = {
             return;
         }
 
-        const map = L.map(containerId).setView([-1.9441, 30.0619], 12); 
+        const map = L.map(containerId).setView([-1.9441, 30.0619], 12);
 
         L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
             maxZoom: 19,
@@ -426,13 +426,13 @@ const Components = {
         } else {
             map.setView([-1.9441, 30.0619], 13);
         }
-        
+
         // Robust resize handling for animated/hidden containers
         const resizeObserver = new ResizeObserver(() => {
             map.invalidateSize();
         });
         resizeObserver.observe(container);
-        
+
         setTimeout(() => map.invalidateSize(), 500);
 
         return map;
@@ -496,7 +496,7 @@ const Components = {
             // Handle empty state if needed
             const table = document.querySelector(tableSelector);
             let emptyMsg = table.parentNode.querySelector('.empty-state');
-            
+
             if (matches === 0) {
                 if (!emptyMsg) {
                     emptyMsg = document.createElement('div');
@@ -517,8 +517,8 @@ const Components = {
      * Dynamically updates page titles, descriptions, and OpenGraph tags.
      */
     setPageMeta(config = {}) {
-        const { 
-            title = "Blueprint Rwanda - The Gold Standard", 
+        const {
+            title = "Blueprint Rwanda - The Gold Standard",
             description = "Discover luxury stays, premium mobility, and curated experiences in the heart of Africa.",
             keywords = "Rwanda, Kigali, Luxury Stays, Car Rental, African Tourism",
             image = "../assets/images/branding/blueprint-logo.png"
@@ -603,7 +603,7 @@ const Components = {
         this.injectFooter();
         this.initAnimations();
         this.initCustomCursor();
-        
+
         // Add font-awesome via CDN if not present
         if (!document.querySelector('link[href*="font-awesome"]')) {
             const fa = document.createElement('link');
