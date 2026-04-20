@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settlement Center (Financial Engine) — Blueprint Rwanda</title>
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.js"></script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/ui-system.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .finance-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .ledger-stat {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .ledger-stat label {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+        }
+
+        .ledger-stat .val {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: var(--font-heading);
+        }
+
+        .currency-badge {
+            background: rgba(47, 133, 90, 0.1);
+            color: #2f855a;
+            padding: 0.2rem 0.6rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.7rem;
+            font-weight: 800;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+
+        /* Payout Ledger Table Enhancements */
+        .payout-btn {
+            background: var(--primary);
+            color: var(--secondary);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-pill);
+            font-weight: 700;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .payout-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .payout-btn:disabled {
+            background: var(--border);
+            color: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Tax Panel */
+        .tax-indicator {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            margin-bottom: 0.75rem;
+        }
+
+        .tax-indicator span:first-child {
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .tax-indicator .amount {
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        @media (max-width: 1100px) {
+            .finance-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <main class="admin-main container">
+        <header class="admin-header" data-animate>
+            <div class="admin-title">
+                <h1 class="gradient-text">Settlement Center</h1>
+                <p>Governing the economic architecture and partner payment reconciliation.</p>
+            </div>
+            <div class="admin-actions">
+                <button class="btn btn-secondary btn-sm" onclick="location.href='admin-dashboard.html'"><i class="fas fa-arrow-left"></i> Console</button>
+                <button class="btn btn-primary btn-sm" id="globalPayoutBtn" onclick="authorizeAllPayouts()"><i class="fas fa-file-invoice-dollar"></i> Authorize All Ready Funds</button>
+            </div>
+        </header>
+
+        <!-- Financial Architecture Bar -->
+        <div class="telemetry-bar" data-animate style="margin-bottom: var(--space-md); grid-template-columns: repeat(4, 1fr);">
+            <div class="ledger-stat" style="border-top: 4px solid var(--primary);">
+                <label>Gross Ecosystem Value (GEV)</label>
+                <div class="val">$45,284<span class="currency-badge">USD</span></div>
+            </div>
+            <div class="ledger-stat" style="border-top: 4px solid var(--accent);">
+                <label>Platform Commission (7%)</label>
+                <div class="val">$3,169</div>
+            </div>
+            <div class="ledger-stat" style="border-top: 4px solid #3182ce;">
+                <label>Current Escrow Balance</label>
+                <div class="val">$12,440</div>
+            </div>
+            <div class="ledger-stat" style="border-top: 4px solid #e53e3e;">
+                <label>Est. Quarterly Tax (RRA)</label>
+                <div class="val">$1,890</div>
+            </div>
+        </div>
+
+        <div class="finance-grid">
+            <!-- Left: Reconciliation & Ledger -->
+            <div style="display: flex; flex-direction: column; gap: 2rem;">
+                
+                <!-- Chart Area -->
+                <section class="card data-card" data-animate>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                        <h3>Revenue Reconciliation (30 Days)</h3>
+                        <div class="flex-center" style="gap: 1rem; font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">
+                            <span><i class="fas fa-square" style="color: var(--primary);"></i> Gross Volume</span>
+                            <span><i class="fas fa-square" style="color: var(--accent);"></i> Net Commission</span>
+                        </div>
+                    </div>
+                    <div style="height: 300px;">
+                        <canvas id="reconciliationChart"></canvas>
+                    </div>
+                </section>
+
+                <!-- Payout Ledger -->
+                <section class="card data-card" data-animate style="padding: 0;">
+                    <div style="padding: 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="margin: 0; font-size: 1.25rem;">Partner Payout Ledger</h3>
+                        <span class="status-pill status-active" style="font-size: 0.65rem;">Cycle: Bi-Weekly</span>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Partner Syndicate</th>
+                                    <th>Volume (STK)</th>
+                                    <th>Pending Balance</th>
+                                    <th>Ready for Payout</th>
+                                    <th>Status</th>
+                                    <th style="text-align: right;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="payout-tbody">
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-avatar" style="background: var(--gradient-gold);">GP</div>
+                                            <div>
+                                                <h4 style="font-size: 0.95rem; margin-bottom: 0.1rem;">Global Properties</h4>
+                                                <span style="font-size: 0.75rem; color: var(--text-muted);">Payout: MTN MoMo</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>$28,500</td>
+                                    <td>$1,200</td>
+                                    <td style="font-weight: 800; color: var(--primary);">$4,400</td>
+                                    <td><span class="status-pill status-pending">Ready</span></td>
+                                    <td style="text-align: right;">
+                                        <button class="payout-btn" onclick="settleSinglePartner(this, 'Global Properties', 4400)">Authorize</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-avatar" style="background: var(--primary);">LT</div>
+                                            <div>
+                                                <h4 style="font-size: 0.95rem; margin-bottom: 0.1rem;">Lakeside Tours</h4>
+                                                <span style="font-size: 0.75rem; color: var(--text-muted);">Payout: Bank Transfer</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>$14,200</td>
+                                    <td>$850</td>
+                                    <td style="font-weight: 800; color: var(--primary);">$1,250</td>
+                                    <td><span class="status-pill status-pending">Ready</span></td>
+                                    <td style="text-align: right;">
+                                        <button class="payout-btn" onclick="settleSinglePartner(this, 'Lakeside Tours', 1250)">Authorize</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-avatar" style="background: var(--primary-dark);">KF</div>
+                                            <div>
+                                                <h4 style="font-size: 0.95rem; margin-bottom: 0.1rem;">Kigali Fleet</h4>
+                                                <span style="font-size: 0.75rem; color: var(--text-muted);">Payout: MTN MoMo</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>$9,800</td>
+                                    <td>$400</td>
+                                    <td style="font-weight: 800; color: var(--primary);">$2,100</td>
+                                    <td><span class="status-pill status-active">Settled</span></td>
+                                    <td style="text-align: right;">
+                                        <button class="payout-btn" disabled>Sent</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right: Compliance & Tax -->
+            <aside data-animate style="transition-delay: 0.2s;">
+                <div class="card data-card" style="margin-bottom: 2rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <h3 style="margin: 0; font-size: 1.1rem;">Tax Readiness (RRA)</h3>
+                        <i class="fas fa-file-invoice text-accent"></i>
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem;">Estimated regional tax liabilities based on current GEV cycle.</p>
+                    
+                    <div class="tax-indicator">
+                        <span>VAT (18%)</span>
+                        <span class="amount">$7,820</span>
+                    </div>
+                    <div class="tax-indicator">
+                        <span>Tourism Levy (1%)</span>
+                        <span class="amount">$452</span>
+                    </div>
+                    <div class="tax-indicator" style="border-style: dashed; border-width: 1px; border-color: var(--accent);">
+                        <span>Total Liability</span>
+                        <span class="amount" style="font-size: 1.1rem;">$8,272</span>
+                    </div>
+                    
+                    <button class="btn btn-secondary btn-sm" style="width: 100%; margin-top: 1rem;" onclick="window.Components.showToast('Generating RRA-compliant tax ledger (PDF/CSV)...', 'success')">Download Tax Export</button>
+                </div>
+
+                <div class="card data-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <h3 style="margin: 0; font-size: 1.1rem;">System Health</h3>
+                        <span class="status-pill status-active" style="font-size: 0.6rem;">Normal</span>
+                    </div>
+                    <div class="action-list">
+                        <div class="action-item" style="border-left-color: var(--success); padding: 0.75rem;">
+                            <div style="font-size: 0.8rem;">
+                                <h5 style="margin-bottom: 0.2rem;">Payment Gateway</h5>
+                                <p style="color: var(--text-muted); font-size: 0.75rem;">Connected to MTN MoMo Gateway</p>
+                            </div>
+                        </div>
+                        <div class="action-item" style="border-left-color: var(--success); padding: 0.75rem;">
+                            <div style="font-size: 0.8rem;">
+                                <h5 style="margin-bottom: 0.2rem;">Escrow Lock</h5>
+                                <p style="color: var(--text-muted); font-size: 0.75rem;">Master encryption salt active</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="../assets/js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ---- Reconciliation Chart ----
+            const ctxRect = document.getElementById('reconciliationChart').getContext('2d');
+            
+            new Chart(ctxRect, {
+                type: 'bar',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                    datasets: [
+                        {
+                            label: 'Gross Volume',
+                            data: [10200, 12500, 11000, 11584],
+                            backgroundColor: '#a0522d',
+                            borderRadius: 6
+                        },
+                        {
+                            label: 'Net Commission',
+                            data: [714, 875, 770, 810],
+                            backgroundColor: '#d4a373',
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { 
+                            beginAtZero: true,
+                            grid: { color: 'rgba(0,0,0,0.05)', drawBorder: false },
+                            ticks: { callback: v => '$' + (v >= 1000 ? (v/1000 + 'k') : v) }
+                        },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        });
+
+        // Authorize Logic
+        function settleSinglePartner(btn, partner, amount) {
+            if(confirm(`AUTHORIZATION REQUIRED: Initiate payment of $${amount} to ${partner}? This action is irreversible.`)) {
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing';
+                btn.disabled = true;
+                
+                setTimeout(() => {
+                    const row = btn.closest('tr');
+                    const pill = row.querySelector('.status-pill');
+                    pill.className = 'status-pill status-active';
+                    pill.textContent = 'Settled';
+                    btn.innerHTML = 'Sent';
+                    if(window.Components) Components.showToast(`Funds released to ${partner} via secure channel.`, 'success');
+                }, 1500);
+            }
+        }
+
+        function authorizeAllPayouts() {
+            const btns = document.querySelectorAll('.payout-btn:not([disabled])');
+            if(btns.length === 0) {
+                 if(window.Components) Components.showToast('No pending settlements ready for authorization.', 'warning');
+                 return;
+            }
+            if(confirm(`PROTOCOL OVERRIDE: Authorize all ${btns.length} ready settlements totaling $5,650?`)) {
+                btns.forEach(btn => btn.click());
+            }
+        }
+    </script>
+</body>
+</html>

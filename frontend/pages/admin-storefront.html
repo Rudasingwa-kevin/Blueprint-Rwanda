@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storefront Management — Blueprint Rwanda</title>
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/ui-system.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .cms-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2.5rem;
+        }
+
+        .preview-pane {
+            position: sticky;
+            top: 120px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--border);
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px; width: 18px;
+            left: 3px; bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider { background-color: var(--primary); }
+        input:checked + .slider:before { transform: translateX(26px); }
+
+        .control-section {
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2rem;
+        }
+
+        .control-section:last-child { border-bottom: none; }
+
+        .control-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .control-header h3 { margin: 0; font-size: 1.25rem; color: var(--primary); }
+
+        /* Mini Preview */
+        .mini-preview {
+            width: 100%;
+            height: 220px;
+            background: #1a1a1a;
+            border-radius: var(--radius-md);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .mini-preview-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+            z-index: 1;
+        }
+
+        .mini-preview-content { position: relative; z-index: 2; }
+    </style>
+</head>
+<body>
+    <main class="admin-main container">
+        <header class="admin-header" data-animate>
+            <div class="admin-title">
+                <h1 class="gradient-text">Storefront Management</h1>
+                <p>Governing the public-facing brand experience and marketing telemetry.</p>
+            </div>
+            <div class="admin-actions">
+                <button class="btn btn-secondary btn-sm" onclick="location.href='admin-dashboard.html'"><i class="fas fa-arrow-left"></i> Console</button>
+                <button class="btn btn-primary btn-sm" onclick="saveCMS()"><i class="fas fa-save"></i> Publish Changes</button>
+            </div>
+        </header>
+
+        <div class="cms-grid">
+            <!-- Left: Controls -->
+            <div class="card data-card" data-animate>
+                
+                <!-- 1. Global Announcement Banner -->
+                <section class="control-section">
+                    <div class="control-header">
+                        <h3>Global Announcement Banner</h3>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="banner-toggle" onchange="updatePreview()">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">A persistent high-visibility bar at the top of every public page.</p>
+                    
+                    <div class="form-group full">
+                        <label>Banner Narrative</label>
+                        <input type="text" id="banner-text" class="form-control" placeholder="e.g. New fleet of SUVs now available in Musanze!" oninput="updatePreview()">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Background Color</label>
+                            <input type="color" id="banner-color" class="form-control" style="height: 50px; padding: 5px;" value="#a0522d" oninput="updatePreview()">
+                        </div>
+                        <div class="form-group">
+                            <label>CTA Logic (Link)</label>
+                            <input type="text" id="banner-link" class="form-control" placeholder="URL or Page Name">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. Hero Component Architecture -->
+                <section class="control-section">
+                    <div class="control-header">
+                        <h3>Hero Component Architecture</h3>
+                    </div>
+                    
+                    <div class="form-group full">
+                        <label>Primary Brand Title</label>
+                        <input type="text" id="hero-title" class="form-control" placeholder="Blueprint Rwanda" oninput="updatePreview()">
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Brand Subtitle Narrative</label>
+                        <textarea id="hero-subtitle" class="form-control" style="min-height: 80px;" oninput="updatePreview()">Your gateway to high-end hospitality, strategic mobility, and curated Rwandan experiences.</textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Hero Digital Asset (Video/Image URL)</label>
+                            <input type="text" id="hero-asset" class="form-control" placeholder="URL path to MP4 or Image">
+                        </div>
+                        <div class="form-group">
+                            <label>Execution Label (CTA)</label>
+                            <input type="text" id="hero-cta" class="form-control" placeholder="e.g. Start Exploring" oninput="updatePreview()">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. Featured Collection Logic -->
+                <section class="control-section">
+                    <div class="control-header">
+                        <h3>Featured Collection Logic</h3>
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Select which ecosystem verticals are prioritized on the landing page.</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                        <div class="card" style="padding: 1rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; text-align: center;">
+                            <i class="fas fa-hotel" style="font-size: 1.5rem; color: var(--primary);"></i>
+                            <span style="font-size: 0.8rem; font-weight: 700;">Stays</span>
+                            <input type="checkbox" checked style="width:20px; height:20px;">
+                        </div>
+                        <div class="card" style="padding: 1rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; text-align: center;">
+                            <i class="fas fa-mountain" style="font-size: 1.5rem; color: var(--primary);"></i>
+                            <span style="font-size: 0.8rem; font-weight: 700;">Places</span>
+                            <input type="checkbox" checked style="width:20px; height:20px;">
+                        </div>
+                        <div class="card" style="padding: 1rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; text-align: center;">
+                            <i class="fas fa-car-side" style="font-size: 1.5rem; color: var(--primary);"></i>
+                            <span style="font-size: 0.8rem; font-weight: 700;">Mobility</span>
+                            <input type="checkbox" checked style="width:20px; height:20px;">
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right: Preview -->
+            <aside class="preview-pane" data-animate style="transition-delay: 0.2s;">
+                <div class="card data-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <h3 style="margin: 0; font-size: 1.1rem;">Ecosystem Preview</h3>
+                        <span class="status-pill status-active" style="font-size: 0.6rem;">Live Simulator</span>
+                    </div>
+
+                    <div id="preview-banner" style="display: none; padding: 0.5rem; text-align: center; font-size: 0.7rem; font-weight: 800; color: #fff; background: var(--primary); margin-bottom: 0.5rem; border-radius: 4px;">
+                        BANNER ACTIVE
+                    </div>
+
+                    <div class="mini-preview">
+                        <div class="mini-preview-overlay"></div>
+                        <div class="mini-preview-content">
+                            <h4 id="prev-title" style="font-size: 1.4rem; margin-bottom: 0.5rem;">Blueprint Rwanda</h4>
+                            <p id="prev-subtitle" style="font-size: 0.65rem; opacity: 0.8;">Your gateway to high-end hospitality.</p>
+                            <button id="prev-cta" class="btn btn-primary" style="margin-top: 1rem; padding: 0.4rem 1rem; font-size: 0.7rem;">Start Exploring</button>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--bg); border: 1px solid var(--border); padding: 1.5rem; border-radius: var(--radius-sm);">
+                        <h4 style="font-size: 0.9rem; margin-bottom: 1rem;">Protocol Summary</h4>
+                        <ul style="font-size: 0.8rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.8rem;">
+                            <li><i class="fas fa-check-circle" style="color: var(--success); margin-right: 0.5rem;"></i> Changes persist in <strong>localStorage</strong></li>
+                            <li><i class="fas fa-check-circle" style="color: var(--success); margin-right: 0.5rem;"></i> Assets are served via relative paths</li>
+                            <li><i class="fas fa-exclamation-triangle" style="color: var(--accent); margin-right: 0.5rem;"></i> Deployment is <strong>Global</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="../assets/js/components.js"></script>
+    <script>
+        // Load initial state
+        document.addEventListener('DOMContentLoaded', () => {
+            const settings = JSON.parse(localStorage.getItem('storefrontSettings')) || {
+                heroTitle: "Blueprint Rwanda",
+                heroSubtitle: "Your gateway to high-end hospitality, strategic mobility, and curated Rwandan experiences.",
+                heroCTA: "Start Exploring",
+                bannerActive: false,
+                bannerText: "Engineering excellence in Rwanda.",
+                bannerColor: "#a0522d"
+            };
+
+            document.getElementById('hero-title').value = settings.heroTitle;
+            document.getElementById('hero-subtitle').value = settings.heroSubtitle;
+            document.getElementById('hero-cta').value = settings.heroCTA;
+            document.getElementById('banner-toggle').checked = settings.bannerActive;
+            document.getElementById('banner-text').value = settings.bannerText;
+            document.getElementById('banner-color').value = settings.bannerColor;
+
+            updatePreview();
+        });
+
+        function updatePreview() {
+            document.getElementById('prev-title').textContent = document.getElementById('hero-title').value || "Blueprint Rwanda";
+            document.getElementById('prev-subtitle').textContent = document.getElementById('hero-subtitle').value || "";
+            document.getElementById('prev-cta').textContent = document.getElementById('hero-cta').value || "Start Exploring";
+            
+            const banner = document.getElementById('preview-banner');
+            banner.style.display = document.getElementById('banner-toggle').checked ? 'block' : 'none';
+            banner.textContent = document.getElementById('banner-text').value;
+            banner.style.background = document.getElementById('banner-color').value;
+        }
+
+        function saveCMS() {
+            const settings = {
+                heroTitle: document.getElementById('hero-title').value,
+                heroSubtitle: document.getElementById('hero-subtitle').value,
+                heroCTA: document.getElementById('hero-cta').value,
+                bannerActive: document.getElementById('banner-toggle').checked,
+                bannerText: document.getElementById('banner-text').value,
+                bannerColor: document.getElementById('banner-color').value,
+                timestamp: new Date().toISOString()
+            };
+
+            localStorage.setItem('storefrontSettings', JSON.stringify(settings));
+            if(window.Components) Components.showToast('Storefront Configuration Published Successfully', 'success');
+        }
+    </script>
+</body>
+</html>

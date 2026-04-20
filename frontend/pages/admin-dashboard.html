@@ -113,13 +113,14 @@
                     <i class="fas fa-search search-icon"></i>
                     <input type="text" class="admin-search" placeholder="Search operational data...">
                 </div>
+                <button class="btn btn-secondary btn-sm" onclick="location.href='admin-storefront.html'"><i class="fas fa-magic"></i> Manage Storefront</button>
                 <button class="btn btn-primary btn-sm" onclick="location.href='add-accommodation.html'"><i class="fas fa-plus"></i> Add Listing</button>
             </div>
         </header>
 
         <!-- KPI Grid -->
         <div class="kpi-grid">
-            <div class="card kpi-card" data-animate>
+            <div class="card kpi-card" data-animate style="cursor: pointer;" onclick="location.href='admin-stakeholders.html'">
                 <div class="kpi-content">
                     <div class="icon flex-center"><i class="fas fa-users"></i></div>
                     <div class="label">Total Ecosystem Users</div>
@@ -137,7 +138,7 @@
                 </div>
                 <canvas id="spark2" class="sparkline-canvas"></canvas>
             </div>
-            <div class="card kpi-card" data-animate style="transition-delay: 0.2s;">
+            <div class="card kpi-card" data-animate style="transition-delay: 0.2s; cursor: pointer;" onclick="location.href='admin-bookings.html'">
                 <div class="kpi-content">
                     <div class="icon flex-center"><i class="fas fa-check-double"></i></div>
                     <div class="label">Completed Bookings</div>
@@ -146,7 +147,7 @@
                 </div>
                 <canvas id="spark3" class="sparkline-canvas"></canvas>
             </div>
-            <div class="card kpi-card" data-animate style="transition-delay: 0.3s;">
+            <div class="card kpi-card" data-animate style="transition-delay: 0.3s; cursor: pointer;" onclick="location.href='admin-finance.html'">
                 <div class="kpi-content">
                     <div class="icon flex-center"><i class="fas fa-chart-line"></i></div>
                     <div class="label">Gross Ecosystem Value</div>
@@ -177,7 +178,7 @@
                 <h3 style="padding-left: 280px;">Global Operations Map</h3>
                 <span class="status-pill status-active" style="font-size: 0.7rem;">Live Asset Tracking</span>
             </div>
-            <div id="admin-global-map" style="height: 400px; border-radius: var(--radius-md);"></div>
+            <div id="admin-global-map" style="height: 380px; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border);"></div>
         </section>
 
         <div class="admin-data-grid" style="grid-template-columns: 1fr 1fr;">
@@ -191,26 +192,33 @@
                 
                 <div class="action-list" id="dashboard-action-list">
                     <div class="action-item" id="demo-dash-pending-partner">
-                        <div>
+                        <div style="cursor: pointer;" onclick="location.href='admin-stakeholders.html'">
                             <h5 style="margin-bottom: 0.25rem;">Partner Application</h5>
                             <span style="font-size: 0.8rem; color: var(--text-muted);">Lakeside Tours Ltd</span>
                         </div>
                         <button class="btn btn-primary btn-sm" onclick="approveDashPartner()">Approve</button>
                     </div>
                     <div class="action-item" style="border-left-color: #f59e0b;">
-                        <div>
+                        <div style="cursor: pointer;" onclick="location.href='admin-bookings.html'">
                             <h5 style="margin-bottom: 0.25rem;">Asset Audit Discrepancy</h5>
                             <span style="font-size: 0.8rem; color: var(--text-muted);">Silverback Manor</span>
                         </div>
-                        <button class="btn btn-secondary btn-sm">Review</button>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='admin-bookings.html'">Review</button>
                     </div>
                     <div class="action-item" style="border-left-color: var(--error);">
-                        <div>
+                        <div style="cursor: pointer;" onclick="location.href='admin-finance.html'">
                             <h5 style="margin-bottom: 0.25rem;">Payment Gateway Sync</h5>
                             <span style="font-size: 0.8rem; color: var(--text-muted);">Mtn Mobile Money</span>
                         </div>
-                        <button class="btn btn-secondary btn-sm">Resolve</button>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='admin-finance.html'">Resolve</button>
+                        <div class="action-item" style="border-left-color: #3b82f6;">
+                        <div style="cursor: pointer;" onclick="location.href='admin-reviews.html'">
+                            <h5 style="margin-bottom: 0.25rem;">Pending Review Audit</h5>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Guest: Mariya K. · 1-Star Review</span>
+                        </div>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='admin-reviews.html'">Audit</button>
                     </div>
+                </div>
                 </div>
             </div>
 

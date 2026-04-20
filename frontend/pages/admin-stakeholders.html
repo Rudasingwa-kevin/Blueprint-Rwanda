@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stakeholder Registry (Advanced CRM) — Blueprint Rwanda</title>
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/ui-system.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .crm-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .reputation-bar {
+            width: 80px;
+            height: 6px;
+            background: var(--border);
+            border-radius: var(--radius-pill);
+            overflow: hidden;
+            margin-top: 0.25rem;
+        }
+
+        .reputation-fill {
+            height: 100%;
+            background: var(--gradient-gold);
+            border-radius: var(--radius-pill);
+        }
+
+        /* Top Earners Panel */
+        .earners-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .earner-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+        }
+
+        .earner-item:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+            background: var(--white);
+        }
+
+        .earner-rank {
+            font-family: var(--font-heading);
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--primary);
+            opacity: 0.2;
+            width: 30px;
+        }
+
+        .earner-val {
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .earner-val span {
+            display: block;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .earner-val label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.6;
+        }
+
+        /* Dispute Log */
+        .dispute-log {
+            margin-top: 2rem;
+        }
+
+        .dispute-item {
+            padding: 1rem;
+            border-left: 3px solid var(--accent);
+            background: rgba(212, 163, 115, 0.05);
+            margin-bottom: 1rem;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            font-size: 0.85rem;
+        }
+
+        .dispute-item.critical {
+            border-left-color: var(--error);
+            background: rgba(197, 48, 48, 0.05);
+        }
+
+        .dispute-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.4rem;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 1200px) {
+            .crm-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <main class="admin-main container">
+        <header class="admin-header" data-animate>
+            <div class="admin-title">
+                <h1 class="gradient-text">Stakeholder Registry</h1>
+                <p>Advanced CRM governing the reputation and financial velocity of the ecosystem.</p>
+            </div>
+            <div class="admin-actions">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="crmSearch" class="admin-search" placeholder="Search by name, ID, or reputation level...">
+                </div>
+                <button class="btn btn-primary btn-sm" onclick="location.href='add-user.html'"><i class="fas fa-user-plus"></i> Manual Registration</button>
+            </div>
+        </header>
+
+        <!-- CRM Telemetry -->
+        <div class="kpi-grid" data-animate style="margin-bottom: var(--space-md);">
+            <div class="card kpi-card">
+                <div class="kpi-content">
+                    <div class="label">Net Ecosystem Sentiment</div>
+                    <div class="value">94.2%</div>
+                    <div class="reputation-bar" style="width: 100%; height: 8px;"><div class="reputation-fill" style="width: 94%;"></div></div>
+                </div>
+            </div>
+            <div class="card kpi-card">
+                <div class="kpi-content">
+                    <div class="label">Elite Partners</div>
+                    <div class="value">12</div>
+                    <div class="trend up"><i class="fas fa-crown"></i> +2 This Month</div>
+                </div>
+            </div>
+            <div class="card kpi-card">
+                <div class="kpi-content">
+                    <div class="label">Open Disputes</div>
+                    <div class="value">3</div>
+                    <div class="trend down" style="color: var(--error);"><i class="fas fa-exclamation-triangle"></i> Action Required</div>
+                </div>
+            </div>
+            <div class="card kpi-card">
+                <div class="kpi-content">
+                    <div class="label">Avg. Partner Tenure</div>
+                    <div class="value">14 Mo.</div>
+                    <div class="trend up"><i class="fas fa-chart-line"></i> High Retention</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="crm-grid">
+            <!-- Left: Registry List -->
+            <section class="card data-card" data-animate style="padding: 0;">
+                <div style="padding: 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                    <h3 style="margin: 0; font-size: 1.25rem;">Stakeholder Matrix</h3>
+                    <div class="flex-center" style="gap: 0.5rem;">
+                        <span class="status-pill status-active" style="font-size: 0.65rem; cursor: pointer;">All Roles</span>
+                        <span class="status-pill status-pending" style="font-size: 0.65rem; cursor: pointer; opacity: 0.6;">Partners Only</span>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Delegate Identity</th>
+                                <th>Role / Authorization</th>
+                                <th>Reputation Index</th>
+                                <th>Ecosystem Impact</th>
+                                <th style="text-align: right;">System Authority</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stakeholder-tbody">
+                            <!-- Partner Row -->
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar" style="background: var(--gradient-gold);">LT</div>
+                                        <div>
+                                            <h4 style="font-size: 1rem; margin-bottom: 0.1rem;">Lakeside Tours Ltd</h4>
+                                            <span style="font-size: 0.75rem; color: var(--text-muted);">ID: PRT-RUB-442</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="status-pill status-active">Elite Partner</span></td>
+                                <td>
+                                    <div style="font-weight: 700; font-size: 0.9rem;">98 / 100</div>
+                                    <div class="reputation-bar"><div class="reputation-fill" style="width: 98%;"></div></div>
+                                </td>
+                                <td><span style="font-weight: 800; color: var(--primary);">$14.2k</span></td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="btn-icon" title="View Deep Profile" onclick="window.Components.showToast('Pulling biometric and financial history for ' + this.closest('tr').querySelector('h4').textContent, 'success')"><i class="fas fa-id-card"></i></button>
+                                        <button class="btn-icon delete" title="Flag for Misconduct"><i class="fas fa-flag"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Guest Row -->
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar" style="background: var(--primary);">JD</div>
+                                        <div>
+                                            <h4 style="font-size: 1rem; margin-bottom: 0.1rem;">John Doe</h4>
+                                            <span style="font-size: 0.75rem; color: var(--text-muted);">ID: GST-KGL-109</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="status-pill status-pending">Verified Guest</span></td>
+                                <td>
+                                    <div style="font-weight: 700; font-size: 0.9rem;">85 / 100</div>
+                                    <div class="reputation-bar"><div class="reputation-fill" style="width: 85%;"></div></div>
+                                </td>
+                                <td><span style="font-weight: 800; color: var(--text);">4 Bookings</span></td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="btn-icon" title="View User Stays"><i class="fas fa-calendar-check"></i></button>
+                                        <button class="btn-icon delete" title="Ban Stakeholder"><i class="fas fa-user-slash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Admin Row -->
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar" style="background: #1a1a1a;">SN</div>
+                                        <div>
+                                            <h4 style="font-size: 1rem; margin-bottom: 0.1rem;">Samuel Niyonkuru</h4>
+                                            <span style="font-size: 0.75rem; color: var(--text-muted);">ID: ADM-SYS-001</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="status-pill status-active" style="background: #1a1a1a;">System Admin</span></td>
+                                <td>
+                                    <div style="font-weight: 700; font-size: 0.9rem;">100 / 100</div>
+                                    <div class="reputation-bar"><div class="reputation-fill" style="width: 100%;"></div></div>
+                                </td>
+                                <td><span style="font-weight: 800; color: var(--text);">Master Control</span></td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="btn-icon" title="Audit Operations"><i class="fas fa-shield-alt"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Right: Analytics Sidebar -->
+            <aside data-animate style="transition-delay: 0.2s;">
+                <!-- Top Earners Panel -->
+                <div class="card data-card" style="margin-bottom: 2rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <h3 style="margin: 0; font-size: 1.1rem;">Elite Partners (Top 5)</h3>
+                        <i class="fas fa-award text-accent"></i>
+                    </div>
+                    <div class="earners-list">
+                        <div class="earner-item">
+                            <span class="earner-rank">01</span>
+                            <div class="user-avatar" style="width: 32px; height: 32px; font-size: 0.7rem;">GP</div>
+                            <div class="earner-info">
+                                <h5 style="font-size: 0.85rem;">Global Properties</h5>
+                                <label style="font-size: 0.6rem; opacity: 0.6;">Kigali Sector</label>
+                            </div>
+                            <div class="earner-val">
+                                <span>$28.5k</span>
+                                <label>Volume</label>
+                            </div>
+                        </div>
+                        <div class="earner-item">
+                            <span class="earner-rank">02</span>
+                            <div class="user-avatar" style="width: 32px; height: 32px; font-size: 0.7rem;">LT</div>
+                            <div class="earner-info">
+                                <h5 style="font-size: 0.85rem;">Lakeside Tours</h5>
+                                <label style="font-size: 0.6rem; opacity: 0.6;">Gisenyi Sector</label>
+                            </div>
+                            <div class="earner-val">
+                                <span>$14.2k</span>
+                                <label>Volume</label>
+                            </div>
+                        </div>
+                        <div class="earner-item">
+                            <span class="earner-rank">03</span>
+                            <div class="user-avatar" style="width: 32px; height: 32px; font-size: 0.7rem;">KF</div>
+                            <div class="earner-info">
+                                <h5 style="font-size: 0.85rem;">Kigali Fleet</h5>
+                                <label style="font-size: 0.6rem; opacity: 0.6;">Mobility</label>
+                            </div>
+                            <div class="earner-val">
+                                <span>$9.8k</span>
+                                <label>Volume</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary btn-sm" style="width: 100%; margin-top: 1.5rem;">View Full Leaderboard</button>
+                </div>
+
+                <!-- Communication & Dispute Log -->
+                <div class="card data-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <h3 style="margin: 0; font-size: 1.1rem;">Ecosystem Health Log</h3>
+                        <span class="status-pill status-active" style="font-size: 0.6rem;">Live</span>
+                    </div>
+                    <div class="dispute-log">
+                        <div class="dispute-item critical">
+                            <div class="dispute-meta">
+                                <span>Security Flag</span>
+                                <span>12m ago</span>
+                            </div>
+                            <p>Unauthorized access attempt detected for partner <strong>EST-KYV-001</strong> via IP 192.168.1.1.</p>
+                        </div>
+                        <div class="dispute-item">
+                            <div class="dispute-meta">
+                                <span>Dispute Logged</span>
+                                <span>1h ago</span>
+                            </div>
+                            <p>Guest Case #9921: Discrepancy in car rental return mileage for <strong>Kigali Fleet</strong>.</p>
+                        </div>
+                        <div class="dispute-item">
+                            <div class="dispute-meta">
+                                <span>Compliance Alert</span>
+                                <span>4h ago</span>
+                            </div>
+                            <p>License documentation for <strong>Lakeside Tours Ltd</strong> expires in 14 days.</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary btn-sm" style="width: 100%; border-style: dashed; background: transparent;" onclick="window.Components.showToast('Opening incident response terminal...', 'error')">Open Incident Command</button>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.Components && window.Components.initAdminSearch) {
+                window.Components.initAdminSearch('crmSearch', '.admin-table');
+            }
+
+            // Flagging Logic (Demo)
+            const tableBody = document.getElementById('stakeholder-tbody');
+            if (tableBody) {
+                tableBody.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.delete');
+                    if (!btn) return;
+
+                    const row = btn.closest('tr');
+                    const name = row.querySelector('h4').textContent;
+                    const isFlag = btn.querySelector('.fa-flag');
+                    
+                    if (isFlag) {
+                        const reason = prompt(`Specify reason for flagging ${name} for misconduct:`);
+                        if (reason) {
+                            btn.style.color = 'var(--error)';
+                            btn.title = "Stakeholder Flagged";
+                            if (window.Components) Components.showToast(`${name} has been flagged for audit.`, 'error');
+                        }
+                    } else {
+                        // User slash / Ban logic
+                        if (confirm(`ULTIMATUM: Permanent suspension of ecosystem credentials for ${name}. Are you absolute?`)) {
+                            row.style.opacity = '0.4';
+                            row.style.pointerEvents = 'none';
+                            if (window.Components) Components.showToast(`${name} credentials have been revoked.`, 'error');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -115,6 +115,7 @@
 </head>
 
 <body data-perspective="public">
+    <div id="marketing-banner" style="display: none; width: 100%; padding: 1rem; text-align: center; font-weight: 800; font-size: 0.9rem; color: #fff; position: relative; z-index: 100;"></div>
     <section class="hero">
         <!-- High-end video background (fallback to css image if missing) -->
         <div class="hero-bg"></div>
@@ -124,12 +125,12 @@
 
         <div class="hero-content" data-animate>
             <div style="margin-bottom: 2rem;">
-                <h1 class="hero-title gradient-text">Blueprint Rwanda</h1>
-                <p style="font-size: 1.25rem; max-width: 600px; margin: 0 auto 3rem; opacity: 0.8;">Your gateway to
+                <h1 class="hero-title gradient-text" id="home-hero-title">Blueprint Rwanda</h1>
+                <p style="font-size: 1.25rem; max-width: 600px; margin: 0 auto 3rem; opacity: 0.8;" id="home-hero-subtitle">Your gateway to
                     high-end hospitality, strategic mobility, and curated Rwandan experiences.</p>
 
                 <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="login.html" class="btn btn-primary" style="padding: 1rem 3rem;">Start Exploring</a>
+                    <a href="login.html" class="btn btn-primary" style="padding: 1rem 3rem;" id="home-hero-cta">Start Exploring</a>
                     <a href="portfolio.html" class="btn btn-secondary" style="padding: 1rem 3rem;">View
                         Portfolio</a>
                 </div>
@@ -164,6 +165,21 @@
                     title: "Blueprint Rwanda | The Gold Standard of Hospitality",
                     description: "Engineering excellence in Rwanda. Discover luxury stays, strategic mobility, and curated experiences."
                 });
+            }
+
+            // CMS Hydrator Logic
+            const settings = JSON.parse(localStorage.getItem('storefrontSettings'));
+            if (settings) {
+                if (settings.heroTitle) document.getElementById('home-hero-title').textContent = settings.heroTitle;
+                if (settings.heroSubtitle) document.getElementById('home-hero-subtitle').textContent = settings.heroSubtitle;
+                if (settings.heroCTA) document.getElementById('home-hero-cta').textContent = settings.heroCTA;
+                
+                if (settings.bannerActive) {
+                    const banner = document.getElementById('marketing-banner');
+                    banner.style.display = 'block';
+                    banner.textContent = settings.bannerText;
+                    banner.style.background = settings.bannerColor;
+                }
             }
         });
     </script>

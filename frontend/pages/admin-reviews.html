@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Moderation — Blueprint Rwanda</title>
+    <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/ui-system.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .review-audit-card {
+            border-left: 4px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .review-audit-card:hover {
+            border-left-color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .rating-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 800;
+            font-size: 0.75rem;
+        }
+
+        .rating-low { background: rgba(229, 62, 62, 0.1); color: #e53e3e; }
+        .rating-high { background: rgba(47, 133, 90, 0.1); color: #2f855a; }
+
+        .review-content-preview {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 0.5rem 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .category-score {
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            background: var(--bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 2px;
+        }
+
+        /* Modal Simulation */
+        .audit-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <main class="admin-main container">
+        <header class="admin-header" data-animate>
+            <div class="admin-title">
+                <h1 class="gradient-text">Content Governance</h1>
+                <p>Auditing ecosystem narratives and ensuring high-fidelity brand integrity.</p>
+            </div>
+            <div class="admin-actions">
+                <button class="btn btn-secondary btn-sm" onclick="location.href='admin-dashboard.html'"><i class="fas fa-arrow-left"></i> Console</button>
+            </div>
+        </header>
+
+        <!-- Moderation Telemetry Bar -->
+        <div class="telemetry-bar" data-animate style="margin-bottom: var(--space-md); grid-template-columns: repeat(4, 1fr);">
+            <div class="telemetry-stat" style="border-bottom: 4px solid #f59e0b;">
+                <i class="fas fa-history" style="color: #f59e0b;"></i>
+                <div>
+                    <h4 style="font-size: 1.5rem; margin-bottom: 0.2rem;">12</h4>
+                    <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;">Pending Audit</span>
+                </div>
+            </div>
+            <div class="telemetry-stat" style="border-bottom: 4px solid #3b82f6;">
+                <i class="fas fa-star" style="color: #3b82f6;"></i>
+                <div>
+                    <h4 style="font-size: 1.5rem; margin-bottom: 0.2rem;">4.92</h4>
+                    <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;">Ecosystem Avg</span>
+                </div>
+            </div>
+            <div class="telemetry-stat" style="border-bottom: 4px solid #10b981;">
+                <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                <div>
+                    <h4 style="font-size: 1.5rem; margin-bottom: 0.2rem;">842</h4>
+                    <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;">Narratives Approved</span>
+                </div>
+            </div>
+            <div class="telemetry-stat" style="border-bottom: 4px solid var(--error);">
+                <i class="fas fa-trash-alt" style="color: var(--error);"></i>
+                <div>
+                    <h4 style="font-size: 1.5rem; margin-bottom: 0.2rem;">14</h4>
+                    <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;">Spam Blocked</span>
+                </div>
+            </div>
+        </div>
+
+        <section class="card data-card" data-animate style="padding: 2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h3>Pending Moderation Queue</h3>
+                <div class="flex-center" style="gap: 1rem;">
+                    <select class="admin-search" style="min-width: 150px;">
+                        <option>All Ratings</option>
+                        <option>Negative (1-2★)</option>
+                        <option>Positive (4-5★)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                
+                <!-- Audit Row 1 (Critical) -->
+                <div class="card data-card review-audit-card" style="border-left-color: #e53e3e; padding: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div style="display: flex; gap: 1.5rem;">
+                            <div class="user-avatar" style="background: var(--error);">MK</div>
+                            <div>
+                                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.25rem;">
+                                    <h4 style="font-size: 1rem;">Mariya K. <small style="color: var(--text-muted);">@mariya_k</small></h4>
+                                    <div class="rating-chip rating-low">1.0 ★</div>
+                                </div>
+                                <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                    <span class="category-score">Cleanliness: 1</span>
+                                    <span class="category-score">Service: 1</span>
+                                    <span class="category-score">Location: 4</span>
+                                </div>
+                                <h5 style="margin-bottom: 0.25rem;">"Unacceptable hygiene standards"</h5>
+                                <p class="review-content-preview">The property was not as advertised. I found dust everywhere and the bathroom was not cleaned properly. This is definitely not a gold standard experience...</p>
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">Asset: <strong style="color: var(--primary);">Skyline Penthouse</strong> · 2 hours ago</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            <button class="btn btn-primary btn-sm" onclick="auditAction('approved')">Approve</button>
+                            <button class="btn btn-secondary btn-sm" onclick="auditAction('rejected')">Reject / Spam</button>
+                            <button class="btn btn-secondary btn-sm" style="color: var(--error);" onclick="location.href='admin-stakeholders.html'"><i class="fas fa-flag"></i> Flag Stakeholder</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Audit Row 2 -->
+                <div class="card data-card review-audit-card" style="border-left-color: #10b981; padding: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div style="display: flex; gap: 1.5rem;">
+                            <div class="user-avatar" style="background: var(--success);">TJ</div>
+                            <div>
+                                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.25rem;">
+                                    <h4 style="font-size: 1rem;">Thomas J. <small style="color: var(--text-muted);">@tommy_jay</small></h4>
+                                    <div class="rating-chip rating-high">5.0 ★</div>
+                                </div>
+                                <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                    <span class="category-score">Value: 5</span>
+                                    <span class="category-score">Service: 5</span>
+                                </div>
+                                <h5 style="margin-bottom: 0.25rem;">"Absolutely World Class!"</h5>
+                                <p class="review-content-preview">The Land Cruiser was in pristine condition. The driver was professional and knew all the best routes. This is the only way to see Rwanda.</p>
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">Asset: <strong style="color: var(--primary);">Land Cruiser V8</strong> · 5 hours ago</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            <button class="btn btn-primary btn-sm" onclick="auditAction('approved')">Approve</button>
+                            <button class="btn btn-secondary btn-sm" onclick="auditAction('rejected')">Reject</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <script src="../assets/js/components.js"></script>
+    <script>
+        function auditAction(status) {
+            const row = event.target.closest('.card');
+            const msg = status === 'approved' ? 'Narrative integrated into public storefront.' : 'Content sequestered and removed from queue.';
+            
+            row.style.opacity = '0.5';
+            row.style.pointerEvents = 'none';
+
+            if(window.Components) Components.showToast(msg, 'success');
+            
+            setTimeout(() => {
+                row.style.display = 'none';
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

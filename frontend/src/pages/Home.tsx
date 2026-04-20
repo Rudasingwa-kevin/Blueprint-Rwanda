@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Search, MapPin, Calendar, Users, ChevronRight, Bed, Car, Map } from 'lucide-react';
+import { Search, ChevronRight, Bed, Car, Map } from 'lucide-react';
 
 const Home: React.FC = () => {
   return (
@@ -71,7 +71,7 @@ const Home: React.FC = () => {
             { title: 'Accommodation', icon: Bed, desc: 'Luxury apartments to cozy guesthouses.', color: 'bg-primary/10', text: 'text-primary' },
             { title: 'Rent a Car', icon: Car, desc: 'Reliable vehicles for every destination.', color: 'bg-accent/10', text: 'text-accent' },
             { title: 'Places to Visit', icon: Map, desc: 'Guided tours and hidden local gems.', color: 'bg-secondary/20', text: 'text-text-muted' },
-          ].map((service, i) => (
+          ].map((service) => (
             <motion.div
               key={service.title}
               whileHover={{ y: -10 }}
