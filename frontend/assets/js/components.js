@@ -43,7 +43,7 @@ const Components = {
         } else if (role === 'admin') {
             links = `
                 <li><a href="admin-dashboard.html" class="${this.isActive('admin-dashboard')}"><i class="fas fa-chart-pie"></i> Console</a></li>
-                <li><a href="admin-users.html" class="${this.isActive('admin-users')}"><i class="fas fa-users-cog"></i> Delegates</a></li>
+                <li><a href="admin-stakeholders.html" class="${this.isActive('admin-stakeholders')}"><i class="fas fa-users-cog"></i> Delegates</a></li>
                 <li><a href="admin-inventory.html" class="${this.isActive('admin-inventory') || this.isActive('admin-accommodations') || this.isActive('admin-cars') || this.isActive('admin-places')}"><i class="fas fa-boxes"></i> Global Assets</a></li>
             `;
         } else if (role === 'partner') {
@@ -72,6 +72,9 @@ const Components = {
                         ${links}
                     </ul>
                     <div class="nav-actions">
+                        <button id="global-search-trigger" class="btn-icon-nav" aria-label="Open Search">
+                            <i class="fas fa-search"></i>
+                        </button>
                         ${(!isPublic && role !== 'admin') ? `
                         <button id="mode-switcher" class="btn btn-secondary btn-sm mode-toggle-btn">
                             <i class="fas ${role === 'partner' ? 'fa-suitcase' : 'fa-handshake'}"></i>
@@ -103,11 +106,75 @@ const Components = {
                     </ul>
                 </div>
             </nav>
+            <div id="blueprint-search-overlay" class="glass" style="display:none; position:fixed; inset:0; z-index:30000; padding:4rem 2rem; backdrop-filter:blur(30px); background:rgba(0,0,0,0.8);">
+                <div class="container" style="max-width:800px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
+                        <h2 class="gradient-text" style="font-size:2rem;">Ecosystem Search</h2>
+                        <button class="close-search btn-icon-nav" style="color:white; transition: all 0.3s ease;"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="form-group" style="position:relative;">
+                        <input type="text" id="global-search-input" class="form-control" placeholder="Search accounts, assets, or protocols..." style="background:rgba(255,255,255,0.05); color:white; border-color:rgba(255,255,255,0.1); padding:1.5rem 3rem; font-size:1.2rem;">
+                        <i class="fas fa-search" style="position:absolute; left:1rem; top:50%; transform:translateY(-50%); opacity:0.5; color:white;"></i>
+                    </div>
+                    <div id="search-results" style="margin-top:2rem; display:grid; gap:1rem;">
+                        <p style="text-align:center; opacity:0.5; color:white;">Begin typing to query the Blueprint ledger...</p>
+                    </div>
+                </div>
+            </div>
         `;
         document.body.insertAdjacentHTML('afterbegin', navbar);
         this.initNavbarLogic();
         this.initThemeToggle();
+        this.initSearchLogic();
         if (role !== 'admin') this.initRoleSwitcher();
+    },
+
+    /**
+     * Search Modal Logic.
+     */
+    initSearchLogic() {
+        const trigger = document.getElementById('global-search-trigger');
+        const overlay = document.getElementById('blueprint-search-overlay');
+        const close = overlay.querySelector('.close-search');
+        const input = document.getElementById('global-search-input');
+
+        if (!trigger || !overlay) return;
+
+        trigger.addEventListener('click', () => {
+            overlay.style.display = 'block';
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.opacity = '1';
+                overlay.style.transition = 'opacity 0.4s ease';
+                input.focus();
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        });
+
+        close.addEventListener('click', () => {
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                document.body.style.overflow = '';
+            }, 400);
+        });
+
+        input.addEventListener('input', (e) => {
+            const results = document.getElementById('search-results');
+            if(e.target.value.length > 2) {
+                results.innerHTML = `
+                    <div class="card" style="padding:1rem; display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.05); border-color:rgba(255,255,255,0.1);">
+                        <div>
+                            <h4 style="color:var(--secondary); margin:0;">${e.target.value}</h4>
+                            <p style="font-size:0.8rem; opacity:0.6; color:white; margin:0;">No verified records found in this context.</p>
+                        </div>
+                        <i class="fas fa-chevron-right" style="opacity:0.3; color:white;"></i>
+                    </div>
+                `;
+            } else {
+                results.innerHTML = '<p style="text-align:center; opacity:0.5; color:white;">Begin typing to query the Blueprint ledger...</p>';
+            }
+        });
     },
 
     /**
@@ -178,7 +245,7 @@ const Components = {
                 <div class="footer-links">
                     <h4>Governance</h4>
                     <a href="admin-dashboard.html">System Health</a>
-                    <a href="admin-users.html">User Directory</a>
+                    <a href="admin-stakeholders.html">User Directory</a>
                     <a href="#">Audit Logs</a>
                 </div>
                 <div class="footer-links">
@@ -321,8 +388,8 @@ const Components = {
 
         // Smooth follow logic (lerp)
         const animate = () => {
-            cursorX += (mouseX - cursorX) * 0.15;
-            cursorY += (mouseY - cursorY) * 0.15;
+            cursorX += (mouseX - cursorX) * 0.25;
+            cursorY += (mouseY - cursorY) * 0.25;
             cursor.style.left = `${cursorX - (cursor.offsetWidth / 2)}px`;
             cursor.style.top = `${cursorY - (cursor.offsetHeight / 2)}px`;
             requestAnimationFrame(animate);
@@ -471,13 +538,40 @@ const Components = {
     },
 
     /**
-     * Logic for administrative table filtering.
-     * Searches through rows of a target table based on input.
+     * Logic for administrative table filtering with Expanding UI support.
+     * Searches through rows of a target table based on input and handles container expansion.
      */
     initAdminSearch(inputId, tableSelector) {
         const input = document.getElementById(inputId);
+        if (!input) return;
+
+        const container = input.closest('.search-container');
         const rows = document.querySelectorAll(`${tableSelector} tbody tr`);
-        if (!input || rows.length === 0) return;
+        if (rows.length === 0) return;
+
+        // Expansion Toggle Logic
+        if (container) {
+            container.addEventListener('click', (e) => {
+                container.classList.add('active');
+                input.focus();
+            });
+
+            input.addEventListener('blur', () => {
+                if (input.value.trim() === '') {
+                    container.classList.remove('active');
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    input.value = '';
+                    // Trigger input event to clear filters
+                    input.dispatchEvent(new Event('input'));
+                    input.blur();
+                    container.classList.remove('active');
+                }
+            });
+        }
 
         input.addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
@@ -596,13 +690,201 @@ const Components = {
     },
 
     /**
+     * Unified Administrative & Partner Creation Hub.
+     */
+    renderCreationHub(parentSelector) {
+        const parent = document.querySelector(parentSelector);
+        if (!parent) return;
+
+        const role = this.getRole();
+        const isAdmin = role === 'admin';
+        
+        const hub = `
+            <div class="creation-dropdown" id="master-creation-hub">
+                <button class="btn btn-primary btn-sm creation-trigger premium-btn">
+                    <i class="fas fa-plus-circle"></i> ${isAdmin ? 'Master Integration' : 'Expand Portfolio'}
+                </button>
+                <div class="creation-menu">
+                    <h4>${isAdmin ? 'Ecosystem Integration' : 'New Asset Registration'}</h4>
+                    <a href="add-accommodation.html" class="creation-link">
+                        <i class="fas fa-hotel"></i>
+                        <span>${isAdmin ? 'Register Stay' : 'Add Accommodation'}</span>
+                    </a>
+                    <a href="add-car.html" class="creation-link">
+                        <i class="fas fa-car"></i>
+                        <span>${isAdmin ? 'Integrate Fleet' : 'Add Vehicle'}</span>
+                    </a>
+                    <a href="add-place.html" class="creation-link">
+                        <i class="fas fa-mountain"></i>
+                        <span>${isAdmin ? 'Authorize Experience' : 'Add Experience'}</span>
+                    </a>
+                    ${isAdmin ? `
+                    <div style="margin-top: 1rem; padding-top: 0.5rem; border-top: 1px solid var(--border);">
+                        <a href="add-user.html" class="creation-link">
+                            <i class="fas fa-user-plus"></i>
+                            <span>Manual Registration</span>
+                        </a>
+                    </div>` : ''}
+                </div>
+            </div>
+        `;
+        parent.innerHTML = hub;
+
+        // Toggle logic
+        const trigger = parent.querySelector('.creation-trigger');
+        const dropdown = parent.querySelector('.creation-dropdown');
+        
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdown.classList.toggle('active');
+        });
+
+        document.addEventListener('click', () => {
+            dropdown.classList.remove('active');
+        });
+
+        dropdown.querySelector('.creation-menu').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    },
+
+    /**
+     * Renders a sophisticated KPI Card with status and optional sparkline.
+     */
+    renderKPIBox(stat) {
+        const { id, icon, label, value, trend, color = 'var(--primary)' } = stat;
+        return `
+            <div class="card kpi-card" data-animate id="kpi-${id}">
+                <div class="kpi-content">
+                    <div class="icon flex-center" style="background: ${color}20; color: ${color};"><i class="fas ${icon}"></i></div>
+                    <div class="label">${label}</div>
+                    <div class="value">${value}</div>
+                    ${trend ? `<div class="trend ${trend.includes('Up') ? 'up' : 'down'}">${trend}</div>` : ''}
+                </div>
+                <canvas id="spark-${id}" class="sparkline-canvas"></canvas>
+            </div>
+        `;
+    },
+
+    /**
+     * Visual Telemetry Overlay for Map Context.
+     */
+    renderTelemetryOverlay(parent, items = []) {
+        const overlay = document.createElement('div');
+        overlay.className = 'map-telemetry command-panel';
+        overlay.style.cssText = `position: absolute; top: 1.5rem; left: 1.5rem; z-index: 1000; width: 260px; pointer-events: none;`;
+        
+        const content = items.map(item => `
+            <div class="telemetry-item" style="margin-bottom: 1rem;">
+                <div class="telemetry-label" style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.6; margin-bottom: 0.3rem;">${item.label}</div>
+                <div class="telemetry-val" style="font-size: 1.1rem; font-weight: 700; color: var(--white); display: flex; align-items: center; gap: 0.5rem;">
+                    ${item.pulse ? '<div class="t-pulse" style="width:8px; height:8px; border-radius:50%; background:#10b981; box-shadow:0 0 10px #10b981;"></div>' : ''}
+                    ${item.value}
+                </div>
+            </div>
+        `).join('');
+
+        overlay.innerHTML = content;
+        parent.style.position = 'relative';
+        parent.appendChild(overlay);
+    },
+
+    /**
+     * Premium Lightbox Engine for interactive image viewing.
+     */
+    initLightbox() {
+        const triggers = document.querySelectorAll('[data-lightbox]');
+        if (triggers.length === 0) return;
+
+        // Create overlay if it doesn't exist
+        if (!document.getElementById('blueprint-lightbox')) {
+            const overlay = document.createElement('div');
+            overlay.id = 'blueprint-lightbox';
+            overlay.className = 'glass';
+            overlay.style.cssText = `
+                position: fixed; inset: 0; z-index: 20000;
+                display: none; align-items: center; justify-content: center;
+                padding: 2rem; cursor: zoom-out; backdrop-filter: blur(20px);
+                background: rgba(0,0,0,0.85);
+            `;
+            overlay.innerHTML = `
+                <img id="lightbox-img" style="max-width: 90%; max-height: 90%; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); transition: transform 0.4s ease; transform: scale(0.9);">
+                <button class="close-lightbox" style="position: absolute; top: 2rem; right: 2rem; background: none; border: none; color: white; font-size: 2rem; cursor: pointer; transition: all 0.3s ease;"><i class="fas fa-times"></i></button>
+            `;
+            document.body.appendChild(overlay);
+
+            overlay.addEventListener('click', (e) => {
+                if (e.target.id === 'blueprint-lightbox' || e.target.closest('.close-lightbox')) {
+                    this.hideLightbox();
+                }
+            });
+        }
+
+            triggers.forEach(trigger => {
+                trigger.style.cursor = 'zoom-in';
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const src = trigger.tagName === 'IMG' ? trigger.src : trigger.href;
+                    this.showLightbox(src);
+                });
+            });
+
+            // Added hover effects for close buttons
+            const style = document.createElement('style');
+            style.textContent = `
+                .close-search:hover, .close-lightbox:hover {
+                    transform: scale(1.2) rotate(90deg);
+                    text-shadow: 0 0 10px rgba(255,255,255,0.8);
+                    opacity: 1 !important;
+                }
+            `;
+            document.head.appendChild(style);
+        },
+
+    showLightbox(src) {
+        const overlay = document.getElementById('blueprint-lightbox');
+        const img = document.getElementById('lightbox-img');
+        if (!overlay || !img) return;
+
+        img.src = src;
+        overlay.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => {
+            img.style.transform = 'scale(1)';
+            overlay.style.opacity = '1';
+        }, 10);
+    },
+
+    hideLightbox() {
+        const overlay = document.getElementById('blueprint-lightbox');
+        const img = document.getElementById('lightbox-img');
+        if (!overlay || !img) return;
+
+        img.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            overlay.style.display = 'none';
+            document.body.style.overflow = '';
+        }, 300);
+    },
+
+    /**
      * Auto-init everything.
      */
     init() {
+        // Apply saved theme FIRST — before any rendering — to prevent flash
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
         this.injectNavbar();
         this.injectFooter();
         this.initAnimations();
         this.initCustomCursor();
+        this.initLightbox();
+
+        // If navbar is suppressed (form pages), still apply theme toggle logic
+        if (document.body.hasAttribute('data-no-navbar')) {
+            this.initThemeToggle();
+        }
 
         // Add font-awesome via CDN if not present
         if (!document.querySelector('link[href*="font-awesome"]')) {

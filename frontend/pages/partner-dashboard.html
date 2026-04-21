@@ -25,6 +25,8 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 2rem;
+            position: relative;
+            z-index: 1000;
         }
 
         .partner-grid {
@@ -68,11 +70,7 @@
                 <h1 class="gradient-text">Partner Console</h1>
                 <p>Governing your contribution to the Rwanda ecosystem.</p>
             </div>
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                <button class="btn btn-secondary btn-sm" onclick="location.href='add-car.html'"><i class="fas fa-car"></i> Add Car</button>
-                <button class="btn btn-secondary btn-sm" onclick="location.href='add-place.html'"><i class="fas fa-map-marked-alt"></i> Add Place</button>
-                <button class="btn btn-primary btn-sm" onclick="location.href='add-accommodation.html'"><i class="fas fa-plus"></i> Add Property</button>
-            </div>
+            <div id="creation-hub-container"></div>
         </header>
 
         <!-- Dynamic Statistics -->
@@ -203,6 +201,11 @@
                     { lat: -1.9441, lng: 30.0619, title: "Skyline Penthouse", desc: "Live · Kigali" },
                     { lat: -1.9501, lng: 30.0588, title: "Executive Sedan", desc: "Available · Kigali Downtown" }
                 ]);
+            }
+
+            // Inject Creation Hub via Engine
+            if (window.Components && window.Components.renderCreationHub) {
+                window.Components.renderCreationHub('#creation-hub-container');
             }
         });
     </script>

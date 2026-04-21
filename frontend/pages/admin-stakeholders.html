@@ -126,11 +126,7 @@
                 <p>Advanced CRM governing the reputation and financial velocity of the ecosystem.</p>
             </div>
             <div class="admin-actions">
-                <div class="search-container">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" id="crmSearch" class="admin-search" placeholder="Search by name, ID, or reputation level...">
-                </div>
-                <button class="btn btn-primary btn-sm" onclick="location.href='add-user.html'"><i class="fas fa-user-plus"></i> Manual Registration</button>
+                <div id="creation-hub-container"></div>
             </div>
         </header>
 
@@ -352,8 +348,9 @@
     <script src="../assets/js/components.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            if (window.Components && window.Components.initAdminSearch) {
-                window.Components.initAdminSearch('crmSearch', '.admin-table');
+            // Inject Creation Hub via Engine
+            if (window.Components && window.Components.renderCreationHub) {
+                window.Components.renderCreationHub('#creation-hub-container');
             }
 
             // Flagging Logic (Demo)

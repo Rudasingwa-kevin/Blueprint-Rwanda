@@ -73,10 +73,7 @@
                 <p>Governing the entire ecosystem's premium inventory matrix.</p>
             </div>
             <div class="admin-actions">
-                <div class="search-container">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" id="inventorySearch" class="admin-search" placeholder="Search system by ID or name...">
-                </div>
+                <div id="creation-hub-container"></div>
             </div>
         </header>
 
@@ -237,9 +234,9 @@
     <script src="../assets/js/components.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Setup Search
-            if (window.Components && window.Components.initAdminSearch) {
-                window.Components.initAdminSearch('inventorySearch', '.admin-table');
+            // Inject Creation Hub via Engine
+            if (window.Components && window.Components.renderCreationHub) {
+                window.Components.renderCreationHub('#creation-hub-container');
             }
 
             // Setup Filter Logic

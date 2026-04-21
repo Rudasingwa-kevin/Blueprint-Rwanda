@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Instant theme sync to prevent flash -->
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'light');</script>
     <title>Register Estate - Blueprint Rwanda</title>
     <link rel="shortcut icon" href="../assets/images/branding/title-logo.png" type="image/x-icon">
     <!-- Styles -->
@@ -10,7 +12,15 @@
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
-<body>
+<body data-no-navbar>
+    <!-- Context-Aware Back Navigation -->
+    <div id="form-topbar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 9999; padding: 1rem 2rem; display: flex; align-items: center; gap: 1rem; background: var(--surface); border-bottom: 1px solid var(--border); backdrop-filter: blur(10px);">
+        <button onclick="history.back()" style="background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-weight: 700; color: var(--primary); font-size: 0.95rem;">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <span style="opacity: 0.3;">|</span>
+        <span id="context-label" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">Register Estate</span>
+    </div>
     <main class="admin-main container">
         <header class="admin-header" data-animate>
             <div class="admin-title">
@@ -91,15 +101,21 @@
         </section>
     </main>
 
-    <!-- Scripts -->
     <script src="../assets/js/components.js"></script>
     <script>
+        // Determine origin context for smart redirect
+        const referrer = document.referrer;
+        const isPartner = referrer.includes('partner-');
+        const returnUrl = isPartner ? 'partner-dashboard.html' : 'admin-inventory.html';
+
+        // Update context label
+        const label = document.getElementById('context-label');
+        if (label) label.textContent = isPartner ? 'Partner Console → Register Estate' : 'Admin → Register Estate';
+
         document.getElementById('accommodationForm').onsubmit = function(e) {
             e.preventDefault();
             Components.showToast('Estate Registration Synchronized', 'success');
-            setTimeout(() => {
-                location.href = 'admin-accommodations.html';
-            }, 1500);
+            setTimeout(() => { location.href = returnUrl; }, 1500);
         };
     </script>
 </body>

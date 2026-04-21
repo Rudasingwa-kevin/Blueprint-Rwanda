@@ -13,82 +13,10 @@
     <link rel="stylesheet" href="../assets/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
     <style>
-        .sparkline-canvas {
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100% !important;
-            height: 60px !important;
-            opacity: 0.25;
-            z-index: 1;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
+        @keyframes grow-x {
+            from { width: 0; }
+            to { width: var(--target-width); }
         }
-        
-        .kpi-card { position: relative; overflow: hidden; }
-        .kpi-card > div.kpi-content { position: relative; z-index: 2; }
-        .kpi-card:hover .sparkline-canvas { opacity: 0.5; }
-
-        .map-telemetry {
-            position: absolute;
-            top: 2rem;
-            left: 2rem;
-            z-index: 1000;
-            background: rgba(26, 15, 10, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 228, 181, 0.15);
-            border-radius: var(--radius-md);
-            padding: 1.5rem;
-            color: var(--secondary);
-            width: 250px;
-            pointer-events: none;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .telemetry-item { margin-bottom: 1rem; }
-        .telemetry-item:last-child { margin-bottom: 0; }
-
-        .telemetry-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            opacity: 0.7;
-            margin-bottom: 0.25rem;
-        }
-
-        .telemetry-val {
-            font-size: 1.25rem;
-            font-weight: 700;
-            font-family: var(--font-heading);
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .t-pulse {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #10b981;
-            box-shadow: 0 0 10px #10b981;
-            animation: pulse-op 2s infinite;
-        }
-
-        @keyframes pulse-op {
-            0% { opacity: 0.3; }
-            50% { opacity: 1; transform: scale(1.2); }
-            100% { opacity: 0.3; }
-        }
-
-        .action-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
         .action-item {
             background: var(--bg);
             border: 1px solid var(--border);
@@ -109,18 +37,14 @@
                 <p>Scaling Rwanda's potential through data-driven management.</p>
             </div>
             <div class="admin-actions">
-                <div class="search-container">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" class="admin-search" placeholder="Search operational data...">
-                </div>
                 <button class="btn btn-secondary btn-sm" onclick="location.href='admin-storefront.html'"><i class="fas fa-magic"></i> Manage Storefront</button>
-                <button class="btn btn-primary btn-sm" onclick="location.href='add-accommodation.html'"><i class="fas fa-plus"></i> Add Listing</button>
+                <div id="creation-hub-container"></div>
             </div>
         </header>
 
         <!-- KPI Grid -->
         <div class="kpi-grid">
-            <div class="card kpi-card" data-animate style="cursor: pointer;" onclick="location.href='admin-stakeholders.html'">
+            <div class="card kpi-card" data-animate data-animate-delay="1" style="cursor: pointer;" onclick="location.href='admin-stakeholders.html'">
                 <div class="kpi-content">
                     <div class="icon flex-center"><i class="fas fa-users"></i></div>
                     <div class="label">Total Ecosystem Users</div>
@@ -129,7 +53,7 @@
                 </div>
                 <canvas id="spark1" class="sparkline-canvas"></canvas>
             </div>
-            <div class="card kpi-card" data-animate style="transition-delay: 0.1s;">
+            <div class="card kpi-card" data-animate data-animate-delay="2" style="cursor: pointer;" onclick="location.href='admin-inventory.html'">
                 <div class="kpi-content">
                     <div class="icon flex-center"><i class="fas fa-hotel"></i></div>
                     <div class="label">Total Managed Assets</div>
@@ -138,7 +62,7 @@
                 </div>
                 <canvas id="spark2" class="sparkline-canvas"></canvas>
             </div>
-            <div class="card kpi-card" data-animate style="transition-delay: 0.2s; cursor: pointer;" onclick="location.href='admin-bookings.html'">
+            <div class="card kpi-card" data-animate data-animate-delay="3" style="cursor: pointer;" onclick="location.href='admin-bookings.html'">
                 <div class="kpi-content">
                     <div class="icon flex-center"><i class="fas fa-check-double"></i></div>
                     <div class="label">Completed Bookings</div>
@@ -147,7 +71,7 @@
                 </div>
                 <canvas id="spark3" class="sparkline-canvas"></canvas>
             </div>
-            <div class="card kpi-card" data-animate style="transition-delay: 0.3s; cursor: pointer;" onclick="location.href='admin-finance.html'">
+            <div class="card kpi-card" data-animate data-animate-delay="4" style="cursor: pointer;" onclick="location.href='admin-finance.html'">
                 <div class="kpi-content">
                     <div class="icon flex-center"><i class="fas fa-chart-line"></i></div>
                     <div class="label">Gross Ecosystem Value</div>
@@ -159,29 +83,55 @@
         </div>
 
         <!-- Global Operations Map -->
-        <section class="admin-map-section card" data-animate style="margin-bottom: var(--space-md); padding: 1.5rem; position: relative;">
-            <div class="map-telemetry">
-                <div class="telemetry-item">
-                    <div class="telemetry-label">Network Infrastructure</div>
-                    <div class="telemetry-val"><div class="t-pulse"></div> Healthy</div>
-                </div>
-                <div class="telemetry-item">
-                    <div class="telemetry-label">Active Nodes</div>
-                    <div class="telemetry-val">382</div>
-                </div>
-                <div class="telemetry-item">
-                    <div class="telemetry-label">System Latency</div>
-                    <div class="telemetry-val" style="color: #10b981;">14ms</div>
-                </div>
-            </div>
+        <section class="admin-map-section card" id="map-container" data-animate style="margin-bottom: var(--space-md); padding: 1.5rem; position: relative;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                <h3 style="padding-left: 280px;">Global Operations Map</h3>
+                <h3 style="margin-left: 280px;">Global Operations Map</h3>
                 <span class="status-pill status-active" style="font-size: 0.7rem;">Live Asset Tracking</span>
             </div>
             <div id="admin-global-map" style="height: 380px; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border);"></div>
         </section>
 
-        <div class="admin-data-grid" style="grid-template-columns: 1fr 1fr;">
+        <!-- System Health Architecture (New) -->
+        <section class="card data-card" data-animate style="margin-bottom: var(--space-md);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <div>
+                    <span class="eyebrow" style="font-size: 0.7rem; color: var(--primary);">Network Integrity</span>
+                    <h3>System Health Architecture</h3>
+                </div>
+                <span class="status-pill status-active">Operational</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                <div class="health-item">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.8rem;">
+                        <span style="opacity: 0.7;">Protocol Stability</span>
+                        <span style="font-weight: 700; color: #10b981;">99.4%</span>
+                    </div>
+                    <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden;">
+                        <div style="width: 94%; height: 100%; background: #10b981; box-shadow: 0 0 10px #10b981; animation: grow-x 2s ease-out;"></div>
+                    </div>
+                </div>
+                <div class="health-item">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.8rem;">
+                        <span style="opacity: 0.7;">Encryption Mesh</span>
+                        <span style="font-weight: 700; color: #3b82f6;">Verifying</span>
+                    </div>
+                    <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden;">
+                        <div style="width: 82%; height: 100%; background: #3b82f6; box-shadow: 0 0 10px #3b82f6; animation: grow-x 2.5s ease-out;"></div>
+                    </div>
+                </div>
+                <div class="health-item">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.8rem;">
+                        <span style="opacity: 0.7;">API Latency</span>
+                        <span style="font-weight: 700; color: var(--primary);">Optimum</span>
+                    </div>
+                    <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden;">
+                        <div style="width: 100%; height: 100%; background: var(--primary); box-shadow: 0 0 10px var(--primary); animation: grow-x 1.5s ease-out;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="admin-data-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: var(--space-md);">
             <!-- Actionable Intelligence (Replaces Distribution) -->
             <div class="data-card" data-animate>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
@@ -211,14 +161,14 @@
                             <span style="font-size: 0.8rem; color: var(--text-muted);">Mtn Mobile Money</span>
                         </div>
                         <button class="btn btn-secondary btn-sm" onclick="location.href='admin-finance.html'">Resolve</button>
-                        <div class="action-item" style="border-left-color: #3b82f6;">
+                    </div>
+                    <div class="action-item" style="border-left-color: #3b82f6;">
                         <div style="cursor: pointer;" onclick="location.href='admin-reviews.html'">
                             <h5 style="margin-bottom: 0.25rem;">Pending Review Audit</h5>
                             <span style="font-size: 0.8rem; color: var(--text-muted);">Guest: Mariya K. · 1-Star Review</span>
                         </div>
                         <button class="btn btn-secondary btn-sm" onclick="location.href='admin-reviews.html'">Audit</button>
                     </div>
-                </div>
                 </div>
             </div>
 
@@ -255,7 +205,7 @@
                     <option>Year to Date</option>
                 </select>
             </div>
-            <div style="height: 350px; width: 100%;">
+            <div style="height: 280px; width: 100%;">
                 <canvas id="revenueVelocityChart"></canvas>
             </div>
         </section>
@@ -275,6 +225,22 @@
                     { lat: -1.5011, lng: 29.6331, title: "Northern Province", desc: "Moderate Activity · 84 Assets", url: 'admin-places.html' },
                     { lat: -1.6917, lng: 29.2558, title: "Western Frontier", desc: "Growing Sector · 56 Assets", url: 'admin-cars.html' }
                 ]);
+                
+                // Inject Creation Hub via Engine
+                if (window.Components.renderCreationHub) {
+                    window.Components.renderCreationHub('#creation-hub-container');
+                }
+                
+                // Inject Telemetry via Engine
+                const mapContainer = document.getElementById('map-container');
+                if (mapContainer && window.Components.renderTelemetryOverlay) {
+                    window.Components.renderTelemetryOverlay(mapContainer, [
+                        { label: "Network Infrastructure", value: "Healthy", pulse: true },
+                        { label: "Active Nodes", value: "382" },
+                        { label: "System Latency", value: "14ms" }
+                    ]);
+                }
+
             }
         });
     </script>
