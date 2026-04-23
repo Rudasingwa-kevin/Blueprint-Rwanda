@@ -868,6 +868,37 @@ const Components = {
     },
 
     /**
+     * Fallback script to handle 404s on static links before navigation.
+     */
+    initLinkFallback() {
+        document.addEventListener('click', async (e) => {
+            const link = e.target.closest('a');
+            if (!link || !link.href) return;
+            
+            const href = link.getAttribute('href');
+            // Skip empty hrefs, anchors, external links, and open-in-new-tab links
+            if (!href || href === '#' || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:') || link.target === '_blank') return;
+            
+            // Intercept relative HTML links for the fallback
+            if (href.endsWith('.html')) {
+                e.preventDefault(); // Pause navigation
+                try {
+                    const response = await fetch(href, { method: 'HEAD' });
+                    if (response.ok) {
+                        window.location.href = href;
+                    } else {
+                        console.warn('Link target not found, redirecting to 404.html');
+                        window.location.href = '404.html';
+                    }
+                } catch (err) {
+                    // If fetch fails (e.g. CORS on file://), just navigate and let the browser handle it natively
+                    window.location.href = href;
+                }
+            }
+        });
+    },
+
+    /**
      * Auto-init everything.
      */
     init() {
@@ -880,6 +911,7 @@ const Components = {
         this.initAnimations();
         this.initCustomCursor();
         this.initLightbox();
+        this.initLinkFallback();
 
         // If navbar is suppressed (form pages), still apply theme toggle logic
         if (document.body.hasAttribute('data-no-navbar')) {
