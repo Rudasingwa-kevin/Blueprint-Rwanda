@@ -180,6 +180,15 @@
         .form-control:focus + .input-icon,
         .input-wrap:focus-within .input-icon { color: var(--primary); }
 
+        .form-control.error {
+            border-color: #e53e3e;
+            box-shadow: 0 0 0 4px rgba(229, 62, 62, 0.1);
+        }
+
+        .form-control.error + .input-icon {
+            color: #e53e3e;
+        }
+
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -573,7 +582,7 @@
                         <div class="form-group">
                             <label for="momoNumber">Mobile Money Number</label>
                             <div class="input-wrap">
-                                <input type="tel" id="momoNumber" class="form-control"
+                                <input type="tel" id="momoNumber" class="form-control" value="+250 "
                                        placeholder="+250 78 000 0000" autocomplete="tel" inputmode="tel">
                                 <i class="fas fa-mobile-alt input-icon"></i>
                             </div>
@@ -802,6 +811,27 @@ document.getElementById('cardPreview').style.transition = 'transform 0.5s ease';
 function processPayment() {
     const btn = document.getElementById('payBtn');
 
+    // Clear previous errors
+    document.querySelectorAll('.form-control.error').forEach(el => el.classList.remove('error'));
+
+    function showError(id, msg) {
+        const el = document.getElementById(id);
+        if (el) {
+            el.classList.add('error');
+            el.focus();
+            
+            // Remove error class on next input
+            el.addEventListener('input', function removeErr() {
+                el.classList.remove('error');
+                el.removeEventListener('input', removeErr);
+            });
+        }
+        
+        // Address user directly
+        const firstName = userName !== 'Guest' ? userName.split(' ')[0] : 'there';
+        Components.showToast(`Hey ${firstName}, ${msg}`, 'error');
+    }
+
     // Basic validation
     if (activeTab === 'card') {
         const num  = document.getElementById('cardNumber').value.replace(/\s/g, '');
@@ -809,15 +839,18 @@ function processPayment() {
         const exp  = document.getElementById('cardExpiry').value.trim();
         const cvv  = document.getElementById('cardCVV').value.trim();
 
-        if (num.length < 16) { Components.showToast('Please enter a valid 16-digit card number', 'error'); return; }
-        if (!name)           { Components.showToast('Card holder name is required', 'error'); return; }
-        if (exp.length < 7)  { Components.showToast('Please enter a valid expiry date', 'error'); return; }
-        if (cvv.length < 3)  { Components.showToast('Please enter a valid CVV', 'error'); return; }
+        if (num.length < 16) { showError('cardNumber', 'please enter a valid 16-digit card number.'); return; }
+        if (!name)           { showError('cardName', 'we need your card holder name.'); return; }
+        if (exp.length < 7)  { showError('cardExpiry', 'please enter a valid expiry date.'); return; }
+        if (cvv.length < 3)  { showError('cardCVV', 'please enter a valid CVV.'); return; }
     }
 
     if (activeTab === 'momo') {
         const num = document.getElementById('momoNumber').value.trim();
-        if (!num) { Components.showToast('Please enter your mobile money number', 'error'); return; }
+        const momoName = document.getElementById('momoName').value.trim();
+        
+        if (!num) { showError('momoNumber', 'please enter your mobile money number.'); return; }
+        if (!momoName) { showError('momoName', 'we need the account name to verify payment.'); return; }
     }
 
     // Loading state

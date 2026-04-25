@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -66,6 +66,15 @@
             border-radius: var(--radius-sm);
             border: 1px solid var(--border);
             background: var(--white);
+            color: var(--text);
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-group input.error, .form-group textarea.error {
+            border-color: #e53e3e;
+            box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
         }
 
         .summary-card {
@@ -140,7 +149,7 @@
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" placeholder="+250 788 000 000" required>
+                            <input type="tel" id="phone" value="+250 " placeholder="+250 788 000 000" required>
                         </div>
                         <div class="form-group">
                             <label for="startDate">Check-in / Start Date</label>
@@ -224,17 +233,39 @@
             document.getElementById('durationLabel').textContent = 'Number of People';
         }
 
+        document.getElementById('bookForm').setAttribute('novalidate', 'true');
+
+        function showError(inputId, message, name) {
+            const el = document.getElementById(inputId);
+            if (el) {
+                el.classList.add('error');
+                el.focus();
+                el.addEventListener('input', function removeErr() {
+                    el.classList.remove('error');
+                    el.removeEventListener('input', removeErr);
+                });
+            }
+            const firstName = name ? name.split(' ')[0] : 'there';
+            Components.showToast(`Hey ${firstName}, ${message}`, 'error');
+        }
+
         document.getElementById('bookForm').onsubmit = function(e) {
             e.preventDefault();
+            
+            // Clear previous errors
+            document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+
             const fullName = document.getElementById('fullName').value.trim();
             const email    = document.getElementById('email').value.trim();
+            const phone    = document.getElementById('phone').value.trim();
             const date     = document.getElementById('startDate').value;
             const days     = document.getElementById('duration').value;
 
-            if (!fullName || !email || !date) {
-                Components.showToast('Please fill in all required fields', 'error');
-                return;
-            }
+            if (!fullName) { showError('fullName', 'we need your full name.', ''); return; }
+            if (!email) { showError('email', 'please enter your email address.', fullName); return; }
+            if (!phone) { showError('phone', 'please enter your phone number.', fullName); return; }
+            if (!date) { showError('startDate', 'please select a check-in date.', fullName); return; }
+            if (!days || days < 1) { showError('duration', 'please enter a valid duration.', fullName); return; }
 
             // Rate from item page (default $80 if not passed)
             const rate = getQueryParam('rate') || '80';
