@@ -212,6 +212,16 @@ img {
     transform: translateY(-2px);
 }
 
+.btn-sm {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.85rem;
+}
+
+.btn-xs {
+    padding: 0.35rem 0.8rem;
+    font-size: 0.75rem;
+}
+
 .glass {
     background: var(--glass);
     backdrop-filter: blur(16px);

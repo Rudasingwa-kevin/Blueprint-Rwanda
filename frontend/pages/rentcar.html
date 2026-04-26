@@ -39,8 +39,8 @@
                     <h3 class="card-title">Savanna Conqueror</h3>
                     <p class="card-location"><i class="fas fa-gas-pump"></i> Diesel · Automatic · 7 Seats</p>
                     <div class="card-footer">
-                        <div class="price">$150<span> / day</span></div>
-                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html?type=rentcar'">Reserve</button>
+                        <div class="price" data-price-usd="150">$150<span> / day</span></div>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html?type=rentcar&name=Savanna Conqueror&rate=150'">Reserve</button>
                     </div>
                 </div>
             </div>
@@ -59,8 +59,8 @@
                     <h3 class="card-title">Executive Urban Suite</h3>
                     <p class="card-location"><i class="fas fa-bolt"></i> Hybrid · Automatic · 5 Seats</p>
                     <div class="card-footer">
-                        <div class="price">$120<span> / day</span></div>
-                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html?type=rentcar'">Reserve</button>
+                        <div class="price" data-price-usd="120">$120<span> / day</span></div>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html?type=rentcar&name=Executive Urban Suite&rate=120'">Reserve</button>
                     </div>
                 </div>
             </div>
@@ -79,8 +79,8 @@
                     <h3 class="card-title">Wilderness Explorer</h3>
                     <p class="card-location"><i class="fas fa-binoculars"></i> Popup Roof · 4WD · 8 Seats</p>
                     <div class="card-footer">
-                        <div class="price">$180<span> / day</span></div>
-                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html?type=rentcar'">Reserve</button>
+                        <div class="price" data-price-usd="180">$180<span> / day</span></div>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html?type=rentcar&name=Wilderness Explorer&rate=180'">Reserve</button>
                     </div>
                 </div>
             </div>
@@ -122,6 +122,23 @@
                     { lat: -1.5011, lng: 29.6331, title: "Musanze Hub", desc: "Northern Province Station" }
                 ]);
             }
+
+            // Currency Sync Logic
+            const EXCHANGE_RATE = 1350;
+            function updateListingPrices() {
+                const currency = window.Components ? window.Components.getCurrency() : 'USD';
+                document.querySelectorAll('.price[data-price-usd]').forEach(el => {
+                    const usd = parseFloat(el.getAttribute('data-price-usd'));
+                    if (currency === 'RWF') {
+                        const rwf = Math.round(usd * EXCHANGE_RATE);
+                        el.innerHTML = `RWF ${rwf.toLocaleString()}<span> / day</span>`;
+                    } else {
+                        el.innerHTML = `$${usd}<span> / day</span>`;
+                    }
+                });
+            }
+            window.addEventListener('currencyChange', updateListingPrices);
+            updateListingPrices();
         });
     </script>
     <script>

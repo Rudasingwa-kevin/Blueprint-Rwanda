@@ -39,8 +39,8 @@
                     <h3 class="card-title">Volcanoes National Park</h3>
                     <p class="card-location"><i class="fas fa-map-marker-alt"></i> Home of the Mountain Gorillas</p>
                     <div class="card-footer">
-                        <div class="price">From $1500</div>
-                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html?type=visit'">Details</button>
+                        <div class="price" data-price-usd="1500">From $1500</div>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html?type=visit&name=Volcanoes National Park&rate=1500'">Details</button>
                     </div>
                 </div>
             </div>
@@ -59,8 +59,8 @@
                     <h3 class="card-title">Lake Kivu Island Tour</h3>
                     <p class="card-location"><i class="fas fa-map-marker-alt"></i> Sunset boat rides & coffee tours</p>
                     <div class="card-footer">
-                        <div class="price">From $80</div>
-                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html?type=visit'">Details</button>
+                        <div class="price" data-price-usd="80">From $80</div>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html?type=visit&name=Lake Kivu Island Tour&rate=80'">Details</button>
                     </div>
                 </div>
             </div>
@@ -79,8 +79,8 @@
                     <h3 class="card-title">Nyungwe Canopy Walk</h3>
                     <p class="card-location"><i class="fas fa-map-marker-alt"></i> High-altitude rainforest exploration</p>
                     <div class="card-footer">
-                        <div class="price">From $120</div>
-                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html?type=visit'">Details</button>
+                        <div class="price" data-price-usd="120">From $120</div>
+                        <button class="btn btn-secondary btn-sm" onclick="location.href='item-details.html?type=visit&name=Nyungwe Canopy Walk&rate=120'">Details</button>
                     </div>
                 </div>
             </div>
@@ -107,6 +107,24 @@
                     { lat: -2.4833, lng: 29.2333, title: "Nyungwe Forest", desc: "Canopy Adventure", url: 'item-details.html?type=visit' }
                 ]);
             }
+
+            // Currency Sync Logic
+            const EXCHANGE_RATE = 1350;
+            function updateListingPrices() {
+                const currency = window.Components ? window.Components.getCurrency() : 'USD';
+                document.querySelectorAll('.price[data-price-usd]').forEach(el => {
+                    const usd = parseFloat(el.getAttribute('data-price-usd'));
+                    const isFrom = el.innerText.toLowerCase().includes('from');
+                    if (currency === 'RWF') {
+                        const rwf = Math.round(usd * EXCHANGE_RATE);
+                        el.innerHTML = (isFrom ? 'From ' : '') + `RWF ${rwf.toLocaleString()}`;
+                    } else {
+                        el.innerHTML = (isFrom ? 'From ' : '') + `$${usd}`;
+                    }
+                });
+            }
+            window.addEventListener('currencyChange', updateListingPrices);
+            updateListingPrices();
         });
     </script>
     <!-- JSON-LD Structured Data -->

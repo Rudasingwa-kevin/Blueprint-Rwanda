@@ -21,6 +21,18 @@ const Components = {
     },
 
     /**
+     * Global Currency Management.
+     */
+    getCurrency() {
+        return localStorage.getItem('currency') || 'USD';
+    },
+
+    setCurrency(val) {
+        localStorage.setItem('currency', val);
+        window.dispatchEvent(new CustomEvent('currencyChange', { detail: { currency: val } }));
+    },
+
+    /**
      * Injects the modern Navbar into the top of the body.
      */
     injectNavbar() {
@@ -55,14 +67,14 @@ const Components = {
         } else {
             links = `
                 <li><a href="accommodation.html" class="${this.isActive('accommodation')}">Accommodation</a></li>
-                <li><a href="visit.html" class="${this.isActive('visit')}">Place to Visit</a></li>
-                <li><a href="rentcar.html" class="${this.isActive('rentcar')}">Car Rent</a></li>
-                <li><a href="partners.html" class="${this.isActive('partners')}">Partners</a></li>
+                <li><a href="visit.html" class="${this.isActive('visit')}">Experiences</a></li>
+                <li><a href="rentcar.html" class="${this.isActive('rentcar')}">Rentals</a></li>
             `;
         }
 
+        const isTransparent = document.body.getAttribute('data-navbar-type') === 'transparent';
         const navbar = `
-            <nav class="navbar fixed-top">
+            <nav class="navbar fixed-top ${!isTransparent ? 'scrolled' : ''}">
                 <div class="container nav-content">
                     <a href="index.html" class="nav-logo">
                         <img src="../assets/Images/Branding/title-logo.png" alt="Blueprint Rwanda Logo" style="height: 54px; width: auto; object-fit: preserve; filter: drop-shadow(0 4px 10px rgba(160, 82, 45, 0.15));">
@@ -75,14 +87,15 @@ const Components = {
                         <button id="global-search-trigger" class="btn-icon-nav" aria-label="Open Search">
                             <i class="fas fa-search"></i>
                         </button>
-                        ${(!isPublic && role !== 'admin') ? `
-                        <button id="mode-switcher" class="btn btn-secondary btn-sm mode-toggle-btn">
-                            <i class="fas ${role === 'partner' ? 'fa-suitcase' : 'fa-handshake'}"></i>
-                            <span class="btn-label">${modeLabel}</span>
-                        </button>` : ''}
                         <button id="theme-toggle" class="btn-icon-nav" aria-label="Toggle Theme">
                             <i class="fas fa-moon"></i>
                         </button>
+                        <div class="currency-nav-wrap">
+                            <select id="global-currency-select" class="currency-select-nav">
+                                <option value="USD" ${this.getCurrency() === 'USD' ? 'selected' : ''}>USD</option>
+                                <option value="RWF" ${this.getCurrency() === 'RWF' ? 'selected' : ''}>RWF</option>
+                            </select>
+                        </div>
                         ${isPublic ? `
                             <a href="login.html" class="btn btn-primary btn-sm"><i class="fas fa-sign-in-alt"></i><span class="btn-label"> Join</span></a>
                         ` : (role !== 'admin' ? `<a href="${dashboardLink}" class="btn btn-primary btn-sm"><i class="fas fa-user-circle"></i><span class="btn-label"> Dashboard</span></a>` : '')}
@@ -100,7 +113,6 @@ const Components = {
                         ${isPublic ? `
                             <li><a href="login.html" class="btn btn-primary w-100">Join the Ecosystem</a></li>
                         ` : (role !== 'admin' ? `
-                            <li><button id="mode-switcher-mobile" class="btn btn-primary w-100 mb-2">${modeLabel}</button></li>
                             <li><a href="${dashboardLink}" class="btn btn-primary w-100">Go to Dashboard</a></li>
                         ` : '')}
                     </ul>
@@ -127,6 +139,17 @@ const Components = {
         this.initThemeToggle();
         this.initSearchLogic();
         if (role !== 'admin') this.initRoleSwitcher();
+        this.initCurrencySwitcher();
+    },
+
+    initCurrencySwitcher() {
+        const select = document.getElementById('global-currency-select');
+        if (!select) return;
+
+        select.addEventListener('change', (e) => {
+            this.setCurrency(e.target.value);
+            this.showToast(`Currency updated to ${e.target.value}`, 'success');
+        });
     },
 
     /**
@@ -135,10 +158,12 @@ const Components = {
     initSearchLogic() {
         const trigger = document.getElementById('global-search-trigger');
         const overlay = document.getElementById('blueprint-search-overlay');
-        const close = overlay.querySelector('.close-search');
         const input = document.getElementById('global-search-input');
+        
+        if (!trigger || !overlay || !input) return;
 
-        if (!trigger || !overlay) return;
+        const close = overlay.querySelector('.close-search');
+        if (!close) return;
 
         trigger.addEventListener('click', () => {
             overlay.style.display = 'block';
@@ -184,7 +209,12 @@ const Components = {
         const switchBtns = [document.getElementById('mode-switcher'), document.getElementById('mode-switcher-mobile')];
         switchBtns.forEach(btn => {
             if (!btn) return;
-            btn.addEventListener('click', () => {
+            
+            // Remove old listener by cloning (simplest way to clear anonymous listeners)
+            const newBtn = btn.cloneNode(true);
+            btn.parentNode.replaceChild(newBtn, btn);
+            
+            newBtn.addEventListener('click', () => {
                 const currentMode = this.getRole();
                 const newMode = currentMode === 'partner' ? 'guest' : 'partner';
 
@@ -219,6 +249,7 @@ const Components = {
         if (document.body.hasAttribute('data-no-footer')) return;
         const isPublic = document.body.getAttribute('data-perspective') === 'public';
         const role = this.getRole();
+        const modeLabel = role === 'partner' ? 'Switch to Guest' : 'Switch to Partner';
 
         let footerContent = '';
         if (isPublic) {
@@ -288,6 +319,7 @@ const Components = {
                 </div>
                 <div class="footer-links">
                     <h4>Explore</h4>
+                    <a href="partners.html">Our Partners</a>
                     <a href="faq.html">FAQ</a>
                     <a href="contact.html">Contact Us</a>
                     <a href="team.html">Our Story</a>
@@ -320,7 +352,15 @@ const Components = {
                 </div>
                 <div class="footer-bottom">
                     <div class="container footer-bottom-content">
-                        <p>&copy; 2026 Blueprint Rwanda. ${role === 'admin' ? 'Administrative Access Only.' : 'All Rights Reserved.'}</p>
+                        <div style="display: flex; align-items: center; gap: 1.5rem;">
+                            <p>&copy; 2026 Blueprint Rwanda. ${role === 'admin' ? 'Administrative Access Only.' : 'All Rights Reserved.'}</p>
+                            ${(!isPublic && role !== 'admin') ? `
+                                <button id="mode-switcher" class="btn btn-secondary btn-xs" style="padding: 0.35rem 0.8rem; font-size: 0.75rem; border-radius: 8px;">
+                                    <i class="fas ${role === 'partner' ? 'fa-suitcase' : 'fa-handshake'}"></i>
+                                    ${modeLabel}
+                                </button>
+                            ` : ''}
+                        </div>
                         <div class="legal-links">
                             <a href="#">Privacy Policy</a>
                             <a href="#">Terms of Service</a>
@@ -330,6 +370,7 @@ const Components = {
             </footer>
         `;
         document.body.insertAdjacentHTML('beforeend', footer);
+        this.initRoleSwitcher();
     },
 
     /**
@@ -418,7 +459,7 @@ const Components = {
         const nav = document.querySelector('.navbar');
         const toggle = document.querySelector('.menu-toggle');
         const mobileMenu = document.querySelector('.mobile-menu');
-        if (!nav || !toggle) return;
+        if (!nav || !toggle || !mobileMenu) return;
 
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -902,23 +943,7 @@ const Components = {
      * Auto-init everything.
      */
     init() {
-        // Apply saved theme FIRST — before any rendering — to prevent flash
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-
-        this.injectNavbar();
-        this.injectFooter();
-        this.initAnimations();
-        this.initCustomCursor();
-        this.initLightbox();
-        this.initLinkFallback();
-
-        // If navbar is suppressed (form pages), still apply theme toggle logic
-        if (document.body.hasAttribute('data-no-navbar')) {
-            this.initThemeToggle();
-        }
-
-        // Add font-awesome via CDN if not present
+        // 1. Add Font-Awesome & Leaflet FIRST
         if (!document.querySelector('link[href*="font-awesome"]')) {
             const fa = document.createElement('link');
             fa.rel = 'stylesheet';
@@ -926,19 +951,32 @@ const Components = {
             document.head.appendChild(fa);
         }
 
-        // Add Leaflet JS if not present
         if (!document.querySelector('script[src*="leaflet"]')) {
             const ljs = document.createElement('script');
             ljs.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
             document.head.appendChild(ljs);
         }
 
-        // Add Leaflet CSS if not present
         if (!document.querySelector('link[href*="leaflet"]')) {
             const lcss = document.createElement('link');
             lcss.rel = 'stylesheet';
             lcss.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
             document.head.appendChild(lcss);
+        }
+
+        // 2. Apply theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        // 3. Sequential Injection with safety catches
+        try { this.injectNavbar(); } catch(e) { console.error('Navbar failed:', e); }
+        try { this.injectFooter(); } catch(e) { console.error('Footer failed:', e); }
+        try { this.initAnimations(); } catch(e) { console.error('Animations failed:', e); }
+        try { this.initCustomCursor(); } catch(e) { console.error('Cursor failed:', e); }
+        try { this.initLinkFallback(); } catch(e) { console.error('Fallback failed:', e); }
+
+        if (document.body.hasAttribute('data-no-navbar')) {
+            try { this.initThemeToggle(); } catch(e) {}
         }
     }
 };

@@ -306,7 +306,7 @@
             <aside class="sidebar-area" data-animate style="transition-delay: 0.1s;">
                 <div class="card sidebar-card glass">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                        <div id="item-price-display" style="font-size: 2rem; font-weight: 700; color: var(--primary);">$120 <span style="font-size: 1rem; font-weight: 400; color: var(--text-muted);">/ night</span></div>
+                        <div id="item-price-display" class="price" data-price-usd="120" style="font-size: 2rem; font-weight: 700; color: var(--primary);">$120 <span style="font-size: 1rem; font-weight: 400; color: var(--text-muted);">/ night</span></div>
                         <div class="review-score"><i class="fas fa-star"></i> 4.98</div>
                     </div>
 
@@ -513,6 +513,26 @@
             if (window.Components && window.Components.initMap) {
                 window.Components.initMap('property-map', [data.mapCoords]);
             }
+
+            // Currency Sync Logic
+            const EXCHANGE_RATE = 1350;
+            function updateDetailsPrice() {
+                const currency = window.Components ? window.Components.getCurrency() : 'USD';
+                const el = document.getElementById('item-price-display');
+                if (!el) return;
+
+                const usd = parseFloat(data.price.replace('$', '').replace('From ', ''));
+                const isFrom = data.price.toLowerCase().includes('from');
+                
+                if (currency === 'RWF') {
+                    const rwf = Math.round(usd * EXCHANGE_RATE);
+                    el.innerHTML = (isFrom ? 'From ' : '') + `RWF ${rwf.toLocaleString()} <span style="font-size: 1rem; font-weight: 400; color: var(--text-muted);">${data.priceUnit}</span>`;
+                } else {
+                    el.innerHTML = (isFrom ? 'From ' : '') + `$${usd} <span style="font-size: 1rem; font-weight: 400; color: var(--text-muted);">${data.priceUnit}</span>`;
+                }
+            }
+            window.addEventListener('currencyChange', updateDetailsPrice);
+            updateDetailsPrice();
 
             // Reserve Logic — route through book-item → payment → confirmation
             const reserveBtn = document.getElementById('reserve-btn');

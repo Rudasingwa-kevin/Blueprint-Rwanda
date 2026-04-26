@@ -468,6 +468,7 @@
     const checkIn   = p.get('date')   || '';
     const days      = parseInt(p.get('days')  || '1');
     const total     = parseFloat(p.get('total') || '0');
+    const currency  = p.get('currency') || 'USD';
     const method    = p.get('method') || 'card';
     const ref       = p.get('ref')    || ('BR-' + Math.floor(10000 + Math.random() * 90000));
 
@@ -493,6 +494,9 @@
         } catch(e) { dateDisplay = checkIn; }
     }
 
+    const isRWF = currency === 'RWF';
+    const symbol = isRWF ? 'RWF ' : '$';
+
     // ── Populate Receipt ──────────────────────────────────
     document.getElementById('bookingRef').textContent  = ref;
     document.getElementById('rcptItem').textContent    = itemName;
@@ -501,7 +505,7 @@
     document.getElementById('rcptDays').textContent    = durationLabel;
     document.getElementById('rcptUser').textContent    = guestName;
     document.getElementById('rcptMethod').textContent  = methodLabels[method] || method;
-    document.getElementById('rcptTotal').textContent   = total > 0 ? '$' + total.toFixed(2) : (method === 'cash' ? 'Due at Check-in' : '—');
+    document.getElementById('rcptTotal').textContent   = total > 0 ? (symbol + (isRWF ? Math.round(total).toLocaleString() : total.toFixed(2))) : (method === 'cash' ? 'Due at Check-in' : '—');
     document.getElementById('rcptEmail').textContent   = email || 'your registered email';
 
     // ── Wire "Write a Review" link with item context ──────

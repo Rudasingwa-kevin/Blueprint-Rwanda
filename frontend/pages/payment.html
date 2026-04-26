@@ -12,7 +12,7 @@
     <style>
         /* ── Page Layout ─────────────────────────────── */
         .pay-main {
-            padding: 120px 0 var(--space-lg);
+            padding: 140px 0 var(--space-lg);
         }
 
         .pay-grid {
@@ -719,14 +719,14 @@ const imgUrl    = p.get('img')   || 'https://images.unsplash.com/photo-152270832
 // ── Booking Reference ────────────────────────────────
 const ref = 'BR-' + Math.floor(10000 + Math.random() * 90000);
 
-// ── Price Calculations ────────────────────────────────
-const base       = rateRaw * days;
+
+const base       = rateRaw * days * multiplier;
 const SERVICE_RATE = 0.07;
-const serviceFee = Math.round(base * SERVICE_RATE * 100) / 100;
-const discount   = base >= 300 ? Math.round(base * 0.05 * 100) / 100 : 0;
+const serviceFee = base * SERVICE_RATE;
+const discount   = base >= (300 * multiplier) ? base * 0.05 : 0;
 const total      = base + serviceFee - discount;
 
-function fmt(n) { return '$' + n.toFixed(2); }
+function fmt(n) { return symbol + (isRWF ? Math.round(n).toLocaleString() : n.toFixed(2)); }
 
 // ── Populate Summary ─────────────────────────────────
 document.getElementById('summaryName').textContent  = itemName;
@@ -734,7 +734,7 @@ document.getElementById('summaryType').textContent  = itemType.toUpperCase();
 document.getElementById('summaryImg').src           = imgUrl;
 document.getElementById('basePrice').textContent    = fmt(base);
 document.getElementById('serviceFee').textContent   = fmt(serviceFee);
-document.getElementById('rateLabel').textContent    = fmt(rateRaw) + ' × ' + days + (days === 1 ? ' night' : ' nights');
+document.getElementById('rateLabel').textContent    = fmt(rateRaw * multiplier) + ' × ' + days + (days === 1 ? ' night' : ' nights');
 document.getElementById('durationLabel').textContent = itemType.toLowerCase() === 'car' ? 'Rental days' : 'Nights';
 document.getElementById('durationVal').textContent  = days;
 document.getElementById('totalPrice').textContent   = fmt(total);
@@ -871,6 +871,7 @@ function processPayment() {
             + `&date=${encodeURIComponent(checkIn)}`
             + `&days=${days}`
             + `&total=${total.toFixed(2)}`
+            + `&currency=${encodeURIComponent(currency)}`
             + `&method=${encodeURIComponent(activeTab)}`
             + `&ref=${ref}`;
 
